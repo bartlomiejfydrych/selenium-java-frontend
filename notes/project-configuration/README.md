@@ -36,6 +36,25 @@
     - Podajemy `nazwę` repozytorium
     - Zaznaczamy / Odznaczamy `Private`
     - Możemy dodać `opis`, ale jeżeli mamy już plik README w projekcie to lepiej zostawić puste
+    - Klikamy `Share`
+14. Otwieramy plik `pom.xml`
+15. Wrzucamy następujące `<dependencies>`:  
+(Szczegóły o nich w osobnej sekcji z Maven - dependencies)
+    - Uniwersalne:
+        - JUnit Jupiter (Aggregator)
+        - AssertJ Core
+        - Java Faker
+    - Frontend:
+        - Selenium Java
+        - Selenium Support
+        - WebDriverManager
+    - Backend:
+        - REST Assured
+        - Jakarta JSON Processing API
+        - Jackson Databind
+        - JSON Schema Validator
+        - Hamcrest
+        - Project Lombok
 
 ## ✔Typo - poprawienie dla plików Markdown pisanych w języku polskim
 
@@ -82,3 +101,15 @@ Służy do nauki skrótów klawiszowych jakie znajdują się w IDE.
 Uwaga! Żeby z tego korzystać trzeba również do Mavena dodać dependencies z Lomboka.  
 Lombok to biblioteka dla języka Java, która ma na celu uproszczenie pisania kodu poprzez automatyzację generowania standardowych fragmentów kodu, takich jak gettery, settery, konstruktory, metody equals(), hashCode() i inne.  
 Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy chcemy zbudować body responsa na podstawie klasy.
+
+## ⓂMaven - dependencies
+
+### Ustawianie zmiennych dla numerów wersji
+
+### Lista z opisem
+
+#### Uniwersalne
+
+#### Frontend
+
+#### Backend
