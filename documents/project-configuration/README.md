@@ -58,8 +58,8 @@ https://mvnrepository.com/
         - WebDriverManager
     - Backend:
         - REST Assured
-        - Jakarta JSON Processing API
-        - Jackson Databind
+        - Jakarta JSON Processing API (opcjonalne)
+        - Jackson Databind (opcjonalne)
         - JSON Schema Validator
         - Hamcrest
         - Project Lombok
@@ -174,3 +174,51 @@ Oto główne funkcje, za które odpowiada "WebDriverManager":
 Dzięki "WebDriverManager" programiści mogą uniknąć ręcznego pobierania, aktualizowania i zarządzania driverami przeglądarek, co pozwala zaoszczędzić czas i zapewnia bardziej spójne i niezawodne środowisko testowe. Jest to szczególnie przydatne w projektach wykorzystujących Selenium WebDriver do automatyzacji testów interfejsu użytkownika w aplikacjach internetowych.*
 
 #### Backend
+
+1. **REST Assured**  
+*Dependency o nazwie "REST Assured" to biblioteka, która ułatwia testowanie interfejsów API (RESTful) w języku Java. "REST Assured" dostarcza prosty i czytelny sposób na pisanie testów automatycznych dla aplikacji, które komunikują się za pomocą protokołu HTTP, takich jak serwisy internetowe, mikroserwisy, czy RESTful API.  
+Oto główne funkcje, za które odpowiada "REST Assured":  
+Zapytania HTTP: "REST Assured" umożliwia tworzenie zapytań HTTP do zasobów API, takich jak GET, POST, PUT, DELETE, PATCH, co pozwala na interakcję z aplikacją za pomocą różnych metod HTTP.  
+`Sprawdzanie odpowiedzi:` Biblioteka ta dostarcza funkcje asercyjne, które pozwalają na sprawdzenie odpowiedzi zwracanych przez API, takich jak status odpowiedzi, nagłówki, treść odpowiedzi (np. w formacie JSON lub XML), co umożliwia weryfikację poprawności działania API.  
+`Obsługa autoryzacji:` "REST Assured" umożliwia obsługę różnych mechanizmów autoryzacji, takich jak podstawowa autoryzacja HTTP, autoryzacja z użyciem tokenów, OAuth itp.  
+`Testowanie RESTful funkcjonalności:` "REST Assured" pozwala na testowanie różnych aspektów funkcjonalnych interfejsów API, takich jak obsługa parametrów zapytań, obsługa nagłówków, obsługa zasobów statycznych i dynamicznych, obsługa błędów itp.  
+`Integracja z narzędziami testowania:` "REST Assured" jest łatwy w integracji z różnymi narzędziami do testowania, takimi jak JUnit, TestNG, Maven, Gradle, co umożliwia automatyzację testów API w ramach procesów CI/CD.  
+Dzięki "REST Assured" programiści mogą pisać czytelne, ekspresyjne i niezawodne testy automatyczne dla swoich interfejsów API, co pomaga w zapewnieniu jakości kodu i funkcjonalności aplikacji. Jest to niezwykle przydatne narzędzie w dzisiejszych projektach, które często opierają się na architekturze mikrousługowej i komunikacji między serwisami za pomocą RESTful API.*
+2. **Jakarta JSON Processing API (opcjonalne)**  
+*Dependency o nazwie "Jakarta JSON Processing API" to biblioteka służąca do przetwarzania danych w formacie JSON w języku Java zgodnie ze standardami Jakarta EE (wcześniej znane jako Java EE). Jest to część Jakarta EE, która zapewnia interfejsy i klasy umożliwiające czytanie, zapisywanie i manipulowanie danymi w formacie JSON.  
+Oto główne funkcje, za które odpowiada "Jakarta JSON Processing API":  
+Przetwarzanie JSON: Biblioteka ta umożliwia łatwe przetwarzanie danych w formacie JSON, w tym parsowanie danych wejściowych JSON na obiekty Java oraz generowanie danych JSON z obiektów Java.  
+`Obsługa różnych typów danych:` "Jakarta JSON Processing API" obsługuje różne typy danych JSON, takie jak obiekty, tablice, liczby, łańcuchy znaków, wartości logiczne, wartości null itp.  
+`Wsparcie dla strumieniowania:` Biblioteka ta dostarcza interfejsy do strumieniowego przetwarzania danych JSON, co umożliwia efektywne przetwarzanie dużych ilości danych bez konieczności wczytywania całego pliku JSON do pamięci.  
+`Manipulacja danymi:` "Jakarta JSON Processing API" umożliwia manipulację danymi JSON, taką jak dodawanie, usuwanie i modyfikowanie elementów obiektów JSON oraz tablic JSON.  
+`Wsparcie dla standardów Jakarta EE:` Biblioteka ta jest zgodna ze standardami Jakarta EE, co oznacza, że może być używana w aplikacjach opartych na platformie Jakarta EE, takich jak serwery aplikacji Jakarta EE, bez dodatkowych konfiguracji.  
+Dzięki "Jakarta JSON Processing API" programiści mogą łatwo integrować obsługę formatu JSON w swoich aplikacjach opartych na platformie Jakarta EE, co jest szczególnie przydatne w przypadku aplikacji, które wymieniają dane w formacie JSON z innymi serwisami lub klientami.*
+3. **Jackson Databind (opcjonalne)**  
+*Dependency o nazwie "Jackson Databind" jest częścią biblioteki Jackson, która umożliwia przekształcanie danych między formatem JSON a obiektami Java oraz pomiędzy innymi formatami danych a obiektami Java. Jest to jedna z najpopularniejszych bibliotek do przetwarzania danych JSON w języku Java.  
+Oto główne funkcje, za które odpowiada "Jackson Databind":  
+`Serializacja i deserializacja JSON:` "Jackson Databind" umożliwia konwersję danych JSON na obiekty Java (deserializacja) oraz obiektów Java na dane JSON (serializacja). Pozwala to na łatwe komunikowanie się z serwisami webowymi, bazami danych, czy innymi źródłami danych, które używają formatu JSON.  
+`Wsparcie dla różnych typów danych:` Biblioteka ta obsługuje różnorodne typy danych Java, takie jak proste typy danych, kolekcje, mapy, obiekty złożone, enumy itp., co umożliwia przetwarzanie różnych struktur danych.  
+`Konfigurowalność:` "Jackson Databind" jest konfigurowalna i elastyczna, co pozwala dostosować sposób przetwarzania danych do indywidualnych potrzeb projektu. Można dostosować reguły serializacji i deserializacji, obsługę różnych typów danych, formatowanie danych itp.  
+`Obsługa adnotacji:` Biblioteka ta obsługuje różne adnotacje, które można użyć do konfiguracji procesu serializacji i deserializacji danych, takie jak `@JsonProperty`, `@JsonDeserialize`, `@JsonSerialize`, co daje programiście większą kontrolę nad procesem przetwarzania danych.  
+`Wsparcie dla różnych formatów danych:` Oprócz formatu JSON, "Jackson Databind" obsługuje również inne popularne formaty danych, takie jak XML, YAML, CSV itp., co sprawia, że jest to uniwersalne narzędzie do przetwarzania danych w języku Java.  
+Dzięki "Jackson Databind" programiści mogą łatwo przekształcać dane między formatem JSON a obiektami Java, co jest niezbędne w wielu aplikacjach, które komunikują się z zewnętrznymi serwisami, bazami danych, czy klientami poprzez format JSON.*
+4. **JSON Schema Validator**  
+*Dependency o nazwie "JSON Schema Validator" to biblioteka umożliwiająca walidację danych JSON względem schematu JSON (JSON Schema). JSON Schema to język opisowy używany do definiowania struktury i ograniczeń danych w formacie JSON. Biblioteka "JSON Schema Validator" pozwala programistom na walidację danych JSON zgodnie z określonym schematem JSON, co umożliwia sprawdzenie poprawności danych w stosunku do oczekiwanych reguł i ograniczeń.  
+Oto główne funkcje, za które odpowiada "JSON Schema Validator":  
+`Walidacja danych JSON:` Biblioteka ta umożliwia walidację danych JSON zgodnie z określonym schematem JSON. Sprawdza, czy dane JSON spełniają określone wymagania i ograniczenia zdefiniowane w schemacie JSON.  
+`Sprawdzanie struktury danych:` "JSON Schema Validator" pozwala na sprawdzenie, czy struktura danych JSON jest zgodna z oczekiwaną strukturą zdefiniowaną w schemacie JSON. Można kontrolować obecność i typy pól, zagnieżdżone obiekty, tablice, wartości null itp.  
+`Walidacja typów danych:` Biblioteka ta umożliwia walidację typów danych JSON, takich jak liczby, łańcuchy znaków, wartości logiczne, tablice, obiekty itp. Można określać oczekiwane typy danych oraz inne ograniczenia dotyczące wartości.  
+`Obsługa niestandardowych walidacji:` "JSON Schema Validator" pozwala na definiowanie niestandardowych reguł walidacji danych JSON poprzez dodawanie własnych walidatorów i funkcji sprawdzających.  
+`Integracja z różnymi narzędziami:` Biblioteka ta jest łatwa w integracji z różnymi narzędziami do testowania i walidacji danych JSON, takimi jak JUnit, TestNG, Maven, Gradle itp., co umożliwia automatyzację procesu walidacji danych w ramach testów automatycznych i procesów CI/CD.  
+Dzięki "JSON Schema Validator" programiści mogą zapewnić poprawność danych JSON poprzez ich walidację względem określonych schematów JSON, co jest kluczowe w przypadku komunikacji między różnymi serwisami, klientami i systemami, które wymieniają dane w formacie JSON.*
+5. **Hamcrest**  
+*Dependency o nazwie "Hamcrest" to biblioteka w języku Java, która dostarcza zestaw narzędzi do tworzenia czytelnych i ekspresyjnych asercji w testach jednostkowych. Hamcrest pozwala programistom na pisanie czytelnych i wyraźnych asercji, co ułatwia zrozumienie intencji testu oraz diagnozowanie problemów w przypadku jego niepowodzenia.  
+Oto główne funkcje, za które odpowiada "Hamcrest":  
+`Bogaty zestaw asercji:` Biblioteka ta dostarcza szeroki zestaw gotowych asercji, które można użyć do sprawdzania różnych warunków i zachowań w testach jednostkowych. Asercje te obejmują porównywanie wartości, sprawdzanie czy kolekcje zawierają określone elementy, czy czytelne porównywanie obiektów, co ułatwia pisanie bardziej ekspresyjnych testów.  
+`Czytelne komunikaty o błędach:` Hamcrest generuje czytelne komunikaty o błędach w przypadku niepowodzenia asercji, co ułatwia zrozumienie przyczyny niepowodzenia testu oraz diagnozowanie problemów. Komunikaty te są sformułowane w sposób, który jasno informuje, która asercja nie powiodła się i dlaczego.  
+`Dostosowywanie asercji:` Biblioteka ta umożliwia dostosowanie asercji do indywidualnych potrzeb poprzez tworzenie niestandardowych matcherów, co pozwala na sprawdzanie niestandardowych warunków w testach jednostkowych.  
+`Integracja z różnymi narzędziami do testowania:` Hamcrest jest łatwy w integracji z różnymi narzędziami do testowania, takimi jak JUnit, TestNG, czy różnymi narzędziami do budowania projektów, co umożliwia stosowanie asercji Hamcrest w różnych środowiskach i narzędziach.  
+`Wsparcie dla czytelności kodu:` Użycie Hamcrest może znacznie poprawić czytelność kodu testów jednostkowych poprzez dostarczenie bardziej ekspresyjnej składni asercji, co ułatwia zrozumienie intencji testu przez innych programistów.  
+Dzięki "Hamcrest" programiści mogą pisać bardziej czytelne, ekspresyjne i łatwe w utrzymaniu testy jednostkowe, co przyczynia się do poprawy jakości kodu oraz szybszego diagnozowania problemów w przypadku niepowodzenia testów.*
+6. **lombok**  
+*tekst*
