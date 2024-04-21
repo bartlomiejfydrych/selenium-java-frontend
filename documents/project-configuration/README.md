@@ -220,5 +220,12 @@ Oto główne funkcje, za które odpowiada "Hamcrest":
 `Integracja z różnymi narzędziami do testowania:` Hamcrest jest łatwy w integracji z różnymi narzędziami do testowania, takimi jak JUnit, TestNG, czy różnymi narzędziami do budowania projektów, co umożliwia stosowanie asercji Hamcrest w różnych środowiskach i narzędziach.  
 `Wsparcie dla czytelności kodu:` Użycie Hamcrest może znacznie poprawić czytelność kodu testów jednostkowych poprzez dostarczenie bardziej ekspresyjnej składni asercji, co ułatwia zrozumienie intencji testu przez innych programistów.  
 Dzięki "Hamcrest" programiści mogą pisać bardziej czytelne, ekspresyjne i łatwe w utrzymaniu testy jednostkowe, co przyczynia się do poprawy jakości kodu oraz szybszego diagnozowania problemów w przypadku niepowodzenia testów.*
-6. **lombok**  
-*tekst*
+6. **Project Lombok**  
+*Dependency o nazwie "Project Lombok" to biblioteka w języku Java, która umożliwia programistom automatyzację generowania rutynowego kodu, takiego jak metody dostępowe (gettery i settery), metody `toString()`, `equals()`, `hashCode()`, a także wiele innych, poprzez dodanie adnotacji do kodu źródłowego.  
+Oto główne funkcje, za które odpowiada "Project Lombok":  
+`Generowanie metod dostępowych (gettery i settery):` "Project Lombok" automatycznie generuje metody dostępowe (gettery i settery) dla pól klasy, co eliminuje potrzebę pisania ich ręcznie.  
+`Generowanie` metody `toString()`: Biblioteka ta automatycznie generuje metodę `toString()` dla klasy, która zwraca czytelną reprezentację obiektu, zawierającą nazwy pól i ich wartości.  
+`Generowanie` metod `equals()` i `hashCode()`: "Project Lombok" automatycznie generuje metody `equals()` i `hashCode()` dla klasy, co umożliwia porównywanie obiektów na podstawie ich wartości.  
+`Inne funkcje pomocnicze:` Biblioteka ta dostarcza również inne funkcje pomocnicze, takie jak automatyczne tworzenie konstruktorów, metod `builder()`, `cleanUp()`, obsługa wyjątków itp.  
+`Redukcja powtarzalnego kodu:` Użycie "Project Lombok" pozwala programistom znacznie zmniejszyć ilość powtarzalnego kodu w aplikacji poprzez automatyczne generowanie rutynowych fragmentów kodu na podstawie adnotacji.  
+Dzięki "Project Lombok" programiści mogą pisać bardziej zwięzły i czytelny kod źródłowy, eliminując potrzebę pisania rutynowych fragmentów kodu ręcznie. Jest to szczególnie przydatne w przypadku klas modelu danych, gdzie duża część kodu może być generowana automatycznie.*
