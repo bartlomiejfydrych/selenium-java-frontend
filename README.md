@@ -7,6 +7,8 @@
 Frontend tests using Cypress and TypeScript.\
 There are publicly available websites for learning Frontend test automation and the testerczaki.pl website, which is aimed at practicing actions on websites.
 
+TODO: Dopisać o certyfikatach w dokumentach
+
 ## 🌐 Pages covered with tests
 
 - [Testerczaki](https://dawidkaruga.pl/testerczaki/)

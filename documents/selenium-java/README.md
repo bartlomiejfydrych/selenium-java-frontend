@@ -1,5 +1,7 @@
 # tekst
 
+## Organizacja pracy
+
 ## IDE
 
 ### Zaznaczanie kilku linii do edycji
