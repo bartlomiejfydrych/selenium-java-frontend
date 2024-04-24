@@ -44,14 +44,14 @@ https://mvnrepository.com/
     - Klikamy w najbardziej aktualną i stabilną wersję
     - Kopiujemy <dependencies> z zakładki Maven
 15. Otwieramy plik `pom.xml` i tam to wklejamy
-    - Pod <properties> musimy dodać <dependencies></dependencies>
+    - Pod `<properties>` musimy dodać `<dependencies></dependencies>`
     - Pomiędzy <dependencies> wklejamy nasze <dependency> z repozytorium Maven
 16. Wrzucamy następujące `<dependencies>`:  
 (Szczegóły o nich w osobnej sekcji z Maven - dependencies)
     - Uniwersalne:
         - JUnit Jupiter (Aggregator)
-        - AssertJ Core
         - Java Faker
+        - AssertJ Core
     - Frontend:
         - Selenium Java
         - Selenium Support
@@ -61,8 +61,9 @@ https://mvnrepository.com/
         - Jakarta JSON Processing API (opcjonalne)
         - Jackson Databind (opcjonalne)
         - JSON Schema Validator
-        - Hamcrest
         - Project Lombok
+17. Jeżeli chcemy, możemy w `<properties>` zdefiniować sobie zmienne dla numerów wersji naszych dependencies  
+    (Więcej w sekcji: Maven - dependencies -> Ustawianie zmiennych...)
 
 ## ✔Typo - poprawienie dla plików Markdown pisanych w języku polskim
 
@@ -87,7 +88,7 @@ https://mvnrepository.com/
 5. Klikamy `Install` przy wybranym pluginie
 6. W zakładce `Installed` mamy listę pluginów, które są już zainstalowane
 
-### Lista pluginów
+### Lista pluginów z opisem
 
 1. **.ignore**  
 *Służy do generowania plików .gitignore np. gotowy plik ignorujący wszystkie zbędne pliki pod Javę.*  
@@ -114,18 +115,53 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 
 ### Ustawianie zmiennych dla numerów wersji
 
+1. W sekcji z `<properties>` dodajemy coś zgodnie z poniższym przykładem:  
+    ```
+    <properties>
+        <<u góry jakieś rzeczy od Mavena, które były już w pliku>>
+        
+        <selenium.version>4.16.1</selenium.version>
+        <testng.version>7.9.0</testng.version>
+        <assertJ.version>3.25.3</assertJ.version>
+        <javafaker.version>1.0.2</javafaker.version>
+    </properties>
+    ```
+2. `<selenium.version>` to nazwa naszej zmiennej.  
+3. Podstawiamy ją w naszym `dependency` w miejscu numeru wersji jako `${selenium.version}`:  
+    Przed: 
+    ```
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.19.1</version>
+    </dependency>
+    ```
+    Po:  
+    ```
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>${selenium.version}</version>
+    </dependency>
+    ```
+
 ### Lista z opisem
 
 #### Uniwersalne
 
 1. **JUnit Jupiter (Aggregator)**  
-*Dependency o nazwie "JUnit Jupiter (Aggregator)" w kontekście projektów Java jest związana z platformą testową JUnit 5, która składa się z kilku modułów. "JUnit Jupiter" jest jednym z tych modułów, odpowiedzialnym za obsługę testów opartych na nowej składni, wprowadzonej w JUnit 5.  
-Aggregator dependency jest zestawem zależności, który agreguje lub grupuje różne moduły lub artefakty w jedną zależność. W przypadku JUnit Jupiter (Aggregator), jest to zależność, która zawiera wszystkie moduły JUnit 5, co pozwala na korzystanie z pełnej funkcjonalności JUnit 5 w projekcie za pomocą jednej zależności.  
-W skład "JUnit Jupiter (Aggregator)" wchodzą m.in.:  
-`JUnit Jupiter API:` Moduł zawierający interfejsy i adnotacje potrzebne do tworzenia testów w stylu JUnit 5.  
-`JUnit Jupiter Engine:` Silnik uruchamiający testy napisane z użyciem JUnit 5.  
-`JUnit Vintage Engine:` Silnik kompatybilny wstecznie, który pozwala na uruchamianie testów napisanych z użyciem JUnit 3 i JUnit 4.  
-Używanie "JUnit Jupiter (Aggregator)" jako zależności w projekcie Java pozwala na łatwe korzystanie z pełnej funkcjonalności JUnit 5 bez konieczności ręcznego dodawania pojedynczych modułów. Wystarczy dodać tę zależność do pliku konfiguracyjnego (np. pom.xml w Maven lub build.gradle w Gradle), a narzędzie budujące automatycznie pobiera i zarządza wszystkimi modułami JUnit 5.*
+<details>
+    <summary>Opis</summary>
+
+> *Dependency o nazwie "JUnit Jupiter (Aggregator)" w kontekście projektów Java jest związana z platformą testową JUnit 5, która składa się z kilku modułów. "JUnit Jupiter" jest jednym z tych modułów, odpowiedzialnym za obsługę testów opartych na nowej składni, wprowadzonej w JUnit 5.  
+> Aggregator dependency jest zestawem zależności, który agreguje lub grupuje różne moduły lub artefakty w jedną zależność. W przypadku JUnit Jupiter (Aggregator), jest to zależność, która zawiera wszystkie moduły JUnit 5, co pozwala na korzystanie z pełnej funkcjonalności JUnit 5 w projekcie za pomocą jednej zależności.  
+> W skład "JUnit Jupiter (Aggregator)" wchodzą m.in.:  
+> `JUnit Jupiter API:` Moduł zawierający interfejsy i adnotacje potrzebne do tworzenia testów w stylu JUnit 5.  
+> `JUnit Jupiter Engine:` Silnik uruchamiający testy napisane z użyciem JUnit 5.  
+> `JUnit Vintage Engine:` Silnik kompatybilny wstecznie, który pozwala na uruchamianie testów napisanych z użyciem JUnit 3 i JUnit 4.  
+> Używanie "JUnit Jupiter (Aggregator)" jako zależności w projekcie Java pozwala na łatwe korzystanie z pełnej funkcjonalności JUnit 5 bez konieczności ręcznego dodawania pojedynczych modułów. Wystarczy dodać tę zależność do pliku konfiguracyjnego (np. pom.xml w Maven lub build.gradle w Gradle), a narzędzie budujące automatycznie pobiera i zarządza wszystkimi modułami JUnit 5.*
+</details>
+
 2. **AssertJ Core**  
 *Dependency o nazwie "AssertJ Core" odnosi się do biblioteki AssertJ, która jest popularnym narzędziem do tworzenia testów asercyjnych w języku Java. AssertJ pozwala na pisanie czytelnych, ekspresyjnych i łatwych w utrzymaniu testów poprzez dostarczenie bogatego zestawu metod asercyjnych, które sprawdzają zachowanie kodu w sposób intuicyjny i precyzyjny.  
 Oto kilka głównych funkcji, za które odpowiada AssertJ Core:  
@@ -211,21 +247,3 @@ Oto główne funkcje, za które odpowiada "JSON Schema Validator":
 `Obsługa niestandardowych walidacji:` "JSON Schema Validator" pozwala na definiowanie niestandardowych reguł walidacji danych JSON poprzez dodawanie własnych walidatorów i funkcji sprawdzających.  
 `Integracja z różnymi narzędziami:` Biblioteka ta jest łatwa w integracji z różnymi narzędziami do testowania i walidacji danych JSON, takimi jak JUnit, TestNG, Maven, Gradle itp., co umożliwia automatyzację procesu walidacji danych w ramach testów automatycznych i procesów CI/CD.  
 Dzięki "JSON Schema Validator" programiści mogą zapewnić poprawność danych JSON poprzez ich walidację względem określonych schematów JSON, co jest kluczowe w przypadku komunikacji między różnymi serwisami, klientami i systemami, które wymieniają dane w formacie JSON.*
-5. **Hamcrest**  
-*Dependency o nazwie "Hamcrest" to biblioteka w języku Java, która dostarcza zestaw narzędzi do tworzenia czytelnych i ekspresyjnych asercji w testach jednostkowych. Hamcrest pozwala programistom na pisanie czytelnych i wyraźnych asercji, co ułatwia zrozumienie intencji testu oraz diagnozowanie problemów w przypadku jego niepowodzenia.  
-Oto główne funkcje, za które odpowiada "Hamcrest":  
-`Bogaty zestaw asercji:` Biblioteka ta dostarcza szeroki zestaw gotowych asercji, które można użyć do sprawdzania różnych warunków i zachowań w testach jednostkowych. Asercje te obejmują porównywanie wartości, sprawdzanie czy kolekcje zawierają określone elementy, czy czytelne porównywanie obiektów, co ułatwia pisanie bardziej ekspresyjnych testów.  
-`Czytelne komunikaty o błędach:` Hamcrest generuje czytelne komunikaty o błędach w przypadku niepowodzenia asercji, co ułatwia zrozumienie przyczyny niepowodzenia testu oraz diagnozowanie problemów. Komunikaty te są sformułowane w sposób, który jasno informuje, która asercja nie powiodła się i dlaczego.  
-`Dostosowywanie asercji:` Biblioteka ta umożliwia dostosowanie asercji do indywidualnych potrzeb poprzez tworzenie niestandardowych matcherów, co pozwala na sprawdzanie niestandardowych warunków w testach jednostkowych.  
-`Integracja z różnymi narzędziami do testowania:` Hamcrest jest łatwy w integracji z różnymi narzędziami do testowania, takimi jak JUnit, TestNG, czy różnymi narzędziami do budowania projektów, co umożliwia stosowanie asercji Hamcrest w różnych środowiskach i narzędziach.  
-`Wsparcie dla czytelności kodu:` Użycie Hamcrest może znacznie poprawić czytelność kodu testów jednostkowych poprzez dostarczenie bardziej ekspresyjnej składni asercji, co ułatwia zrozumienie intencji testu przez innych programistów.  
-Dzięki "Hamcrest" programiści mogą pisać bardziej czytelne, ekspresyjne i łatwe w utrzymaniu testy jednostkowe, co przyczynia się do poprawy jakości kodu oraz szybszego diagnozowania problemów w przypadku niepowodzenia testów.*
-6. **Project Lombok**  
-*Dependency o nazwie "Project Lombok" to biblioteka w języku Java, która umożliwia programistom automatyzację generowania rutynowego kodu, takiego jak metody dostępowe (gettery i settery), metody `toString()`, `equals()`, `hashCode()`, a także wiele innych, poprzez dodanie adnotacji do kodu źródłowego.  
-Oto główne funkcje, za które odpowiada "Project Lombok":  
-`Generowanie metod dostępowych (gettery i settery):` "Project Lombok" automatycznie generuje metody dostępowe (gettery i settery) dla pól klasy, co eliminuje potrzebę pisania ich ręcznie.  
-`Generowanie` metody `toString()`: Biblioteka ta automatycznie generuje metodę `toString()` dla klasy, która zwraca czytelną reprezentację obiektu, zawierającą nazwy pól i ich wartości.  
-`Generowanie` metod `equals()` i `hashCode()`: "Project Lombok" automatycznie generuje metody `equals()` i `hashCode()` dla klasy, co umożliwia porównywanie obiektów na podstawie ich wartości.  
-`Inne funkcje pomocnicze:` Biblioteka ta dostarcza również inne funkcje pomocnicze, takie jak automatyczne tworzenie konstruktorów, metod `builder()`, `cleanUp()`, obsługa wyjątków itp.  
-`Redukcja powtarzalnego kodu:` Użycie "Project Lombok" pozwala programistom znacznie zmniejszyć ilość powtarzalnego kodu w aplikacji poprzez automatyczne generowanie rutynowych fragmentów kodu na podstawie adnotacji.  
-Dzięki "Project Lombok" programiści mogą pisać bardziej zwięzły i czytelny kod źródłowy, eliminując potrzebę pisania rutynowych fragmentów kodu ręcznie. Jest to szczególnie przydatne w przypadku klas modelu danych, gdzie duża część kodu może być generowana automatycznie.*
