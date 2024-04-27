@@ -65,7 +65,14 @@ https://mvnrepository.com/
 17. Jeżeli chcemy, możemy w `<properties>` zdefiniować sobie zmienne dla numerów wersji naszych dependencies  
     (Więcej w sekcji: Maven - dependencies -> Ustawianie zmiennych...)
 18. Po wklejeniu naszych dependencies gdzieś w okolicach prawego, górnego rogu powinna pojawić się ikona Mavena. Klikamy w nią.  
-Sprawi to, że dependencies zostaną pobrane i zainstalowane do naszego projektu.
+Sprawi to, że dependencies zostaną pobrane i zainstalowane do naszego projektu.  
+Niektóre dependencies będą podkreślone z informacjami, że mają jakieś luki w zabezpieczeniach. No ale nic się z tym za bardzo nie zrobi.
+19. Warto się upewnić czy dependencies zostały dodane do projektu:
+    - Klikamy na pasku po prawej na ikonę Mavena (m)
+    - Rozwijamy katalog `Dependencies`
+    - Patrzymy czy są wszystkie, które podaliśmy w pom.xml
+20. Możemy rozpocząć pisanie testów.  
+Dalsze kroki w `README` katalogu `selenium-java` 
 
 ## ✔Typo - poprawienie dla plików Markdown pisanych w języku polskim
 
