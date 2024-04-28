@@ -1,4 +1,4 @@
-# 🏆Certificates - test automation (Sii Poland)
+# 🏆Certificates - test automation course (Sii Poland)
 
 ## 📄Description
 
@@ -10,5 +10,6 @@ This course consisted of 3 parts:
 - **Part 2:** Writing frontend tests in `Selenium`
 - **Part 3:** Writing API tests in `REST Assured`
 
-This repository was created so that I could calmly organize and better absorb all the knowledge acquired during **the frontend test automation course using Selenium**.  
-A separate repository will be allocated for **API tests using REST Assured**.
+This repository was created so that I could easily organize and better absorb all the knowledge acquired during **the test automation course conducted by "Sii Poland"**.  
+This repository contains **frontend tests using Selenium and Java.**  
+A separate repository will be allocated for **API testing using REST Assured.**

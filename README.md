@@ -4,59 +4,73 @@
 
 ## 📄Description
 
-Frontend tests using Cypress and TypeScript.\
-There are publicly available websites for learning Frontend test automation and the testerczaki.pl website, which is aimed at practicing actions on websites.
+🙋‍♂️Hello to all recruiters and I invite you to check out my repository.
 
-TODO: Dopisać o certyfikatach w dokumentach
+Frontend tests using Selenium and Java.
 
-## 🌐 Pages covered with tests
+This repository was created so that I could easily organize and better absorb all the knowledge acquired during **the test automation course conducted by "Sii Poland"**.  
+This repository contains **frontend tests using Selenium and Java.**  
+A separate repository will be allocated for **API testing using REST Assured.**
 
-- [Testerczaki](https://dawidkaruga.pl/testerczaki/)
+## 🏆Certificates - test automation course (Sii Poland)
+
+In the catalogue:  
+&emsp;📁documents  
+&emsp;&emsp;📁certificates
+
+I have placed here certificates of completion of the test automation course conducted by "Sii Poland".
+
+This course consisted of 3 parts:
+
+- **Part 1:** Basics of programming in `Java`
+- **Part 2:** Writing frontend tests in `Selenium`
+- **Part 3:** Writing API tests in `REST Assured`
 
 ## 🧰Used frameworks and technologies
 
-- Node.js
-- Cypress
-- TypeScript
-- Visual Studio Code (VSC)
+- IntelliJ IDEA
+- Java
+- JUnit
+- Selenium
+- Selenium Support
+- Webdriver Manager
+- Java Faker
+- AssertJ
+
+## 🌐Pages covered with tests
+
+- [Tools QA](https://demoqa.com/elements)
+- [Testerczaki](https://dawidkaruga.pl/testerczaki/)
+- [Automation Test Store](https://automationteststore.com/)
+
+### Description
+
+**Tools QA** - A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and many others.
+
+**Testerczaki** - Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises are done better.  
+However, "QA Test" has exercises that "Testerczaki" do not have.
+
+**Automation Test Store** - A website simulating an online store. It is used to fully cover it with automatic tests.
 
 ## 🎯What I learned and what I practiced
 
-- Further practice of using VSC
-- Track and commit GIT changes with VSC
-- (TODO) Instalation, configuration and run first example test in Cypress
+### General
 
-# 📝Moje notatki (notes for me in PL, you don't have to read this)
+- Project configuration
+- .gitignore file configuration for Java
+- Installing plugins for the IDE
+- Adding dependencies to Maven
+- Setting variables for version dependencies in Maven
+- What each dependency is responsible for
 
-## 📚Dokumentacja i przydatne linki
+### Tools QA
 
-- [Cypress](https://docs.cypress.io/guides/overview/why-cypress)
-- [TypeScript](https://www.typescriptlang.org/docs/)
-- [To repozytorium (żeby przechodzić tu z IDE)](https://github.com/bartlomiejfydrych/cypress-type-script)
-- [Kurs - Codenbox AutomationLab](https://www.youtube.com/playlist?list=PLN9RL2PyZc19eQy4xrIva67SpB8jNqHAo)
+SOON
 
-## 🔧Konfiguracja
+### Testerczaki
 
-1. Dodajemy plik `.gitignore` z szablonem pod Node.js
-2. Instalujemy [Node.js](https://nodejs.org/en/download)
-3. Otwieramy terminal w katalogu z projektem
-4. Możemy sprawdzić czy mamy prawidłowo zainstalowanego Node'a za pomocą poleceń:\
-   `node -v`\
-   `npm -v`
-5. Wpisujemy i zatwierdzamy polecenie:\
-   `npm init -y`\
-   Ten `-y` oznacza, że w konsoli odpowiadamy na wszystko domyślnie "yes" podczas tego procesu.\
-   Powinniśmy po tym mieć utworzony w katalogu plik `package.json`
-6. (Opcjonalne) We wtyczkach VSC możemy wyszukać i zainstalować `Code Runner`\
-   Jest to wtyczka mogąca ułatwiać nam uruchamianie kodu w VSC.
-7. Instalujemy **Cypress** poleceniem:\
-   `npm install cypress`\
-   W dokumentacji jest polecenie `npm install cypress --save-dev`\
-   Ten dopisek `--save-dev` należy do **npm** i generalnie jest bardziej dla Developerów korzystających z tego narzędzia do testów. Sprawia on, że produkcyjny build nie ma tego instalowane. Npm install to pomija wtedy.
-8. Instalujemy **TypeScript** poleceniem:\
-   `npm install typescript`
-9. Inicjujemy nowy plik `tsconfig.json` poleceniem:\
-   `npx tsc --init --types cypress --lib dom,es6`\
-   Zapewnia to, że typy z Cypress są dostępne i obsługiwane za pomocą TypeScript. Te typy zależą od **dom** & **es6**, więc przekazujemy je jako opcję `lib` do TypeScript.
-10. Otwieramy **TestRunner** poleceniem:\
-    `npx cypress open`
+SOON
+
+### Automation Test Store
+
+SOON
