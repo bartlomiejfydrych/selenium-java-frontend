@@ -39,7 +39,7 @@ This course consisted of 3 parts:
 
 ## 🌐Pages covered with tests
 
-- [Tools QA](https://demoqa.com/elements)
+- [Tools QA](https://demoqa.com/)
 - [Testerczaki](https://dawidkaruga.pl/testerczaki/)
 - [Automation Test Store](https://automationteststore.com/)
 

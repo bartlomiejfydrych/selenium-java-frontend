@@ -1,14 +1,88 @@
-# tekst
+# 📚Notatki - wszystko, co warto pamiętać i z czym były problemy
 
-## Organizacja pracy
+## 🧰Organizacja pracy
 
-## IDE
+### Rozpoczęcie pisania testów
+
+1. Jeżeli mamy kilka serwisów do pokrycia testami, to tworzymy na nie osobne katalogi w `java` oraz `test->java`.  
+   &emsp;📂src  
+   &emsp;&emsp;📂main  
+   &emsp;&emsp;&emsp;📂java  
+   &emsp;&emsp;&emsp;&emsp;📁+ nazwa_serwisu  
+   &emsp;&emsp;📂test  
+   &emsp;&emsp;&emsp;📂java  
+   &emsp;&emsp;&emsp;&emsp;📁+ nazwa_serwisu  
+Jeżeli później będziemy używać jakichś załączników to również w katalogu `java->resources` tworzymy katalogi z nazwami naszych serwisów.
+2. W katalogu `java->resources` tworzymy plik o nazwie `config.properties`.  
+   Wszelkie ustawienia projektu warto trzymać i odczytywać z osobnego pliku, aby nie musieć nic zmieniać w samym kodzie.
+3. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `configuration`
+4. W katalogu `configuration` tworzymy klasę (plik java) o nazwie `Config.java`
+5. 🟥TODO
+4. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `pages`
+3. W katalogu `pages` tworzymy katalog `base`
+4. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `BasePage.java`
+5. Uzupełniamy naszą klasę `BasePage`:  
+   (Dokładne dane będą w kodzie, tutaj tylko spis ogólny)
+   - Zmieniamy na klasę abstrakcyjną
+   - Definiujemy zmienne WebDriver, WebDriverWait, Actions
+   - Definiujemy konstruktor
+   - (opcjonalne) Definiujemy drugi konstruktor, który używa obiektu `DefaultElementLocatorFactory`
+   - Definiujemy metodę konfigurującą WebDrivera
+   - (opcjonalne) Możemy dodawać metody nadpisujące domyślne metody o dodatkowe logowanie wykonywanych akcji w konsoli
+   - (opcjonalne) Możemy definiować metody / typy generyczne <T>
+
+
+
+W katalogu z testami `test->java` (w katalogu serwisu) tworzymy katalog o nazwie `base`
+
+## 👨‍💻IDE
 
 ### Zaznaczanie kilku linii do edycji
 
 Żeby edytować kilka linii naraz, zaznaczamy je kombinacją klawiszy:  
-`Alt + Shift + Lewy przycisk myszy`
+`Alt + Shift + Klikanie lewym przyciskiem myszy`
 
-## Selenium
+### Duplikacja linii
 
-## Java
+`Ctrl + D`
+
+## ✅Selenium
+
+## ☕Java
+
+### Konwencja nazewnictwa katalogów package
+
+Katalogi **package** można nazywać na dwa sposoby:  
+`mojkatalog`  
+`moj_katalog`
+
+Głównie używana i zalecana jest pierwsza forma, bez podkreślnika `_`.  
+Podkreślnik `_` jest zalecany, jeżeli nasza nazwa posiada w danym miejscu jakiś znak specjalny np. myślnik `-`.  
+Chociaż takie sytuacje mają głównie programiści posiadający nazwy domen w package'ach.  
+Jeżeli my używamy tylko zwykłych, prostych, dwu-wyrazowych nazw to używanie podkreślnika `_` nie jest żadnym problemem.  
+**Źródło:** https://stackoverflow.com/questions/49890803/naming-conventions-of-composed-package-names
+
+### Konwencja nazewnictwa klas
+
+Nazywając pliki (klasy) java używa się konwencji PascalCase, czyli:  
+`NazwaMojejKlasy`
+
+### Klasa abstrakcyjna
+
+Klasa abstrakcyjna w języku Java jest klasą, która nie może być bezpośrednio instancjonowana, ale może zawierać metody abstrakcyjne (bez implementacji) oraz metody konkretnie zaimplementowane. Jest to rodzaj szablonu lub podstawowej struktury, która jest przeznaczona do rozszerzenia przez inne klasy.
+
+Oto kilka kluczowych cech klas abstrakcyjnych:
+
+1. **Nie można tworzyć instancji:** Klasa abstrakcyjna nie może być bezpośrednio używana do tworzenia obiektów. Nie można użyć operatora `new` do instancjonowania klasy abstrakcyjnej.
+2. **Może zawierać metody abstrakcyjne:** Klasa abstrakcyjna może zawierać metody abstrakcyjne, czyli metody bez implementacji, które muszą być zaimplementowane przez każdą klasę dziedziczącą po klasie abstrakcyjnej. Metody abstrakcyjne są deklarowane za pomocą słowa kluczowego `abstract` i nie mają ciała metody.
+3. **Może zawierać metody konkretnie zaimplementowane:** Oprócz metod abstrakcyjnych, klasa abstrakcyjna może również zawierać metody zaimplementowane, czyli metody, które mają pełną implementację. Klasy dziedziczące po klasie abstrakcyjnej mogą korzystać z tych metod bez konieczności ich ponownej implementacji.
+4. **Może zawierać pola i konstruktory:** Klasa abstrakcyjna może zawierać pola oraz konstruktory, tak jak zwykła klasa.
+5. **Dziedziczenie:** Klasy abstrakcyjne mogą dziedziczyć po innych klasach abstrakcyjnych lub zwykłych klasach, a inne klasy mogą dziedziczyć po klasach abstrakcyjnych.
+
+Klasy abstrakcyjne są często używane do definiowania ogólnej struktury lub interfejsu dla podklas, które będą je rozszerzać i dostosowywać do konkretnych potrzeb. Umożliwiają one tworzenie hierarchii klas, które są bardziej elastyczne i umożliwiają wspólne korzystanie z kodu oraz zapewnienie spójności w aplikacji.
+
+## ⬇Markdown
+
+### \[TAB\] Tabulator
+
+`&emsp;`
