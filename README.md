@@ -62,6 +62,7 @@ However, "QA Test" has exercises that "Testerczaki" do not have.
 - Adding dependencies to Maven
 - Setting variables for version dependencies in Maven
 - What each dependency is responsible for
+- 🟥TODO: dopisać rzeczy związane z konfiguracją testów
 
 ### Tools QA
 

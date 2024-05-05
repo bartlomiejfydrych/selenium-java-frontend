@@ -14,28 +14,63 @@
    &emsp;&emsp;&emsp;&emsp;📁+ nazwa_serwisu  
 Jeżeli później będziemy używać jakichś załączników to również w katalogu `java->resources` tworzymy katalogi z nazwami naszych serwisów.
 2. W katalogu `java->resources` tworzymy plik o nazwie `config.properties`.  
-   Wszelkie ustawienia projektu warto trzymać i odczytywać z osobnego pliku, aby nie musieć nic zmieniać w samym kodzie.
-3. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `configuration`
-4. W katalogu `configuration` tworzymy klasę (plik java) o nazwie `Config.java`
-5. 🟥TODO
-4. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `pages`
-3. W katalogu `pages` tworzymy katalog `base`
-4. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `BasePage.java`
-5. Uzupełniamy naszą klasę `BasePage`:  
-   (Dokładne dane będą w kodzie, tutaj tylko spis ogólny)
-   - Zmieniamy na klasę abstrakcyjną
-   - Definiujemy zmienne WebDriver, WebDriverWait, Actions
-   - Definiujemy konstruktor
-   - (opcjonalne) Definiujemy drugi konstruktor, który używa obiektu `DefaultElementLocatorFactory`
-   - Definiujemy metodę konfigurującą WebDrivera
-   - (opcjonalne) Możemy dodawać metody nadpisujące domyślne metody o dodatkowe logowanie wykonywanych akcji w konsoli
-   - (opcjonalne) Możemy definiować metody / typy generyczne <T>
+   Wszelkie ustawienia projektu warto trzymać i odczytywać z osobnego pliku, aby nie musieć nic zmieniać w samym kodzie.  
+   Zapisujemy tam takie rzeczy jak:
+   - przeglądarka
+   - czy jest tryb "headless"
+   - url
+   - czas trwania domyślnego czekania na element
+3. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `enums`
+4. W katalogu `enums` tworzymy enum o nazwie `Browser.java`
+5. Podajemy w nim nazwy przeglądarek
+6. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `configuration`
+7. W katalogu `configuration` tworzymy klasę (plik java) o nazwie `Config.java`
+8. W klasie tej tworzymy:
+   - mechanizm czytający i re-używający plik konfiguracyjny
+   - metodę pobierającą przeglądarkę
+   - metodę pobierającą url
+   - metodę pobierającą czy jest tryb "headless"
+   - metodę pobierającą domyślny czas czekania na element
+9. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `pages`
+10. W katalogu `pages` tworzymy katalog `base`
+11. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `BasePage.java`
+12. Uzupełniamy naszą klasę `BasePage`:  
+    (Dokładne dane będą w kodzie, tutaj tylko spis ogólny)
+    - Zmieniamy na klasę abstrakcyjną
+    - Definiujemy zmienne WebDriver, WebDriverWait, Actions
+    - Definiujemy konstruktor
+    - (opcjonalne) Definiujemy drugi konstruktor, który używa obiektu `DefaultElementLocatorFactory`
+    - Definiujemy metodę konfigurującą WebDrivera
+    - (opcjonalne) Możemy dodawać metody nadpisujące domyślne metody o dodatkowe logowanie wykonywanych akcji w konsoli
+    - (opcjonalne) Możemy definiować metody / typy generyczne <T>
+13. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `providers`
+14. W tym katalogu `providers` tworzymy klasę (plik java) o nazwie `DriverProvider.java`
+15. Tworzymy w nim `switch`, który będzie nam zmieniał przeglądarkę w zależności od ustawień
+16. W tym katalogu `providers` tworzymy klasę (plik java) o nazwie `UrlProvider.java`
+17. Umieszczamy w nim zmienną bazowego URL'a oraz zmienne innych URLi z jego wykorzystaniem
+18. W katalogu z testami `test->java` (w katalogu serwisu) tworzymy katalog o nazwie `base`
+19. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `TestBase.java`
+20. Ustawiamy w nim @Before inicjujący drivera i stronę główną oraz @After zamykający drivera
 
+## 📖Kod i zależności - wyjaśnienie działania
 
+### config.properties
 
-W katalogu z testami `test->java` (w katalogu serwisu) tworzymy katalog o nazwie `base`
+### enums
+
+### Config
+
+### BasePage
+
+### providers
+
+### TestBase
 
 ## 👨‍💻IDE
+
+### Formatowanie kodu
+
+`Ctrl + Alt + L`
 
 ### Zaznaczanie kilku linii do edycji
 
@@ -48,7 +83,12 @@ W katalogu z testami `test->java` (w katalogu serwisu) tworzymy katalog o nazwie
 
 ## ✅Selenium
 
+Dokumentacja: https://www.selenium.dev/documentation/
+
 ## ☕Java
+
+Dokumentacja: https://docs.oracle.com/en/java/  
+Czytelniejsze uzupełnienie: https://www.w3schools.com/java/
 
 ### Konwencja nazewnictwa katalogów package
 
@@ -83,6 +123,12 @@ Klasy abstrakcyjne są często używane do definiowania ogólnej struktury lub i
 
 ## ⬇Markdown
 
+Dokumentacja: https://www.markdownguide.org/basic-syntax/
+
 ### \[TAB\] Tabulator
 
 `&emsp;`
+
+## 🗃Repozytorium z kursu
+
+https://github.com/simplelogic2023szkolenie
