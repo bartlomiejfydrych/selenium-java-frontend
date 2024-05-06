@@ -50,27 +50,51 @@ Jeżeli później będziemy używać jakichś załączników to również w kata
 17. Umieszczamy w nim zmienną bazowego URL'a oraz zmienne innych URLi z jego wykorzystaniem
 18. W katalogu z testami `test->java` (w katalogu serwisu) tworzymy katalog o nazwie `base`
 19. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `TestBase.java`
-20. Ustawiamy w nim @Before inicjujący drivera i stronę główną oraz @After zamykający drivera
+20. Ustawiamy w nim `@Before` inicjujący drivera i stronę główną oraz `@After` zamykający drivera
+21. W katalogu z `pages` tworzymy katalog o nazwie `commons`. Będzie on zawierał obiekty page wspólne dla pozostałych obiektów page. Takie jak strona główna (HomePage) oraz menu strony (MenuPage) itp.
+22. W tym katalogu `commos` tworzymy klasę (plik java) o nazwie `HomePage.java`
+23. W `HomePage` rozszerzamy tę klasę o `...extends TestBase` i tworzymy konstruktor tej klasy nadpisujący drivera za pomocą `super` oraz dodajemy lokatory i metody
+24. 
 
 ## 📖Kod i zależności - wyjaśnienie działania
 
 ### config.properties
 
+TODO
+
 ### enums
+
+TODO
 
 ### Config
 
+TODO
+
 ### BasePage
+
+TODO
 
 ### providers
 
+TODO
+
 ### TestBase
+
+TODO
 
 ## 👨‍💻IDE
 
 ### Formatowanie kodu
 
 `Ctrl + Alt + L`
+
+### Komentarz liniowy kodu
+
+`Ctrl + / (slash)`
+
+### Komentarz blokowy kodu
+
+`Ctrl + Shift + / (slash)`
 
 ### Zaznaczanie kilku linii do edycji
 
@@ -84,6 +108,23 @@ Jeżeli później będziemy używać jakichś załączników to również w kata
 ## ✅Selenium
 
 Dokumentacja: https://www.selenium.dev/documentation/
+
+### WebDriver
+
+TODO
+
+### @FindBy - "lokator" vs 'lokator'
+
+Link: https://stackoverflow.com/questions/5606664/too-many-characters-in-character-literal-error
+
+W języku C# i wychodzi na to, że w języku Java też jest tak, że:  
+`myChar = '='` - pojedyncze apostrofy są dla pojedynczych znaków  
+`myString = "=="` - cudzysłowie jest dla całych łańcuchów znaków
+
+### Xpath - znajdowanie po tekście
+
+`@FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")`  
+`private WebElement alertsFrameWindowsButton;`
 
 ## ☕Java
 
