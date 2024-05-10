@@ -12,6 +12,9 @@ This repository was created so that I could easily organize and better absorb al
 This repository contains **frontend tests using Selenium and Java.**  
 A separate repository will be allocated for **API testing using REST Assured.**
 
+The comments in the code are in Polish because they help me remember something and make it easier to explain how something works. You can ignore them.  
+Of course, I am aware that depending on the language of communication used in the project, comments should also be written in that language.
+
 ## 🏆Certificates - test automation course (Sii Poland)
 
 In the catalogue:  

@@ -3,6 +3,7 @@ package tools_qa.pages.commons;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.base.BasePage;
 
 public class HomePage extends BasePage {
@@ -15,17 +16,17 @@ public class HomePage extends BasePage {
 
     // Web Elementy
 
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Elements')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Elements']")
     private WebElement elementsButton;
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Forms')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Forms']")
     private WebElement formsButton;
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Alerts, Frame & Windows']")
     private WebElement alertsFrameWindowsButton;
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Widgets')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Widgets']")
     private WebElement widgetsButton;
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Interactions')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Interactions']")
     private WebElement interactionsButton;
-    @FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Book Store Application')]")
+    @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Book Store Application']")
     private WebElement bookStoreApplicationButton;
 
     // Metody

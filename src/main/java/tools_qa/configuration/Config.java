@@ -15,7 +15,7 @@ public class Config {
 
     static {
         properties = new Properties();
-        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("/tools_qa/config.properties")) {
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("tools_qa/config.properties")) {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {

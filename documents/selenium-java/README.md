@@ -54,7 +54,11 @@ Jeżeli później będziemy używać jakichś załączników to również w kata
 21. W katalogu z `pages` tworzymy katalog o nazwie `commons`. Będzie on zawierał obiekty page wspólne dla pozostałych obiektów page. Takie jak strona główna (HomePage) oraz menu strony (MenuPage) itp.
 22. W tym katalogu `commos` tworzymy klasę (plik java) o nazwie `HomePage.java`
 23. W `HomePage` rozszerzamy tę klasę o `...extends TestBase` i tworzymy konstruktor tej klasy nadpisujący drivera za pomocą `super` oraz dodajemy lokatory i metody
-24. 
+24. Dodajemy kolejny page, do którego będziemy przechodzić z naszej strony głównej. W tym przypadku będzie to `ElementsPage.java`
+25. Dodajemy kolejny page, który pokryjemy pierwszymi testami o nazwie `TextBoxPage`
+    - W jego metodach dodajemy na koniec `return this;` dzięki czemu będziemy mogli stosować Fluent Object Pattern
+26. Tworzymy w `test->java` katalog na testy danej grupy stron `elements_tests`
+27. Tworzymy klasę dla pierwszych testów `TextBoxTests`
 
 ## 📖Kod i zależności - wyjaśnienie działania
 
@@ -79,6 +83,10 @@ TODO
 TODO
 
 ### TestBase
+
+TODO
+
+### Fluent Object Pattern
 
 TODO
 
@@ -123,8 +131,13 @@ W języku C# i wychodzi na to, że w języku Java też jest tak, że:
 
 ### Xpath - znajdowanie po tekście
 
+Element "zawiera" fragment tekstu:  
 `@FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")`  
 `private WebElement alertsFrameWindowsButton;`
+
+Element ma dokładnie taki tekst:  
+`@FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Links']")`  
+`private WebElement linksButton;`
 
 ## ☕Java
 
@@ -147,6 +160,10 @@ Jeżeli my używamy tylko zwykłych, prostych, dwu-wyrazowych nazw to używanie 
 
 Nazywając pliki (klasy) java używa się konwencji PascalCase, czyli:  
 `NazwaMojejKlasy`
+
+### Konwencja nazewnictwa testów
+
+TODO
 
 ### Klasa abstrakcyjna
 
