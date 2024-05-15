@@ -119,7 +119,53 @@ Dokumentacja: https://www.selenium.dev/documentation/
 
 ### WebDriver
 
-TODO
+Link do dokumentacji: https://www.selenium.dev/documentation/webdriver/
+
+#### Opis
+
+WebDriver to kompaktowy, obiektowy interfejs API, który służy do sterowania przeglądarką.  
+Korzysta z interfejsów API automatyzacji przeglądarki dostarczonych przez dostawców przeglądarek w celu kontrolowania przeglądarki i uruchamiania testów.  
+WebDriver nie wymaga kompilacji swojego API z kodem aplikacji, dzięki czemu nie jest to inwazyjne. Dlatego testowana jest ta sama przeglądarka, którą udostępniamy na żywo.  
+
+#### Komunikacja
+
+WebDriver komunikuje się z przeglądarką poprzez sterownik. Komunikacja jest dwukierunkowa: WebDriver przekazuje polecenia do przeglądarki za pośrednictwem sterownika i tą samą drogą otrzymuje informacje z powrotem.  
+![](images/web_driver_communication.png)
+Sterownik jest specyficzny dla przeglądarki, np. ChromeDriver dla przeglądarki Google Chrome/Chromium, GeckoDriver dla przeglądarki Mozilla Firefox itp. Sterownik działa w tym samym systemie co przeglądarka. Może to być ten sam system, ale nie musi, w którym wykonywane są same testy.
+
+#### Przykładowe zastosowanie WebDriver
+
+Oto prosty przykład w języku Java, pokazujący, jak można użyć WebDriver do automatycznego otwarcia strony internetowej, wyszukania czegoś w Google i wyświetlenia wyników:
+```
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumExample {
+    public static void main(String[] args) {
+        // Ustawienie ścieżki do sterownika Chrome
+        System.setProperty("webdriver.chrome.driver", "ścieżka/do/chromedriver");
+
+        // Inicjalizacja WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Otwarcie strony Google
+        driver.get("https://www.google.com");
+
+        // Znalezienie pola wyszukiwania i wpisanie tekstu
+        WebElement searchBox = driver.findElement(By.name("q"));
+        searchBox.sendKeys("Selenium WebDriver");
+        searchBox.submit();
+
+        // Wyświetlenie tytułu strony wyników
+        System.out.println("Tytuł strony: " + driver.getTitle());
+
+        // Zamknięcie przeglądarki
+        driver.quit();
+    }
+}
+```
 
 ### @FindBy - "lokator" vs 'lokator'
 

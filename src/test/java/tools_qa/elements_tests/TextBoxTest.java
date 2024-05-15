@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
-import tools_qa.pages.normal.elements_pages.ElementsPage;
 
 public class TextBoxTest extends TestBase {
 
