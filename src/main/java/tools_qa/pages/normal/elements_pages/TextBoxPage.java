@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
+import java.time.Duration;
+
 public class TextBoxPage extends BasePage {
 
     // Konstruktor
@@ -58,7 +60,25 @@ public class TextBoxPage extends BasePage {
     }
 
     public TextBoxPage clickSubmit() {
-        click(this.submitButton);
+        // Ze względu na to, że <div> przysłania przycisk, trzeba było użyć 'actions' (https://stackoverflow.com/a/52400514)
+        actions.moveToElement(this.submitButton).click(this.submitButton).perform();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         return this;
+    }
+
+    public String getNameParagraph() {
+        return nameParagraph.getText();
+    }
+
+    public String getEmailParagraph() {
+        return emailParagraph.getText();
+    }
+
+    public String getCurrentAddressParagraph() {
+        return currentAddressParagraph.getText();
+    }
+
+    public String getPermanentAddressParagraph() {
+        return permanentAddressParagraph.getText();
     }
 }
