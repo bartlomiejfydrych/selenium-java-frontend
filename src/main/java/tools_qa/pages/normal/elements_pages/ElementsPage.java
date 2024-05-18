@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
+import java.time.Duration;
+
 public class ElementsPage extends BasePage {
 
     // Konstruktor
@@ -33,11 +35,24 @@ public class ElementsPage extends BasePage {
     private WebElement uploadAndDownloadButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Dynamic Properties']")
     private WebElement dynamicPropertiesButton;
+    // Ad
+    @FindBy(css = "#fixedban")
+    private WebElement adFrame;
 
     // Metody
+
+    public ElementsPage removeAdFrame() {
+        jse.executeScript("arguments[0].remove();", adFrame);
+        return this;
+    }
 
     public TextBoxPage goToTextBoxPage() {
         textBoxButton.click();
         return new TextBoxPage(driver);
+    }
+
+    public CheckBoxPage goToCheckBoxPage() {
+        checkBoxButton.click();
+        return new CheckBoxPage(driver);
     }
 }

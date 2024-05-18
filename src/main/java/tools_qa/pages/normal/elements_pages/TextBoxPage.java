@@ -1,11 +1,11 @@
 package tools_qa.pages.normal.elements_pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
-import java.time.Duration;
 
 public class TextBoxPage extends BasePage {
 
@@ -60,9 +60,10 @@ public class TextBoxPage extends BasePage {
     }
 
     public TextBoxPage clickSubmit() {
-        // Ze względu na to, że <div> przysłania przycisk, trzeba było użyć 'actions' (https://stackoverflow.com/a/52400514)
-        actions.moveToElement(this.submitButton).click(this.submitButton).perform();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        // Reklamy na stronie zasłaniają przycisk. Przez to trzeba było użyć JavaScript
+        // Dodano do BasePage poniższą linię:
+        // JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click();", this.submitButton);
         return this;
     }
 

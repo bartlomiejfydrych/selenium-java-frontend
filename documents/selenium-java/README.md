@@ -59,6 +59,7 @@ Jeżeli później będziemy używać jakichś załączników to również w kata
     - W jego metodach dodajemy na koniec `return this;` dzięki czemu będziemy mogli stosować Fluent Object Pattern
 26. Tworzymy w `test->java` katalog na testy danej grupy stron `elements_tests`
 27. Tworzymy klasę dla pierwszych testów `TextBoxTests`
+28. Piszemy i odpalamy nasze pierwsze testy
 
 ## 📖Kod i zależności - wyjaśnienie działania
 

@@ -1,5 +1,6 @@
 package tools_qa.pages.base;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,6 +17,7 @@ public abstract class BasePage {
     protected WebDriver driver;
     protected Actions actions;
     protected WebDriverWait defaultWait;
+    protected JavascriptExecutor jse;
 
     // Konfiguracja WebDrivera
 
@@ -23,6 +25,7 @@ public abstract class BasePage {
         this.driver = driver;
         actions = new Actions(driver);
         defaultWait = new WebDriverWait(driver, Duration.ofSeconds(Config.getDefaultWait()));
+        jse = (JavascriptExecutor)driver;
     }
 
     // Konstruktor/Konstruktory klasy

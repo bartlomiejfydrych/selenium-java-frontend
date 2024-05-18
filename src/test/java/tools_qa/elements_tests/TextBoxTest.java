@@ -6,15 +6,20 @@ import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.TextBoxPage;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class TextBoxTest extends TestBase {
 
     @Test
     public void shouldFillTextBoxes() {
 
+        // ----------------------
+        // Test data
+        // ----------------------
+
         // Init Faker
         Faker faker = new Faker();
 
-        // Test data
         String fullName = faker.name().fullName();
         String email = faker.internet().emailAddress();
         // Current Address
@@ -40,24 +45,53 @@ public class TextBoxTest extends TestBase {
                 + permanentAddressZipCode + "\n"
                 + permanentAddressStreetName + " " + permanentAddressStreetNumber + "/" + permanentAddressBuildingNumber;
 
+        // ----------------------
         // Test execution
+        // ----------------------
+
         new HomePage(driver)
                 .goToElementsPage()
+                .removeAdFrame()
                 .goToTextBoxPage()
                 .writeFullName(fullName)
                 .writeEmail(email)
                 .writeCurrentAddress(currentAddress)
                 .writePermanentAddress(permanentAddress)
                 .clickSubmit();
+
+        // ----------------------
         // Assertion
+        // ----------------------
+
+        // Get current data
         TextBoxPage textBoxPage = new TextBoxPage(driver);
         String nameParagraph = textBoxPage.getNameParagraph();
         String emailParagraph = textBoxPage.getEmailParagraph();
         String currentAddressParagraph = textBoxPage.getCurrentAddressParagraph();
         String permanentAddressParagraph = textBoxPage.getPermanentAddressParagraph();
-        System.out.println(nameParagraph);
-        System.out.println(emailParagraph);
-        System.out.println(currentAddressParagraph);
-        System.out.println(permanentAddressParagraph);
+
+        // Expected data
+        String expectedNameParagraph = "Name:" + fullName;
+        String expectedEmailParagraph = "Email:" + email;
+        String expectedCurrentAddressParagraph = "Current Address :"
+                + currentAddressCountry + " "
+                + currentAddressCity + " "
+                + currentAddressZipCode + " "
+                + currentAddressStreetName + " "
+                + currentAddressStreetNumber + "/"
+                + currentAddressBuildingNumber;
+        String expectedPermanentAddressParagraph = "Permananet Address :"
+                + permanentAddressCountry + " "
+                + permanentAddressCity + " "
+                + permanentAddressZipCode + " "
+                + permanentAddressStreetName + " "
+                + permanentAddressStreetNumber + "/"
+                + permanentAddressBuildingNumber;
+
+        // Assert
+        assertThat(nameParagraph).isEqualTo(expectedNameParagraph);
+        assertThat(emailParagraph).isEqualTo(expectedEmailParagraph);
+        assertThat(currentAddressParagraph).isEqualTo(expectedCurrentAddressParagraph);
+        assertThat(permanentAddressParagraph).isEqualTo(expectedPermanentAddressParagraph);
     }
 }
