@@ -4,6 +4,7 @@
 
 1. [Przycisk zasłonięty przez inny element strony](#1)
 2. [Przyciski zasłonięte przez reklamę - usunięcie elementu strony](#2)
+3. [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#3)
 
 ## 📄Opis
 
@@ -63,3 +64,25 @@ przyciski na każdej pod-stronie. Samo omijanie tego tak jak to zrobiono w punkc
 Postanowiłem usuwać tego DIV'a przy każdym wejściu na tę stronę.  
 Użyłem poniższego kodu:  
 `jse.executeScript("arguments[0].remove();", adFrame);`
+
+### 3. Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="3"></a>
+
+**Linki:**  
+https://www.w3schools.com/java/java_encapsulation.asp
+
+Pisząc testy, trzymałem się założenia, że asercje powinny być w testach, a nie w metodach page'y.
+Gdy chciałem w teście sprawdzić stan danego WebElementu to nie mogłem tego zrobić, ponieważ w klasie Page został on
+zadeklarowany jako prywatny.  
+Rozwiązaniem tego okazało się napisanie Gettera:
+```
+Klasa z Page:
+@FindBy(css = "label[for='tree-node-home'] input")
+private WebElement assertHomeCheckBox;
+
+public WebElement getAssertHomeCheckBox() {
+    return assertHomeCheckBox;
+}
+
+Klasa z testem:
+assertThat(checkBoxPage.getAssertHomeCheckBox().isSelected()).isTrue();
+```

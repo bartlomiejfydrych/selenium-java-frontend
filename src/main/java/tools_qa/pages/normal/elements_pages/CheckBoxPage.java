@@ -15,6 +15,36 @@ public class CheckBoxPage extends BasePage {
 
     // Web Elementy
 
-    @FindBy(css = "")
+    @FindBy(css = "button[title='Expand all']")
     private WebElement plusExpandAllButton;
+    @FindBy(css = "button[title='Collapse all']")
+    private WebElement minusCollapseAllButton;
+    @FindBy(css = "label[for='tree-node-home']")
+    private WebElement homeCheckBox;
+    // Locators for assertions
+    @FindBy(css = "label[for='tree-node-home'] input")
+    private WebElement assertHomeCheckBox;
+
+    // Metody
+
+    public CheckBoxPage clickExpandAll() {
+        click(this.plusExpandAllButton);
+        return this;
+    }
+
+    public CheckBoxPage clickCollapseAll() {
+        click(this.minusCollapseAllButton);
+        return this;
+    }
+
+    public CheckBoxPage clickHomeCheckBox() {
+        click(this.homeCheckBox);
+        return this;
+    }
+
+    // Gettery (do używania WebElementów w asercjach)
+
+    public WebElement getAssertHomeCheckBox() {
+        return assertHomeCheckBox;
+    }
 }
