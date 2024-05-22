@@ -51,7 +51,7 @@ public class TextBoxTest extends TestBase {
 
         new HomePage(driver)
                 .goToElementsPage()
-                .removeAdFrame()
+                .removeAdFrameAndFooter()
                 .goToTextBoxPage()
                 .writeFullName(fullName)
                 .writeEmail(email)

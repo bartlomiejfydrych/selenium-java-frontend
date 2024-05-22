@@ -1,5 +1,6 @@
 package tools_qa.pages.normal.elements_pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,12 @@ public class CheckBoxPage extends BasePage {
     // CheckBoxes
     @FindBy(css = "label[for='tree-node-home']")
     private WebElement homeCheckBox;
+    @FindBy(css = "label[for='tree-node-desktop']")
+    private WebElement desktopCheckBox;
+    @FindBy(css = "label[for='tree-node-workspace']")
+    private WebElement workSpaceCheckBox;
+    @FindBy(css = "label[for='tree-node-excelFile']")
+    private WebElement excelFileCheckBox;
     // Lokatory dla asercji
     @FindBy(css = "label[for='tree-node-home'] input")
     private WebElement assertHomeCheckBox;
@@ -83,7 +90,25 @@ public class CheckBoxPage extends BasePage {
         return this;
     }
 
+    public CheckBoxPage clickWorkSpaceCheckBox() {
+        click(this.workSpaceCheckBox);
+        return this;
+    }
+
+    public CheckBoxPage clickExcelFileCheckBox() {
+        click(this.excelFileCheckBox);
+        return this;
+    }
+
     // Gettery (do używania WebElementów w asercjach)
+
+    // Check Boxy
+
+    public WebElement getDesktopCheckBox() {
+        return desktopCheckBox;
+    }
+
+    // Zaznaczenie Check Boxów
 
     public WebElement getAssertHomeCheckBox() {
         return assertHomeCheckBox;

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
-import java.time.Duration;
-
 public class ElementsPage extends BasePage {
 
     // Konstruktor
@@ -38,11 +36,15 @@ public class ElementsPage extends BasePage {
     // Ad
     @FindBy(css = "#fixedban")
     private WebElement adFrame;
+    // Footer
+    @FindBy(css = "footer")
+    private WebElement footer;
 
     // Metody
 
-    public ElementsPage removeAdFrame() {
+    public ElementsPage removeAdFrameAndFooter() {
         jse.executeScript("arguments[0].remove();", adFrame);
+        jse.executeScript("arguments[0].remove();", footer);
         return this;
     }
 
