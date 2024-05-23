@@ -5,6 +5,9 @@
 1. [Przycisk zasłonięty przez inny element strony](#1)
 2. [Przyciski zasłonięte przez reklamę - usunięcie elementu strony](#2)
 3. [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#3)
+4. [Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu](#4)
+5. [Przycisk - widoczny, ale wewnątrz innego elementu](#5)
+6. [Przycisk - czy element jest klikalny](#6)
 
 ## 📄Opis
 
@@ -85,4 +88,63 @@ public WebElement getAssertHomeCheckBox() {
 
 Klasa z testem:
 assertThat(checkBoxPage.getAssertHomeCheckBox().isSelected()).isTrue();
+```
+
+### 4. Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu <a name="4"></a>
+
+**Linki:**
+https://stackoverflow.com/a/62684271
+
+W teście chciałem sprawdzić czy dany element nie jest już widoczny.  
+Asercja, która to miała sprawdzać, zwracała błąd, ponieważ już na początkowym etapie WebElement nie był odnajdywany.  
+Rozwiązaniem tego było napisanie takiej, ogólnodostępnej funkcji:
+```
+public class WebElementMethods {
+
+    public boolean isElementPresent(WebElement webElement) {
+        try{
+            webElement.isDisplayed();
+            return true;
+        }
+        catch(NoSuchElementException e){
+            return false;
+        }
+    };
+}
+
+Asercja w teście:
+assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
+```
+
+### 5. Przycisk - widoczny, ale wewnątrz innego elementu <a name="5"></a>
+
+**Linki:**
+https://stackoverflow.com/a/19763087
+
+![](images/5_przycisk_zasloniety_widoczny.png)
+Jeżeli przycisk jest **widoczny** na stronie, ale znajduje się wewnątrz innego elementu to można użyć `Actions`:
+```
+public RadioButtonPage clickYesRadioButton() {
+    actions.moveToElement(this.yesRadioButton).click().perform();
+    return this;
+}
+```
+
+### 6. Przycisk - czy element jest klikalny <a name="6"></a>
+
+![](images/6_przycisk_klikalny.png)
+Przy próbie kliknięcia przycisku, który nie jest klikalny, zwracany jest błąd.  
+Żeby takie coś sprawdzać, warto napisać i stosować poniższą metodę:
+```
+public boolean isElementClickable(WebElement webElement) {
+    try {
+        actions.moveToElement(webElement).click().perform();
+        return true;
+    } catch (JsonException e) {
+        return false;
+    }
+}
+
+Test:
+assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
 ```

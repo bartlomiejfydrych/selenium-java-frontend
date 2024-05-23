@@ -57,4 +57,9 @@ public class ElementsPage extends BasePage {
         checkBoxButton.click();
         return new CheckBoxPage(driver);
     }
+
+    public RadioButtonPage goToRadioButtonPage() {
+        radioButtonButton.click();
+        return new RadioButtonPage(driver);
+    }
 }

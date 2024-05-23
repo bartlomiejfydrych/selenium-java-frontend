@@ -75,7 +75,7 @@ public class CheckBoxTest extends TestBase {
 
         CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
         WebElement desktopCheckBox = checkBoxPage.getDesktopCheckBox();
-        WebElementMethods webElementMethods = new WebElementMethods();
+        WebElementMethods webElementMethods = new WebElementMethods(driver);
 
         assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
     }
