@@ -18,12 +18,21 @@ public class WebTablesPage extends BasePage {
 
     // Web Elementy
 
+    @FindBy(css = "div button#addNewRecordButton")
+    private WebElement addNewRowButton;
     @FindBy(css = "div input#searchBox")
     private WebElement searchInput;
     @FindBy(css = "div .-odd:nth-of-type(1) .rt-td")
     private List<WebElement> firstRowCells;
+    // Registration form
+
 
     // Metody
+
+    public WebTablesPage clickAddNewRowButton() {
+        addNewRowButton.click();
+        return this;
+    }
 
     public WebTablesPage writeTextToSearch(String searchText) {
         searchInput.sendKeys(searchText);
