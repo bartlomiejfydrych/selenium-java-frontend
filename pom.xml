@@ -16,8 +16,8 @@
         <junitJupiter.version>5.10.2</junitJupiter.version>
         <javafaker.version>1.0.2</javafaker.version>
         <assertjCore.version>3.25.3</assertjCore.version>
-        <seleniumJava.version>4.20.0</seleniumJava.version>
-        <seleniumSupport.version>4.20.0</seleniumSupport.version>
+        <seleniumJava.version>4.21.0</seleniumJava.version>
+        <seleniumSupport.version>4.21.0</seleniumSupport.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version>
     </properties>
 

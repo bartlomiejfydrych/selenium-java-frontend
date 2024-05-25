@@ -62,4 +62,9 @@ public class ElementsPage extends BasePage {
         radioButtonButton.click();
         return new RadioButtonPage(driver);
     }
+
+    public WebTablesPage goToWebTablesPage() {
+        webTablesButton.click();
+        return new WebTablesPage(driver);
+    }
 }
