@@ -85,4 +85,47 @@ public class WebTablesTest extends TestBase {
         assertThat(webTablesPage.getNoDataField().isDisplayed()).isTrue();
         assertThat(webTablesPage.getNoDataField().getText()).isEqualTo("No rows found");
     }
+
+    @Test
+    public void shouldPaginationWork() {
+
+        //-------------
+        // PREPARATIONS
+        //-------------
+
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        TableRow tableRow1 = TableRowProvider.getRandomTableRow();
+        TableRow tableRow2 = TableRowProvider.getRandomTableRow();
+        TableRow tableRow3 = TableRowProvider.getRandomTableRow();
+
+        //---------------
+        // TEST EXECUTION
+        //---------------
+
+        new HomePage(driver)
+                .goToElementsPage()
+                .removeAdFrameAndFooter()
+                .goToWebTablesPage()
+                .clickAddNewRowButton()
+                .fillRowForm(tableRow1)
+                .clickAddNewRowButton()
+                .fillRowForm(tableRow2)
+                .clickAddNewRowButton()
+                .fillRowForm(tableRow3)
+                .selectRowsPerPage("5")
+                .clickNextPageButton();
+
+        //-----------
+        // ASSERTIONS
+        //-----------
+
+        List<WebElement> firstRowCells = webTablesPage.getFirstRowCells();
+
+        assertThat(firstRowCells.get(0).getText()).isEqualTo(tableRow3.getFirstName());
+        assertThat(firstRowCells.get(1).getText()).isEqualTo(tableRow3.getLastName());
+        assertThat(firstRowCells.get(2).getText()).isEqualTo(tableRow3.getAge());
+        assertThat(firstRowCells.get(3).getText()).isEqualTo(tableRow3.getEmail());
+        assertThat(firstRowCells.get(4).getText()).isEqualTo(tableRow3.getSalary());
+        assertThat(firstRowCells.get(5).getText()).isEqualTo(tableRow3.getDepartment());
+    }
 }

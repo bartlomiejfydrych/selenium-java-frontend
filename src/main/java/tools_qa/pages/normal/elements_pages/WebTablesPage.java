@@ -3,6 +3,7 @@ package tools_qa.pages.normal.elements_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import tools_qa.models.TableRow;
 import tools_qa.pages.base.BasePage;
 
@@ -27,6 +28,10 @@ public class WebTablesPage extends BasePage {
     private WebElement editFirstRowButton;
     @FindBy(css = "div .action-buttons span[title='Delete'] svg")
     private WebElement deleteFirstRowButton;
+    @FindBy(css = "select[aria-label='rows per page']")
+    private WebElement rowsPerPageSelect;
+    @FindBy(css = "div .-next button")
+    private WebElement nextPageButton;
     @FindBy(css = "div .-odd:nth-of-type(1) .rt-td")
     private List<WebElement> firstRowCells;
     @FindBy(css = ".rt-noData")
@@ -63,6 +68,17 @@ public class WebTablesPage extends BasePage {
 
     public WebTablesPage clickDeleteFirstRowButton() {
         deleteFirstRowButton.click();
+        return this;
+    }
+
+    public WebTablesPage selectRowsPerPage(String number) {
+        Select select = new Select(rowsPerPageSelect);
+        select.selectByValue(number);
+        return this;
+    }
+
+    public WebTablesPage clickNextPageButton() {
+        nextPageButton.click();
         return this;
     }
 
