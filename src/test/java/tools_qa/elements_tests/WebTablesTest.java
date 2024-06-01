@@ -3,8 +3,10 @@ package tools_qa.elements_tests;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
+import tools_qa.models.TableRow;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.WebTablesPage;
+import tools_qa.providers.TableRowProvider;
 
 import java.util.List;
 
@@ -13,24 +15,74 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WebTablesTest extends TestBase {
 
     @Test
-    public void shouldSearchFindCorrectElementByLastName() {
+    public void shouldAddFindEditAndDeleteRow() {
 
-        String textToSearch = "Gentry";
+        //---------
+        // ADD ROW
+        //---------
+
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        TableRow addedTableRow = TableRowProvider.getRandomTableRow();
 
         new HomePage(driver)
                 .goToElementsPage()
                 .removeAdFrameAndFooter()
                 .goToWebTablesPage()
-                .writeTextToSearch(textToSearch);
+                .clickAddNewRowButton()
+                .fillRowForm(addedTableRow);
 
-        WebTablesPage webTablesPage = new WebTablesPage(driver);
-        List<WebElement> firstRowCells = webTablesPage.getFirstRowCells();
+        //----------
+        // FIND ROW
+        //----------
 
-        assertThat(firstRowCells.get(1).getText()).isEqualTo(textToSearch);
-    }
+        webTablesPage.writeTextToSearch(addedTableRow.getFirstName());
+        List<WebElement> firstRowCellsFromAdd = webTablesPage.getFirstRowCells();
+        // Assert added row
+        assertThat(firstRowCellsFromAdd.get(0).getText()).isEqualTo(addedTableRow.getFirstName());
+        assertThat(firstRowCellsFromAdd.get(1).getText()).isEqualTo(addedTableRow.getLastName());
+        assertThat(firstRowCellsFromAdd.get(2).getText()).isEqualTo(addedTableRow.getAge());
+        assertThat(firstRowCellsFromAdd.get(3).getText()).isEqualTo(addedTableRow.getEmail());
+        assertThat(firstRowCellsFromAdd.get(4).getText()).isEqualTo(addedTableRow.getSalary());
+        assertThat(firstRowCellsFromAdd.get(5).getText()).isEqualTo(addedTableRow.getDepartment());
 
-    @Test
-    public void shouldCreateFindEditAndDeleteRow() {
+        //----------
+        // EDIT ROW
+        //----------
 
+        TableRow editedTableRow = TableRowProvider.getRandomTableRow();
+
+        webTablesPage
+                .clickEditFirstRowButton()
+                .fillRowForm(editedTableRow);
+
+        //----------
+        // FIND ROW
+        //----------
+
+        webTablesPage.writeTextToSearch(editedTableRow.getFirstName());
+        List<WebElement> firstRowCellsFromEdit = webTablesPage.getFirstRowCells();
+        // Assert edited row
+        assertThat(firstRowCellsFromEdit.get(0).getText()).isEqualTo(editedTableRow.getFirstName());
+        assertThat(firstRowCellsFromEdit.get(1).getText()).isEqualTo(editedTableRow.getLastName());
+        assertThat(firstRowCellsFromEdit.get(2).getText()).isEqualTo(editedTableRow.getAge());
+        assertThat(firstRowCellsFromEdit.get(3).getText()).isEqualTo(editedTableRow.getEmail());
+        assertThat(firstRowCellsFromEdit.get(4).getText()).isEqualTo(editedTableRow.getSalary());
+        assertThat(firstRowCellsFromEdit.get(5).getText()).isEqualTo(editedTableRow.getDepartment());
+
+        //------------
+        // DELETE ROW
+        //------------
+
+        webTablesPage.clickDeleteFirstRowButton();
+        List<WebElement> firstRowCellsFromDelete = webTablesPage.getFirstRowCells();
+        // Assert deleted row
+        assertThat(firstRowCellsFromDelete.get(0).getText()).isEqualTo(" ");
+        assertThat(firstRowCellsFromDelete.get(1).getText()).isEqualTo(" ");
+        assertThat(firstRowCellsFromDelete.get(2).getText()).isEqualTo(" ");
+        assertThat(firstRowCellsFromDelete.get(3).getText()).isEqualTo(" ");
+        assertThat(firstRowCellsFromDelete.get(4).getText()).isEqualTo(" ");
+        assertThat(firstRowCellsFromDelete.get(5).getText()).isEqualTo(" ");
+        assertThat(webTablesPage.getNoDataField().isDisplayed()).isTrue();
+        assertThat(webTablesPage.getNoDataField().getText()).isEqualTo("No rows found");
     }
 }

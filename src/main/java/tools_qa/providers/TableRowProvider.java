@@ -11,9 +11,9 @@ public class TableRowProvider {
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress())
-                .age(Integer.toString(faker.number().numberBetween(1, 110)))
-                .salary(Integer.toString(faker.number().numberBetween(2000, 15000)))
-                .department(faker.job().title())
+                .age(Integer.toString(faker.number().numberBetween(1, 99)))
+                .salary(Integer.toString(faker.number().numberBetween(2000, 999999999)))
+                .department(faker.job().field())
                 .build();
     }
 }
