@@ -72,4 +72,9 @@ public class ElementsPage extends BasePage {
         buttonsButton.click();
         return new ButtonsPage(driver);
     }
+
+    public LinksPage goToLinksPage() {
+        linksButton.click();
+        return new LinksPage(driver);
+    }
 }

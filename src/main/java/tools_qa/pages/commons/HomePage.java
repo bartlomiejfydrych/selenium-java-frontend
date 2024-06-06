@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.base.BasePage;
 
+import java.time.Duration;
+
 public class HomePage extends BasePage {
 
     // Konstruktor
