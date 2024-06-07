@@ -8,6 +8,7 @@
 4. [Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu](#4)
 5. [Przycisk - widoczny, ale wewnątrz innego elementu](#5)
 6. [Przycisk - czy element jest klikalny](#6)
+7. [Wait - czekanie aż element będzie zawierał określony tekst](#7)
 
 ## 📄Opis
 
@@ -147,4 +148,18 @@ public boolean isElementClickable(WebElement webElement) {
 
 Test:
 assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
+```
+
+### 7. Wait - czekanie aż element będzie zawierał określony tekst <a name="7"></a>
+
+**Linki:**  
+https://www.browserstack.com/guide/wait-commands-in-selenium-webdriver
+
+Na stronie: https://demoqa.com/links  
+Podczas klikania na linki z sekcji API call test się wywalał, ponieważ napis po kliknięciu zmieniał się wolniej,
+niż leciał test. Wstępnie metoda `Thread.sleep(1000)` pomogła, ale że nie jest to zalecany sposób, użyłem czegoś innego.  
+Tzw. **ExpectedConditions** zawierają metody czekające na określone warunki dla elementu. Pełna lista w linku.  
+Poniższa metoda "czeka", aż element będzie zawierał określony przez nas tekst:
+```
+defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
 ```

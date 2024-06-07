@@ -5,7 +5,6 @@ import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.LinksPage;
 
-import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,7 +65,7 @@ public class LinksTest extends TestBase {
     }
 
     @Test
-    public void shouldOpenAllApiCallLinks() throws InterruptedException {
+    public void shouldOpenAllApiCallLinks() {
 
         //----------
         // VARIABLES
@@ -90,49 +89,46 @@ public class LinksTest extends TestBase {
                 .removeAdFrameAndFooter()
                 .goToLinksPage();
 
+        /*
+        NOTE:
+        I know these assertions are a bit weird, but I decided to use
+        "ExpectedConditions -> wait -> textToBePresentInElement"
+        instead of Thread.sleep()
+        */
+
         // Created
 
         linksPage.clickCreatedLink();
-        Thread.sleep(5000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedCreatedMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedCreatedMessage)).isEqualTo(expectedCreatedMessage);
 
         // No Content
 
         linksPage.clickNoContentLink();
-        Thread.sleep(5000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedNoContentMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedNoContentMessage)).isEqualTo(expectedNoContentMessage);
 
         // Moved
 
         linksPage.clickMovedLink();
-        Thread.sleep(5000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedMovedMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedMovedMessage)).isEqualTo(expectedMovedMessage);
 
         // Bad Request
 
         linksPage.clickBadRequestLink();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedBadRequestMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedBadRequestMessage)).isEqualTo(expectedBadRequestMessage);
 
         // Unauthorized
 
         linksPage.clickUnauthorizedLink();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedUnauthorizedMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedUnauthorizedMessage)).isEqualTo(expectedUnauthorizedMessage);
 
         // Forbidden
 
         linksPage.clickForbiddenLink();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedForbiddenMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedForbiddenMessage)).isEqualTo(expectedForbiddenMessage);
 
         // Not Found
 
         linksPage.clickNotFoundLink();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        assertThat(linksPage.getTextLinkResponseMessage()).isEqualTo(expectedNotFoundMessage);
+        assertThat(linksPage.getTextLinkResponseMessage(expectedNotFoundMessage)).isEqualTo(expectedNotFoundMessage);
     }
 }

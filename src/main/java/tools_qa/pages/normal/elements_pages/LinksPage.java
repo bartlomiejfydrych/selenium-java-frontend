@@ -76,58 +76,43 @@ public class LinksPage extends BasePage {
 
     public LinksPage clickCreatedLink() {
         createdLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickNoContentLink() {
         noContentLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickMovedLink() {
         movedLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickBadRequestLink() {
         badRequestLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickUnauthorizedLink() {
         unauthorizedLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickForbiddenLink() {
         forbiddenLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     public LinksPage clickNotFoundLink() {
         notFoundLink.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return this;
     }
 
     // Message
 
-    public String getTextLinkResponseMessage() {
-        jse.executeScript("arguments[0].scrollIntoView(true);", linkResponseMessage);
+    public String getTextLinkResponseMessage(String expectedText) {
+        defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
         return linkResponseMessage.getText();
-    }
-
-    //--------
-    // GETTERS
-    //--------
-
-    public WebElement getLinkResponseMessage() {
-        return linkResponseMessage;
     }
 }
