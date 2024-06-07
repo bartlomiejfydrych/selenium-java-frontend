@@ -92,7 +92,7 @@ public class LinksTest extends TestBase {
         /*
         NOTE:
         I know these assertions are a bit weird, but I decided to use
-        "ExpectedConditions -> wait -> textToBePresentInElement"
+        "defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));"
         instead of Thread.sleep()
         */
 
