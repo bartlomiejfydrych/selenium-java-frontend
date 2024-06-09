@@ -77,4 +77,9 @@ public class ElementsPage extends BasePage {
         linksButton.click();
         return new LinksPage(driver);
     }
+
+    public BrokenLinksImagesPage goToBrokenLinksImagesPage() {
+        brokenLinksImagesButton.click();
+        return new BrokenLinksImagesPage(driver);
+    }
 }

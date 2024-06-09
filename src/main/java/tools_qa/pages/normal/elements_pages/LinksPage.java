@@ -6,9 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class LinksPage extends BasePage {
 
