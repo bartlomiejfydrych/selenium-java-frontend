@@ -3,11 +3,13 @@ package tools_qa.pages.normal.elements_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class BrokenLinksImagesPage extends BasePage {
 
@@ -36,6 +38,8 @@ public class BrokenLinksImagesPage extends BasePage {
     // METHODS
     //--------
 
+    // Images
+
     public int getHttpStatus(WebElement webElement, String attributeName) {
         int responseCode = 0;
         try {
@@ -58,9 +62,23 @@ public class BrokenLinksImagesPage extends BasePage {
         return ((Long) jse.executeScript("return arguments[0].naturalHeight", webElement)).intValue();
     }
 
+    // Links
+
+    public BrokenLinksImagesPage clickValidLink() {
+        validLink.click();
+        return this;
+    }
+
+    public BrokenLinksImagesPage clickBrokenLink() {
+        brokenLink.click();
+        return this;
+    }
+
     //--------
     // GETTERS
     //--------
+
+    // Images
 
     public WebElement getValidImage() {
         return validImage;
@@ -68,5 +86,15 @@ public class BrokenLinksImagesPage extends BasePage {
 
     public WebElement getBrokenImage() {
         return brokenImage;
+    }
+
+    // Links
+
+    public WebElement getValidLink() {
+        return validLink;
+    }
+
+    public WebElement getBrokenLink() {
+        return brokenLink;
     }
 }

@@ -83,4 +83,70 @@ public class BrokenLinksImagesTest extends TestBase {
         assertThat(actualImageWidth).isEqualTo(expectedImageWidth);
         assertThat(actualImageHeight).isEqualTo(expectedImageHeight);
     }
+
+    @Test
+    public void shouldOpenValidLink() {
+
+        //----------
+        // VARIABLES
+        //----------
+
+        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
+        WebElement validLink = brokenLinksImagesPage.getValidLink();
+        String expectedUrl = "https://demoqa.com/";
+
+        //---------------
+        // TEST EXECUTION
+        //---------------
+
+        new HomePage(driver)
+                .goToElementsPage()
+                .removeAdFrameAndFooter()
+                .goToBrokenLinksImagesPage();
+
+        int responseCode = brokenLinksImagesPage.getHttpStatus(validLink, "href");
+
+        brokenLinksImagesPage.clickValidLink();
+        String currentUrl = driver.getCurrentUrl();
+
+        //-----------
+        // ASSERTIONS
+        //-----------
+
+        assertThat(responseCode).isEqualTo(301);
+        assertThat(currentUrl).isEqualTo(expectedUrl);
+    }
+
+    @Test
+    public void shouldOpenBrokenLink() {
+
+        //----------
+        // VARIABLES
+        //----------
+
+        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
+        WebElement brokenLink = brokenLinksImagesPage.getBrokenLink();
+        String expectedUrl = "https://the-internet.herokuapp.com/status_codes/500";
+
+        //---------------
+        // TEST EXECUTION
+        //---------------
+
+        new HomePage(driver)
+                .goToElementsPage()
+                .removeAdFrameAndFooter()
+                .goToBrokenLinksImagesPage();
+
+        int responseCode = brokenLinksImagesPage.getHttpStatus(brokenLink, "href");
+
+        brokenLinksImagesPage.clickBrokenLink();
+        String currentUrl = driver.getCurrentUrl();
+
+        //-----------
+        // ASSERTIONS
+        //-----------
+
+        assertThat(responseCode).isEqualTo(500);
+        assertThat(currentUrl).isEqualTo(expectedUrl);
+    }
 }
