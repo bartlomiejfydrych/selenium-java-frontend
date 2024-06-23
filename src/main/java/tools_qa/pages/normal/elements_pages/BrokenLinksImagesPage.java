@@ -3,13 +3,11 @@ package tools_qa.pages.normal.elements_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class BrokenLinksImagesPage extends BasePage {
 

@@ -1,6 +1,5 @@
 package tools_qa.pages.normal.elements_pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,13 +8,17 @@ import tools_qa.pages.base.BasePage;
 
 public class TextBoxPage extends BasePage {
 
-    // Konstruktor
+    //------------
+    // CONSTRUCTOR
+    //------------
 
     public TextBoxPage(WebDriver driver) {
         super(driver);
     }
 
-    // Web Elementy
+    //-------------
+    // WEB ELEMENTS
+    //-------------
 
     @FindBy(css = "#userName")
     private WebElement userNameInput;
@@ -37,7 +40,9 @@ public class TextBoxPage extends BasePage {
     @FindBy(css = "#output p#permanentAddress")
     private WebElement permanentAddressParagraph;
 
-    // Metody
+    //--------
+    // METHODS
+    //--------
 
     public TextBoxPage writeFullName(String fullName) {
         sendKeys(this.userNameInput, fullName);
@@ -60,11 +65,15 @@ public class TextBoxPage extends BasePage {
     }
 
     public TextBoxPage clickSubmit() {
-        // Reklamy na stronie zasłaniają przycisk. Przez to trzeba było użyć JavaScript
-        // Dodano do BasePage poniższą linię:
-        // JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("arguments[0].click();", this.submitButton);
         return this;
+        /*
+        Ads on the page cover the button. Because of this, you had to use JavaScript.
+        Added the following line to the BasePage:
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        In subsequent tests, I use the method that deletes the area with the advertisement and footer.
+        I left this method here so that I know that it is possible to act on occluded elements using JavaScript.
+        */
     }
 
     public String getNameParagraph() {

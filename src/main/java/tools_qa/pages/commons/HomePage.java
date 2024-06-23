@@ -3,20 +3,22 @@ package tools_qa.pages.commons;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.base.BasePage;
-
-import java.time.Duration;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 
 public class HomePage extends BasePage {
 
-    // Konstruktor
+    //------------
+    // CONSTRUCTOR
+    //------------
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    // Web Elementy
+    //-------------
+    // WEB ELEMENTS
+    //-------------
 
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Elements']")
     private WebElement elementsButton;
@@ -31,7 +33,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Book Store Application']")
     private WebElement bookStoreApplicationButton;
 
-    // Metody
+    //--------
+    // METHODS
+    //--------
 
     public ElementsPage goToElementsPage() {
         elementsButton.click();

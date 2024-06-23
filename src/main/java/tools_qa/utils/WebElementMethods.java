@@ -3,11 +3,8 @@ package tools_qa.utils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.json.JsonException;
 import tools_qa.pages.base.BasePage;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class WebElementMethods extends BasePage {
 

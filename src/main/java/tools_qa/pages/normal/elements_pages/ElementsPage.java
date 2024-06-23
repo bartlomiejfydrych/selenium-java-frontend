@@ -7,18 +7,22 @@ import tools_qa.pages.base.BasePage;
 
 public class ElementsPage extends BasePage {
 
-    // Konstruktor
+    //------------
+    // CONSTRUCTOR
+    //------------
 
     public ElementsPage(WebDriver driver) {
         super(driver);
     }
 
-    // Web Elementy
+    //-------------
+    // WEB ELEMENTS
+    //-------------
 
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Text Box']")
     private WebElement textBoxButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Check Box']")
-    private WebElement checkBoxButton;
+    private WebElement checkboxButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Radio Button']")
     private WebElement radioButtonButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Web Tables']")
@@ -40,7 +44,9 @@ public class ElementsPage extends BasePage {
     @FindBy(css = "footer")
     private WebElement footer;
 
-    // Metody
+    //--------
+    // METHODS
+    //--------
 
     public ElementsPage removeAdFrameAndFooter() {
         jse.executeScript("arguments[0].remove();", adFrame);
@@ -53,9 +59,9 @@ public class ElementsPage extends BasePage {
         return new TextBoxPage(driver);
     }
 
-    public CheckBoxPage goToCheckBoxPage() {
-        checkBoxButton.click();
-        return new CheckBoxPage(driver);
+    public CheckboxPage goToCheckboxPage() {
+        checkboxButton.click();
+        return new CheckboxPage(driver);
     }
 
     public RadioButtonPage goToRadioButtonPage() {

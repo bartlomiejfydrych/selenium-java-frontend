@@ -13,13 +13,14 @@ public class TextBoxTest extends TestBase {
     @Test
     public void shouldFillTextBoxes() {
 
-        // ----------------------
-        // Test data
-        // ----------------------
+        //----------
+        // VARIABLES
+        //----------
 
         // Init Faker
         Faker faker = new Faker();
 
+        // Generate data
         String fullName = faker.name().fullName();
         String email = faker.internet().emailAddress();
         // Current Address
@@ -45,31 +46,6 @@ public class TextBoxTest extends TestBase {
                 + permanentAddressZipCode + "\n"
                 + permanentAddressStreetName + " " + permanentAddressStreetNumber + "/" + permanentAddressBuildingNumber;
 
-        // ----------------------
-        // Test execution
-        // ----------------------
-
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToTextBoxPage()
-                .writeFullName(fullName)
-                .writeEmail(email)
-                .writeCurrentAddress(currentAddress)
-                .writePermanentAddress(permanentAddress)
-                .clickSubmit();
-
-        // ----------------------
-        // Assertion
-        // ----------------------
-
-        // Get current data
-        TextBoxPage textBoxPage = new TextBoxPage(driver);
-        String nameParagraph = textBoxPage.getNameParagraph();
-        String emailParagraph = textBoxPage.getEmailParagraph();
-        String currentAddressParagraph = textBoxPage.getCurrentAddressParagraph();
-        String permanentAddressParagraph = textBoxPage.getPermanentAddressParagraph();
-
         // Expected data
         String expectedNameParagraph = "Name:" + fullName;
         String expectedEmailParagraph = "Email:" + email;
@@ -88,7 +64,31 @@ public class TextBoxTest extends TestBase {
                 + permanentAddressStreetNumber + "/"
                 + permanentAddressBuildingNumber;
 
-        // Assert
+        //---------------
+        // TEST EXECUTION
+        //---------------
+
+        new HomePage(driver)
+                .goToElementsPage()
+                .removeAdFrameAndFooter()
+                .goToTextBoxPage()
+                .writeFullName(fullName)
+                .writeEmail(email)
+                .writeCurrentAddress(currentAddress)
+                .writePermanentAddress(permanentAddress)
+                .clickSubmit();
+
+        //-----------
+        // ASSERTIONS
+        //-----------
+
+        // Get current data
+        TextBoxPage textBoxPage = new TextBoxPage(driver);
+        String nameParagraph = textBoxPage.getNameParagraph();
+        String emailParagraph = textBoxPage.getEmailParagraph();
+        String currentAddressParagraph = textBoxPage.getCurrentAddressParagraph();
+        String permanentAddressParagraph = textBoxPage.getPermanentAddressParagraph();
+
         assertThat(nameParagraph).isEqualTo(expectedNameParagraph);
         assertThat(emailParagraph).isEqualTo(expectedEmailParagraph);
         assertThat(currentAddressParagraph).isEqualTo(expectedCurrentAddressParagraph);

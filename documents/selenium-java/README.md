@@ -97,6 +97,10 @@ TODO
 
 `Ctrl + Alt + L`
 
+### Optymalizacja importów
+
+`Ctrl + Alt + O`
+
 ### Komentarz liniowy kodu
 
 `Ctrl + / (slash)`

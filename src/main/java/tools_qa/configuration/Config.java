@@ -9,9 +9,15 @@ import java.util.Properties;
 public class Config {
     private static Properties properties;
 
-    // Metoda wczytująca plik konfiguracyjny
-    // Mechanizm, który zapewni, że plik z config.properties będzie wczytany tylko raz i później re-używany
-    // do wszystkich metod, które pobierają informacje z tego pliku konfiguracyjnego
+    //---------------------------------------
+    // Method that loads a configuration file
+    //---------------------------------------
+
+    /*
+    NOTE FOR ME:
+    Mechanizm, który zapewni, że plik z config.properties będzie wczytany tylko raz i później re-używany
+    do wszystkich metod, które pobierają informacje z tego pliku konfiguracyjnego.
+    */
 
     static {
         properties = new Properties();
@@ -26,7 +32,9 @@ public class Config {
         }
     }
 
-    // Metody pobierające dane z pliku konfiguracyjnego
+    //-------------------------------------------------------
+    // Methods that retrieve data from the configuration file
+    //-------------------------------------------------------
 
     public static Browser getBrowser() {
         return Browser.valueOf(properties.getProperty("browser").trim().toUpperCase());

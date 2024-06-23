@@ -7,13 +7,17 @@ import tools_qa.pages.base.BasePage;
 
 public class RadioButtonPage extends BasePage {
 
-    // Konstruktor
+    //------------
+    // CONSTRUCTOR
+    //------------
 
     public RadioButtonPage(WebDriver driver) {
         super(driver);
     }
 
-    // Web Elementy
+    //-------------
+    // WEB ELEMENTS
+    //-------------
 
     @FindBy(css = "#yesRadio")
     private WebElement yesRadioButton;
@@ -24,7 +28,9 @@ public class RadioButtonPage extends BasePage {
     @FindBy(css = "span.text-success")
     private WebElement confirmationText;
 
-    // Metody
+    //--------
+    // METHODS
+    //--------
 
     public RadioButtonPage clickYesRadioButton() {
         actions.moveToElement(this.yesRadioButton).click().perform();
@@ -45,7 +51,9 @@ public class RadioButtonPage extends BasePage {
         return confirmationText.getText();
     }
 
-    // Gettery dla asercji
+    //--------
+    // GETTERS
+    //--------
 
     public WebElement getYesRadioButton() {
         return yesRadioButton;

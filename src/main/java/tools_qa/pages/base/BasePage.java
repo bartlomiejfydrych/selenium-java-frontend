@@ -19,7 +19,9 @@ public abstract class BasePage {
     protected WebDriverWait defaultWait;
     protected JavascriptExecutor jse;
 
-    // Konfiguracja WebDrivera
+    //------------------------
+    // WebDriver configuration
+    //------------------------
 
     private void initDriver(WebDriver driver) {
         this.driver = driver;
@@ -28,7 +30,9 @@ public abstract class BasePage {
         jse = (JavascriptExecutor)driver;
     }
 
-    // Konstruktor/Konstruktory klasy
+    //-------------------
+    // Class constructors
+    //-------------------
 
     public BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -40,7 +44,9 @@ public abstract class BasePage {
         initDriver(driver);
     }
 
-    // Nadpisanie metod na metody logujące akcje
+    //-----------------------------------------------
+    // Overriding methods with action logging methods
+    //-----------------------------------------------
 
     protected void click(WebElement element) {
         System.out.println("Clicking on: " + element.getText().replace("\r\n", " "));
@@ -58,9 +64,16 @@ public abstract class BasePage {
         sendKeys(element, textToSend);
     }
 
-    // Metoda/Typy generyczne
-    // To jest metoda generyczna. Przyjmuje listę dowolnych obiektów i zwraca jeden z nich
-    // Typy generyczne <T> - https://www.youtube.com/watch?v=K1iu1kXkVoA
+    //-----------------------
+    // Method / Generic Types
+    //-----------------------
+
+    /*
+    NOTES FOR ME:
+    To jest metoda generyczna. Przyjmuje listę dowolnych obiektów i zwraca jeden z nich.
+    Typy generyczne <T> - https://www.youtube.com/watch?v=K1iu1kXkVoA
+    TODO: Zapoznać się kiedyś dokładniej z tym tematem
+    */
 
     public <T> T getRandomElement(List<T> list) {
         return list.get(new Random().nextInt(list.size()));

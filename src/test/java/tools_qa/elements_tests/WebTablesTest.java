@@ -89,9 +89,9 @@ public class WebTablesTest extends TestBase {
     @Test
     public void shouldPaginationWork() {
 
-        //-------------
-        // PREPARATIONS
-        //-------------
+        //----------
+        // VARIABLES
+        //----------
 
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow tableRow1 = TableRowProvider.getRandomTableRow();
