@@ -88,4 +88,9 @@ public class ElementsPage extends BasePage {
         brokenLinksImagesButton.click();
         return new BrokenLinksImagesPage(driver);
     }
+
+    public UploadAndDownloadPage goToUploadAndDownloadPage() {
+        uploadAndDownloadButton.click();
+        return new UploadAndDownloadPage(driver);
+    }
 }
