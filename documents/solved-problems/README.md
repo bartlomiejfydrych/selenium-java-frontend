@@ -9,6 +9,8 @@
 5. [Przycisk - widoczny, ale wewnątrz innego elementu](#5)
 6. [Przycisk - czy element jest klikalny](#6)
 7. [Wait - czekanie aż element będzie zawierał określony tekst](#7)
+8. [Uszkodzony obrazek / Zepsuty link](#8)
+9. [Obrazek - wymiary](#9)
 
 ## 📄Opis
 
@@ -57,6 +59,8 @@ JavascriptExecutor jse = (JavascriptExecutor)driver;
 jse.executeScript("arguments[0].click();", this.submitButton);
 ```
 
+---
+
 ### 2. Przyciski zasłonięte przez reklamę - usunięcie elementu strony <a name="2"></a>
 
 **Linki:**  
@@ -68,6 +72,8 @@ przyciski na każdej pod-stronie. Samo omijanie tego tak jak to zrobiono w punkc
 Postanowiłem usuwać tego DIV'a przy każdym wejściu na tę stronę.  
 Użyłem poniższego kodu:  
 `jse.executeScript("arguments[0].remove();", adFrame);`
+
+---
 
 ### 3. Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="3"></a>
 
@@ -90,6 +96,8 @@ public WebElement getAssertHomeCheckBox() {
 Klasa z testem:
 assertThat(checkBoxPage.getAssertHomeCheckBox().isSelected()).isTrue();
 ```
+
+---
 
 ### 4. Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu <a name="4"></a>
 
@@ -117,6 +125,8 @@ Asercja w teście:
 assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
 ```
 
+---
+
 ### 5. Przycisk - widoczny, ale wewnątrz innego elementu <a name="5"></a>
 
 **Linki:**
@@ -130,6 +140,8 @@ public RadioButtonPage clickYesRadioButton() {
     return this;
 }
 ```
+
+---
 
 ### 6. Przycisk - czy element jest klikalny <a name="6"></a>
 
@@ -150,6 +162,8 @@ Test:
 assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
 ```
 
+---
+
 ### 7. Wait - czekanie aż element będzie zawierał określony tekst <a name="7"></a>
 
 **Linki:**  
@@ -163,3 +177,57 @@ Poniższa metoda "czeka", aż element będzie zawierał określony przez nas tek
 ```
 defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
 ```
+
+---
+
+### 8. Uszkodzony obrazek / Zepsuty link <a name="8"></a>
+
+W Selenium nie da się za bardzo sprawdzać, czy dany obrazek lub link jest zepsuty.  
+W rozwiązaniu tego problemu pomogła poniższa metoda:
+```
+public int getHttpStatus(WebElement webElement, String attributeName) {
+    int responseCode = 0;
+    try {
+        String elementUrl = webElement.getAttribute(attributeName);
+        URL url = new URI(elementUrl).toURL();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("HEAD");
+        responseCode = connection.getResponseCode();
+    } catch (Exception e) {
+        System.out.println("An error occurred while retrieving the HTTP status of Web Element");
+    }
+    return responseCode;
+}
+```
+Łączy się przez adres URL danego elementu i zwraca jego status code, który w teście możemy porównać z oczekiwanym.  
+Przykład użycia w teście:
+```
+int responseCode = brokenLinksImagesPage.getHttpStatus(brokenImage, "src");
+assertThat(responseCode).isEqualTo(200);
+```
+
+---
+
+### 9. Obrazek - wymiary <a name="9"></a>
+
+Żeby pobrać wymiary obrazka, trzeba użyć JavascriptExecutor:
+```
+public int getImageWidth(WebElement webElement) {
+    return ((Long) jse.executeScript("return arguments[0].naturalWidth;", webElement)).intValue();
+}
+
+public int getImageHeight(WebElement webElement) {
+    return ((Long) jse.executeScript("return arguments[0].naturalHeight", webElement)).intValue();
+}
+```
+Użycie w teście:
+```
+int actualImageWidth = brokenLinksImagesPage.getImageWidth(brokenImage);
+int actualImageHeight = brokenLinksImagesPage.getImageHeight(brokenImage);
+
+assertThat(actualImageWidth).isEqualTo(expectedImageWidth);
+assertThat(actualImageHeight).isEqualTo(expectedImageHeight);
+```
+
+---
+
