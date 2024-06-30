@@ -63,15 +63,7 @@ Jeżeli później będziemy używać jakichś załączników to również w kata
 
 ## 📖Kod i zależności - wyjaśnienie działania
 
-### config.properties
-
-TODO
-
 ### enums
-
-TODO
-
-### Config
 
 TODO
 
