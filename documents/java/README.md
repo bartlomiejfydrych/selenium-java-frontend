@@ -35,7 +35,7 @@ parametrów konfiguracyjnych lub gdy proces tworzenia obiektu jest złożony.
    - Można też tworzyć coś pobierając dane z bazy danych
 6. W klasie `Page` pod którą robimy dany builder tworzymy metody uzupełniające pola
 7. Następnie tworzymy metodę, która ma wypełnić cały formularz używając stworzonych metod wraz z naszym modelem
-    ```
+    ```Java
     public WebTablesPage fillRowForm(TableRow tableRow) {
             writeFirstName(tableRow.getFirstName());
             writeLastName(tableRow.getLastName());
@@ -48,7 +48,7 @@ parametrów konfiguracyjnych lub gdy proces tworzenia obiektu jest złożony.
         }
     ```
 8. W teście tworzymy obiekt z metody, która generuje dla niego dane za pomocą Fakera i używamy jako argument
-   ```
+   ```Java
    TableRow addedTableRow = TableRowProvider.getRandomTableRow();
    webTablesPage.fillRowForm(editedTableRow);
    ```
@@ -76,7 +76,7 @@ dostępowe takie jak loginy i hasła, aby nie pojawiły się na repozytorium pro
 
 **config.properties - Tworzenie pliku**  
 W katalogu `resources` tworzymy plik o nazwie `config.properties`, którego zawartość może wyglądać tak:
-```
+```Java
 browser=chrome
 isHeadless=false
 appUrl=https://demoqa.com
@@ -86,12 +86,12 @@ defaultWait=10
 **Config.java - Klasa czytająca dane z pliku**  
 W `java` dodajemy katalog `configuration`, a w nim tworzymy klasę `Config.java`.  
 Deklarujemy w nim obiekt klasy `Properties`:
-```
+```Java
 private static Properties properties;
 ```
 Następnie piszemy mechanizm, który zapewni, że plik z config.properties będzie wczytany tylko raz i później re-używany
 do wszystkich metod, które pobierają informacje z tego pliku konfiguracyjnego:
-```
+```Java
 static {
     properties = new Properties();
     try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("tools_qa/config.properties")) {
@@ -106,7 +106,7 @@ static {
 }
 ```
 Następnie metody pobierające konkretne dane z pliku konfiguracyjnego:
-```
+```Java
 public static Browser getBrowser() {
     return Browser.valueOf(properties.getProperty("browser").trim().toUpperCase());
 }
@@ -125,7 +125,7 @@ public static int getDefaultWait() {
 ```
 
 **Przykład użycia danych**  
-```
+```Java
 public class TestBase {
 
     @BeforeEach

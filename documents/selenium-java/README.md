@@ -133,7 +133,7 @@ Sterownik jest specyficzny dla przeglądarki, np. ChromeDriver dla przeglądarki
 #### Przykładowe zastosowanie WebDriver
 
 Oto prosty przykład w języku Java, pokazujący, jak można użyć WebDriver do automatycznego otwarcia strony internetowej, wyszukania czegoś w Google i wyświetlenia wyników:
-```
+```Java
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -174,13 +174,17 @@ W języku C# i wychodzi na to, że w języku Java też jest tak, że:
 
 ### Xpath - znajdowanie po tekście
 
-Element "zawiera" fragment tekstu:  
-`@FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")`  
-`private WebElement alertsFrameWindowsButton;`
+Element "zawiera" fragment tekstu:
+```Java
+@FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")  
+private WebElement alertsFrameWindowsButton;
+```
 
-Element ma dokładnie taki tekst:  
-`@FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Links']")`  
-`private WebElement linksButton;`
+Element ma dokładnie taki tekst:
+```Java
+@FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Links']")  
+private WebElement linksButton;
+```
 
 ## ☕Java
 

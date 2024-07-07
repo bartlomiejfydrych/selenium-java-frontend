@@ -38,23 +38,25 @@ niżej, po czym moglibyśmy kliknąć odsłonięty przycisk.
 
 Próba 1 - użycie 'actions'
 
-```
+```Java
 actions.moveToElement(this.submitButton).click().perform();
 lub
 actions.scrollToElement(this.submitButton).click().perform();
 ```
 
 Próba 2 - dodanie zwykłego wait'a
-
-`driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));`
+```Java
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+```
 
 Próba 3 - napisanie wait'a, który czeka aż element będzie klikalny
-
-`defaultWait.until(ExpectedConditions.elementToBeClickable(this.submitButton)).click();`
+```Java
+defaultWait.until(ExpectedConditions.elementToBeClickable(this.submitButton)).click();
+```
 
 Próba 4 - użycie JavaScript
 
-```
+```Java
 JavascriptExecutor jse = (JavascriptExecutor)driver;
 jse.executeScript("arguments[0].click();", this.submitButton);
 ```
@@ -71,7 +73,9 @@ przyciski na każdej pod-stronie. Samo omijanie tego tak jak to zrobiono w punkc
 ![](images/2_usuniecie_elementu.png)
 Postanowiłem usuwać tego DIV'a przy każdym wejściu na tę stronę.  
 Użyłem poniższego kodu:  
-`jse.executeScript("arguments[0].remove();", adFrame);`
+```Java
+jse.executeScript("arguments[0].remove();", adFrame);
+```
 
 ---
 
@@ -84,7 +88,7 @@ Pisząc testy, trzymałem się założenia, że asercje powinny być w testach, 
 Gdy chciałem w teście sprawdzić stan danego WebElementu to nie mogłem tego zrobić, ponieważ w klasie Page został on
 zadeklarowany jako prywatny.  
 Rozwiązaniem tego okazało się napisanie Gettera:
-```
+```Java
 Klasa z Page:
 @FindBy(css = "label[for='tree-node-home'] input")
 private WebElement assertHomeCheckBox;
@@ -107,7 +111,7 @@ https://stackoverflow.com/a/62684271
 W teście chciałem sprawdzić czy dany element nie jest już widoczny.  
 Asercja, która to miała sprawdzać, zwracała błąd, ponieważ już na początkowym etapie WebElement nie był odnajdywany.  
 Rozwiązaniem tego było napisanie takiej, ogólnodostępnej funkcji:
-```
+```Java
 public class WebElementMethods {
 
     public boolean isElementPresent(WebElement webElement) {
@@ -134,7 +138,7 @@ https://stackoverflow.com/a/19763087
 
 ![](images/5_przycisk_zasloniety_widoczny.png)
 Jeżeli przycisk jest **widoczny** na stronie, ale znajduje się wewnątrz innego elementu to można użyć `Actions`:
-```
+```Java
 public RadioButtonPage clickYesRadioButton() {
     actions.moveToElement(this.yesRadioButton).click().perform();
     return this;
@@ -148,7 +152,7 @@ public RadioButtonPage clickYesRadioButton() {
 ![](images/6_przycisk_klikalny.png)
 Przy próbie kliknięcia przycisku, który nie jest klikalny, zwracany jest błąd.  
 Żeby takie coś sprawdzać, warto napisać i stosować poniższą metodę:
-```
+```Java
 public boolean isElementClickable(WebElement webElement) {
     try {
         actions.moveToElement(webElement).click().perform();
@@ -174,7 +178,7 @@ Podczas klikania na linki z sekcji API call test się wywalał, ponieważ napis 
 niż leciał test. Wstępnie metoda `Thread.sleep(1000)` pomogła, ale że nie jest to zalecany sposób, użyłem czegoś innego.  
 Tzw. **ExpectedConditions** zawierają metody czekające na określone warunki dla elementu. Pełna lista w linku.  
 Poniższa metoda "czeka", aż element będzie zawierał określony przez nas tekst:
-```
+```Java
 defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
 ```
 
@@ -184,7 +188,7 @@ defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessag
 
 W Selenium nie da się za bardzo sprawdzać, czy dany obrazek lub link jest zepsuty.  
 W rozwiązaniu tego problemu pomogła poniższa metoda:
-```
+```Java
 public int getHttpStatus(WebElement webElement, String attributeName) {
     int responseCode = 0;
     try {
@@ -201,7 +205,7 @@ public int getHttpStatus(WebElement webElement, String attributeName) {
 ```
 Łączy się przez adres URL danego elementu i zwraca jego status code, który w teście możemy porównać z oczekiwanym.  
 Przykład użycia w teście:
-```
+```Java
 int responseCode = brokenLinksImagesPage.getHttpStatus(brokenImage, "src");
 assertThat(responseCode).isEqualTo(200);
 ```
@@ -211,7 +215,7 @@ assertThat(responseCode).isEqualTo(200);
 ### 9. Obrazek - wymiary <a name="9"></a>
 
 Żeby pobrać wymiary obrazka, trzeba użyć JavascriptExecutor:
-```
+```Java
 public int getImageWidth(WebElement webElement) {
     return ((Long) jse.executeScript("return arguments[0].naturalWidth;", webElement)).intValue();
 }
@@ -221,7 +225,7 @@ public int getImageHeight(WebElement webElement) {
 }
 ```
 Użycie w teście:
-```
+```Java
 int actualImageWidth = brokenLinksImagesPage.getImageWidth(brokenImage);
 int actualImageHeight = brokenLinksImagesPage.getImageHeight(brokenImage);
 

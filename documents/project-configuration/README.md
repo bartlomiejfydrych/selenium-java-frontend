@@ -125,7 +125,7 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 ### Ustawianie zmiennych dla numerów wersji
 
 1. W sekcji z `<properties>` dodajemy coś zgodnie z poniższym przykładem:  
-    ```
+    ```Java
     <properties>
         <<u góry jakieś rzeczy od Mavena, które były już w pliku>>
         
@@ -138,7 +138,7 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 2. `<selenium.version>` to nazwa naszej zmiennej.  
 3. Podstawiamy ją w naszym `dependency` w miejscu numeru wersji jako `${selenium.version}`:  
     Przed: 
-    ```
+    ```Java
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
@@ -146,7 +146,7 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
     </dependency>
     ```
     Po:  
-    ```
+    ```Java
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
