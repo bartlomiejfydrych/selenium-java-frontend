@@ -4,6 +4,8 @@
 
 - [Wzorzec Arrange-Act-Assert](#AAA)
 
+---
+
 ## Wzorzec Arrange-Act-Assert <a name="AAA"></a>
 
 **Linki:**  

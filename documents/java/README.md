@@ -1,15 +1,16 @@
-# ☕Java - notatki
+# ☕Java — notatki
 
 ## 📑Spis
 
-1. [Builder](#1)
-2. [Plik konfiguracyjny - config.properties](#2)
+- [Builder](#builder)
+- [Plik konfiguracyjny — config.properties](#config)
+- [Enum](#enum)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
-## 📄Opis
+---
 
-### 1. Builder <a name="1"></a>
+## Builder <a name="builder"></a>
 
 **Linki:** (więcej szukać pod hasłem `java builder`)  
 https://devcave.pl/effective-java/wzorzec-projektowy-builder
@@ -61,7 +62,7 @@ Przykładowy kod jest w linku lub zastosowany tutaj:
 
 ---
 
-### 2. Plik konfiguracyjny - config.properties <a name="2"></a>
+## Plik konfiguracyjny — config.properties <a name="config"></a>
 
 **Linki:**  
 https://www.baeldung.com/java-properties  
@@ -164,3 +165,108 @@ public abstract class BasePage {
     private void initDriver(WebDriver driver) {
         defaultWait = new WebDriverWait(driver, Duration.ofSeconds(Config.getDefaultWait()));
 ```
+
+## Enum <a name="enum"></a>
+
+**Enum** w Javie to specjalny typ danych, który pozwala na definiowanie zbioru stałych wartości (enumeracji). Każda
+z tych stałych jest unikalną instancją typu wyliczeniowego. Enumy są szczególnie przydatne, gdy chcemy ograniczyć
+możliwe wartości dla zmiennej do skończonego zbioru.
+
+### Charakterystyka enumów
+
+1. **Zdefiniowany zbiór wartości:** Enumy definiują zamknięty zbiór wartości, co pozwala na ograniczenie zakresu
+możliwych wartości, jakie może przyjąć zmienna.
+2. **Typ bezpieczny:** Enumy są typami bezpiecznymi w czasie kompilacji. Oznacza to, że kompilator sprawdza, czy
+zmienne są przypisane do jednej z wartości enumu.
+3. **Możliwość dodawania metod:** Enumy w Javie mogą zawierać metody, co umożliwia dodawanie zachowań specyficznych
+dla poszczególnych wartości enumu.
+4. **Możliwość implementacji interfejsów:** Enumy mogą implementować interfejsy, co pozwala na ich integrację
+w szerszych strukturach kodu.
+
+### Definiowanie i używanie enumów
+
+Oto przykład definicji enumu w Javie:
+```Java
+public enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+```
+
+### Użycie enumu
+
+```Java
+public class Main {
+    public static void main(String[] args) {
+        Day today = Day.MONDAY;
+
+        switch (today) {
+            case MONDAY:
+                System.out.println("Today is Monday.");
+                break;
+            case TUESDAY:
+                System.out.println("Today is Tuesday.");
+                break;
+            // Dodaj pozostałe dni tygodnia
+            default:
+                System.out.println("Today is another day.");
+                break;
+        }
+    }
+}
+```
+
+### Enumy z polami i metodami
+
+Enumy mogą mieć własne pola, konstruktory i metody. Oto bardziej zaawansowany przykład:
+```Java
+public enum Planet {
+    MERCURY(3.303e+23, 2.4397e6),
+    VENUS(4.869e+24, 6.0518e6),
+    EARTH(5.976e+24, 6.37814e6),
+    MARS(6.421e+23, 3.3972e6),
+    JUPITER(1.9e+27, 7.1492e7),
+    SATURN(5.688e+26, 6.0268e7),
+    URANUS(8.686e+25, 2.5559e7),
+    NEPTUNE(1.024e+26, 2.4746e7);
+
+    private final double mass;   // w kilogramach
+    private final double radius; // w metrach
+
+    Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    // Uniwersalna stała grawitacyjna w m^3 / kg s^2
+    public static final double G = 6.67300E-11;
+
+    // Powierzchniowa grawitacja dla planety
+    public double surfaceGravity() {
+        return G * mass / (radius * radius);
+    }
+
+    // Waga na planecie
+    public double surfaceWeight(double otherMass) {
+        return otherMass * surfaceGravity();
+    }
+
+    public static void main(String[] args) {
+        double earthWeight = 175;
+        double mass = earthWeight / EARTH.surfaceGravity();
+        for (Planet p : Planet.values()) {
+            System.out.printf("Your weight on %s is %f%n", p, p.surfaceWeight(mass));
+        }
+    }
+}
+```
+
+W powyższym przykładzie enum `Planet` zawiera pola `mass` i `radius`, które są inicjalizowane w konstruktorze. Posiada
+również metody do obliczania powierzchniowej grawitacji i wagi na poszczególnych planetach.
