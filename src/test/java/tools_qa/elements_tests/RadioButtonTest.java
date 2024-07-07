@@ -14,16 +14,16 @@ public class RadioButtonTest extends TestBase {
     @Test
     public void shouldCheckYesRadioButton() {
 
-        //----------
-        // VARIABLES
-        //----------
+        //--------
+        // ARRANGE
+        //--------
 
         RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         String expectedText = "Yes";
 
-        //---------------
-        // TEST EXECUTION
-        //---------------
+        //----
+        // ACT
+        //----
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -31,9 +31,9 @@ public class RadioButtonTest extends TestBase {
                 .goToRadioButtonPage()
                 .clickYesRadioButton();
 
-        //-----------
-        // ASSERTIONS
-        //-----------
+        //-------
+        // ASSERT
+        //-------
 
         String actualText = radioButtonPage.getConfirmationText();
 
@@ -44,16 +44,16 @@ public class RadioButtonTest extends TestBase {
     @Test
     public void shouldCheckImpressiveRadioButton() {
 
-        //----------
-        // VARIABLES
-        //----------
+        //--------
+        // ARRANGE
+        //--------
 
         RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         String expectedText = "Impressive";
 
-        //---------------
-        // TEST EXECUTION
-        //---------------
+        //----
+        // ACT
+        //----
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -61,9 +61,9 @@ public class RadioButtonTest extends TestBase {
                 .goToRadioButtonPage()
                 .clickImpressiveRadioButton();
 
-        //-----------
-        // ASSERTIONS
-        //-----------
+        //-------
+        // ASSERT
+        //-------
 
         String actualText = radioButtonPage.getConfirmationText();
 
@@ -74,26 +74,26 @@ public class RadioButtonTest extends TestBase {
     @Test
     public void shouldNotCheckNoRadioButton() {
 
-        //----------
-        // VARIABLES
-        //----------
+        //--------
+        // ARRANGE
+        //--------
 
         RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         WebElement noRadioButton = radioButtonPage.getNoRadioButton();
         WebElementMethods webElementMethods = new WebElementMethods(driver);
 
-        //---------------
-        // TEST EXECUTION
-        //---------------
+        //----
+        // ACT
+        //----
 
         new HomePage(driver)
                 .goToElementsPage()
                 .removeAdFrameAndFooter()
                 .goToRadioButtonPage();
 
-        //-----------
-        // ASSERTIONS
-        //-----------
+        //-------
+        // ASSERT
+        //-------
 
         assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
     }

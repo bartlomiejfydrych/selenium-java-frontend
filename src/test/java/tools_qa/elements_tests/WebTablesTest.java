@@ -89,18 +89,18 @@ public class WebTablesTest extends TestBase {
     @Test
     public void shouldPaginationWork() {
 
-        //----------
-        // VARIABLES
-        //----------
+        //--------
+        // ARRANGE
+        //--------
 
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow tableRow1 = TableRowProvider.getRandomTableRow();
         TableRow tableRow2 = TableRowProvider.getRandomTableRow();
         TableRow tableRow3 = TableRowProvider.getRandomTableRow();
 
-        //---------------
-        // TEST EXECUTION
-        //---------------
+        //----
+        // ACT
+        //----
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -115,9 +115,9 @@ public class WebTablesTest extends TestBase {
                 .selectRowsPerPage("5")
                 .clickNextPageButton();
 
-        //-----------
-        // ASSERTIONS
-        //-----------
+        //-------
+        // ASSERT
+        //-------
 
         List<WebElement> firstRowCells = webTablesPage.getFirstRowCells();
 

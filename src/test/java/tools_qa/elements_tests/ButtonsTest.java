@@ -12,18 +12,18 @@ public class ButtonsTest extends TestBase {
     @Test
     public void shouldCorrectClickAllButtonTypes() {
 
-        //----------
-        // VARIABLES
-        //----------
+        //--------
+        // ARRANGE
+        //--------
 
         ButtonsPage buttonsPage = new ButtonsPage(driver);
         String expectedDoubleClickMessage = "You have done a double click";
         String expectedRightClickMessage = "You have done a right click";
         String expectedClickMessage = "You have done a dynamic click";
 
-        //---------------
-        // TEST EXECUTION
-        //---------------
+        //----
+        // ACT
+        //----
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -33,9 +33,9 @@ public class ButtonsTest extends TestBase {
                 .clickRightClickMeButton()
                 .clickClickMeButton();
 
-        //-----------
-        // ASSERTIONS
-        //-----------
+        //-------
+        // ASSERT
+        //-------
 
         assertThat(buttonsPage.getDoubleClickMessage().isDisplayed()).isTrue();
         assertThat(buttonsPage.getDoubleClickMessage().getText()).isEqualTo(expectedDoubleClickMessage);
