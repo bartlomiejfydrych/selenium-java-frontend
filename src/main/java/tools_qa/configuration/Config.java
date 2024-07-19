@@ -52,4 +52,8 @@ public class Config {
     public static int getDefaultWait() {
         return Integer.parseInt(properties.getProperty("defaultWait"));
     }
+
+    public static String getDownloadFilePath() {
+        return properties.getProperty("downloadFilePath");
+    }
 }

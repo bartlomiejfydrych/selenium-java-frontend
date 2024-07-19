@@ -12,7 +12,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
-        driver = DriverProvider.getDriver(Config.getBrowser());
+        driver = DriverProvider.getDriver(Config.getBrowser(), Config.getDownloadFilePath());
         driver.get(UrlProvider.homePage);
     }
 

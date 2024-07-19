@@ -9,9 +9,12 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import tools_qa.configuration.Config;
 import tools_qa.enums.Browser;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DriverProvider {
 
-    public static WebDriver getDriver(Browser browser) {
+    public static WebDriver getDriver(Browser browser, String downloadFilePath) {
         switch (browser) {
             case CHROME -> {
                 ChromeOptions options = new ChromeOptions();
@@ -20,6 +23,13 @@ public class DriverProvider {
                 if (Config.isHeadless()) {
                     options.addArguments("--headless");
                 }
+
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("download.default_directory", downloadFilePath);
+                prefs.put("download.prompt_for_download", false);
+                // To disable Chrome PDF viewer we should write this:
+                // prefs.put("plugins.always_open_pdf_externally", true);
+                options.setExperimentalOption("prefs", prefs);
 
                 return new ChromeDriver(options);
             }
