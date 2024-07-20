@@ -13,18 +13,18 @@ public class BrokenLinksImagesTest extends TestBase {
     @Test
     public void shouldValidImageLoadAndHaveCorrectWidthAndHeight() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement validImage = brokenLinksImagesPage.getValidImage();
         int expectedImageWidth = 347;
         int expectedImageHeight = 100;
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -35,9 +35,9 @@ public class BrokenLinksImagesTest extends TestBase {
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(validImage);
         int actualImageHeight = brokenLinksImagesPage.getImageHeight(validImage);
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(responseCode).isEqualTo(200);
         assertThat(actualImageWidth).isEqualTo(expectedImageWidth);
@@ -47,18 +47,18 @@ public class BrokenLinksImagesTest extends TestBase {
     @Test
     public void shouldBrokenImageNotBeDisplayed() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement brokenImage = brokenLinksImagesPage.getBrokenImage();
         int expectedImageWidth = 0;
         int expectedImageHeight = 0;
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -69,9 +69,9 @@ public class BrokenLinksImagesTest extends TestBase {
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(brokenImage);
         int actualImageHeight = brokenLinksImagesPage.getImageHeight(brokenImage);
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         /*
         NOTE:
@@ -87,17 +87,17 @@ public class BrokenLinksImagesTest extends TestBase {
     @Test
     public void shouldOpenValidLink() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement validLink = brokenLinksImagesPage.getValidLink();
         String expectedUrl = "https://demoqa.com/";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -109,9 +109,9 @@ public class BrokenLinksImagesTest extends TestBase {
         brokenLinksImagesPage.clickValidLink();
         String currentUrl = driver.getCurrentUrl();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(responseCode).isEqualTo(301);
         assertThat(currentUrl).isEqualTo(expectedUrl);
@@ -120,17 +120,17 @@ public class BrokenLinksImagesTest extends TestBase {
     @Test
     public void shouldOpenBrokenLink() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement brokenLink = brokenLinksImagesPage.getBrokenLink();
         String expectedUrl = "https://the-internet.herokuapp.com/status_codes/500";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -142,9 +142,9 @@ public class BrokenLinksImagesTest extends TestBase {
         brokenLinksImagesPage.clickBrokenLink();
         String currentUrl = driver.getCurrentUrl();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(responseCode).isEqualTo(500);
         assertThat(currentUrl).isEqualTo(expectedUrl);

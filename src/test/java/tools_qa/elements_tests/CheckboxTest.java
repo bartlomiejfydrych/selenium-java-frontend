@@ -14,9 +14,9 @@ public class CheckboxTest extends TestBase {
     @Test
     public void shouldExpandAllAndCheckAllCheckboxes() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         CheckboxPage checkboxPage = new CheckboxPage(driver);
         String expectedResultField = "You have selected :\n" +
@@ -38,9 +38,9 @@ public class CheckboxTest extends TestBase {
                 "wordFile\n" +
                 "excelFile";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -49,9 +49,9 @@ public class CheckboxTest extends TestBase {
                 .clickExpandAll()
                 .clickHomeCheckbox();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(checkboxPage.getAssertHomeCheckbox().isSelected()).isTrue();
         assertThat(checkboxPage.getAssertDesktopCheckbox().isSelected()).isTrue();
@@ -78,17 +78,17 @@ public class CheckboxTest extends TestBase {
     @Test
     public void shouldCollapseAll() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         CheckboxPage checkboxPage = new CheckboxPage(driver);
         WebElement desktopCheckBox = checkboxPage.getDesktopCheckbox();
         WebElementMethods webElementMethods = new WebElementMethods(driver);
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -97,9 +97,9 @@ public class CheckboxTest extends TestBase {
                 .clickExpandAll()
                 .clickCollapseAll();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
     }
@@ -107,9 +107,9 @@ public class CheckboxTest extends TestBase {
     @Test
     public void shouldUncheckSomeCheckboxes() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         CheckboxPage checkboxPage = new CheckboxPage(driver);
         String expectedResultField = "You have selected :\n" +
@@ -123,9 +123,9 @@ public class CheckboxTest extends TestBase {
                 "general\n" +
                 "wordFile";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -136,9 +136,9 @@ public class CheckboxTest extends TestBase {
                 .clickWorkSpaceCheckbox()
                 .clickExcelFileCheckbox();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         /*
         Checkboxes whose selection changed to [-] had to be commented out.

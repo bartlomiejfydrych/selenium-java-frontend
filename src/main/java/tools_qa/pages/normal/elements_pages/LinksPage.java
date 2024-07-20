@@ -10,17 +10,17 @@ import java.util.ArrayList;
 
 public class LinksPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public LinksPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     // Links - new tab
     @FindBy(css = "#simpleLink")
@@ -46,9 +46,9 @@ public class LinksPage extends BasePage {
     @FindBy(css = "p#linkResponse")
     private WebElement linkResponseMessage;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     // Links - new tab
 

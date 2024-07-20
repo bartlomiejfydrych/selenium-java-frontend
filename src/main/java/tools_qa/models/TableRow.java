@@ -42,6 +42,10 @@ public class TableRow {
         return department;
     }
 
+    // -------
+    // BUILDER
+    // -------
+
     public static final class TableRowBuilder {
 
         private String firstName;

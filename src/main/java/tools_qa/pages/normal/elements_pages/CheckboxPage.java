@@ -7,17 +7,17 @@ import tools_qa.pages.base.BasePage;
 
 public class CheckboxPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public CheckboxPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(css = "button[title='Expand all']")
     private WebElement plusExpandAllButton;
@@ -70,9 +70,9 @@ public class CheckboxPage extends BasePage {
     @FindBy(css = "label[for='tree-node-excelFile'] input")
     private WebElement assertExcelFileCheckbox;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     public CheckboxPage clickExpandAll() {
         click(this.plusExpandAllButton);
@@ -105,9 +105,9 @@ public class CheckboxPage extends BasePage {
         return this;
     }
 
-    //--------
+    // -------
     // GETTERS
-    //--------
+    // -------
 
     // Checkboxes
 

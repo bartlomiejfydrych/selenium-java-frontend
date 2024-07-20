@@ -13,9 +13,9 @@ public class TextBoxTest extends TestBase {
     @Test
     public void shouldFillTextBoxes() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         // Init Faker
         Faker faker = new Faker();
@@ -64,9 +64,9 @@ public class TextBoxTest extends TestBase {
                 + permanentAddressStreetNumber + "/"
                 + permanentAddressBuildingNumber;
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -78,9 +78,9 @@ public class TextBoxTest extends TestBase {
                 .writePermanentAddress(permanentAddress)
                 .clickSubmit();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         // Get current data
         TextBoxPage textBoxPage = new TextBoxPage(driver);

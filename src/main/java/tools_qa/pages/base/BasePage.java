@@ -19,9 +19,9 @@ public abstract class BasePage {
     protected WebDriverWait defaultWait;
     protected JavascriptExecutor jse;
 
-    //------------------------
+    // -----------------------
     // WebDriver configuration
-    //------------------------
+    // -----------------------
 
     private void initDriver(WebDriver driver) {
         this.driver = driver;
@@ -30,9 +30,9 @@ public abstract class BasePage {
         jse = (JavascriptExecutor)driver;
     }
 
-    //-------------------
+    // ------------------
     // Class constructors
-    //-------------------
+    // ------------------
 
     public BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -44,9 +44,9 @@ public abstract class BasePage {
         initDriver(driver);
     }
 
-    //-----------------------------------------------
+    // ----------------------------------------------
     // Overriding methods with action logging methods
-    //-----------------------------------------------
+    // ----------------------------------------------
 
     protected void click(WebElement element) {
         System.out.println("Clicking on: " + element.getText().replace("\r\n", " "));
@@ -64,9 +64,9 @@ public abstract class BasePage {
         sendKeys(element, textToSend);
     }
 
-    //-----------------------
+    // ----------------------
     // Method / Generic Types
-    //-----------------------
+    // ----------------------
 
     /*
     NOTES FOR ME:

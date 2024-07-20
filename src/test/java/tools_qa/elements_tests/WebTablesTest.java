@@ -17,9 +17,9 @@ public class WebTablesTest extends TestBase {
     @Test
     public void shouldAddFindEditAndDeleteRow() {
 
-        //---------
+        // -------
         // ADD ROW
-        //---------
+        // -------
 
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow addedTableRow = TableRowProvider.getRandomTableRow();
@@ -31,9 +31,9 @@ public class WebTablesTest extends TestBase {
                 .clickAddNewRowButton()
                 .fillRowForm(addedTableRow);
 
-        //----------
+        // --------
         // FIND ROW
-        //----------
+        // --------
 
         webTablesPage.writeTextToSearch(addedTableRow.getFirstName());
         List<WebElement> firstRowCellsFromAdd = webTablesPage.getFirstRowCells();
@@ -45,9 +45,9 @@ public class WebTablesTest extends TestBase {
         assertThat(firstRowCellsFromAdd.get(4).getText()).isEqualTo(addedTableRow.getSalary());
         assertThat(firstRowCellsFromAdd.get(5).getText()).isEqualTo(addedTableRow.getDepartment());
 
-        //----------
+        // --------
         // EDIT ROW
-        //----------
+        // --------
 
         TableRow editedTableRow = TableRowProvider.getRandomTableRow();
 
@@ -55,9 +55,9 @@ public class WebTablesTest extends TestBase {
                 .clickEditFirstRowButton()
                 .fillRowForm(editedTableRow);
 
-        //----------
+        // --------
         // FIND ROW
-        //----------
+        // --------
 
         webTablesPage.writeTextToSearch(editedTableRow.getFirstName());
         List<WebElement> firstRowCellsFromEdit = webTablesPage.getFirstRowCells();
@@ -69,9 +69,9 @@ public class WebTablesTest extends TestBase {
         assertThat(firstRowCellsFromEdit.get(4).getText()).isEqualTo(editedTableRow.getSalary());
         assertThat(firstRowCellsFromEdit.get(5).getText()).isEqualTo(editedTableRow.getDepartment());
 
-        //------------
+        // ----------
         // DELETE ROW
-        //------------
+        // ----------
 
         webTablesPage.clickDeleteFirstRowButton();
         List<WebElement> firstRowCellsFromDelete = webTablesPage.getFirstRowCells();
@@ -89,18 +89,18 @@ public class WebTablesTest extends TestBase {
     @Test
     public void shouldPaginationWork() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow tableRow1 = TableRowProvider.getRandomTableRow();
         TableRow tableRow2 = TableRowProvider.getRandomTableRow();
         TableRow tableRow3 = TableRowProvider.getRandomTableRow();
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -115,9 +115,9 @@ public class WebTablesTest extends TestBase {
                 .selectRowsPerPage("5")
                 .clickNextPageButton();
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         List<WebElement> firstRowCells = webTablesPage.getFirstRowCells();
 

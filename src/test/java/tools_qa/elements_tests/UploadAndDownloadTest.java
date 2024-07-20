@@ -30,15 +30,15 @@ public class UploadAndDownloadTest extends TestBase {
     @Test
     public void shouldDownloadFile() throws InterruptedException {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         UploadAndDownloadPage uploadAndDownloadPage = new UploadAndDownloadPage(driver);
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -48,15 +48,15 @@ public class UploadAndDownloadTest extends TestBase {
 
         Path downloadedFile = uploadAndDownloadPage.downloadFile(downloadPath, "sampleFile.jpeg", 5);
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(Files.exists(downloadedFile)).isTrue();
 
-        //------------
+        // -----------
         // DELETE FILE
-        //------------
+        // -----------
 
         uploadAndDownloadPage.deleteDownloadedFile(downloadedFile);
     }

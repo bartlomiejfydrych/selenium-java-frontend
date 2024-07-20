@@ -8,17 +8,17 @@ import tools_qa.pages.normal.elements_pages.ElementsPage;
 
 public class HomePage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Elements']")
     private WebElement elementsButton;
@@ -33,9 +33,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Book Store Application']")
     private WebElement bookStoreApplicationButton;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     public ElementsPage goToElementsPage() {
         elementsButton.click();

@@ -13,15 +13,15 @@ public class LinksTest extends TestBase {
     @Test
     public void shouldOpenHomeLinkInNewTab() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         String expectedUrl = "https://demoqa.com/";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -30,9 +30,9 @@ public class LinksTest extends TestBase {
                 .clickNewTabHomeLink()
                 .switchTab(1);
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(driver.getCurrentUrl()).isEqualTo(expectedUrl);
     }
@@ -40,15 +40,15 @@ public class LinksTest extends TestBase {
     @Test
     public void shouldOpenHomeDynamicLinkInNewTab() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         String expectedUrl = "https://demoqa.com/";
 
-        //----
+        // ---
         // ACT
-        //----
+        // ---
 
         new HomePage(driver)
                 .goToElementsPage()
@@ -57,9 +57,9 @@ public class LinksTest extends TestBase {
                 .clickNewTabHomeDynamicLink()
                 .switchTab(1);
 
-        //-------
+        // ------
         // ASSERT
-        //-------
+        // ------
 
         assertThat(driver.getCurrentUrl()).isEqualTo(expectedUrl);
     }
@@ -67,9 +67,9 @@ public class LinksTest extends TestBase {
     @Test
     public void shouldOpenAllApiCallLinks() {
 
-        //--------
+        // -------
         // ARRANGE
-        //--------
+        // -------
 
         LinksPage linksPage = new LinksPage(driver);
         String expectedCreatedMessage = "Link has responded with staus 201 and status text Created";
@@ -80,9 +80,9 @@ public class LinksTest extends TestBase {
         String expectedForbiddenMessage = "Link has responded with staus 403 and status text Forbidden";
         String expectedNotFoundMessage = "Link has responded with staus 404 and status text Not Found";
 
-        //-------------
+        // ------------
         // ACT + ASSERT
-        //-------------
+        // ------------
 
         new HomePage(driver)
                 .goToElementsPage()

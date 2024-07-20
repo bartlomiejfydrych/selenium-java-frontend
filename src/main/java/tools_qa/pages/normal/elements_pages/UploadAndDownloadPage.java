@@ -11,26 +11,26 @@ import java.nio.file.Paths;
 
 public class UploadAndDownloadPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public UploadAndDownloadPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(css = "#downloadButton")
     private WebElement downloadButton;
     @FindBy(css = "uploadFile")
     private WebElement selectFileButton;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     // DOWNLOAD FILE
 

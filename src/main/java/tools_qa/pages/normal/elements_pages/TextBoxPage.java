@@ -8,17 +8,17 @@ import tools_qa.pages.base.BasePage;
 
 public class TextBoxPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public TextBoxPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(css = "#userName")
     private WebElement userNameInput;
@@ -40,9 +40,9 @@ public class TextBoxPage extends BasePage {
     @FindBy(css = "#output p#permanentAddress")
     private WebElement permanentAddressParagraph;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     public TextBoxPage writeFullName(String fullName) {
         sendKeys(this.userNameInput, fullName);

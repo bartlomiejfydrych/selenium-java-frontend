@@ -7,17 +7,17 @@ import tools_qa.pages.base.BasePage;
 
 public class ButtonsPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public ButtonsPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     // Buttons
     @FindBy(css = "#doubleClickBtn")
@@ -34,9 +34,9 @@ public class ButtonsPage extends BasePage {
     @FindBy(css = "#dynamicClickMessage")
     private WebElement clickMessage;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     // Buttons clicks
 
@@ -55,9 +55,9 @@ public class ButtonsPage extends BasePage {
         return this;
     }
 
-    //--------
+    // -------
     // GETTERS
-    //--------
+    // -------
 
     public WebElement getDoubleClickMessage() {
         return doubleClickMessage;

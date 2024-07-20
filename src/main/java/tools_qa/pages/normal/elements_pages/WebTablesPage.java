@@ -12,17 +12,17 @@ import java.util.List;
 
 public class WebTablesPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(css = "div button#addNewRecordButton")
     private WebElement addNewRowButton;
@@ -56,9 +56,9 @@ public class WebTablesPage extends BasePage {
     @FindBy(css = "div button#submit")
     private WebElement submitButton;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     public WebTablesPage clickAddNewRowButton() {
         addNewRowButton.click();
@@ -149,9 +149,9 @@ public class WebTablesPage extends BasePage {
         return this;
     }
 
-    //--------
+    // -------
     // GETTERS
-    //--------
+    // -------
 
     public List<WebElement> getFirstRowCells() {
         return firstRowCells;

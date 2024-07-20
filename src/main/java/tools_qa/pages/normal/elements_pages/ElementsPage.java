@@ -7,17 +7,17 @@ import tools_qa.pages.base.BasePage;
 
 public class ElementsPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public ElementsPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Text Box']")
     private WebElement textBoxButton;
@@ -44,9 +44,9 @@ public class ElementsPage extends BasePage {
     @FindBy(css = "footer")
     private WebElement footer;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     public ElementsPage removeAdFrameAndFooter() {
         jse.executeScript("arguments[0].remove();", adFrame);

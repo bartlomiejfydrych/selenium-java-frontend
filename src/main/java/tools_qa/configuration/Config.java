@@ -10,9 +10,9 @@ public class Config {
 
     private static Properties properties;
 
-    //---------------------------------------
+    // --------------------------------------
     // Method that loads a configuration file
-    //---------------------------------------
+    // --------------------------------------
 
     /*
     NOTE FOR ME:
@@ -33,9 +33,9 @@ public class Config {
         }
     }
 
-    //-------------------------------------------------------
+    // ------------------------------------------------------
     // Methods that retrieve data from the configuration file
-    //-------------------------------------------------------
+    // ------------------------------------------------------
 
     public static Browser getBrowser() {
         return Browser.valueOf(properties.getProperty("browser").trim().toUpperCase());

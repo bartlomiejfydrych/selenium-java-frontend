@@ -11,17 +11,17 @@ import java.net.URL;
 
 public class BrokenLinksImagesPage extends BasePage {
 
-    //------------
+    // -----------
     // CONSTRUCTOR
-    //------------
+    // -----------
 
     public BrokenLinksImagesPage(WebDriver driver) {
         super(driver);
     }
 
-    //-------------
+    // ------------
     // WEB ELEMENTS
-    //-------------
+    // ------------
 
     @FindBy(xpath = "(//img[@src='/images/Toolsqa.jpg'])[2]")
     private WebElement validImage;
@@ -32,9 +32,9 @@ public class BrokenLinksImagesPage extends BasePage {
     @FindBy(css = "a[href='http://the-internet.herokuapp.com/status_codes/500']")
     private WebElement brokenLink;
 
-    //--------
+    // -------
     // METHODS
-    //--------
+    // -------
 
     // Images
 
@@ -72,9 +72,9 @@ public class BrokenLinksImagesPage extends BasePage {
         return this;
     }
 
-    //--------
+    // -------
     // GETTERS
-    //--------
+    // -------
 
     // Images
 
