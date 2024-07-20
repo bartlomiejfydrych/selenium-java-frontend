@@ -21,37 +21,191 @@ tworzenie różnych reprezentacji tego samego obiektu. Wzorzec ten jest szczegó
 parametrów konfiguracyjnych lub gdy proces tworzenia obiektu jest złożony.
 
 1. Tworzymy w katalogu `main->java` package o nazwie `models`
-2. W katalogu `models` tworzymy klasę np. `User`, którą będziemy chcieli budować
+2. W katalogu `models` tworzymy klasę np. `TableRow`, którą będziemy chcieli budować
 3. Deklarujemy w niej:
    - Zmienne
    - Konstruktor
    - Gettery
-   - Klasę `UserBuilder`:
+   - Klasę `TableRowBuilder`:
      - Zmienne
      - Konstruktor dla każdej zmiennej
      - Metodę `build()`
-4. W katalogu `main->java->providers` tworzymy klasę `UserProvider`, która będzie budować obiekt na podstawie naszego modelu
+    ```Java
+    package tools_qa.models;
+    
+    public class TableRow {
+    
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String age;
+        private String salary;
+        private String department;
+    
+        public TableRow(String firstName, String lastName, String email, String age, String salary, String department) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.age = age;
+            this.salary = salary;
+            this.department = department;
+        }
+    
+        public String getAge() {
+            return age;
+        }
+    
+        public String getFirstName() {
+            return firstName;
+        }
+    
+        public String getLastName() {
+            return lastName;
+        }
+    
+        public String getEmail() {
+            return email;
+        }
+    
+        public String getSalary() {
+            return salary;
+        }
+    
+        public String getDepartment() {
+            return department;
+        }
+    
+        public static final class TableRowBuilder {
+    
+            private String firstName;
+            private String lastName;
+            private String email;
+            private String age;
+            private String salary;
+            private String department;
+    
+            public TableRowBuilder firstName(String firstName) {
+                this.firstName = firstName;
+                return this;
+            }
+    
+            public TableRowBuilder lastName(String lastName) {
+                this.lastName = lastName;
+                return this;
+            }
+    
+            public TableRowBuilder email(String email) {
+                this.email = email;
+                return this;
+            }
+    
+            public TableRowBuilder age(String age) {
+                this.age = age;
+                return this;
+            }
+    
+            public TableRowBuilder salary(String salary) {
+                this.salary = salary;
+                return this;
+            }
+    
+            public TableRowBuilder department(String department) {
+                this.department = department;
+                return this;
+            }
+    
+            public TableRow build() {
+                return new TableRow(firstName, lastName, email, age, salary, department);
+            }
+        }
+    }
+    ```
+4. W katalogu `main->java->providers` tworzymy klasę `TableRowProvider`, która będzie budować obiekt na podstawie naszego modelu
 5. W niej przy pomocy `JavaFaker` możemy budować nasz obiekt
    - Można też coś utworzyć na sztywno
    - Można też tworzyć coś pobierając dane z bazy danych
+   ```Java
+   package tools_qa.providers;
+
+    import com.github.javafaker.Faker;
+    import tools_qa.models.TableRow;
+    
+    public class TableRowProvider {
+    
+        public static TableRow getRandomTableRow() {
+            Faker faker = new Faker();
+            return new TableRow.TableRowBuilder()
+                    .firstName(faker.name().firstName())
+                    .lastName(faker.name().lastName())
+                    .email(faker.internet().emailAddress())
+                    .age(Integer.toString(faker.number().numberBetween(1, 99)))
+                    .salary(Integer.toString(faker.number().numberBetween(2000, 999999999)))
+                    .department(faker.job().field())
+                    .build();
+        }
+    }
+   ```
 6. W klasie `Page` pod którą robimy dany builder tworzymy metody uzupełniające pola
 7. Następnie tworzymy metodę, która ma wypełnić cały formularz używając stworzonych metod wraz z naszym modelem
     ```Java
     public WebTablesPage fillRowForm(TableRow tableRow) {
-            writeFirstName(tableRow.getFirstName());
-            writeLastName(tableRow.getLastName());
-            writeEmail(tableRow.getEmail());
-            writeAge(tableRow.getAge());
-            writeSalary(tableRow.getSalary());
-            writeDepartment(tableRow.getDepartment());
-            clickSubmitButton();
-            return this;
-        }
+        writeFirstName(tableRow.getFirstName());
+        writeLastName(tableRow.getLastName());
+        writeEmail(tableRow.getEmail());
+        writeAge(tableRow.getAge());
+        writeSalary(tableRow.getSalary());
+        writeDepartment(tableRow.getDepartment());
+        clickSubmitButton();
+        return this;
+    }
+
+    // Registration form
+
+    public WebTablesPage writeFirstName(String firstName) {
+        firstNameInput.clear();
+        firstNameInput.sendKeys(firstName);
+        return this;
+    }
+
+    public WebTablesPage writeLastName(String lastName) {
+        lastNameInput.clear();
+        lastNameInput.sendKeys(lastName);
+        return this;
+    }
+
+    public WebTablesPage writeEmail(String email) {
+        emailInput.clear();
+        emailInput.sendKeys(email);
+        return this;
+    }
+
+    public WebTablesPage writeAge(String age) {
+        ageInput.clear();
+        ageInput.sendKeys(age);
+        return this;
+    }
+
+    public WebTablesPage writeSalary(String salary) {
+        salaryInput.clear();
+        salaryInput.sendKeys(salary);
+        return this;
+    }
+
+    public WebTablesPage writeDepartment(String department) {
+        departmentInput.clear();
+        departmentInput.sendKeys(department);
+        return this;
+    }
+
+    public WebTablesPage clickSubmitButton() {
+        submitButton.click();
+        return this;
+    }
     ```
 8. W teście tworzymy obiekt z metody, która generuje dla niego dane za pomocą Fakera i używamy jako argument
    ```Java
    TableRow addedTableRow = TableRowProvider.getRandomTableRow();
-   webTablesPage.fillRowForm(editedTableRow);
+   webTablesPage.fillRowForm(addedTableRow);
    ```
 
 Przykładowy kod jest w linku lub zastosowany tutaj:
