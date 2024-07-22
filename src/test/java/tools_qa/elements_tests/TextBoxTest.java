@@ -1,14 +1,29 @@
 package tools_qa.elements_tests;
 
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.TextBoxPage;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TextBoxTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    TextBoxPage textBoxPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        textBoxPage = new TextBoxPage(driver);
+    }
 
     @Test
     public void shouldFillTextBoxes() {
@@ -16,6 +31,13 @@ public class TextBoxTest extends TestBase {
         // -------
         // ARRANGE
         // -------
+
+        /*
+        NOTE:
+        I know you can use Builder here, but since this is only one test.
+        I didn't do it and I wanted to have a record of what it looks like for a single test.
+        I used Builder in one of the further tests.
+        */
 
         // Init Faker
         Faker faker = new Faker();
@@ -68,11 +90,12 @@ public class TextBoxTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToTextBoxPage()
-                .writeFullName(fullName)
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToTextBoxPage();
+
+        textBoxPage.writeFullName(fullName)
                 .writeEmail(email)
                 .writeCurrentAddress(currentAddress)
                 .writePermanentAddress(permanentAddress)
@@ -83,12 +106,12 @@ public class TextBoxTest extends TestBase {
         // ------
 
         // Get current data
-        TextBoxPage textBoxPage = new TextBoxPage(driver);
         String nameParagraph = textBoxPage.getNameParagraph();
         String emailParagraph = textBoxPage.getEmailParagraph();
         String currentAddressParagraph = textBoxPage.getCurrentAddressParagraph();
         String permanentAddressParagraph = textBoxPage.getPermanentAddressParagraph();
 
+        // Assert
         assertThat(nameParagraph).isEqualTo(expectedNameParagraph);
         assertThat(emailParagraph).isEqualTo(expectedEmailParagraph);
         assertThat(currentAddressParagraph).isEqualTo(expectedCurrentAddressParagraph);
