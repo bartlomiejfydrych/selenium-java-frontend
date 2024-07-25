@@ -1,15 +1,30 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.CheckboxPage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.utils.WebElementMethods;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckboxTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    CheckboxPage checkboxPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        checkboxPage = new CheckboxPage(driver);
+    }
 
     @Test
     public void shouldExpandAllAndCheckAllCheckboxes() {
@@ -18,7 +33,6 @@ public class CheckboxTest extends TestBase {
         // ARRANGE
         // -------
 
-        CheckboxPage checkboxPage = new CheckboxPage(driver);
         String expectedResultField = "You have selected :\n" +
                 "home\n" +
                 "desktop\n" +
@@ -42,11 +56,12 @@ public class CheckboxTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToCheckboxPage()
-                .clickExpandAll()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToCheckboxPage();
+
+        checkboxPage.clickExpandAll()
                 .clickHomeCheckbox();
 
         // ------
@@ -82,7 +97,6 @@ public class CheckboxTest extends TestBase {
         // ARRANGE
         // -------
 
-        CheckboxPage checkboxPage = new CheckboxPage(driver);
         WebElement desktopCheckBox = checkboxPage.getDesktopCheckbox();
         WebElementMethods webElementMethods = new WebElementMethods(driver);
 
@@ -90,11 +104,12 @@ public class CheckboxTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToCheckboxPage()
-                .clickExpandAll()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToCheckboxPage();
+
+        checkboxPage.clickExpandAll()
                 .clickCollapseAll();
 
         // ------
@@ -111,7 +126,6 @@ public class CheckboxTest extends TestBase {
         // ARRANGE
         // -------
 
-        CheckboxPage checkboxPage = new CheckboxPage(driver);
         String expectedResultField = "You have selected :\n" +
                 "desktop\n" +
                 "notes\n" +
@@ -127,11 +141,12 @@ public class CheckboxTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToCheckboxPage()
-                .clickExpandAll()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToCheckboxPage();
+
+        checkboxPage.clickExpandAll()
                 .clickHomeCheckbox()
                 .clickWorkSpaceCheckbox()
                 .clickExcelFileCheckbox();
