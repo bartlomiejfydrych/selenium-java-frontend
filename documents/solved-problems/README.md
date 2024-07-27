@@ -11,6 +11,7 @@
 7. [Wait - czekanie aż element będzie zawierał określony tekst](#7)
 8. [Uszkodzony obrazek / Zepsuty link](#8)
 9. [Obrazek - wymiary](#9)
+- [Chrome - okno wybrania domyślnej wyszukiwarki](#chromeSearchWindow)
 
 ## 📄Opis
 
@@ -231,6 +232,23 @@ int actualImageHeight = brokenLinksImagesPage.getImageHeight(brokenImage);
 
 assertThat(actualImageWidth).isEqualTo(expectedImageWidth);
 assertThat(actualImageHeight).isEqualTo(expectedImageHeight);
+```
+
+---
+
+## Chrome - okno wybrania domyślnej wyszukiwarki <a name="chromeSearchWindow"></a>
+
+**Linki:**  
+https://stackoverflow.com/questions/78787332/selecting-default-search-engine-is-needed-for-chrome-version-127
+
+**Problem:**  
+Od wersji 127, przy każdym uruchamianym teście na środku okna z przeglądarką, było wyświetlane okno wybrania domyślnej wyszukiwarki:
+![](images/chromeSearchWindow_1.png)
+
+**Rozwiązanie:**  
+Do opcji ChromeDrivera należy dodać:
+```Java
+options.addArguments("--disable-search-engine-choice-screen");
 ```
 
 ---

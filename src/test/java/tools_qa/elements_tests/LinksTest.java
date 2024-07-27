@@ -1,14 +1,29 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.LinksPage;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LinksTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    LinksPage linksPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        linksPage = new LinksPage(driver);
+    }
 
     @Test
     public void shouldOpenHomeLinkInNewTab() {
@@ -23,11 +38,12 @@ public class LinksTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToLinksPage()
-                .clickNewTabHomeLink()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToLinksPage();
+
+        linksPage.clickNewTabHomeLink()
                 .switchTab(1);
 
         // ------
@@ -50,11 +66,12 @@ public class LinksTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToLinksPage()
-                .clickNewTabHomeDynamicLink()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToLinksPage();
+
+        linksPage.clickNewTabHomeDynamicLink()
                 .switchTab(1);
 
         // ------
@@ -71,7 +88,6 @@ public class LinksTest extends TestBase {
         // ARRANGE
         // -------
 
-        LinksPage linksPage = new LinksPage(driver);
         String expectedCreatedMessage = "Link has responded with staus 201 and status text Created";
         String expectedNoContentMessage = "Link has responded with staus 204 and status text No Content";
         String expectedMovedMessage = "Link has responded with staus 301 and status text Moved Permanently";
@@ -84,9 +100,9 @@ public class LinksTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToLinksPage();
 
         /*

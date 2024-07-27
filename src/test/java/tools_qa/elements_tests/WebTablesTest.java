@@ -1,10 +1,12 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.models.TableRow;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.WebTablesPage;
 import tools_qa.providers.TableRowProvider;
 
@@ -14,6 +16,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebTablesTest extends TestBase {
 
+    HomePage homePage;
+    ElementsPage elementsPage;
+    WebTablesPage webTablesPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        webTablesPage = new WebTablesPage(driver);
+    }
+
     @Test
     public void shouldAddFindEditAndDeleteRow() {
 
@@ -21,14 +36,14 @@ public class WebTablesTest extends TestBase {
         // ADD ROW
         // -------
 
-        WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow addedTableRow = TableRowProvider.getRandomTableRow();
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToWebTablesPage()
-                .clickAddNewRowButton()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToWebTablesPage();
+
+        webTablesPage.clickAddNewRowButton()
                 .fillRowForm(addedTableRow);
 
         // --------
@@ -93,7 +108,6 @@ public class WebTablesTest extends TestBase {
         // ARRANGE
         // -------
 
-        WebTablesPage webTablesPage = new WebTablesPage(driver);
         TableRow tableRow1 = TableRowProvider.getRandomTableRow();
         TableRow tableRow2 = TableRowProvider.getRandomTableRow();
         TableRow tableRow3 = TableRowProvider.getRandomTableRow();
@@ -102,11 +116,12 @@ public class WebTablesTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToWebTablesPage()
-                .clickAddNewRowButton()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToWebTablesPage();
+
+        webTablesPage.clickAddNewRowButton()
                 .fillRowForm(tableRow1)
                 .clickAddNewRowButton()
                 .fillRowForm(tableRow2)

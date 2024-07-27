@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.configuration.Config;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.UploadAndDownloadPage;
 import tools_qa.providers.DriverProvider;
 import tools_qa.providers.UrlProvider;
@@ -16,6 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadAndDownloadTest extends TestBase {
 
+    HomePage homePage;
+    ElementsPage elementsPage;
+    UploadAndDownloadPage uploadAndDownloadPage;
+
     String generalDownloadPath = Config.getDownloadFilePath();
     String downloadDir = "\\UploadAndDownload";
     String downloadPath = generalDownloadPath + downloadDir;
@@ -25,26 +30,24 @@ public class UploadAndDownloadTest extends TestBase {
     public void setUp() {
         driver = DriverProvider.getDriver(Config.getBrowser(), downloadPath);
         driver.get(UrlProvider.homePage);
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        uploadAndDownloadPage = new UploadAndDownloadPage(driver);
     }
 
     @Test
     public void shouldDownloadFile() throws InterruptedException {
 
-        // -------
-        // ARRANGE
-        // -------
-
-        UploadAndDownloadPage uploadAndDownloadPage = new UploadAndDownloadPage(driver);
-
         // ---
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToUploadAndDownloadPage()
-                .clickDownloadButton();
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToUploadAndDownloadPage();
+
+        uploadAndDownloadPage.clickDownloadButton();
 
         Path downloadedFile = uploadAndDownloadPage.downloadFile(downloadPath, "sampleFile.jpeg", 5);
 

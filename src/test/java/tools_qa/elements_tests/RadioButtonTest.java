@@ -1,15 +1,30 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.RadioButtonPage;
 import tools_qa.utils.WebElementMethods;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RadioButtonTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    RadioButtonPage radioButtonPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        radioButtonPage = new RadioButtonPage(driver);
+    }
 
     @Test
     public void shouldCheckYesRadioButton() {
@@ -18,18 +33,18 @@ public class RadioButtonTest extends TestBase {
         // ARRANGE
         // -------
 
-        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         String expectedText = "Yes";
 
         // ---
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToRadioButtonPage()
-                .clickYesRadioButton();
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToRadioButtonPage();
+
+        radioButtonPage.clickYesRadioButton();
 
         // ------
         // ASSERT
@@ -48,18 +63,18 @@ public class RadioButtonTest extends TestBase {
         // ARRANGE
         // -------
 
-        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         String expectedText = "Impressive";
 
         // ---
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToRadioButtonPage()
-                .clickImpressiveRadioButton();
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToRadioButtonPage();
+
+        radioButtonPage.clickImpressiveRadioButton();
 
         // ------
         // ASSERT
@@ -78,7 +93,6 @@ public class RadioButtonTest extends TestBase {
         // ARRANGE
         // -------
 
-        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         WebElement noRadioButton = radioButtonPage.getNoRadioButton();
         WebElementMethods webElementMethods = new WebElementMethods(driver);
 
@@ -86,9 +100,9 @@ public class RadioButtonTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToRadioButtonPage();
 
         // ------

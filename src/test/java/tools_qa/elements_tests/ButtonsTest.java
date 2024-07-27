@@ -1,13 +1,28 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.ButtonsPage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ButtonsTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    ButtonsPage buttonsPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        buttonsPage = new ButtonsPage(driver);
+    }
 
     @Test
     public void shouldCorrectClickAllButtonTypes() {
@@ -16,7 +31,6 @@ public class ButtonsTest extends TestBase {
         // ARRANGE
         // -------
 
-        ButtonsPage buttonsPage = new ButtonsPage(driver);
         String expectedDoubleClickMessage = "You have done a double click";
         String expectedRightClickMessage = "You have done a right click";
         String expectedClickMessage = "You have done a dynamic click";
@@ -25,11 +39,12 @@ public class ButtonsTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
-                .goToButtonsPage()
-                .clickDoubleClickMeButton()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToButtonsPage();
+
+        buttonsPage.clickDoubleClickMeButton()
                 .clickRightClickMeButton()
                 .clickClickMeButton();
 

@@ -1,14 +1,29 @@
 package tools_qa.elements_tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.normal.elements_pages.BrokenLinksImagesPage;
+import tools_qa.pages.normal.elements_pages.ElementsPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BrokenLinksImagesTest extends TestBase {
+
+    HomePage homePage;
+    ElementsPage elementsPage;
+    BrokenLinksImagesPage brokenLinksImagesPage;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        homePage = new HomePage(driver);
+        elementsPage = new ElementsPage(driver);
+        brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
+    }
 
     @Test
     public void shouldValidImageLoadAndHaveCorrectWidthAndHeight() {
@@ -17,7 +32,6 @@ public class BrokenLinksImagesTest extends TestBase {
         // ARRANGE
         // -------
 
-        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement validImage = brokenLinksImagesPage.getValidImage();
         int expectedImageWidth = 347;
         int expectedImageHeight = 100;
@@ -26,9 +40,9 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(validImage, "src");
@@ -51,7 +65,6 @@ public class BrokenLinksImagesTest extends TestBase {
         // ARRANGE
         // -------
 
-        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement brokenImage = brokenLinksImagesPage.getBrokenImage();
         int expectedImageWidth = 0;
         int expectedImageHeight = 0;
@@ -60,9 +73,9 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenImage, "src");
@@ -91,7 +104,6 @@ public class BrokenLinksImagesTest extends TestBase {
         // ARRANGE
         // -------
 
-        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement validLink = brokenLinksImagesPage.getValidLink();
         String expectedUrl = "https://demoqa.com/";
 
@@ -99,9 +111,9 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(validLink, "href");
@@ -124,7 +136,6 @@ public class BrokenLinksImagesTest extends TestBase {
         // ARRANGE
         // -------
 
-        BrokenLinksImagesPage brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
         WebElement brokenLink = brokenLinksImagesPage.getBrokenLink();
         String expectedUrl = "https://the-internet.herokuapp.com/status_codes/500";
 
@@ -132,9 +143,9 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        new HomePage(driver)
-                .goToElementsPage()
-                .removeAdFrameAndFooter()
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
                 .goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenLink, "href");

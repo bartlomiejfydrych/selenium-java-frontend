@@ -19,6 +19,7 @@ public class DriverProvider {
             case CHROME -> {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("start-maximized");
+                options.addArguments("--disable-search-engine-choice-screen");
 
                 if (Config.isHeadless()) {
                     options.addArguments("--headless");
