@@ -11,7 +11,7 @@
 7. [Wait - czekanie aż element będzie zawierał określony tekst](#7)
 8. [Uszkodzony obrazek / Zepsuty link](#8)
 9. [Obrazek - wymiary](#9)
-- [Chrome - okno wybrania domyślnej wyszukiwarki](#chromeSearchWindow)
+- [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
 
 ## 📄Opis
 
@@ -236,7 +236,7 @@ assertThat(actualImageHeight).isEqualTo(expectedImageHeight);
 
 ---
 
-## Chrome - okno wybrania domyślnej wyszukiwarki <a name="chromeSearchWindow"></a>
+## Chrome - okno wybrania domyślnej wyszukiwarki <a name="chrome_search_window"></a>
 
 **Linki:**  
 https://stackoverflow.com/questions/78787332/selecting-default-search-engine-is-needed-for-chrome-version-127
