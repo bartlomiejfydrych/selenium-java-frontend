@@ -63,4 +63,31 @@ public class UploadAndDownloadTest extends TestBase {
 
         uploadAndDownloadPage.deleteDownloadedFile(downloadedFile);
     }
+
+    @Test
+    public void shouldUploadFile() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        String expectedUploadedFilePathText = "C:\\fakepath\\UploadAndDownloadTest_UploadFile.png";
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToElementsPage();
+
+        elementsPage.removeAdFrameAndFooter()
+                .goToUploadAndDownloadPage();
+
+        uploadAndDownloadPage.uploadFile();
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(uploadAndDownloadPage.getUploadedFilePathText().getText()).isEqualTo(expectedUploadedFilePathText);
+    }
 }

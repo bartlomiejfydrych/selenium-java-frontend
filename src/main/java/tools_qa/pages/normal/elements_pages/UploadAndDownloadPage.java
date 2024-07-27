@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,8 +26,10 @@ public class UploadAndDownloadPage extends BasePage {
 
     @FindBy(css = "#downloadButton")
     private WebElement downloadButton;
-    @FindBy(css = "uploadFile")
+    @FindBy(css = "#uploadFile")
     private WebElement selectFileButton;
+    @FindBy(css = "#uploadedFilePath")
+    private WebElement uploadedFilePathText;
 
     // -------
     // METHODS
@@ -70,4 +73,18 @@ public class UploadAndDownloadPage extends BasePage {
         }
     }
 
+    // UPLOAD FILE
+
+    public void uploadFile() {
+        File fileToUpload = new File("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png");
+        selectFileButton.sendKeys(fileToUpload.getAbsolutePath());
+    }
+
+    // -------
+    // GETTERS
+    // -------
+
+    public WebElement getUploadedFilePathText() {
+        return uploadedFilePathText;
+    }
 }
