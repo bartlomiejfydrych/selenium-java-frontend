@@ -2,20 +2,20 @@
 
 ## 📑Spis
 
-1. [Przycisk zasłonięty przez inny element strony](#1)
-2. [Przyciski zasłonięte przez reklamę - usunięcie elementu strony](#2)
-3. [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#3)
-4. [Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu](#4)
-5. [Przycisk - widoczny, ale wewnątrz innego elementu](#5)
-6. [Przycisk - czy element jest klikalny](#6)
-7. [Wait - czekanie aż element będzie zawierał określony tekst](#7)
-8. [Uszkodzony obrazek / Zepsuty link](#8)
-9. [Obrazek - wymiary](#9)
+- [WebElementy (przycisk) - zasłonięty przez inny element strony](#element_covered_by_another_element)
+- [WebElementy - zasłonięte przez reklamę, usunięcie elementu strony](#webelement_remove)
+- [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#private_webelement)
+- [Sprawdzanie, czy element nie jest widoczny - błąd znajdowania elementu](#assert_element_not_visible)
+- [Przycisk - widoczny, ale wewnątrz innego elementu](#button_inside_other_element)
+- [Przycisk - czy element jest klikalny](#button_clickable)
+- [Wait - czekanie, aż element będzie zawierał określony tekst](#wait_for_text)
+- [Uszkodzony obrazek / Zepsuty link](#broken_image_link)
+- [Obrazek - wymiary](#image_dimensions)
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
 
-## 📄Opis
+# 📄Opis
 
-### 1. Przycisk zasłonięty przez inny element strony <a name="1"></a>
+## WebElementy (przycisk) - zasłonięty przez inny element strony <a name="element_covered_by_another_element"></a>
 
 **Linki:**  
 [Dlaczego kliknięcia Selenium nie działają](https://www.lucidchart.com/techblog/2020/01/21/why-selenium-clicks-fail/)  
@@ -25,11 +25,14 @@ Dodatkowe:
 https://stackoverflow.com/questions/75412264/how-to-use-click-function-of-selenium-in-case-of-button-attribute-in-html  
 https://stackoverflow.com/questions/54192441/how-to-click-link-being-covered-by-another-element-python-3-6-and-selenium
 
+**Problem:**  
 Podczas testów strony [Tools QA](https://demoqa.com/) okazało się, że wyskakujące reklamy zasłaniają przycisk **\[Submit\]**.
 Przy standardowych próbach kliknięcia był zwracany błąd, że kolejny oczekiwany element po tym kliknięciu nie istnieje.
 Po dodaniu *wait'a*, który miał czekać, aż element będzie klikalny, zaczął być zwracany komunikat z błędem informujący, że
 element nie mógł zostać kliknięty, ponieważ został zasłonięty przez inny element (oraz wymieniono jego nazwę).
-![](images/1_przycisk_zasloniety.png)
+![](images/element_covered_by_another_element_1.png)
+
+**Rozwiązanie:**  
 Ostatecznie okazało się, że najlepszym sposobem jest użycie JavaScriptu, ponieważ ma on zdolność "omijania" przysłaniających
 elementów strony.  
 Można jego obiekt inicjować w `BasePage` dzięki czemu będziemy mieli do niego łatwiejszy dostęp, jakbyśmy musieli używać go
@@ -64,14 +67,17 @@ jse.executeScript("arguments[0].click();", this.submitButton);
 
 ---
 
-### 2. Przyciski zasłonięte przez reklamę - usunięcie elementu strony <a name="2"></a>
+## WebElementy - zasłonięte przez reklamę, usunięcie elementu strony <a name="webelement_remove"></a>
 
 **Linki:**  
 https://stackoverflow.com/questions/70222166/how-do-i-remove-an-element-in-selenium-python
 
+**Problem:**  
 Podczas testów strony [Tools QA](https://demoqa.com/) okazało się, że wyskakująca reklama na dole strony blokuje wszystkie
 przyciski na każdej pod-stronie. Samo omijanie tego tak jak to zrobiono w punkcie wyżej, nie wystarczyło.
-![](images/2_usuniecie_elementu.png)
+![](images/webelement_remove_1.png)
+
+**Rozwiązanie:**  
 Postanowiłem usuwać tego DIV'a przy każdym wejściu na tę stronę.  
 Użyłem poniższego kodu:  
 ```Java
@@ -80,14 +86,17 @@ jse.executeScript("arguments[0].remove();", adFrame);
 
 ---
 
-### 3. Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="3"></a>
+## Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="private_webelement"></a>
 
 **Linki:**  
 https://www.w3schools.com/java/java_encapsulation.asp
 
+**Problem:**  
 Pisząc testy, trzymałem się założenia, że asercje powinny być w testach, a nie w metodach page'y.
 Gdy chciałem w teście sprawdzić stan danego WebElementu to nie mogłem tego zrobić, ponieważ w klasie Page został on
-zadeklarowany jako prywatny.  
+zadeklarowany jako prywatny.
+
+**Rozwiązanie:**  
 Rozwiązaniem tego okazało się napisanie Gettera:
 ```Java
 Klasa z Page:
@@ -104,13 +113,16 @@ assertThat(checkBoxPage.getAssertHomeCheckBox().isSelected()).isTrue();
 
 ---
 
-### 4. Sprawdzanie czy element nie jest widoczny - błąd znajdowania elementu <a name="4"></a>
+## Sprawdzanie, czy element nie jest widoczny - błąd znajdowania elementu <a name="assert_element_not_visible"></a>
 
-**Linki:**
+**Linki:**  
 https://stackoverflow.com/a/62684271
 
-W teście chciałem sprawdzić czy dany element nie jest już widoczny.  
-Asercja, która to miała sprawdzać, zwracała błąd, ponieważ już na początkowym etapie WebElement nie był odnajdywany.  
+**Problem:**  
+W teście chciałem sprawdzić, czy dany element nie jest już widoczny.  
+Asercja, która to miała sprawdzać, zwracała błąd, ponieważ już na początkowym etapie WebElement nie był odnajdywany.
+
+**Rozwiązanie:**  
 Rozwiązaniem tego było napisanie takiej, ogólnodostępnej funkcji:
 ```Java
 public class WebElementMethods {
@@ -132,12 +144,16 @@ assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
 
 ---
 
-### 5. Przycisk - widoczny, ale wewnątrz innego elementu <a name="5"></a>
+## Przycisk - widoczny, ale wewnątrz innego elementu <a name="button_inside_other_element"></a>
 
-**Linki:**
+**Linki:**  
 https://stackoverflow.com/a/19763087
 
-![](images/5_przycisk_zasloniety_widoczny.png)
+**Problem:**  
+Przycisk jest widoczny na stronie, ale znajduje się wewnątrz innego elementu, przez co jest "przysłonięty" wewnątrz kodu strony.
+![](images/button_inside_other_element_1.png)
+
+**Rozwiązanie:**  
 Jeżeli przycisk jest **widoczny** na stronie, ale znajduje się wewnątrz innego elementu to można użyć `Actions`:
 ```Java
 public RadioButtonPage clickYesRadioButton() {
@@ -148,10 +164,13 @@ public RadioButtonPage clickYesRadioButton() {
 
 ---
 
-### 6. Przycisk - czy element jest klikalny <a name="6"></a>
+## Przycisk - czy element jest klikalny <a name="button_clickable"></a>
 
-![](images/6_przycisk_klikalny.png)
+**Problem:**  
 Przy próbie kliknięcia przycisku, który nie jest klikalny, zwracany jest błąd.  
+![](images/button_clickable_1.png)
+
+**Rozwiązanie:**  
 Żeby takie coś sprawdzać, warto napisać i stosować poniższą metodę:
 ```Java
 public boolean isElementClickable(WebElement webElement) {
@@ -169,14 +188,18 @@ assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
 
 ---
 
-### 7. Wait - czekanie aż element będzie zawierał określony tekst <a name="7"></a>
+## Wait - czekanie, aż element będzie zawierał określony tekst <a name="wait_for_text"></a>
 
 **Linki:**  
 https://www.browserstack.com/guide/wait-commands-in-selenium-webdriver
 
+**Problem:**  
 Na stronie: https://demoqa.com/links  
 Podczas klikania na linki z sekcji API call test się wywalał, ponieważ napis po kliknięciu zmieniał się wolniej,
-niż leciał test. Wstępnie metoda `Thread.sleep(1000)` pomogła, ale że nie jest to zalecany sposób, użyłem czegoś innego.  
+niż leciał test.
+
+**Rozwiązanie:**  
+Wstępnie metoda `Thread.sleep(1000)` pomogła, ale że nie jest to zalecany sposób, użyłem czegoś innego.  
 Tzw. **ExpectedConditions** zawierają metody czekające na określone warunki dla elementu. Pełna lista w linku.  
 Poniższa metoda "czeka", aż element będzie zawierał określony przez nas tekst:
 ```Java
@@ -185,8 +208,12 @@ defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessag
 
 ---
 
-### 8. Uszkodzony obrazek / Zepsuty link <a name="8"></a>
+## Uszkodzony obrazek / Zepsuty link <a name="broken_image_link"></a>
 
+**Problem:**  
+Jak sprawdzić, czy obrazek lub link jest zepsuty?
+
+**Rozwiązanie:**  
 W Selenium nie da się za bardzo sprawdzać, czy dany obrazek lub link jest zepsuty.  
 W rozwiązaniu tego problemu pomogła poniższa metoda:
 ```Java
@@ -213,8 +240,12 @@ assertThat(responseCode).isEqualTo(200);
 
 ---
 
-### 9. Obrazek - wymiary <a name="9"></a>
+## Obrazek - wymiary <a name="image_dimensions"></a>
 
+**Problem:**  
+Jak pobrać wymiary obrazka, żeby je sprawdzić?
+
+**Rozwiązanie:**  
 Żeby pobrać wymiary obrazka, trzeba użyć JavascriptExecutor:
 ```Java
 public int getImageWidth(WebElement webElement) {
@@ -243,7 +274,7 @@ https://stackoverflow.com/questions/78787332/selecting-default-search-engine-is-
 
 **Problem:**  
 Od wersji 127, przy każdym uruchamianym teście na środku okna z przeglądarką, było wyświetlane okno wybrania domyślnej wyszukiwarki:
-![](images/chromeSearchWindow_1.png)
+![](images/chrome_search_window_1.png)
 
 **Rozwiązanie:**  
 Do opcji ChromeDrivera należy dodać:
