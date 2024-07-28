@@ -93,4 +93,9 @@ public class ElementsPage extends BasePage {
         uploadAndDownloadButton.click();
         return new UploadAndDownloadPage(driver);
     }
+
+    public DynamicPropertiesPage goToDynamicPropertiesPage() {
+        dynamicPropertiesButton.click();
+        return new DynamicPropertiesPage(driver);
+    }
 }
