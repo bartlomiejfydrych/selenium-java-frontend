@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.BrokenLinksImagesPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BrokenLinksImagesTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     BrokenLinksImagesPage brokenLinksImagesPage;
 
@@ -21,6 +23,7 @@ public class BrokenLinksImagesTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
     }
@@ -42,8 +45,9 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToBrokenLinksImagesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(validImage, "src");
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(validImage);
@@ -75,8 +79,9 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToBrokenLinksImagesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenImage, "src");
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(brokenImage);
@@ -113,8 +118,9 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToBrokenLinksImagesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(validLink, "href");
 
@@ -145,8 +151,9 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToBrokenLinksImagesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToBrokenLinksImagesPage();
 
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenLink, "href");
 

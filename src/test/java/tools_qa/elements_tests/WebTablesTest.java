@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.models.TableRow;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.WebTablesPage;
 import tools_qa.providers.TableRowProvider;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WebTablesTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     WebTablesPage webTablesPage;
 
@@ -25,6 +27,7 @@ public class WebTablesTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         webTablesPage = new WebTablesPage(driver);
     }
@@ -40,8 +43,9 @@ public class WebTablesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToWebTablesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToWebTablesPage();
 
         webTablesPage.clickAddNewRowButton()
                 .fillRowForm(addedTableRow);
@@ -118,8 +122,9 @@ public class WebTablesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToWebTablesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToWebTablesPage();
 
         webTablesPage.clickAddNewRowButton()
                 .fillRowForm(tableRow1)

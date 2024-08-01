@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.LinksPage;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LinksTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     LinksPage linksPage;
 
@@ -21,6 +23,7 @@ public class LinksTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         linksPage = new LinksPage(driver);
     }
@@ -40,8 +43,9 @@ public class LinksTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToLinksPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToLinksPage();
 
         linksPage.clickNewTabHomeLink()
                 .switchTab(1);
@@ -68,8 +72,9 @@ public class LinksTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToLinksPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToLinksPage();
 
         linksPage.clickNewTabHomeDynamicLink()
                 .switchTab(1);
@@ -102,8 +107,9 @@ public class LinksTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToLinksPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToLinksPage();
 
         /*
         NOTE:

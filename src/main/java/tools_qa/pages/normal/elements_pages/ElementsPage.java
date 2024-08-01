@@ -37,22 +37,10 @@ public class ElementsPage extends BasePage {
     private WebElement uploadAndDownloadButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Dynamic Properties']")
     private WebElement dynamicPropertiesButton;
-    // Ad
-    @FindBy(css = "#fixedban")
-    private WebElement adFrame;
-    // Footer
-    @FindBy(css = "footer")
-    private WebElement footer;
 
     // -------
     // METHODS
     // -------
-
-    public ElementsPage removeAdFrameAndFooter() {
-        jse.executeScript("arguments[0].remove();", adFrame);
-        jse.executeScript("arguments[0].remove();", footer);
-        return this;
-    }
 
     public TextBoxPage goToTextBoxPage() {
         textBoxButton.click();

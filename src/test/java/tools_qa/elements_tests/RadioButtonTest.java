@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.RadioButtonPage;
 import tools_qa.utils.WebElementMethods;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RadioButtonTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     RadioButtonPage radioButtonPage;
 
@@ -22,6 +24,7 @@ public class RadioButtonTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         radioButtonPage = new RadioButtonPage(driver);
     }
@@ -41,8 +44,9 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToRadioButtonPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToRadioButtonPage();
 
         radioButtonPage.clickYesRadioButton();
 
@@ -71,8 +75,9 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToRadioButtonPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToRadioButtonPage();
 
         radioButtonPage.clickImpressiveRadioButton();
 
@@ -102,8 +107,9 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToRadioButtonPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToRadioButtonPage();
 
         // ------
         // ASSERT

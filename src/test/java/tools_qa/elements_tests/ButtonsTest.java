@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ButtonsPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 
@@ -12,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ButtonsTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     ButtonsPage buttonsPage;
 
@@ -20,6 +22,7 @@ public class ButtonsTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         buttonsPage = new ButtonsPage(driver);
     }
@@ -41,8 +44,9 @@ public class ButtonsTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToButtonsPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToButtonsPage();
 
         buttonsPage.clickDoubleClickMeButton()
                 .clickRightClickMeButton()

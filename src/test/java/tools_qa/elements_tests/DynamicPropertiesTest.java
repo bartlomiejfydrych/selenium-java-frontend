@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.DynamicPropertiesPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DynamicPropertiesTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     DynamicPropertiesPage dynamicPropertiesPage;
 
@@ -21,6 +23,7 @@ public class DynamicPropertiesTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         dynamicPropertiesPage = new DynamicPropertiesPage(driver);
     }
@@ -40,8 +43,9 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToDynamicPropertiesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToDynamicPropertiesPage();
 
         String actualText = dynamicPropertiesPage.getRandomIdText().getText();
 
@@ -61,8 +65,9 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToDynamicPropertiesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToDynamicPropertiesPage();
 
         WebElement buttonClickable = dynamicPropertiesPage.waitForButtonBeClickable();
 
@@ -88,8 +93,9 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToDynamicPropertiesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToDynamicPropertiesPage();
 
         String buttonStartColor = dynamicPropertiesPage.getButtonColor();
 
@@ -114,8 +120,9 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToDynamicPropertiesPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToDynamicPropertiesPage();
 
         WebElement buttonVisible = dynamicPropertiesPage.waitForButtonBeVisible();
 

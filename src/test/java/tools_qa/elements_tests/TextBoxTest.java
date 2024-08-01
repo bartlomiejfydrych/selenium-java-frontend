@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.TextBoxPage;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class TextBoxTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     TextBoxPage textBoxPage;
 
@@ -21,6 +23,7 @@ public class TextBoxTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         textBoxPage = new TextBoxPage(driver);
     }
@@ -92,8 +95,9 @@ public class TextBoxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToTextBoxPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToTextBoxPage();
 
         textBoxPage.writeFullName(fullName)
                 .writeEmail(email)

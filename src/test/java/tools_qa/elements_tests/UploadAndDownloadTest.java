@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import tools_qa.base.TestBase;
 import tools_qa.configuration.Config;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.elements_pages.UploadAndDownloadPage;
 import tools_qa.providers.DriverProvider;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UploadAndDownloadTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     UploadAndDownloadPage uploadAndDownloadPage;
 
@@ -31,6 +33,7 @@ public class UploadAndDownloadTest extends TestBase {
         driver = DriverProvider.getDriver(Config.getBrowser(), downloadPath);
         driver.get(UrlProvider.homePage);
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         uploadAndDownloadPage = new UploadAndDownloadPage(driver);
     }
@@ -44,8 +47,9 @@ public class UploadAndDownloadTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToUploadAndDownloadPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToUploadAndDownloadPage();
 
         uploadAndDownloadPage.clickDownloadButton();
 
@@ -79,8 +83,9 @@ public class UploadAndDownloadTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToUploadAndDownloadPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToUploadAndDownloadPage();
 
         uploadAndDownloadPage.uploadFile();
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.CheckboxPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.utils.WebElementMethods;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CheckboxTest extends TestBase {
 
     HomePage homePage;
+    TrainingPage trainingPage;
     ElementsPage elementsPage;
     CheckboxPage checkboxPage;
 
@@ -22,6 +24,7 @@ public class CheckboxTest extends TestBase {
     public void setUp() {
         super.setUp();
         homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
         checkboxPage = new CheckboxPage(driver);
     }
@@ -58,8 +61,9 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToCheckboxPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToCheckboxPage();
 
         checkboxPage.clickExpandAll()
                 .clickHomeCheckbox();
@@ -106,8 +110,9 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToCheckboxPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToCheckboxPage();
 
         checkboxPage.clickExpandAll()
                 .clickCollapseAll();
@@ -143,8 +148,9 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        elementsPage.removeAdFrameAndFooter()
-                .goToCheckboxPage();
+        trainingPage.removeAdFrameAndFooter();
+
+        elementsPage.goToCheckboxPage();
 
         checkboxPage.clickExpandAll()
                 .clickHomeCheckbox()
