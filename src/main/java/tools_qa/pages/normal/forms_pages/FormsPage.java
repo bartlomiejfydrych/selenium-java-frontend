@@ -26,5 +26,8 @@ public class FormsPage extends BasePage {
     // METHODS
     // -------
 
-
+    public PracticeFormPage goToPracticeFormPage() {
+        practiceFormButton.click();
+        return new PracticeFormPage(driver);
+    }
 }
