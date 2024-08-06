@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import tools_qa.models.PracticeForm;
 import tools_qa.pages.base.BasePage;
 
 import java.io.File;
@@ -75,6 +76,23 @@ public class PracticeFormPage extends BasePage {
     // -------
 
     // FORM
+
+    public PracticeFormPage fillForm(PracticeForm practiceForm) {
+        writeFirstName(practiceForm.getFirstName());
+        writeLastName(practiceForm.getLastName());
+        writeEmail(practiceForm.getEmail());
+        // <wybranie płci>
+        writeMobileNumber(practiceForm.getMobileNumber());
+        // miss [Date of Birth]
+        // miss [Subject]
+        // <wybranie hobby>
+        uploadPicture();
+        writeCurrentAddress(practiceForm.getCurrentAddress());
+//        selectState(practiceForm.getState());
+//        selectState(practiceForm.getCity());
+        // miss [Click Submit Button]
+        return this;
+    }
 
     // Name
 
