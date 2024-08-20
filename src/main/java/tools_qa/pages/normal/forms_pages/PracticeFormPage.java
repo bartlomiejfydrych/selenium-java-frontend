@@ -1,8 +1,11 @@
 package tools_qa.pages.normal.forms_pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import tools_qa.models.PracticeForm;
 import tools_qa.pages.base.BasePage;
@@ -63,7 +66,8 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#currentAddress")
     private WebElement currentAddressTextAreaInput;
     // State and City
-    @FindBy(css = "#state")
+    private final String stateSelectXpath = "//div[@id='state']";
+    @FindBy(xpath = stateSelectXpath)
     private WebElement stateSelect;
     @FindBy(css = "#city")
     private WebElement citySelect;
@@ -187,16 +191,11 @@ public class PracticeFormPage extends BasePage {
     // State and City
 
     public PracticeFormPage selectState(String state) {
-        /*
-        1. Zmienić główny lokator na Xpath
-        2. Tutaj przerobić go na string
-        3. Złączyć to w nowy lokator
-        4. Po kliknięciu poczekać
-        5. Po tym kliknąć w nowy, połączony lokator
-        6. Opisać otwarty select
-         */
-        Select select = new Select(stateSelect);
-        select.selectByVisibleText(state);
+        stateSelect.click();
+        String stateSelectOptionXpath = stateSelectXpath + "//div[text()='" + state + "']";
+        WebElement stateSelectOptionLocator = driver.findElement(By.xpath(stateSelectOptionXpath));
+        WebElement stateSelectOption = defaultWait.until(ExpectedConditions.elementToBeClickable(stateSelectOptionLocator));
+        stateSelectOption.click();
         return this;
     }
 
