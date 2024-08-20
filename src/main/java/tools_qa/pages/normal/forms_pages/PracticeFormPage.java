@@ -187,6 +187,14 @@ public class PracticeFormPage extends BasePage {
     // State and City
 
     public PracticeFormPage selectState(String state) {
+        /*
+        1. Zmienić główny lokator na Xpath
+        2. Tutaj przerobić go na string
+        3. Złączyć to w nowy lokator
+        4. Po kliknięciu poczekać
+        5. Po tym kliknąć w nowy, połączony lokator
+        6. Opisać otwarty select
+         */
         Select select = new Select(stateSelect);
         select.selectByVisibleText(state);
         return this;

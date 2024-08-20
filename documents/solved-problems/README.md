@@ -12,6 +12,7 @@
 - [Uszkodzony obrazek / Zepsuty link](#broken_image_link)
 - [Obrazek - wymiary](#image_dimensions)
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
+- [Select - utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
 
 # 📄Opis
 
@@ -284,3 +285,19 @@ options.addArguments("--disable-search-engine-choice-screen");
 
 ---
 
+## Select - utrzymanie rozwiniętej listy za pomocą DevTools <a name="select_hold_expanded"></a>
+
+**Linki:**  
+https://dev.to/kildareflare/inspect-disappearing-element-e-g-dropdown-menus-1khi
+
+**Problem:**  
+Podczas pisania testów nie dało się sprawdzić selektorów rozwiniętego pola typu select.  
+Po rozwinięciu select'a i kliknięciu w DevToolsy na ten element rozwinięta lista tego select'a znikała.
+![](images/select_hold_expanded_1.png)
+
+**Rozwiązanie:**  
+1. Otwieramy `DevTools`
+2. Zaznaczamy element, który jest rozwijanym Select'em
+3. W dolnej sekcji, gdzie wyświetlane są Style przełączamy się na zakładkę `Event Listeners`
+4. Rozwijamy parametr `blur`
+5. Klikamy po kolei ikonkę kosza na znajdujących się tam elementach i sprawdzamy, czy wartości select'a już się nie chowają
