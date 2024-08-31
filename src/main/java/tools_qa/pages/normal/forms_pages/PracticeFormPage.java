@@ -92,7 +92,7 @@ public class PracticeFormPage extends BasePage {
         // <wybranie hobby>
         uploadPicture();
         writeCurrentAddress(practiceForm.getCurrentAddress());
-//        selectState(practiceForm.getState());
+        selectState(practiceForm.getState());
 //        selectState(practiceForm.getCity());
         // miss [Click Submit Button]
         return this;

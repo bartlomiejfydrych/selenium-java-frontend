@@ -4,6 +4,7 @@
 
 - [WebElementy (przycisk) - zasłonięty przez inny element strony](#element_covered_by_another_element)
 - [WebElementy - zasłonięte przez reklamę, usunięcie elementu strony](#webelement_remove)
+- [WebElementy - dynamiczny lokator](#webelement_dynamic_locator)
 - [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#private_webelement)
 - [Sprawdzanie, czy element nie jest widoczny - błąd znajdowania elementu](#assert_element_not_visible)
 - [Przycisk - widoczny, ale wewnątrz innego elementu](#button_inside_other_element)
@@ -13,6 +14,7 @@
 - [Obrazek - wymiary](#image_dimensions)
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
 - [Select - utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
+- [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
 
 # 📄Opis
 
@@ -84,6 +86,52 @@ Użyłem poniższego kodu:
 ```Java
 jse.executeScript("arguments[0].remove();", adFrame);
 ```
+
+---
+
+## WebElementy - dynamiczny lokator <a name="webelement_dynamic_locator"></a>
+
+**Problem:**  
+Na stronie zamiast pola typu `Select` był DIV, który rozwijał listę DIV'ów.  
+Po kliknięciu w niego każdy element miał inny tekst i tylko po tekście można było wybrać dany element z listy.  
+
+**Rozwiązanie:**  
+Zrodził się z tego pomysł na "dynamiczny lokator" do którego po prostu byłby podstawiany dany tekst.
+
+Najpierw musimy główny lokator zapisać jako String.  
+Dlaczego tak?  
+Ponieważ do lokatora zadeklarowanego w adnotacji `@FindBy` nie ma dostępu oraz nie da się go przerobić na String.  
+Lokator umieszczony w tej adnotacji jest tworzony dopiero podczas uruchamiania testu z nim związanego.  
+Zapisałem to w taki sposób:  
+```JAVA
+// State and City
+private final String stateSelectXpath = "//div[@id='state']";
+@FindBy(xpath = stateSelectXpath)
+private WebElement stateSelect;
+```
+
+Następnie w metodzie dorobiłem do tego tworzenie "dynamicznego lokatora":  
+```JAVA
+// State and City
+
+public PracticeFormPage selectState(String state) {
+    stateSelect.click();
+    String stateSelectOptionXpath = stateSelectXpath + "//div[text()='" + state + "']";
+    WebElement stateSelectOptionLocator = driver.findElement(By.xpath(stateSelectOptionXpath));
+    WebElement stateSelectOption = defaultWait.until(ExpectedConditions.elementToBeClickable(stateSelectOptionLocator));
+    stateSelectOption.click();
+    return this;
+}
+```
+
+**Wyjaśnienie:**
+- Najpierw klikamy w główny lokator rozwijający pole z listą elementów.
+- Następnie tworzymy nowy String pod lokator dla jednego z elementów listy. Podstawiamy tutaj jako tekst nazwę jednego
+z elementów listy
+- Następnie deklarujemy ten nowy lokator jako WebElement używając standardowej składni `driver.findElement(By...)`
+podstawiając nasz String pod ścieżkę Xpath tego nowego lokatora
+- Dodajemy "wait" czekający, aż elementy z listy zostaną wyświetlone (będą klikalne)
+- Klikamy na jeden z elementów listy
 
 ---
 
@@ -301,3 +349,15 @@ Po rozwinięciu select'a i kliknięciu w DevToolsy na ten element rozwinięta li
 3. W dolnej sekcji, gdzie wyświetlane są Style przełączamy się na zakładkę `Event Listeners`
 4. Rozwijamy parametr `blur`
 5. Klikamy po kolei ikonkę kosza na znajdujących się tam elementach i sprawdzamy, czy wartości select'a już się nie chowają
+
+---
+
+## Maven/Dependencies - błąd po podniesieniu wersji <a name="maven_dependencies_up"></a>
+
+**Problem:**  
+Po podniesieniu wersji wszystkich możliwych dependencies w Maven przy uruchamianiu testu w Selenium zaczął pojawiać się
+poniższy błąd:  
+`java.lang.NoClassDefFoundError: org/openqa/selenium/support/pagefactory/ElementLocatorFactory`
+
+**Rozwiązanie:**  
+Pomogło wyłączenie i włączenie IDE ponownie.

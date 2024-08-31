@@ -46,9 +46,9 @@ public class PracticeFormTest extends TestBase {
 
         formsPage.goToPracticeFormPage();
 
-        // practiceFormPage.fillForm(practiceFormData);
+        practiceFormPage.fillForm(practiceFormData);
 
-        practiceFormPage.selectState("NCR");
+        //practiceFormPage.selectState("NCR");
 
         // ------
         // ASSERT
