@@ -48,8 +48,6 @@ public class PracticeFormTest extends TestBase {
 
         practiceFormPage.fillForm(practiceFormData);
 
-        //practiceFormPage.selectState("NCR");
-
         // ------
         // ASSERT
         // ------

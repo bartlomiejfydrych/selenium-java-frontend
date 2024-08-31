@@ -5,15 +5,17 @@ public class PracticeForm {
     private String firstName;
     private String lastName;
     private String email;
+    private String gender;
     private String mobileNumber;
     private String currentAddress;
     private String state;
     private String city;
 
-    public PracticeForm(String firstName, String lastName, String email, String mobileNumber, String currentAddress, String state, String city) {
+    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber, String currentAddress, String state, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.gender = gender;
         this.mobileNumber = mobileNumber;
         this.currentAddress = currentAddress;
         this.state = state;
@@ -30,6 +32,10 @@ public class PracticeForm {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public String getMobileNumber() {
@@ -57,6 +63,7 @@ public class PracticeForm {
         private String firstName;
         private String lastName;
         private String email;
+        private String gender;
         private String mobileNumber;
         private String currentAddress;
         private String state;
@@ -74,6 +81,11 @@ public class PracticeForm {
 
         public PracticeFormBuilder email(String email) {
             this.email = email;
+            return this;
+        }
+
+        public PracticeFormBuilder gender(String gender) {
+            this.gender = gender;
             return this;
         }
 
@@ -98,7 +110,7 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, email, mobileNumber, currentAddress, state, city);
+            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, currentAddress, state, city);
         }
     }
 }

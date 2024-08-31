@@ -4,13 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import tools_qa.models.PracticeForm;
 import tools_qa.pages.base.BasePage;
 
 import java.io.File;
+import java.util.List;
+import java.util.Random;
 
 public class PracticeFormPage extends BasePage {
 
@@ -37,11 +37,11 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#userEmail")
     private WebElement emailInput;
     // Gender
-    @FindBy(css = "input[value='Male']")
+    @FindBy(css = "input[value='Male'] + label")
     private WebElement genderMaleRadioButton;
-    @FindBy(css = "input[value='Female']")
+    @FindBy(css = "input[value='Female'] + label")
     private WebElement genderFemaleRadioButton;
-    @FindBy(css = "input[value='Other']")
+    @FindBy(css = "input[value='Other'] + label")
     private WebElement genderOtherRadioButton;
     // Mobile
     @FindBy(css = "#userNumber")
@@ -53,12 +53,14 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#subjectsContainer")
     private WebElement subjectsAutoCompleteInput;
     // Hobbies
-    @FindBy(css = "#hobbies-checkbox-1")
-    private WebElement hobbiesSportsCheckbox;
-    @FindBy(css = "#hobbies-checkbox-2")
-    private WebElement hobbiesReadingCheckbox;
-    @FindBy(css = "#hobbies-checkbox-3")
-    private WebElement hobbiesMusicCheckbox;
+    @FindBy(css = "input[type='checkbox'] + label")
+    private List<WebElement> hobbiesCheckboxes;
+    //    @FindBy(css = "#hobbies-checkbox-1")
+//    private WebElement hobbiesSportsCheckbox;
+//    @FindBy(css = "#hobbies-checkbox-2")
+//    private WebElement hobbiesReadingCheckbox;
+//    @FindBy(css = "#hobbies-checkbox-3")
+//    private WebElement hobbiesMusicCheckbox;
     // Picture
     @FindBy(css = "#uploadPicture")
     private WebElement uploadPictureButton;
@@ -69,7 +71,8 @@ public class PracticeFormPage extends BasePage {
     private final String stateSelectXpath = "//div[@id='state']";
     @FindBy(xpath = stateSelectXpath)
     private WebElement stateSelect;
-    @FindBy(css = "#city")
+    private final String citySelectXpath = "//div[@id='city']";
+    @FindBy(xpath = citySelectXpath)
     private WebElement citySelect;
     // Submit
     @FindBy(css = "#submit")
@@ -85,15 +88,15 @@ public class PracticeFormPage extends BasePage {
         writeFirstName(practiceForm.getFirstName());
         writeLastName(practiceForm.getLastName());
         writeEmail(practiceForm.getEmail());
-        // <wybranie płci>
+        clickGenderRadioButton(practiceForm.getGender());
         writeMobileNumber(practiceForm.getMobileNumber());
         // miss [Date of Birth]
         // miss [Subject]
-        // <wybranie hobby>
+        checkRandomHobbyCheckboxes();
         uploadPicture();
         writeCurrentAddress(practiceForm.getCurrentAddress());
         selectState(practiceForm.getState());
-//        selectState(practiceForm.getCity());
+        selectCity(practiceForm.getCity());
         // miss [Click Submit Button]
         return this;
     }
@@ -119,18 +122,20 @@ public class PracticeFormPage extends BasePage {
 
     // Gender
 
-    public PracticeFormPage clickGenderMale() {
-        genderMaleRadioButton.click();
-        return this;
-    }
-
-    public PracticeFormPage clickGenderFemale() {
-        genderFemaleRadioButton.click();
-        return this;
-    }
-
-    public PracticeFormPage clickGenderOther() {
-        genderOtherRadioButton.click();
+    public PracticeFormPage clickGenderRadioButton(String gender) {
+        switch (gender) {
+            case "Male":
+                genderMaleRadioButton.click();
+                break;
+            case "Female":
+                genderFemaleRadioButton.click();
+                break;
+            case "Other":
+                genderOtherRadioButton.click();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid gender: " + gender);
+        }
         return this;
     }
 
@@ -158,20 +163,34 @@ public class PracticeFormPage extends BasePage {
 
     // Hobbies
 
-    public PracticeFormPage checkHobbySports() {
-        hobbiesSportsCheckbox.click();
+    public PracticeFormPage checkRandomHobbyCheckboxes() {
+        Random random = new Random();
+        for (WebElement checkbox : hobbiesCheckboxes) {
+            if (random.nextBoolean()) {
+                if (!checkbox.isSelected()) {
+                    checkbox.click();
+                }
+            }
+        }
         return this;
     }
 
-    public PracticeFormPage checkHobbyReading() {
-        hobbiesReadingCheckbox.click();
-        return this;
-    }
+    // Rozważyć metody, gdybyśmy chcieli zaznaczyć tylko konktetne checkboxy
 
-    public PracticeFormPage checkHobbyMusic() {
-        hobbiesMusicCheckbox.click();
-        return this;
-    }
+//    public PracticeFormPage checkHobbySports() {
+//        hobbiesSportsCheckbox.click();
+//        return this;
+//    }
+//
+//    public PracticeFormPage checkHobbyReading() {
+//        hobbiesReadingCheckbox.click();
+//        return this;
+//    }
+//
+//    public PracticeFormPage checkHobbyMusic() {
+//        hobbiesMusicCheckbox.click();
+//        return this;
+//    }
 
     // Picture
 
@@ -200,8 +219,11 @@ public class PracticeFormPage extends BasePage {
     }
 
     public PracticeFormPage selectCity(String city) {
-        Select select = new Select(citySelect);
-        select.selectByVisibleText(city);
+        citySelect.click();
+        String citySelectOptionXpath = citySelectXpath + "//div[text()='" + city + "']";
+        WebElement citySelectOptionLocator = driver.findElement(By.xpath(citySelectOptionXpath));
+        WebElement citySelectOption = defaultWait.until(ExpectedConditions.elementToBeClickable(citySelectOptionLocator));
+        citySelectOption.click();
         return this;
     }
 

@@ -16,6 +16,7 @@ public class PracticeFormProvider {
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress())
+                .gender(getRandomGender())
                 .mobileNumber(faker.phoneNumber().phoneNumber())
                 .currentAddress(getRandomCurrentAddress())
                 .state(state)
@@ -26,6 +27,12 @@ public class PracticeFormProvider {
     // -------
     // METHODS
     // -------
+
+    public static String getRandomGender() {
+        Random random = new Random();
+        String randomGender = genderList.get(random.nextInt(genderList.size()));
+        return randomGender;
+    }
 
     public static String getRandomCurrentAddress() {
         Faker faker = new Faker();
@@ -51,7 +58,7 @@ public class PracticeFormProvider {
     public static String getRandomCity(String state) {
         Random random = new Random();
         String randomCity = "";
-        switch(state) {
+        switch (state) {
             case "NCR":
                 randomCity = cityNcrList.get(random.nextInt(cityNcrList.size()));
                 break;
@@ -73,6 +80,14 @@ public class PracticeFormProvider {
     // ----
     // DATA
     // ----
+
+    // Gender
+
+    static List<String> genderList = Arrays.asList(
+            "Male",
+            "Female",
+            "Other"
+    );
 
     // State
 
