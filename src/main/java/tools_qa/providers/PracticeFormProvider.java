@@ -3,9 +3,7 @@ package tools_qa.providers;
 import com.github.javafaker.Faker;
 import tools_qa.models.PracticeForm;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PracticeFormProvider {
 
@@ -18,6 +16,7 @@ public class PracticeFormProvider {
                 .email(faker.internet().emailAddress())
                 .gender(getRandomGender())
                 .mobileNumber(faker.phoneNumber().phoneNumber())
+                .subjectList(getRandomSubjectList(subjectList))
                 .currentAddress(getRandomCurrentAddress())
                 .state(state)
                 .city(getRandomCity(state))
@@ -32,6 +31,14 @@ public class PracticeFormProvider {
         Random random = new Random();
         String randomGender = genderList.get(random.nextInt(genderList.size()));
         return randomGender;
+    }
+
+    public static List<String> getRandomSubjectList(List<String> subjectList) {
+        Random random = new Random();
+        int numberOfSubjectsToSelect = random.nextInt(5) + 1;
+        List<String> subjectListCopy = new ArrayList<>(subjectList);
+        Collections.shuffle(subjectListCopy, random);
+        return new ArrayList<>(subjectListCopy.subList(0, numberOfSubjectsToSelect));
     }
 
     public static String getRandomCurrentAddress() {
@@ -87,6 +94,24 @@ public class PracticeFormProvider {
             "Male",
             "Female",
             "Other"
+    );
+
+    // Subjects
+
+    static List<String> subjectList = Arrays.asList(
+            "English",
+            "Chemistry",
+            "Computer Science",
+            "Commerce",
+            "Economics",
+            "Social Studies",
+            "Arts",
+            "History",
+            "Accounting",
+            "Physics",
+            "Biology",
+            "Hindi",
+            "Civics"
     );
 
     // State

@@ -1,6 +1,7 @@
 package tools_qa.pages.normal.forms_pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,7 +51,7 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#dateOfBirthInput")
     private WebElement dateOfBirthCalendarInput;
     // Subjects
-    @FindBy(css = "#subjectsContainer")
+    @FindBy(css = "#subjectsInput")
     private WebElement subjectsAutoCompleteInput;
     // Hobbies
     @FindBy(css = "input[type='checkbox'] + label")
@@ -91,13 +92,12 @@ public class PracticeFormPage extends BasePage {
         clickGenderRadioButton(practiceForm.getGender());
         writeMobileNumber(practiceForm.getMobileNumber());
         // miss [Date of Birth]
-        // miss [Subject]
+        writeSubjects(practiceForm.getSubjectList());
         checkRandomHobbyCheckboxes();
         uploadPicture();
         writeCurrentAddress(practiceForm.getCurrentAddress());
         selectState(practiceForm.getState());
         selectCity(practiceForm.getCity());
-        // miss [Click Submit Button]
         return this;
     }
 
@@ -156,8 +156,12 @@ public class PracticeFormPage extends BasePage {
 
     // Subjects
 
-    public PracticeFormPage writeSubjects(String subject) {
-        subjectsAutoCompleteInput.sendKeys(subject);
+    public PracticeFormPage writeSubjects(List<String> subjectList) {
+        subjectsAutoCompleteInput.click();
+        for (String subject : subjectList) {
+            subjectsAutoCompleteInput.sendKeys(subject);
+            subjectsAutoCompleteInput.sendKeys(Keys.ENTER);
+        }
         return this;
     }
 

@@ -1,5 +1,7 @@
 package tools_qa.models;
 
+import java.util.List;
+
 public class PracticeForm {
 
     private String firstName;
@@ -7,16 +9,18 @@ public class PracticeForm {
     private String email;
     private String gender;
     private String mobileNumber;
+    private List<String> subjectList;
     private String currentAddress;
     private String state;
     private String city;
 
-    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber, String currentAddress, String state, String city) {
+    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber, List<String> subjectList, String currentAddress, String state, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.mobileNumber = mobileNumber;
+        this.subjectList = subjectList;
         this.currentAddress = currentAddress;
         this.state = state;
         this.city = city;
@@ -42,6 +46,10 @@ public class PracticeForm {
         return mobileNumber;
     }
 
+    public List<String> getSubjectList() {
+        return subjectList;
+    }
+
     public String getCurrentAddress() {
         return currentAddress;
     }
@@ -65,6 +73,7 @@ public class PracticeForm {
         private String email;
         private String gender;
         private String mobileNumber;
+        private List<String> subjectList;
         private String currentAddress;
         private String state;
         private String city;
@@ -94,6 +103,11 @@ public class PracticeForm {
             return this;
         }
 
+        public PracticeFormBuilder subjectList(List<String> subjectList) {
+            this.subjectList = subjectList;
+            return this;
+        }
+
         public PracticeFormBuilder currentAddress(String currentAddress) {
             this.currentAddress = currentAddress;
             return this;
@@ -110,7 +124,7 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, currentAddress, state, city);
+            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, subjectList, currentAddress, state, city);
         }
     }
 }
