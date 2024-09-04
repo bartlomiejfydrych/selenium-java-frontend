@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import tools_qa.models.PracticeForm;
 import tools_qa.pages.base.BasePage;
 
@@ -50,6 +51,13 @@ public class PracticeFormPage extends BasePage {
     // Date of Birth
     @FindBy(css = "#dateOfBirthInput")
     private WebElement dateOfBirthCalendarInput;
+    @FindBy(css = ".react-datepicker__month-select")
+    private WebElement monthSelect;
+    @FindBy(css = "react-datepicker__year-select")
+    private WebElement yearSelect;
+    private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div[1]"; // [text()='1']
+    @FindBy(xpath = daySelectXpath)
+    private WebElement daySelect;
     // Subjects
     @FindBy(css = "#subjectsInput")
     private WebElement subjectsAutoCompleteInput;
@@ -148,9 +156,16 @@ public class PracticeFormPage extends BasePage {
 
     // Date of Birth
 
-    public PracticeFormPage writeDateOfBirth(String birthDate) {
-        // FORMAT: 02 Jul 2024
-        dateOfBirthCalendarInput.sendKeys(birthDate);
+    public PracticeFormPage selectDateOfBirth(String month, String year, String day) {
+        dateOfBirthCalendarInput.click();
+        WebElement monthSelectAfterWait = defaultWait.until(ExpectedConditions.elementToBeClickable(monthSelect));
+        Select selectMonth = new Select(monthSelectAfterWait);
+        selectMonth.selectByVisibleText(month);
+        Select selectYear = new Select(yearSelect);
+        selectYear.selectByValue(year);
+        String daySelectOptionXpath = daySelectXpath + "[text()=`" + day + "']";
+        WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
+        daySelectOptionLocator.click();
         return this;
     }
 

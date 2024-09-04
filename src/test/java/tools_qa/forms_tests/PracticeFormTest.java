@@ -46,7 +46,9 @@ public class PracticeFormTest extends TestBase {
 
         formsPage.goToPracticeFormPage();
 
-        practiceFormPage.fillForm(practiceFormData);
+        //practiceFormPage.fillForm(practiceFormData);
+
+
 
         // Zrobić metodę zapisującą, które checkboxy zostały zaznaczone
 

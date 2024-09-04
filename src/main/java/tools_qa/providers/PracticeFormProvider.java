@@ -3,6 +3,7 @@ package tools_qa.providers;
 import com.github.javafaker.Faker;
 import tools_qa.models.PracticeForm;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PracticeFormProvider {
@@ -31,6 +32,18 @@ public class PracticeFormProvider {
         Random random = new Random();
         String randomGender = genderList.get(random.nextInt(genderList.size()));
         return randomGender;
+    }
+
+    public static String getRandomDateOfBirth() {
+        Faker faker = new Faker();
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.set(1900, Calendar.JANUARY, 1);
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(2100, Calendar.DECEMBER, 31);
+        Date randomDate = faker.date().between(startCalendar.getTime(), endCalendar.getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy d", Locale.ENGLISH);
+        String formattedDate = dateFormat.format(randomDate);
+        return formattedDate;
     }
 
     public static List<String> getRandomSubjectList(List<String> subjectList) {
