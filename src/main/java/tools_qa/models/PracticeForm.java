@@ -11,13 +11,14 @@ public class PracticeForm {
     private String mobileNumber;
     private String dateOfBirth;
     private List<String> subjectList;
+    private List<String> hobbyList;
     private String currentAddress;
     private String state;
     private String city;
 
     public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber,
-                        String dateOfBirth, List<String> subjectList, String currentAddress, String state,
-                        String city) {
+                        String dateOfBirth, List<String> subjectList, List<String> hobbyList, String currentAddress,
+                        String state, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -25,6 +26,7 @@ public class PracticeForm {
         this.mobileNumber = mobileNumber;
         this.dateOfBirth = dateOfBirth;
         this.subjectList = subjectList;
+        this.hobbyList = hobbyList;
         this.currentAddress = currentAddress;
         this.state = state;
         this.city = city;
@@ -58,6 +60,10 @@ public class PracticeForm {
         return subjectList;
     }
 
+    public List<String> getHobbyList() {
+        return hobbyList;
+    }
+
     public String getCurrentAddress() {
         return currentAddress;
     }
@@ -83,6 +89,7 @@ public class PracticeForm {
         private String mobileNumber;
         private String dateOfBirth;
         private List<String> subjectList;
+        private List<String> hobbyList;
         private String currentAddress;
         private String state;
         private String city;
@@ -122,6 +129,11 @@ public class PracticeForm {
             return this;
         }
 
+        public PracticeFormBuilder hobbyList(List<String> hobbyList) {
+            this.hobbyList = hobbyList;
+            return this;
+        }
+
         public PracticeFormBuilder currentAddress(String currentAddress) {
             this.currentAddress = currentAddress;
             return this;
@@ -138,7 +150,8 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, dateOfBirth, subjectList, currentAddress, state, city);
+            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, dateOfBirth, subjectList,
+                    hobbyList, currentAddress, state, city);
         }
     }
 }

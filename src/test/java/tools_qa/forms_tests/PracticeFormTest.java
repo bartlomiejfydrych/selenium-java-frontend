@@ -2,6 +2,7 @@ package tools_qa.forms_tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.models.PracticeForm;
 import tools_qa.pages.commons.HomePage;
@@ -10,12 +11,29 @@ import tools_qa.pages.normal.forms_pages.FormsPage;
 import tools_qa.pages.normal.forms_pages.PracticeFormPage;
 import tools_qa.providers.PracticeFormProvider;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PracticeFormTest extends TestBase {
 
     HomePage homePage;
     TrainingPage trainingPage;
     FormsPage formsPage;
     PracticeFormPage practiceFormPage;
+    List<String> summaryTableLabelList = Arrays.asList(
+            "Student Name",
+            "Student Email",
+            "Gender",
+            "Mobile",
+            "Date of Birth",
+            "Subjects",
+            "Hobbies",
+            "Picture",
+            "Address",
+            "State and City"
+    );
 
     @Override
     @BeforeEach
@@ -35,6 +53,12 @@ public class PracticeFormTest extends TestBase {
         // -------
 
         PracticeForm practiceFormData = PracticeFormProvider.getRandomPracticeForm();
+        // Data formatting for summary table
+        String studentName = practiceFormData.getFirstName() + " " + practiceFormData.getLastName();
+        String dateOfBirth = practiceFormPage.convertDateOfBirthForSummaryTable(practiceFormData.getDateOfBirth());
+        String subjects = practiceFormPage.convertSubjectsForSummaryTable(practiceFormData.getSubjectList());
+        String hobbies = practiceFormPage.convertHobbiesForSummaryTable(practiceFormData.getHobbyList());
+        String stateAndCity = practiceFormData.getState() + " " + practiceFormData.getCity();
 
         // ---
         // ACT
@@ -46,13 +70,59 @@ public class PracticeFormTest extends TestBase {
 
         formsPage.goToPracticeFormPage();
 
-        practiceFormPage.fillForm(practiceFormData);
-
-
-        // Zrobić metodę zapisującą, które checkboxy zostały zaznaczone
+        practiceFormPage.fillForm(practiceFormData)
+                .clickSubmit();
 
         // ------
         // ASSERT
         // ------
+
+        // Label column
+        List<WebElement> labelColumnCells = practiceFormPage.getLabelColumnCells();
+        assertThat(labelColumnCells.get(0).getText()).isEqualTo(summaryTableLabelList.get(0));
+        assertThat(labelColumnCells.get(1).getText()).isEqualTo(summaryTableLabelList.get(1));
+        assertThat(labelColumnCells.get(2).getText()).isEqualTo(summaryTableLabelList.get(2));
+        assertThat(labelColumnCells.get(3).getText()).isEqualTo(summaryTableLabelList.get(3));
+        assertThat(labelColumnCells.get(4).getText()).isEqualTo(summaryTableLabelList.get(4));
+        assertThat(labelColumnCells.get(5).getText()).isEqualTo(summaryTableLabelList.get(5));
+        assertThat(labelColumnCells.get(6).getText()).isEqualTo(summaryTableLabelList.get(6));
+        assertThat(labelColumnCells.get(7).getText()).isEqualTo(summaryTableLabelList.get(7));
+        assertThat(labelColumnCells.get(8).getText()).isEqualTo(summaryTableLabelList.get(8));
+        assertThat(labelColumnCells.get(9).getText()).isEqualTo(summaryTableLabelList.get(9));
+
+        // Values column
+        List<WebElement> valuesColumnCells = practiceFormPage.getValuesColumnCells();
+        assertThat(valuesColumnCells.get(0).getText()).isEqualTo(studentName);
+        assertThat(valuesColumnCells.get(1).getText()).isEqualTo(practiceFormData.getEmail());
+        assertThat(valuesColumnCells.get(2).getText()).isEqualTo(practiceFormData.getGender());
+        assertThat(valuesColumnCells.get(3).getText()).isEqualTo(practiceFormData.getMobileNumber());
+        assertThat(valuesColumnCells.get(4).getText()).isEqualTo(dateOfBirth);
+        assertThat(valuesColumnCells.get(5).getText()).isEqualTo(subjects);
+        assertThat(valuesColumnCells.get(6).getText()).isEqualTo(hobbies);
+        assertThat(valuesColumnCells.get(7).getText()).isEqualTo("PracticeFormTest_UploadPicture.png");
+        assertThat(valuesColumnCells.get(8).getText()).isEqualTo(practiceFormData.getCurrentAddress());
+        assertThat(valuesColumnCells.get(9).getText()).isEqualTo(stateAndCity);
+
+        // -------------
+        // CLOSE SUMMARY
+        // -------------
+
+        practiceFormPage.clickCloseSummaryTable();
+        assertThat(practiceFormPage.getFirstNameInput().getText()).isEqualTo("");
+        assertThat(practiceFormPage.getLastNameInput().getText()).isEqualTo("");
+        assertThat(practiceFormPage.getEmailInput().getText()).isEqualTo("");
+        assertThat(practiceFormPage.getGenderMaleRadioButton().isSelected()).isFalse();
+        assertThat(practiceFormPage.getGenderFemaleRadioButton().isSelected()).isFalse();
+        assertThat(practiceFormPage.getGenderOtherRadioButton().isSelected()).isFalse();
+        assertThat(practiceFormPage.getMobileNumberInput().getText()).isEqualTo("");
+        assertThat(practiceFormPage.getDateOfBirthCalendarInput().getText()).isEqualTo("");
+        assertThat(practiceFormPage.getSubjectsAutoCompleteInput().getAttribute("value")).isNull();
+        assertThat(practiceFormPage.getHobbiesSportsCheckbox().isSelected()).isFalse();
+        assertThat(practiceFormPage.getHobbiesReadingCheckbox().isSelected()).isFalse();
+        assertThat(practiceFormPage.getHobbiesMusicCheckbox().isSelected()).isFalse();
+        assertThat(practiceFormPage.getUploadPictureLabel().getText()).isEqualTo("Select picture");
+        assertThat(practiceFormPage.getCurrentAddressTextAreaInput().getText()).isEqualTo("");
+        // asercja na state
+        // asercja na city
     }
 }

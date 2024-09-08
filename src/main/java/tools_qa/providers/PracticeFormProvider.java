@@ -19,6 +19,7 @@ public class PracticeFormProvider {
                 .mobileNumber(faker.phoneNumber().phoneNumber())
                 .dateOfBirth(getRandomDateOfBirth())
                 .subjectList(getRandomSubjectList(subjectList))
+                .hobbyList(getRandomHobbyList(hobbyList))
                 .currentAddress(getRandomCurrentAddress())
                 .state(state)
                 .city(getRandomCity(state))
@@ -53,6 +54,14 @@ public class PracticeFormProvider {
         List<String> subjectListCopy = new ArrayList<>(subjectList);
         Collections.shuffle(subjectListCopy, random);
         return new ArrayList<>(subjectListCopy.subList(0, numberOfSubjectsToSelect));
+    }
+
+    public static List<String> getRandomHobbyList(List<String> hobbyList) {
+        Random random = new Random();
+        int numberOfHobbies = random.nextInt(3) + 1;
+        List<String> hobbyListCopy = new ArrayList<>(hobbyList);
+        Collections.shuffle(hobbyListCopy, random);
+        return new ArrayList<>(hobbyList.subList(0, numberOfHobbies));
     }
 
     public static String getRandomCurrentAddress() {
@@ -126,6 +135,14 @@ public class PracticeFormProvider {
             "Biology",
             "Hindi",
             "Civics"
+    );
+
+    // Hobbies
+
+    static List<String> hobbyList = Arrays.asList(
+            "Sports",
+            "Reading",
+            "Music"
     );
 
     // State

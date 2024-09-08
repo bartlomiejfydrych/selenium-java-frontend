@@ -11,6 +11,7 @@ import tools_qa.models.PracticeForm;
 import tools_qa.pages.base.BasePage;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
@@ -62,17 +63,17 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#subjectsInput")
     private WebElement subjectsAutoCompleteInput;
     // Hobbies
-    @FindBy(css = "input[type='checkbox'] + label")
-    private List<WebElement> hobbiesCheckboxes;
-    //    @FindBy(css = "#hobbies-checkbox-1")
-//    private WebElement hobbiesSportsCheckbox;
-//    @FindBy(css = "#hobbies-checkbox-2")
-//    private WebElement hobbiesReadingCheckbox;
-//    @FindBy(css = "#hobbies-checkbox-3")
-//    private WebElement hobbiesMusicCheckbox;
+    @FindBy(css = "#hobbies-checkbox-1")
+    private WebElement hobbiesSportsCheckbox;
+    @FindBy(css = "#hobbies-checkbox-2")
+    private WebElement hobbiesReadingCheckbox;
+    @FindBy(css = "#hobbies-checkbox-3")
+    private WebElement hobbiesMusicCheckbox;
     // Picture
     @FindBy(css = "#uploadPicture")
     private WebElement uploadPictureButton;
+    @FindBy(css = "label[for='uploadPicture']")
+    private WebElement uploadPictureLabel;
     // Current Address
     @FindBy(css = "#currentAddress")
     private WebElement currentAddressTextAreaInput;
@@ -87,6 +88,15 @@ public class PracticeFormPage extends BasePage {
     @FindBy(css = "#submit")
     private WebElement submitButton;
 
+    // SUMMARY TABLE
+
+    @FindBy(css = "table.table tbody tr td:nth-of-type(1)")
+    private List<WebElement> labelColumn;
+    @FindBy(css = "table.table tbody tr td:nth-of-type(2)")
+    private List<WebElement> valuesColumn;
+    @FindBy(css = "#closeLargeModal")
+    private WebElement closeSummaryTableButton;
+
     // -------
     // METHODS
     // -------
@@ -99,10 +109,9 @@ public class PracticeFormPage extends BasePage {
         writeEmail(practiceForm.getEmail());
         clickGenderRadioButton(practiceForm.getGender());
         writeMobileNumber(practiceForm.getMobileNumber());
-        // miss [Date of Birth]
         selectDateOfBirth(practiceForm.getDateOfBirth());
         writeSubjects(practiceForm.getSubjectList());
-        checkRandomHobbyCheckboxes();
+        checkHobbyCheckboxes(practiceForm.getHobbyList());
         uploadPicture();
         writeCurrentAddress(practiceForm.getCurrentAddress());
         selectState(practiceForm.getState());
@@ -174,6 +183,17 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    public String convertDateOfBirthForSummaryTable(String date) {
+        String[] dateParts = date.split(" ");
+        String month = dateParts[0];
+        String year = dateParts[1];
+        String day = dateParts[2];
+        DecimalFormat dayFormat = new DecimalFormat("00");
+        String formattedDay = dayFormat.format(Integer.parseInt(day));
+        String formattedDate = formattedDay + " " + month + "," + year;
+        return formattedDate;
+    }
+
     // Subjects
 
     public PracticeFormPage writeSubjects(List<String> subjectList) {
@@ -185,36 +205,30 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    public String convertSubjectsForSummaryTable(List<String> subjectList) {
+        String formattedSubjects = String.join(", ", subjectList);
+        return formattedSubjects;
+    }
+
     // Hobbies
 
-    public PracticeFormPage checkRandomHobbyCheckboxes() {
-        Random random = new Random();
-        for (WebElement checkbox : hobbiesCheckboxes) {
-            if (random.nextBoolean()) {
-                if (!checkbox.isSelected()) {
-                    checkbox.click();
-                }
-            }
+    public PracticeFormPage checkHobbyCheckboxes(List<String> hobbyList) {
+        if (hobbyList.contains("Sports")) {
+            hobbiesSportsCheckbox.click();
+        }
+        if (hobbyList.contains("Reading")) {
+            hobbiesReadingCheckbox.click();
+        }
+        if (hobbyList.contains("Music")) {
+            hobbiesMusicCheckbox.click();
         }
         return this;
     }
 
-    // Rozważyć metody, gdybyśmy chcieli zaznaczyć tylko konktetne checkboxy
-
-//    public PracticeFormPage checkHobbySports() {
-//        hobbiesSportsCheckbox.click();
-//        return this;
-//    }
-//
-//    public PracticeFormPage checkHobbyReading() {
-//        hobbiesReadingCheckbox.click();
-//        return this;
-//    }
-//
-//    public PracticeFormPage checkHobbyMusic() {
-//        hobbiesMusicCheckbox.click();
-//        return this;
-//    }
+    public String convertHobbiesForSummaryTable(List<String> hobbyList) {
+        String formattedHobbies = String.join(", ", hobbyList);
+        return formattedHobbies;
+    }
 
     // Picture
 
@@ -258,8 +272,88 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    // SUMMARY TABLE
+
+    public PracticeFormPage clickCloseSummaryTable() {
+        closeSummaryTableButton.click();
+        return this;
+    }
+
     // -------
     // GETTERS
     // -------
 
+    public WebElement getFirstNameInput() {
+        return firstNameInput;
+    }
+
+    public WebElement getLastNameInput() {
+        return lastNameInput;
+    }
+
+    public WebElement getEmailInput() {
+        return emailInput;
+    }
+
+    public WebElement getGenderMaleRadioButton() {
+        return genderMaleRadioButton;
+    }
+
+    public WebElement getGenderFemaleRadioButton() {
+        return genderFemaleRadioButton;
+    }
+
+    public WebElement getGenderOtherRadioButton() {
+        return genderOtherRadioButton;
+    }
+
+    public WebElement getMobileNumberInput() {
+        return mobileNumberInput;
+    }
+
+    public WebElement getDateOfBirthCalendarInput() {
+        return dateOfBirthCalendarInput;
+    }
+
+    public WebElement getSubjectsAutoCompleteInput() {
+        return subjectsAutoCompleteInput;
+    }
+
+    public WebElement getHobbiesSportsCheckbox() {
+        return hobbiesSportsCheckbox;
+    }
+
+    public WebElement getHobbiesReadingCheckbox() {
+        return hobbiesReadingCheckbox;
+    }
+
+    public WebElement getHobbiesMusicCheckbox() {
+        return hobbiesMusicCheckbox;
+    }
+
+    public WebElement getUploadPictureLabel() {
+        return uploadPictureLabel;
+    }
+
+    public WebElement getCurrentAddressTextAreaInput() {
+        return currentAddressTextAreaInput;
+    }
+
+    public WebElement getStateSelect() {
+        return stateSelect;
+    }
+
+    public WebElement getCitySelect() {
+        return citySelect;
+    }
+
+    // SUMMARY TABLE
+
+    public List<WebElement> getLabelColumnCells() {
+        return labelColumn;
+    }
+
+    public List<WebElement> getValuesColumnCells() {
+        return valuesColumn;
+    }
 }
