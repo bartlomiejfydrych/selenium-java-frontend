@@ -9,17 +9,21 @@ public class PracticeForm {
     private String email;
     private String gender;
     private String mobileNumber;
+    private String dateOfBirth;
     private List<String> subjectList;
     private String currentAddress;
     private String state;
     private String city;
 
-    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber, List<String> subjectList, String currentAddress, String state, String city) {
+    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber,
+                        String dateOfBirth, List<String> subjectList, String currentAddress, String state,
+                        String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.mobileNumber = mobileNumber;
+        this.dateOfBirth = dateOfBirth;
         this.subjectList = subjectList;
         this.currentAddress = currentAddress;
         this.state = state;
@@ -44,6 +48,10 @@ public class PracticeForm {
 
     public String getMobileNumber() {
         return mobileNumber;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public List<String> getSubjectList() {
@@ -73,6 +81,7 @@ public class PracticeForm {
         private String email;
         private String gender;
         private String mobileNumber;
+        private String dateOfBirth;
         private List<String> subjectList;
         private String currentAddress;
         private String state;
@@ -103,6 +112,11 @@ public class PracticeForm {
             return this;
         }
 
+        public PracticeFormBuilder dateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
         public PracticeFormBuilder subjectList(List<String> subjectList) {
             this.subjectList = subjectList;
             return this;
@@ -124,7 +138,7 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, subjectList, currentAddress, state, city);
+            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, dateOfBirth, subjectList, currentAddress, state, city);
         }
     }
 }

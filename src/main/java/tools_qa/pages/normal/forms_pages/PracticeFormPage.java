@@ -53,7 +53,7 @@ public class PracticeFormPage extends BasePage {
     private WebElement dateOfBirthCalendarInput;
     @FindBy(css = ".react-datepicker__month-select")
     private WebElement monthSelect;
-    @FindBy(css = "react-datepicker__year-select")
+    @FindBy(css = ".react-datepicker__year-select")
     private WebElement yearSelect;
     private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div[1]"; // [text()='1']
     @FindBy(xpath = daySelectXpath)
@@ -100,6 +100,7 @@ public class PracticeFormPage extends BasePage {
         clickGenderRadioButton(practiceForm.getGender());
         writeMobileNumber(practiceForm.getMobileNumber());
         // miss [Date of Birth]
+        selectDateOfBirth(practiceForm.getDateOfBirth());
         writeSubjects(practiceForm.getSubjectList());
         checkRandomHobbyCheckboxes();
         uploadPicture();
@@ -156,14 +157,18 @@ public class PracticeFormPage extends BasePage {
 
     // Date of Birth
 
-    public PracticeFormPage selectDateOfBirth(String month, String year, String day) {
+    public PracticeFormPage selectDateOfBirth(String date) {
+        String[] dateParts = date.split(" ");
+        String month = dateParts[0];
+        String year = dateParts[1];
+        String day = dateParts[2];
         dateOfBirthCalendarInput.click();
         WebElement monthSelectAfterWait = defaultWait.until(ExpectedConditions.elementToBeClickable(monthSelect));
         Select selectMonth = new Select(monthSelectAfterWait);
         selectMonth.selectByVisibleText(month);
         Select selectYear = new Select(yearSelect);
         selectYear.selectByValue(year);
-        String daySelectOptionXpath = daySelectXpath + "[text()=`" + day + "']";
+        String daySelectOptionXpath = daySelectXpath + "[text()='" + day + "']";
         WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
         daySelectOptionLocator.click();
         return this;
