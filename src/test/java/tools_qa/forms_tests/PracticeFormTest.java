@@ -58,6 +58,7 @@ public class PracticeFormTest extends TestBase {
         String dateOfBirth = practiceFormPage.convertDateOfBirthForSummaryTable(practiceFormData.getDateOfBirth());
         String subjects = practiceFormPage.convertSubjectsForSummaryTable(practiceFormData.getSubjectList());
         String hobbies = practiceFormPage.convertHobbiesForSummaryTable(practiceFormData.getHobbyList());
+        String currentAddress = practiceFormPage.convertCurrentAddressForSummaryTable(practiceFormData.getCurrentAddress());
         String stateAndCity = practiceFormData.getState() + " " + practiceFormData.getCity();
 
         // ---
@@ -100,7 +101,7 @@ public class PracticeFormTest extends TestBase {
         assertThat(valuesColumnCells.get(5).getText()).isEqualTo(subjects);
         assertThat(valuesColumnCells.get(6).getText()).isEqualTo(hobbies);
         assertThat(valuesColumnCells.get(7).getText()).isEqualTo("PracticeFormTest_UploadPicture.png");
-        assertThat(valuesColumnCells.get(8).getText()).isEqualTo(practiceFormData.getCurrentAddress());
+        assertThat(valuesColumnCells.get(8).getText()).isEqualTo(currentAddress);
         assertThat(valuesColumnCells.get(9).getText()).isEqualTo(stateAndCity);
 
         // -------------
@@ -116,13 +117,17 @@ public class PracticeFormTest extends TestBase {
         assertThat(practiceFormPage.getGenderOtherRadioButton().isSelected()).isFalse();
         assertThat(practiceFormPage.getMobileNumberInput().getText()).isEqualTo("");
         assertThat(practiceFormPage.getDateOfBirthCalendarInput().getText()).isEqualTo("");
-        assertThat(practiceFormPage.getSubjectsAutoCompleteInput().getAttribute("value")).isNull();
+        assertThat(practiceFormPage.getSubjectsAutoCompleteInputClearButton()).isEmpty();
         assertThat(practiceFormPage.getHobbiesSportsCheckbox().isSelected()).isFalse();
         assertThat(practiceFormPage.getHobbiesReadingCheckbox().isSelected()).isFalse();
         assertThat(practiceFormPage.getHobbiesMusicCheckbox().isSelected()).isFalse();
         assertThat(practiceFormPage.getUploadPictureLabel().getText()).isEqualTo("Select picture");
         assertThat(practiceFormPage.getCurrentAddressTextAreaInput().getText()).isEqualTo("");
-        // asercja na state
-        // asercja na city
+        assertThat(practiceFormPage.getStateSelectWithDefaultValue().isDisplayed()).isTrue();
+        assertThat(practiceFormPage.getCitySelectWithDefaultValue().isDisplayed()).isTrue();
+    }
+
+    @Test
+    public void shouldFillFormWithOnlyRequiredData() {
     }
 }

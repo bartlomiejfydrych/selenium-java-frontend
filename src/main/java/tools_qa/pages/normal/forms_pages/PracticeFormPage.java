@@ -12,8 +12,9 @@ import tools_qa.pages.base.BasePage;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Random;
 
 public class PracticeFormPage extends BasePage {
 
@@ -56,18 +57,20 @@ public class PracticeFormPage extends BasePage {
     private WebElement monthSelect;
     @FindBy(css = ".react-datepicker__year-select")
     private WebElement yearSelect;
-    private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div[1]"; // [text()='1']
+    private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div"; // [contains(@aria-label,'November') and text()='27']
     @FindBy(xpath = daySelectXpath)
     private WebElement daySelect;
     // Subjects
     @FindBy(css = "#subjectsInput")
     private WebElement subjectsAutoCompleteInput;
+    @FindBy(css = ".subjects-auto-complete__indicators .subjects-auto-complete__indicator")
+    private List<WebElement> subjectsAutoCompleteInputClearButton;
     // Hobbies
-    @FindBy(css = "#hobbies-checkbox-1")
+    @FindBy(css = "[for='hobbies-checkbox-1']")
     private WebElement hobbiesSportsCheckbox;
-    @FindBy(css = "#hobbies-checkbox-2")
+    @FindBy(css = "[for='hobbies-checkbox-2']")
     private WebElement hobbiesReadingCheckbox;
-    @FindBy(css = "#hobbies-checkbox-3")
+    @FindBy(css = "[for='hobbies-checkbox-3']")
     private WebElement hobbiesMusicCheckbox;
     // Picture
     @FindBy(css = "#uploadPicture")
@@ -81,9 +84,13 @@ public class PracticeFormPage extends BasePage {
     private final String stateSelectXpath = "//div[@id='state']";
     @FindBy(xpath = stateSelectXpath)
     private WebElement stateSelect;
+    @FindBy(xpath = "//div[@id='state']/div/div/div[text()='Select State']")
+    private WebElement stateSelectWithDefaultValue;
     private final String citySelectXpath = "//div[@id='city']";
     @FindBy(xpath = citySelectXpath)
     private WebElement citySelect;
+    @FindBy(xpath = "//div[@id='city']/div/div/div[text()='Select City']")
+    private WebElement citySelectWithDefaultValue;
     // Submit
     @FindBy(css = "#submit")
     private WebElement submitButton;
@@ -177,7 +184,7 @@ public class PracticeFormPage extends BasePage {
         selectMonth.selectByVisibleText(month);
         Select selectYear = new Select(yearSelect);
         selectYear.selectByValue(year);
-        String daySelectOptionXpath = daySelectXpath + "[text()='" + day + "']";
+        String daySelectOptionXpath = daySelectXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
         WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
         daySelectOptionLocator.click();
         return this;
@@ -245,6 +252,11 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    public String convertCurrentAddressForSummaryTable(String currentAddress) {
+        String formattedCurrentAddress = currentAddress.replace("\n", " ");
+        return formattedCurrentAddress;
+    }
+
     // State and City
 
     public PracticeFormPage selectState(String state) {
@@ -269,6 +281,7 @@ public class PracticeFormPage extends BasePage {
 
     public PracticeFormPage clickSubmit() {
         submitButton.click();
+        defaultWait.until(ExpectedConditions.visibilityOfAllElements(labelColumn));
         return this;
     }
 
@@ -319,6 +332,10 @@ public class PracticeFormPage extends BasePage {
         return subjectsAutoCompleteInput;
     }
 
+    public List<WebElement> getSubjectsAutoCompleteInputClearButton() {
+        return subjectsAutoCompleteInputClearButton;
+    }
+
     public WebElement getHobbiesSportsCheckbox() {
         return hobbiesSportsCheckbox;
     }
@@ -343,8 +360,16 @@ public class PracticeFormPage extends BasePage {
         return stateSelect;
     }
 
+    public WebElement getStateSelectWithDefaultValue() {
+        return stateSelectWithDefaultValue;
+    }
+
     public WebElement getCitySelect() {
         return citySelect;
+    }
+
+    public WebElement getCitySelectWithDefaultValue() {
+        return citySelectWithDefaultValue;
     }
 
     // SUMMARY TABLE

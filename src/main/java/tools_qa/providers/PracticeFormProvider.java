@@ -16,7 +16,7 @@ public class PracticeFormProvider {
                 .lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress())
                 .gender(getRandomGender())
-                .mobileNumber(faker.phoneNumber().phoneNumber())
+                .mobileNumber(faker.number().digits(10))
                 .dateOfBirth(getRandomDateOfBirth())
                 .subjectList(getRandomSubjectList(subjectList))
                 .hobbyList(getRandomHobbyList(hobbyList))
