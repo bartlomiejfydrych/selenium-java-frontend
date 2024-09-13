@@ -2,8 +2,36 @@
 
 ## 📑Spis treści
 
+- [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
 - [Wzorzec Arrange-Act-Assert](#AAA)
 - [Pobieranie plików](#pobieranie)
+
+---
+
+## WebElement — Sprawdzanie, czy nie ma elementu na stronie <a name="assert_no_element"></a>
+
+### Opis
+
+**Gdy:** Chcemy sprawdzić na końcu testu asercją czy danego elementu nie ma na stronie  
+**To:**
+1. W pliku z `Page` przypisujemy selektor tego elementu do listy elementów (zamiast do pojedynczego WebElementu):
+   ```Java
+    @FindBy(css = ".subjects-auto-complete__indicators .subjects-auto-complete__indicator")
+    private List<WebElement> subjectsAutoCompleteInputClearButton;
+   ```
+2. W pliku z `Page` tworzymy "Gettera" do tego elementu:
+   ```Java
+   public List<WebElement> getSubjectsAutoCompleteInputClearButton() {
+       return subjectsAutoCompleteInputClearButton;
+   }
+   ```
+3. Następnie w pliku z `testem` sprawdzamy asercją, czy ta lista WebElementów jest pusta:
+   ```Java
+   assertThat(practiceFormPage.getSubjectsAutoCompleteInputClearButton()).isEmpty();
+   ```
+**Dlaczego tak?**  
+Ponieważ jak zrobimy z tego zwykły WebElement to Selenium rzuci błąd, że nie może takiego elementu znaleźć (bo go nie ma).  
+A tak, dzięki temu sposobowi będzie to lepiej sprawdzane.
 
 ---
 
