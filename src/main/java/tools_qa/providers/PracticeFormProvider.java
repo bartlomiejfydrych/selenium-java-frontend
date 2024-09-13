@@ -26,6 +26,16 @@ public class PracticeFormProvider {
                 .build();
     }
 
+    public static PracticeForm getRandomPracticeFormRequiredData() {
+        Faker faker = new Faker();
+        return new PracticeForm.PracticeFormOnlyRequiredDataBuilder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .gender(getRandomGender())
+                .mobileNumber(faker.number().digits(10))
+                .build();
+    }
+
     // -------
     // METHODS
     // -------

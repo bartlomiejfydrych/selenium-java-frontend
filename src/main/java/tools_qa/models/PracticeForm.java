@@ -16,6 +16,10 @@ public class PracticeForm {
     private String state;
     private String city;
 
+    // -----------
+    // CONSTRUCTOR
+    // -----------
+
     public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber,
                         String dateOfBirth, List<String> subjectList, List<String> hobbyList, String currentAddress,
                         String state, String city) {
@@ -31,6 +35,17 @@ public class PracticeForm {
         this.state = state;
         this.city = city;
     }
+
+    public PracticeForm(String firstName, String lastName, String gender, String mobileNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.mobileNumber = mobileNumber;
+    }
+
+    // -------
+    // GETTERS
+    // -------
 
     public String getFirstName() {
         return firstName;
@@ -152,6 +167,38 @@ public class PracticeForm {
         public PracticeForm build() {
             return new PracticeForm(firstName, lastName, email, gender, mobileNumber, dateOfBirth, subjectList,
                     hobbyList, currentAddress, state, city);
+        }
+    }
+
+    public static final class PracticeFormOnlyRequiredDataBuilder {
+
+        private String firstName;
+        private String lastName;
+        private String gender;
+        private String mobileNumber;
+
+        public PracticeFormOnlyRequiredDataBuilder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public PracticeFormOnlyRequiredDataBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PracticeFormOnlyRequiredDataBuilder gender(String gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public PracticeFormOnlyRequiredDataBuilder mobileNumber(String mobileNumber) {
+            this.mobileNumber = mobileNumber;
+            return this;
+        }
+
+        public PracticeForm build() {
+            return new PracticeForm(firstName, lastName, gender, mobileNumber);
         }
     }
 }

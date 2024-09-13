@@ -129,5 +129,50 @@ public class PracticeFormTest extends TestBase {
 
     @Test
     public void shouldFillFormWithOnlyRequiredData() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        PracticeForm practiceFormData = PracticeFormProvider.getRandomPracticeFormRequiredData();
+        // Data formatting for summary table
+        String studentName = practiceFormData.getFirstName() + " " + practiceFormData.getLastName();
+        String todayFormattedDateOfBirth = practiceFormPage.getTodayDateOfBirthForSummaryTable();
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToFormsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        formsPage.goToPracticeFormPage();
+
+        practiceFormPage.fillFormOnlyRequiredData(practiceFormData)
+                .clickSubmit();
+
+        // ------
+        // ASSERT
+        // ------
+
+        // Values column
+        List<WebElement> valuesColumnCells = practiceFormPage.getValuesColumnCells();
+        assertThat(valuesColumnCells.get(0).getText()).isEqualTo(studentName);
+        assertThat(valuesColumnCells.get(1).getText()).isEqualTo("");
+        assertThat(valuesColumnCells.get(2).getText()).isEqualTo(practiceFormData.getGender());
+        assertThat(valuesColumnCells.get(3).getText()).isEqualTo(practiceFormData.getMobileNumber());
+        assertThat(valuesColumnCells.get(4).getText()).isEqualTo(todayFormattedDateOfBirth);
+        assertThat(valuesColumnCells.get(5).getText()).isEqualTo("");
+        assertThat(valuesColumnCells.get(6).getText()).isEqualTo("");
+        assertThat(valuesColumnCells.get(7).getText()).isEqualTo("");
+        assertThat(valuesColumnCells.get(8).getText()).isEqualTo("");
+        assertThat(valuesColumnCells.get(9).getText()).isEqualTo("");
+
+        // -------------
+        // CLOSE SUMMARY
+        // -------------
+
+        practiceFormPage.clickCloseSummaryTable();
     }
 }

@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class PracticeFormPage extends BasePage {
 
@@ -126,6 +127,14 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    public PracticeFormPage fillFormOnlyRequiredData(PracticeForm practiceForm) {
+        writeFirstName(practiceForm.getFirstName());
+        writeLastName(practiceForm.getLastName());
+        clickGenderRadioButton(practiceForm.getGender());
+        writeMobileNumber(practiceForm.getMobileNumber());
+        return this;
+    }
+
     // Name
 
     public PracticeFormPage writeFirstName(String firstName) {
@@ -199,6 +208,13 @@ public class PracticeFormPage extends BasePage {
         String formattedDay = dayFormat.format(Integer.parseInt(day));
         String formattedDate = formattedDay + " " + month + "," + year;
         return formattedDate;
+    }
+
+    public String getTodayDateOfBirthForSummaryTable() {
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM,yyyy", Locale.ENGLISH);
+        String todayFormattedDateOfBirth = today.format(formatter);
+        return todayFormattedDateOfBirth;
     }
 
     // Subjects
