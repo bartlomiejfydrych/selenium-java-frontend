@@ -72,7 +72,7 @@ public class PracticeFormTest extends TestBase {
         formsPage.goToPracticeFormPage();
 
         practiceFormPage.fillForm(practiceFormData)
-                .clickSubmit();
+                .clickSubmitAndWaitForSummaryTable();
 
         // ------
         // ASSERT
@@ -150,7 +150,7 @@ public class PracticeFormTest extends TestBase {
         formsPage.goToPracticeFormPage();
 
         practiceFormPage.fillFormOnlyRequiredData(practiceFormData)
-                .clickSubmit();
+                .clickSubmitAndWaitForSummaryTable();
 
         // ------
         // ASSERT
@@ -174,5 +174,49 @@ public class PracticeFormTest extends TestBase {
         // -------------
 
         practiceFormPage.clickCloseSummaryTable();
+    }
+
+    @Test
+    public void shouldNotAcceptEmptyFormAndMarkFields() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        String cssValue = "border-color";
+        String colorRedRGB = "rgb(220, 53, 69)";
+        String colorGreenRGB = "rgb(40, 167, 69)";
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToFormsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        formsPage.goToPracticeFormPage();
+
+        practiceFormPage.clickSubmitAndWaitForFieldColorChange();
+
+        // ------
+        // ASSERT
+        // ------
+
+        // Red fields
+        assertThat(practiceFormPage.getFirstNameInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+        assertThat(practiceFormPage.getLastNameInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+        assertThat(practiceFormPage.getGenderMaleRadioButton().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+        assertThat(practiceFormPage.getGenderFemaleRadioButton().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+        assertThat(practiceFormPage.getGenderOtherRadioButton().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+        assertThat(practiceFormPage.getMobileNumberInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+
+        // Green fields
+        assertThat(practiceFormPage.getEmailInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+        assertThat(practiceFormPage.getDateOfBirthCalendarInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+        assertThat(practiceFormPage.getHobbiesSportsCheckbox().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+        assertThat(practiceFormPage.getHobbiesReadingCheckbox().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+        assertThat(practiceFormPage.getHobbiesMusicCheckbox().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+        assertThat(practiceFormPage.getCurrentAddressTextAreaInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
     }
 }

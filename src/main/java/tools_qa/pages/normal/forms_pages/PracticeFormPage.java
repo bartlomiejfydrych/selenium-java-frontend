@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import tools_qa.models.PracticeForm;
@@ -297,7 +298,23 @@ public class PracticeFormPage extends BasePage {
 
     public PracticeFormPage clickSubmit() {
         submitButton.click();
+        return this;
+    }
+
+    public PracticeFormPage clickSubmitAndWaitForSummaryTable() {
+        clickSubmit();
         defaultWait.until(ExpectedConditions.visibilityOfAllElements(labelColumn));
+        return this;
+    }
+
+    public PracticeFormPage clickSubmitAndWaitForFieldColorChange() {
+        clickSubmit();
+        String cssValue = "border-color";
+        String initialColor = firstNameInput.getCssValue(cssValue);
+        defaultWait.until((ExpectedCondition<Boolean>) driver -> {
+            String currentColor = firstNameInput.getCssValue(cssValue);
+            return !currentColor.equals(initialColor);
+        });
         return this;
     }
 
