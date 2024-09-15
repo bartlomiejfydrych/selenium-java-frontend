@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
+import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
 
@@ -46,5 +47,10 @@ public class HomePage extends BasePage {
     public FormsPage goToFormsPage() {
         formsButton.click();
         return new FormsPage(driver);
+    }
+
+    public AlertsFrameWindowsPage goToAlertsFrameWindowsPage() {
+        alertsFrameWindowsButton.click();
+        return new AlertsFrameWindowsPage(driver);
     }
 }

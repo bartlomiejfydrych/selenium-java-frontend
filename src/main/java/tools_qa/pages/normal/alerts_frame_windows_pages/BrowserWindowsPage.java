@@ -62,6 +62,9 @@ public class BrowserWindowsPage extends BasePage {
     public BrowserWindowsPage switchTabOrWindow(int tabOrWindowNumber) {
         ArrayList<String> tabOrWindow = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabOrWindow.get(tabOrWindowNumber));
+        if (tabOrWindowNumber > 0) {
+            driver.manage().window().maximize();
+        }
         return this;
     }
 
