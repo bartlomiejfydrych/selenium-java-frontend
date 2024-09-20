@@ -28,13 +28,10 @@ public class BrowserWindowsPage extends BasePage {
     // New Window
     @FindBy(css = "#windowButton")
     private WebElement newWindowButton;
-    // New Window Message
-    @FindBy(css = "#messageWindowButton")
-    private WebElement newWindowMessageButton;
     // New Tab/Window page
     @FindBy(css = "#sampleHeading")
     private WebElement newTabWindowText;
-    @FindBy(css = "body")
+    @FindBy(tagName = "body")
     private WebElement newTabWindowBody;
 
     // -------
@@ -53,15 +50,14 @@ public class BrowserWindowsPage extends BasePage {
         return this;
     }
 
-    public BrowserWindowsPage clickNewWindowMessageButton() {
-        newWindowMessageButton.click();
-        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        return this;
-    }
-
     public BrowserWindowsPage switchTabOrWindow(int tabOrWindowNumber) {
         ArrayList<String> tabOrWindow = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabOrWindow.get(tabOrWindowNumber));
+        return this;
+    }
+
+    public BrowserWindowsPage switchTabOrWindowAndMaximize(int tabOrWindowNumber) {
+        switchTabOrWindow(tabOrWindowNumber);
         if (tabOrWindowNumber > 0) {
             driver.manage().window().maximize();
         }

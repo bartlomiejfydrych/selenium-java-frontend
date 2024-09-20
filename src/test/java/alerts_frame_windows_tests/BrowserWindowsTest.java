@@ -49,7 +49,7 @@ public class BrowserWindowsTest extends TestBase {
         alertsFrameWindowsPage.goToBrowserWindowsPage();
 
         browserWindowsPage.clickNewTabButton()
-                .switchTabOrWindow(1);
+                .switchTabOrWindowAndMaximize(1);
 
         // ------
         // ASSERT
@@ -81,7 +81,7 @@ public class BrowserWindowsTest extends TestBase {
         alertsFrameWindowsPage.goToBrowserWindowsPage();
 
         browserWindowsPage.clickNewWindowButton()
-                .switchTabOrWindow(1);
+                .switchTabOrWindowAndMaximize(1);
 
         // ------
         // ASSERT
@@ -90,33 +90,27 @@ public class BrowserWindowsTest extends TestBase {
         assertThat(browserWindowsPage.getNewTabWindowText().getText()).isEqualTo(expectedNewWindowText);
         assertThat(browserWindowsPage.getNewTabWindowBody().getCssValue(cssValue)).isEqualTo(colorGrayRGB);
     }
-
-    @Test
-    public void shouldOpenNewWindowMessage() {
-
-        // -------
-        // ARRANGE
-        // -------
-
-        String expectedNewWindowText = "Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.";
-
-        // ---
-        // ACT
-        // ---
-
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeAdFrameAndFooter();
-
-        alertsFrameWindowsPage.goToBrowserWindowsPage();
-
-        browserWindowsPage.clickNewWindowMessageButton()
-                .switchTabOrWindow(1);
-
-        // ------
-        // ASSERT
-        // ------
-
-        assertThat(browserWindowsPage.getNewTabWindowBody().getText()).isEqualTo(expectedNewWindowText);
-    }
 }
+
+/*
+NOTE:
+    There was supposed to be a third test here to check the new message window.
+But:
+    After navigating to this window Selenium stops.
+    There is no error, nor are any further actions performed.
+    The browser and the window remain open all the time and must be closed manually.
+This window:
+    - Has a URL about:blank
+    - Has empty "page source"
+    - Has only simple HTML
+I tried to perform this test in the following ways:
+    - Go to the window and get the text using standard methods
+    - Go to the window, go back to the previous window and go to that window again
+    - Go to the window and get the text using JavaScript
+    - Checking if Selenium treats this window as an alert
+    - Go to the window, download the page source and look for the text there
+    - After opening the window (with or without switching to it), press the key combination "Ctrl + A", "Ctrl + C"
+    and try to get the text from the clipboard
+Additional comment:
+    I wonder if Playwright would be able to handle a window like that. I might check that out in the future.
+*/
