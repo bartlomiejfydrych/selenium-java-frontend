@@ -1,4 +1,4 @@
-package alerts_frame_windows_tests;
+package tools_qa.alerts_frame_windows_tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
