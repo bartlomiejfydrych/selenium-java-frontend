@@ -2,9 +2,34 @@
 
 ## 📑Spis treści
 
+- [CSS — Sprawdzenie atrybutu elementu np. kolor](#css_color)
 - [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
 - [Wzorzec Arrange-Act-Assert](#AAA)
 - [Pobieranie plików](#pobieranie)
+
+---
+
+## CSS — Sprawdzenie atrybutu elementu np. kolor <a name="css_color"></a>
+
+### Opis
+
+**Gdy:** Chcemy sprawdzić, czy np. pole ma określony kolor  
+**To:**
+
+Używamy na elemencie poniższej metody, a w nawiasie jako argument podajemy nazwę atrybutu:
+```Java
+element.getCssValue("border-color");
+```
+
+Przykład w teście:
+```Java
+String cssValue = "border-color";
+String colorRedRGB = "rgb(220, 53, 69)";
+String colorGreenRGB = "rgb(40, 167, 69)";
+
+assertThat(practiceFormPage.getFirstNameInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+assertThat(practiceFormPage.getEmailInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+```
 
 ---
 
