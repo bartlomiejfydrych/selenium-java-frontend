@@ -23,6 +23,8 @@ public class AlertsFrameWindowsPage extends BasePage {
     private WebElement browserWindowsButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Alerts']")
     private WebElement alertsButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Frames']")
+    private WebElement framesButton;
 
     // -------
     // METHODS
@@ -36,5 +38,10 @@ public class AlertsFrameWindowsPage extends BasePage {
     public AlertsPage goToAlertsPage() {
         alertsButton.click();
         return new AlertsPage(driver);
+    }
+
+    public FramesPage goToFramesPage() {
+        framesButton.click();
+        return new FramesPage(driver);
     }
 }
