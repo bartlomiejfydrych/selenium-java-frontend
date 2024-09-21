@@ -9,8 +9,6 @@ import tools_qa.pages.base.BasePage;
 
 public class AlertsPage extends BasePage {
 
-    Alert alert;
-
     // -----------
     // CONSTRUCTOR
     // -----------
@@ -26,11 +24,11 @@ public class AlertsPage extends BasePage {
     // Click me buttons
     @FindBy(css = "#alertButton")
     private WebElement alertButton;
-    @FindBy(css = "#alertButton")
+    @FindBy(css = "#timerAlertButton")
     private WebElement alertFiveSecondsButton;
-    @FindBy(css = "#alertButton")
+    @FindBy(css = "#confirmButton")
     private WebElement alertConfirmButton;
-    @FindBy(css = "#alertButton")
+    @FindBy(css = "#promtButton")
     private WebElement alertPromptButton;
     // Other
     @FindBy(css = "#confirmResult")
@@ -66,29 +64,29 @@ public class AlertsPage extends BasePage {
 
     // Alerts
 
-    public AlertsPage waitForAlert() {
-        defaultWait.until(ExpectedConditions.alertIsPresent());
-        return this;
+    public Alert waitForAlert() {
+        return defaultWait.until(ExpectedConditions.alertIsPresent());
     }
 
     public String getAlertText() {
-        String alertText = alert.getText();
-        return alertText;
+        Alert alert = waitForAlert();
+        return alert.getText();
     }
 
-    public AlertsPage acceptAlert() {
+    public void acceptAlert() {
+        Alert alert = waitForAlert();
         alert.accept();
-        return this;
     }
 
-    public AlertsPage dismissAlert() {
+    public void dismissAlert() {
+        Alert alert = waitForAlert();
         alert.dismiss();
-        return this;
     }
 
-    public AlertsPage writeTextInAlert(String textInAlert) {
+    public void writeTextInAlert(String textInAlert) {
+        Alert alert = waitForAlert();
         alert.sendKeys(textInAlert);
-        return this;
+        alert.accept();
     }
 
     // -------
