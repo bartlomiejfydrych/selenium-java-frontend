@@ -5,13 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 
-public class FramesPage extends BasePage {
+public class NestedFramesPage extends BasePage {
 
     // -----------
     // CONSTRUCTOR
     // -----------
 
-    public FramesPage(WebDriver driver) {
+    public NestedFramesPage(WebDriver driver) {
         super(driver);
     }
 
@@ -20,25 +20,25 @@ public class FramesPage extends BasePage {
     // ------------
 
     @FindBy(css = "#frame1")
-    private WebElement bigFrame;
-    @FindBy(css = "#frame2")
-    private WebElement smallFrame;
+    private WebElement parentFrame;
+    @FindBy(css = "iframe[srcdoc='<p>Child Iframe</p>']")
+    private WebElement childFrame;
     @FindBy(css = "body")
-    private WebElement frameBody;
-    @FindBy(css = "#sampleHeading")
-    private WebElement frameHeading;
+    private WebElement parentFrameBody;
+    @FindBy(css = "body p")
+    private WebElement childFrameBody;
 
     // -------
     // METHODS
     // -------
 
-    public FramesPage switchToBigFrame() {
-        driver.switchTo().frame(bigFrame);
+    public NestedFramesPage switchToParentFrame() {
+        driver.switchTo().frame(parentFrame);
         return this;
     }
 
-    public FramesPage switchToSmallFrame() {
-        driver.switchTo().frame(smallFrame);
+    public NestedFramesPage switchToChildFrame() {
+        driver.switchTo().frame(childFrame);
         return this;
     }
 
@@ -51,11 +51,11 @@ public class FramesPage extends BasePage {
     // GETTERS
     // -------
 
-    public WebElement getFrameBody() {
-        return frameBody;
+    public WebElement getParentFrameBody() {
+        return parentFrameBody;
     }
 
-    public WebElement getFrameHeading() {
-        return frameHeading;
+    public WebElement getChildFrameBody() {
+        return childFrameBody;
     }
 }
