@@ -34,6 +34,7 @@ public class FramesTest extends TestBase {
         // ARRANGE
         // -------
 
+        String expectedFramePageSource = "<html><head></head><body style=\"background-color:#a9a9a9\"><h1 id=\"sampleHeading\">This is a sample page</h1></body></html>";
         String expectedFrameText = "This is a sample page";
         String cssProperty = "background-color";
         String expectedBackgroundColor = "rgba(169, 169, 169, 1)";
@@ -50,10 +51,13 @@ public class FramesTest extends TestBase {
 
         framesPage.switchToBigFrame();
 
+        String pageSource = framesPage.getPageSource();
+
         // ------
         // ASSERT
         // ------
 
+        assertThat(pageSource).isEqualTo(expectedFramePageSource);
         assertThat(framesPage.getFrameHeading().getText()).isEqualTo(expectedFrameText);
         assertThat(framesPage.getFrameBody().getCssValue(cssProperty)).isEqualTo(expectedBackgroundColor);
     }
@@ -65,6 +69,7 @@ public class FramesTest extends TestBase {
         // ARRANGE
         // -------
 
+        String expectedFramePageSource = "<html><head></head><body style=\"background-color:#a9a9a9\"><h1 id=\"sampleHeading\">This is a sample page</h1></body></html>";
         String expectedFrameText = "This is a sample page";
         String cssProperty = "background-color";
         String expectedBackgroundColor = "rgba(169, 169, 169, 1)";
@@ -81,10 +86,13 @@ public class FramesTest extends TestBase {
 
         framesPage.switchToSmallFrame();
 
+        String pageSource = framesPage.getPageSource();
+
         // ------
         // ASSERT
         // ------
 
+        assertThat(pageSource).isEqualTo(expectedFramePageSource);
         assertThat(framesPage.getFrameHeading().getText()).isEqualTo(expectedFrameText);
         assertThat(framesPage.getFrameBody().getCssValue(cssProperty)).isEqualTo(expectedBackgroundColor);
     }

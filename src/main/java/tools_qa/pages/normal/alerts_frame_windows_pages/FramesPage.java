@@ -44,13 +44,14 @@ public class FramesPage extends BasePage {
         return this;
     }
 
+    public String getPageSource() {
+        String pageSource = driver.getPageSource();
+        return pageSource;
+    }
+
     // -------
     // GETTERS
     // -------
-
-    public WebElement getBigFrame() {
-        return bigFrame;
-    }
 
     public WebElement getFrameBody() {
         return frameBody;
