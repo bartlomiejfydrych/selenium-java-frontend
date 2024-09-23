@@ -7,6 +7,7 @@ import tools_qa.pages.base.BasePage;
 import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
+import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 
 public class HomePage extends BasePage {
 
@@ -52,5 +53,10 @@ public class HomePage extends BasePage {
     public AlertsFrameWindowsPage goToAlertsFrameWindowsPage() {
         alertsFrameWindowsButton.click();
         return new AlertsFrameWindowsPage(driver);
+    }
+
+    public WidgetsPage goToWidgetsPage() {
+        widgetsButton.click();
+        return new WidgetsPage(driver);
     }
 }
