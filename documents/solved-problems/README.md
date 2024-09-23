@@ -15,6 +15,7 @@
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
 - [Select - utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
 - [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
+- [WebElementy - czekanie na zakończenie animacji](#webelement_animation_wait)
 
 # 📄Opis
 
@@ -361,3 +362,33 @@ poniższy błąd:
 
 **Rozwiązanie:**  
 Pomogło wyłączenie i włączenie IDE ponownie.
+
+---
+
+## WebElementy - czekanie na zakończenie animacji <a name="webelement_animation_wait"></a>
+
+**Problem:**  
+Czasami Selenium szybciej zamykało okno modalne, nim zdążyło się ono w pełni pojawić.  
+Ta dziwna sytuacja wywoływała błąd:  
+`StaleElementReferenceException: stale element reference: stale element not found in the current frame`  
+Selenium próbował odwoływać się do elementu, którego już nie było.
+
+**Rozwiązanie:**  
+Żeby zaczekać, aż dany element lub animacja przestaną się poruszać można użyć poniższej metody:  
+```Java
+public void waitForElementToStopMoving(WebElement webElement) {
+    Point initialLocation = webElement.getLocation();
+    while (true) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        Point finalLocation = webElement.getLocation();
+        if (initialLocation.equals(finalLocation)) {
+            break;
+        }
+        initialLocation = finalLocation;
+    }
+}
+```
