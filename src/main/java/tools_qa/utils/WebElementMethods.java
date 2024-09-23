@@ -1,6 +1,7 @@
 package tools_qa.utils;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.json.JsonException;
@@ -27,6 +28,22 @@ public class WebElementMethods extends BasePage {
             return true;
         } catch (JsonException e) {
             return false;
+        }
+    }
+
+    public void waitForElementToStopMoving(WebElement webElement) {
+        Point initialLocation = webElement.getLocation();
+        while (true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            Point finalLocation = webElement.getLocation();
+            if (initialLocation.equals(finalLocation)) {
+                break;
+            }
+            initialLocation = finalLocation;
         }
     }
 }

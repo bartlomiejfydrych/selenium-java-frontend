@@ -27,6 +27,8 @@ public class AlertsFrameWindowsPage extends BasePage {
     private WebElement framesButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Nested Frames']")
     private WebElement nestedFramesButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Modal Dialogs']")
+    private WebElement modalDialogsButton;
 
     // -------
     // METHODS
@@ -50,5 +52,10 @@ public class AlertsFrameWindowsPage extends BasePage {
     public NestedFramesPage goToNestedFramesPage() {
         nestedFramesButton.click();
         return new NestedFramesPage(driver);
+    }
+
+    public ModalDialogsPage goToModalDialogsPage() {
+        modalDialogsButton.click();
+        return new ModalDialogsPage(driver);
     }
 }
