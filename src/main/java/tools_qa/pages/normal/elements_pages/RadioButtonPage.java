@@ -3,6 +3,7 @@ package tools_qa.pages.normal.elements_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 public class RadioButtonPage extends BasePage {
@@ -32,23 +33,21 @@ public class RadioButtonPage extends BasePage {
     // METHODS
     // -------
 
+    public RadioButtonPage waitForConfirmationText() {
+        defaultWait.until(ExpectedConditions.visibilityOf(confirmationText));
+        return this;
+    }
+
     public RadioButtonPage clickYesRadioButton() {
         actions.moveToElement(this.yesRadioButton).click().perform();
+        waitForConfirmationText();
         return this;
     }
 
     public RadioButtonPage clickImpressiveRadioButton() {
         actions.moveToElement(this.impressiveRadioButton).click().perform();
+        waitForConfirmationText();
         return this;
-    }
-
-    public RadioButtonPage clickNoRadioButton() {
-        actions.moveToElement(this.noRadioButton).click().perform();
-        return this;
-    }
-
-    public String getConfirmationText() {
-        return confirmationText.getText();
     }
 
     // -------
@@ -65,5 +64,9 @@ public class RadioButtonPage extends BasePage {
 
     public WebElement getNoRadioButton() {
         return noRadioButton;
+    }
+
+    public WebElement getConfirmationText() {
+        return confirmationText;
     }
 }

@@ -54,7 +54,7 @@ public class RadioButtonTest extends TestBase {
         // ASSERT
         // ------
 
-        String actualText = radioButtonPage.getConfirmationText();
+        String actualText = radioButtonPage.getConfirmationText().getText();
 
         assertThat(radioButtonPage.getYesRadioButton().isSelected()).isTrue();
         assertThat(actualText).isEqualTo(expectedText);
@@ -85,7 +85,7 @@ public class RadioButtonTest extends TestBase {
         // ASSERT
         // ------
 
-        String actualText = radioButtonPage.getConfirmationText();
+        String actualText = radioButtonPage.getConfirmationText().getText();
 
         assertThat(radioButtonPage.getImpressiveRadioButton().isSelected()).isTrue();
         assertThat(actualText).isEqualTo(expectedText);
