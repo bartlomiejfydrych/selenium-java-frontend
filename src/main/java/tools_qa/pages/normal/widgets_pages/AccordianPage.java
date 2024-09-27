@@ -3,6 +3,7 @@ package tools_qa.pages.normal.widgets_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 public class AccordianPage extends BasePage {
@@ -46,6 +47,16 @@ public class AccordianPage extends BasePage {
     // -------
     // METHODS
     // -------
+
+    public AccordianPage waitForElementToBeHidden(WebElement webElement) {
+        defaultWait.until(ExpectedConditions.invisibilityOf(webElement));
+        return this;
+    }
+
+    public AccordianPage waitForElementToBeVisible(WebElement webElement) {
+        defaultWait.until(ExpectedConditions.visibilityOf(webElement));
+        return this;
+    }
 
     public AccordianPage clickSection1Button() {
         section1Button.click();
