@@ -21,6 +21,8 @@ public class WidgetsPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Accordian']")
     private WebElement accordianButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Auto Complete']")
+    private WebElement autoCompleteButton;
 
     // -------
     // METHODS
@@ -29,5 +31,10 @@ public class WidgetsPage extends BasePage {
     public AccordianPage goToAccordianPage() {
         accordianButton.click();
         return new AccordianPage(driver);
+    }
+
+    public AutoCompletePage goToAutoCompletePage() {
+        autoCompleteButton.click();
+        return new AutoCompletePage(driver);
     }
 }

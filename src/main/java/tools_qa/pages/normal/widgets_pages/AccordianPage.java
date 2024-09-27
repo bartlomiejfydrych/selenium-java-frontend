@@ -77,16 +77,8 @@ public class AccordianPage extends BasePage {
     // GETTERS
     // -------
 
-    public WebElement getSection1Button() {
-        return section1Button;
-    }
-
     public WebElement getSection1Text() {
         return section1Text;
-    }
-
-    public WebElement getSection2Button() {
-        return section2Button;
     }
 
     public WebElement getSection2Text1() {
@@ -95,10 +87,6 @@ public class AccordianPage extends BasePage {
 
     public WebElement getSection2Text2() {
         return section2Text2;
-    }
-
-    public WebElement getSection3Button() {
-        return section3Button;
     }
 
     public WebElement getSection3Text() {
