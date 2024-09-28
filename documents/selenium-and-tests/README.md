@@ -6,6 +6,7 @@
 - [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
 - [Wzorzec Arrange-Act-Assert](#AAA)
 - [Pobieranie plików](#pobieranie)
+- [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
 
 ---
 
@@ -285,3 +286,138 @@ public void shouldOpenHomeLinkInNewTab() {
         uploadAndDownloadPage.deleteDownloadedFile(downloadedFile);
      }
      ```
+
+---
+
+## Logowanie - pozostanie zalogowanym pomiędzy testami <a name="logowanie_sesja_cookies"></a>
+
+
+Gdy masz dużo testów napisanych w Selenium, a wiele z nich wymaga logowania, możesz zoptymalizować proces testowania,
+eliminując konieczność logowania w każdym teście. Oto kilka strategii, które możesz zastosować:
+
+### 1. Używanie plików cookies po zalogowaniu
+
+Jednym z najprostszych sposobów na ominięcie etapu logowania jest zapisanie plików cookies po zalogowaniu i późniejsze
+ich ponowne użycie w każdym teście. Pliki cookies przechowują informacje o sesji, dzięki czemu Selenium nie musi
+przechodzić przez cały proces logowania.
+
+**Kroki:**
+- Zaloguj się raz przy użyciu Selenium i zapisz pliki cookies.
+- Przy każdym teście wczytaj zapisane cookies, aby automatycznie zalogować użytkownika.
+
+**Przykład w Java:**
+1. Zapisywanie cookies po zalogowaniu:
+   ```Java
+   public void saveCookies(WebDriver driver) {
+       Set<Cookie> cookies = driver.manage().getCookies();
+       // Zapisz cookies do pliku
+       try (FileWriter fileWriter = new FileWriter("cookies.data")) {
+           for (Cookie cookie : cookies) {
+               fileWriter.write(cookie.getName() + ";" + cookie.getValue() + ";" 
+                   + cookie.getDomain() + ";" + cookie.getPath() + ";" 
+                   + cookie.getExpiry() + ";" + cookie.isSecure() + "\n");
+           }
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
+   ```
+2. Wczytywanie cookies przed testami:
+   ```Java
+   public void loadCookies(WebDriver driver) {
+       try (BufferedReader bufferedReader = new BufferedReader(new FileReader("cookies.data"))) {
+           String line;
+           while ((line = bufferedReader.readLine()) != null) {
+               String[] token = line.split(";");
+               Cookie cookie = new Cookie.Builder(token[0], token[1])
+                       .domain(token[2])
+                       .path(token[3])
+                       .expiresOn(null) // lub ustaw datę wygaśnięcia
+                       .isSecure(Boolean.parseBoolean(token[5]))
+                       .build();
+               driver.manage().addCookie(cookie);
+           }
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+       driver.navigate().refresh(); // Odśwież stronę, aby zastosować cookies
+   }
+   ```
+
+### 2. Zautomatyzowane API logowania
+
+Jeśli aplikacja, którą testujesz, oferuje API logowania, możesz zautomatyzować proces uzyskania tokenu autoryzacyjnego
+lub sesji bez przechodzenia przez pełny interfejs użytkownika. Następnie wstrzykujesz sesję do przeglądarki.
+
+**Kroki:**
+- Użyj zapytania HTTP w celu zalogowania się do aplikacji.
+- Uzyskaj token lub sesję.
+- Ustaw nagłówki lub pliki cookies w przeglądarce Selenium.
+
+**Przykład w Java:**
+```Java
+// Przykład użycia HTTP Clienta do uzyskania tokenu logowania
+public String getAuthToken() {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("https://example.com/api/login"))
+        .header("Content-Type", "application/json")
+        .POST(HttpRequest.BodyPublishers.ofString("{\"username\":\"user\", \"password\":\"pass\"}"))
+        .build();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    return extractTokenFromResponse(response.body()); // Wydobycie tokenu z odpowiedzi
+}
+
+// Ustaw token w nagłówku Selenium
+public void setTokenInBrowser(WebDriver driver, String token) {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("window.localStorage.setItem('authToken', '" + token + "');");
+    driver.navigate().refresh();
+}
+```
+
+### 3. Użycie sesji z poprzednich testów
+
+Jeśli testy są wykonywane w tej samej sesji przeglądarki, możesz utrzymać stan przeglądarki pomiędzy testami, co
+eliminuje konieczność ponownego logowania.
+
+**Kroki:**
+- Uruchom Selenium w jednej sesji.
+- Nie zamykaj przeglądarki pomiędzy testami.
+
+**Przykład konfiguracji w TestNG:**
+```Java
+@BeforeClass
+public void setUp() {
+    // Uruchom WebDriver raz, dla całej klasy testowej
+    driver = new ChromeDriver();
+    driver.get("https://example.com");
+    login(); // Zaloguj raz
+}
+
+@AfterClass
+public void tearDown() {
+    driver.quit(); // Zamknij przeglądarkę na końcu wszystkich testów
+}
+```
+
+### 4. Utrzymywanie stanu przeglądarki pomiędzy uruchomieniami (profile przeglądarki)
+
+Możesz używać profilów przeglądarki (np. dla Chrome lub Firefox), które przechowują sesję użytkownika.
+
+**Kroki:**
+- Uruchom przeglądarkę z zachowaniem profilu użytkownika, aby stan sesji został zachowany między uruchomieniami Selenium.
+
+**Przykład dla Chrome:**
+```Java
+ChromeOptions options = new ChromeOptions();
+options.addArguments("user-data-dir=/path/to/your/custom/profile");
+WebDriver driver = new ChromeDriver(options);
+```
+
+### Podsumowanie
+
+- Cookies są jednym z najprostszych i najskuteczniejszych rozwiązań do omijania logowania w każdym teście.
+- API logowania pozwala na szybkie pobranie tokenu lub sesji, omijając interfejs użytkownika.
+- Profile przeglądarki i utrzymanie sesji w jednej przeglądarce to inne efektywne sposoby na przyspieszenie testów.
