@@ -31,7 +31,7 @@ public class AutoCompleteTest extends TestBase {
     }
 
     @Test
-    public void shouldWriteAllColorsAndClearInput() {
+    public void shouldWriteAllColorsAndClearInputInMultiColorInput() {
 
         // -------
         // ARRANGE
@@ -78,42 +78,63 @@ public class AutoCompleteTest extends TestBase {
     }
 
     @Test
-    public void shouldWriteColorAndClearThatColor() {
+    public void shouldWriteOneColorAndClearThatColorInMultiColorInput() {
 
         // -------
         // ARRANGE
         // -------
 
+        List<String> colorList = Arrays.asList(
+                "Red"
+        );
 
         // ---
         // ACT
         // ---
 
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToAutoCompletePage();
+
+        autoCompletePage.writeColors(colorList)
+                .clearOneColor(colorList.get(0));
 
         // ------
         // ASSERT
         // ------
 
-
+        assertThat(autoCompletePage.getColorsInInput()).isEmpty();
     }
 
     @Test
-    public void shouldWriteOnlyOneColor() {
+    public void shouldWriteOnlyOneColorInSingleColorInput() {
 
         // -------
         // ARRANGE
         // -------
 
+        String firstColor = "Red";
+        String secondColor = "Blue";
 
         // ---
         // ACT
         // ---
 
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToAutoCompletePage();
+
+        autoCompletePage.writeColorInSingleColorInput(firstColor)
+                .writeColorInSingleColorInput(secondColor);
 
         // ------
         // ASSERT
         // ------
 
-
+        assertThat(autoCompletePage.getSingleColorReadInput().getText()).isEqualTo(secondColor);
     }
 }
