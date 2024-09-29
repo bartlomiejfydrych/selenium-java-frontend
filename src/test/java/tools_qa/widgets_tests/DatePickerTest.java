@@ -8,6 +8,10 @@ import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.widgets_pages.DatePickerPage;
 import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 
+import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class DatePickerTest extends TestBase {
 
     HomePage homePage;
@@ -26,19 +30,31 @@ public class DatePickerTest extends TestBase {
     }
 
     @Test
-    public void shouldSelectDate() {
+    public void shouldSelectDate() throws ParseException {
 
         // -------
         // ARRANGE
         // -------
 
+        String date = datePickerPage.generateRandomDateAndTime(true);
+        String formattedDate = datePickerPage.convertDate(date);
+
         // ---
         // ACT
         // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToDatePickerPage();
+
+        datePickerPage.selectDate(date);
 
         // ------
         // ASSERT
         // ------
 
+        assertThat(datePickerPage.getSelectDateInput().getAttribute("value")).isEqualTo(formattedDate);
     }
 }

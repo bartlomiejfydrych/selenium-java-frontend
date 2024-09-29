@@ -1,11 +1,15 @@
 package tools_qa.pages.normal.widgets_pages;
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import tools_qa.pages.base.BasePage;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,16 +30,25 @@ public class DatePickerPage extends BasePage {
     // WEB ELEMENTS
     // ------------
 
+    // Date
     @FindBy(css = "#datePickerMonthYearInput")
-    WebElement selectDateInput;
+    private WebElement selectDateInput;
+    @FindBy(css = "react-datepicker__month-select")
+    private WebElement monthSelect;
+    @FindBy(css = "react-datepicker__year-select")
+    private WebElement yearSelect;
+    private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div"; // // [contains(@aria-label,'November') and text()='27']
+    @FindBy(xpath = daySelectXpath)
+    private WebElement daySelect;
+    // Date and time
     @FindBy(css = "#dateAndTimePickerInput")
-    WebElement selectDateAndTime;
+    private WebElement selectDateAndTimeInput;
 
     // -------
     // METHODS
     // -------
 
-    public String getRandomDateAndTime(boolean cutOffTime) {
+    public String generateRandomDateAndTime(boolean cutOffTime) {
         Faker faker = new Faker();
         // Set the date range from January 1, 1900 to December 31, 2100
         Calendar startCalendar = Calendar.getInstance();
@@ -62,15 +75,34 @@ public class DatePickerPage extends BasePage {
         }
     }
 
+    // Date
+
     public DatePickerPage selectDate(String dateWithoutTime) {
         String[] dateParts = dateWithoutTime.split(" ");
         String month = dateParts[0];
         String year = dateParts[1];
         String day = dateParts[2];
         selectDateInput.click();
-
+        WebElement monthSelectAfterWait = defaultWait.until(ExpectedConditions.elementToBeClickable(monthSelect));
+        Select selectMonth = new Select(monthSelectAfterWait);
+        selectMonth.selectByVisibleText(month);
+        Select selectYear = new Select(yearSelect);
+        selectYear.selectByValue(year);
+        String daySelectOptionXpath = daySelectXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
+        WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
+        daySelectOptionLocator.click();
         return this;
     }
+
+    public String convertDate(String inputDate) throws ParseException {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM yyyy d", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = inputFormat.parse(inputDate);
+        String formattedDate = outputFormat.format(date);
+        return formattedDate;
+    }
+
+    // Date and time
 
     public DatePickerPage selectDateAndTime(String dateWithTime) {
 
@@ -80,4 +112,12 @@ public class DatePickerPage extends BasePage {
     // -------
     // GETTERS
     // -------
+
+    public WebElement getSelectDateInput() {
+        return selectDateInput;
+    }
+
+    public WebElement getSelectDateAndTimeInput() {
+        return selectDateAndTimeInput;
+    }
 }
