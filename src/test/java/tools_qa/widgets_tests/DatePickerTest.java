@@ -57,4 +57,15 @@ public class DatePickerTest extends TestBase {
 
         assertThat(datePickerPage.getSelectDateInput().getAttribute("value")).isEqualTo(formattedDate);
     }
+
+    @Test
+    public void shouldSelectDateAndTime() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        String dateAndTime = datePickerPage.generateRandomDateAndTime(false);
+
+    }
 }
