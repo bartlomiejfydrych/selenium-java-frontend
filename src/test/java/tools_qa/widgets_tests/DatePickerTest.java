@@ -59,13 +59,31 @@ public class DatePickerTest extends TestBase {
     }
 
     @Test
-    public void shouldSelectDateAndTime() {
+    public void shouldSelectDateAndTime() throws ParseException {
 
         // -------
         // ARRANGE
         // -------
 
         String dateAndTime = datePickerPage.generateRandomDateAndTime(false);
+        String formattedDateAndTime = datePickerPage.convertDateAndTime(dateAndTime);
 
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToDatePickerPage();
+
+        datePickerPage.selectDateAndTime(dateAndTime);
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(datePickerPage.getSelectDateAndTimeInput().getAttribute("value")).isEqualTo(formattedDateAndTime);
     }
 }

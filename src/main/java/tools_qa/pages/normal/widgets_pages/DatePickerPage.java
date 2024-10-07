@@ -34,28 +34,35 @@ public class DatePickerPage extends BasePage {
     @FindBy(css = "#datePickerMonthYearInput")
     private WebElement selectDateInput;
     @FindBy(css = ".react-datepicker__month-select")
-    private WebElement monthSelect;
+    private WebElement monthDateSelect;
     @FindBy(css = ".react-datepicker__year-select")
-    private WebElement yearSelect;
-    private final String daySelectXpath = "//div[@class='react-datepicker__month']/div/div"; // // [contains(@aria-label,'November') and text()='27']
-    @FindBy(xpath = daySelectXpath)
-    private WebElement daySelect;
+    private WebElement yearDateSelect;
+    private final String dayDateSelectXpath = "//div[@class='react-datepicker__month']/div/div"; // [contains(@aria-label,'November') and text()='27']
+    @FindBy(xpath = dayDateSelectXpath)
+    private WebElement dayDateSelect;
     // DATE AND TIME
     @FindBy(css = "#dateAndTimePickerInput")
     private WebElement selectDateAndTimeInput;
     // Month
     @FindBy(css = ".react-datepicker__month-read-view")
     private WebElement monthDateAndTimeSelect;
-    private final String monthSelectXpath = "//div[@class='react-datepicker__month-option']";
-    @FindBy(xpath = monthSelectXpath)
+    private final String monthDateAndTimeSelectXpath = "//div[@class='react-datepicker__month-option']";
+    @FindBy(xpath = monthDateAndTimeSelectXpath)
     private WebElement monthDateAndTimeOption;
     // Year
     @FindBy(css = ".react-datepicker__year-read-view")
     private WebElement yearDateAndTimeSelect;
-    private final String yearSelectXpath = "//div[@class='react-datepicker__year-option']";
-    @FindBy(xpath = yearSelectXpath)
+    private final String yearDateAndTimeSelectXpath = "//div[@class='react-datepicker__year-option']";
+    @FindBy(xpath = yearDateAndTimeSelectXpath)
     private WebElement yearDateAndTimeOption;
-
+    // Day
+    private final String dayDateAndTimeXpath = "//div[@class='react-datepicker__month']/div/div"; // [contains(@aria-label,'November') and text()='27']
+    @FindBy(xpath = dayDateAndTimeXpath)
+    private WebElement dayDateAndTimeOption;
+    // Time
+    private final String timeDateAndTimeXpath = "//ul[@class='react-datepicker__time-list']/li"; // [text()='00:00']
+    @FindBy(xpath = timeDateAndTimeXpath)
+    private WebElement timeDateAndTimeOption;
 
     // -------
     // METHODS
@@ -107,15 +114,15 @@ public class DatePickerPage extends BasePage {
         String day = dateParts[2];
         // Open calendar
         selectDateInput.click();
-        WebElement monthSelectAfterWait = defaultWait.until(ExpectedConditions.elementToBeClickable(monthSelect));
+        WebElement monthSelectAfterWait = defaultWait.until(ExpectedConditions.elementToBeClickable(monthDateSelect));
         // Select month
         Select selectMonth = new Select(monthSelectAfterWait);
         selectMonth.selectByVisibleText(month);
         // Select year
-        Select selectYear = new Select(yearSelect);
+        Select selectYear = new Select(yearDateSelect);
         selectYear.selectByValue(year);
         // Select day
-        String daySelectOptionXpath = daySelectXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
+        String daySelectOptionXpath = dayDateSelectXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
         WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
         daySelectOptionLocator.click();
         return this;
@@ -143,15 +150,22 @@ public class DatePickerPage extends BasePage {
         defaultWait.until(ExpectedConditions.elementToBeClickable(monthDateAndTimeSelect));
         // Select month
         monthDateAndTimeSelect.click();
-        String monthSelectOptionXpath = monthSelectXpath + "[text()='" + month + "']";
+        String monthSelectOptionXpath = monthDateAndTimeSelectXpath + "[text()='" + month + "']";
         WebElement monthSelectOptionLocator = driver.findElement(By.xpath(monthSelectOptionXpath));
         monthSelectOptionLocator.click();
         // Select year
         yearDateAndTimeSelect.click();
-        String yearSelectOptionXpath = yearSelectXpath + "[text()='" + year + "']";
+        String yearSelectOptionXpath = yearDateAndTimeSelectXpath + "[text()='" + year + "']";
         WebElement yearSelectOptionLocator = driver.findElement(By.xpath(yearSelectOptionXpath));
         yearSelectOptionLocator.click();
         // Select day
+        String daySelectOptionXpath = dayDateAndTimeXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
+        WebElement daySelectOptionLocator = driver.findElement(By.xpath(dayDateAndTimeXpath));
+        daySelectOptionLocator.click();
+        // Select time
+        String timeSelectOptionXpath = timeDateAndTimeXpath + "[text()='" + time + "']";
+        WebElement timeSelectOptionLocator = driver.findElement(By.xpath(timeSelectOptionXpath));
+        timeSelectOptionLocator.click();
         return this;
     }
 
