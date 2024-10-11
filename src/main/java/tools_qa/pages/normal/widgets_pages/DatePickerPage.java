@@ -49,12 +49,16 @@ public class DatePickerPage extends BasePage {
     private final String monthDateAndTimeSelectXpath = "//div[@class='react-datepicker__month-option']";
     @FindBy(xpath = monthDateAndTimeSelectXpath)
     private WebElement monthDateAndTimeOption;
+    @FindBy(xpath = "//div//span[@class='react-datepicker__month-option--selected']")
+    private WebElement monthActualDateAndTimeOption;
     // Year
     @FindBy(css = ".react-datepicker__year-read-view")
     private WebElement yearDateAndTimeSelect;
     private final String yearDateAndTimeSelectXpath = "//div[@class='react-datepicker__year-option']";
     @FindBy(xpath = yearDateAndTimeSelectXpath)
     private WebElement yearDateAndTimeOption;
+    @FindBy(xpath = "//div//span[@class='react-datepicker__year-option--selected']")
+    private WebElement yearActualDateAndTimeOption;
     // Day
     private final String dayDateAndTimeXpath = "//div[@class='react-datepicker__month']/div/div"; // [contains(@aria-label,'November') and text()='27']
     @FindBy(xpath = dayDateAndTimeXpath)
@@ -145,22 +149,40 @@ public class DatePickerPage extends BasePage {
         String year = dateAndTimeParts[1];
         String day = dateAndTimeParts[2];
         String time = dateAndTimeParts[3];
+        // Get current month and year
+        Calendar calendar = Calendar.getInstance();
+        String currentMonth = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(calendar.getTime());
+        String currentYear = String.valueOf(calendar.get(Calendar.YEAR));
         // Open calendar
         selectDateAndTimeInput.click();
         defaultWait.until(ExpectedConditions.elementToBeClickable(monthDateAndTimeSelect));
         // Select month
         monthDateAndTimeSelect.click();
-        String monthSelectOptionXpath = monthDateAndTimeSelectXpath + "[text()='" + month + "']";
-        WebElement monthSelectOptionLocator = driver.findElement(By.xpath(monthSelectOptionXpath));
-        monthSelectOptionLocator.click();
+        defaultWait.until(ExpectedConditions.elementToBeClickable(monthActualDateAndTimeOption));
+        if (month.equals(currentMonth)) {
+            // If the month is the current month, click the current month locator
+            monthActualDateAndTimeOption.click();
+        } else {
+            // Otherwise, select the desired month
+            String monthSelectOptionXpath = monthDateAndTimeSelectXpath + "[text()='" + month + "']";
+            WebElement monthSelectOptionLocator = driver.findElement(By.xpath(monthSelectOptionXpath));
+            monthSelectOptionLocator.click();
+        }
         // Select year
         yearDateAndTimeSelect.click();
-        String yearSelectOptionXpath = yearDateAndTimeSelectXpath + "[text()='" + year + "']";
-        WebElement yearSelectOptionLocator = driver.findElement(By.xpath(yearSelectOptionXpath));
-        yearSelectOptionLocator.click();
+        defaultWait.until(ExpectedConditions.elementToBeClickable(yearActualDateAndTimeOption));
+        if (year.equals(currentYear)) {
+            // If the year is the current year, click the current year locator
+            yearActualDateAndTimeOption.click();
+        } else {
+            // Otherwise, select the desired year
+            String yearSelectOptionXpath = yearDateAndTimeSelectXpath + "[text()='" + year + "']";
+            WebElement yearSelectOptionLocator = driver.findElement(By.xpath(yearSelectOptionXpath));
+            yearSelectOptionLocator.click();
+        }
         // Select day
         String daySelectOptionXpath = dayDateAndTimeXpath + "[contains(@aria-label,'" + month + "') and text()='" + day + "']";
-        WebElement daySelectOptionLocator = driver.findElement(By.xpath(dayDateAndTimeXpath));
+        WebElement daySelectOptionLocator = driver.findElement(By.xpath(daySelectOptionXpath));
         daySelectOptionLocator.click();
         // Select time
         String timeSelectOptionXpath = timeDateAndTimeXpath + "[text()='" + time + "']";
@@ -171,7 +193,7 @@ public class DatePickerPage extends BasePage {
 
     public String convertDateAndTime(String inputDate) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM yyyy d HH:mm", Locale.ENGLISH);
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM d, yyyy hh:mm a", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM d, yyyy h:mm a", Locale.ENGLISH);
         Date date = inputFormat.parse(inputDate);
         String formattedDate = outputFormat.format(date);
         return formattedDate;
