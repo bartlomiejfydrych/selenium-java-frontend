@@ -25,6 +25,8 @@ public class WidgetsPage extends BasePage {
     private WebElement autoCompleteButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Date Picker']")
     private WebElement datePickerButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Slider']")
+    private WebElement sliderButton;
 
     // -------
     // METHODS
@@ -43,5 +45,10 @@ public class WidgetsPage extends BasePage {
     public DatePickerPage goToDatePickerPage() {
         datePickerButton.click();
         return new DatePickerPage(driver);
+    }
+
+    public SliderPage goToSliderPage() {
+        sliderButton.click();
+        return new SliderPage(driver);
     }
 }
