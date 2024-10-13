@@ -28,7 +28,7 @@ public class SliderTest extends TestBase {
     }
 
     @Test
-    public void shouldMoveSliderTo100And0And50UsingSelenium() {
+    public void shouldMoveSliderTo100And0And50UsingXOffSetPosition() {
 
         // -------
         // ARRANGE
@@ -49,13 +49,14 @@ public class SliderTest extends TestBase {
 
         widgetsPage.goToSliderPage();
 
-        sliderPage.moveSlider(323);
+        // 100
+        sliderPage.moveSliderUseXOffSetPosition(323);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMaxValue));
-
-        sliderPage.moveSlider(-429);
+        // 0
+        sliderPage.moveSliderUseXOffSetPosition(-429);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMinValue));
-
-        sliderPage.moveSlider(214);
+        // 50
+        sliderPage.moveSliderUseXOffSetPosition(3);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
     }
 
@@ -81,13 +82,14 @@ public class SliderTest extends TestBase {
 
         widgetsPage.goToSliderPage();
 
-        sliderPage.moveSliderByJS(sliderMaxValue);
+        // 100
+        sliderPage.moveSliderUseJavaScript(sliderMaxValue);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMaxValue));
-
-        sliderPage.moveSliderByJS(sliderMinValue);
+        // 0
+        sliderPage.moveSliderUseJavaScript(sliderMinValue);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMinValue));
-
-        sliderPage.moveSliderByJS(sliderMiddleValue);
+        // 50
+        sliderPage.moveSliderUseJavaScript(sliderMiddleValue);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
     }
 }
