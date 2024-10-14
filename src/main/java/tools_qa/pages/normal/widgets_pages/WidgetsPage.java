@@ -27,6 +27,8 @@ public class WidgetsPage extends BasePage {
     private WebElement datePickerButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Slider']")
     private WebElement sliderButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Progress Bar']")
+    private WebElement progressBarButton;
 
     // -------
     // METHODS
@@ -50,5 +52,10 @@ public class WidgetsPage extends BasePage {
     public SliderPage goToSliderPage() {
         sliderButton.click();
         return new SliderPage(driver);
+    }
+
+    public ProgressBarPage goToProgressBarPage() {
+        progressBarButton.click();
+        return new ProgressBarPage(driver);
     }
 }
