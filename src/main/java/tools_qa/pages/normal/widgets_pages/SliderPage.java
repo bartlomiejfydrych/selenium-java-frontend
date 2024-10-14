@@ -105,8 +105,8 @@ DESCRIPTION:
 A standard Selenium method that moves a given element along the X-axis and Y-axis.
 
 USAGE:
-This method is useful when we want to check whether the slider itself affects the sliding movement for the minimum
-and maximum value.
+This method is useful when you want to check just moving the slider for the maximum and minimum values without focusing
+too much on the exact value somewhere in the middle.
 
 ADVANTAGES:
 The advantage of this method is that it simulates the user's behavior, i.e. grabbing the element and moving it.

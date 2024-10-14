@@ -7,6 +7,7 @@
 - [Wzorzec Arrange-Act-Assert](#AAA)
 - [Pobieranie plików](#pobieranie)
 - [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
+- [Slider — metody](#slider_methods)
 
 ---
 
@@ -421,3 +422,109 @@ WebDriver driver = new ChromeDriver(options);
 - Cookies są jednym z najprostszych i najskuteczniejszych rozwiązań do omijania logowania w każdym teście.
 - API logowania pozwala na szybkie pobranie tokenu lub sesji, omijając interfejs użytkownika.
 - Profile przeglądarki i utrzymanie sesji w jednej przeglądarce to inne efektywne sposoby na przyspieszenie testów.
+
+---
+
+## Slider — metody <a name="slider_methods"></a>
+
+Żeby przetestować element typu Slider, możemy zrobić to na 3 sposoby.
+
+### Metoda 1 - Użycie JavaScript
+
+**Kod:**
+
+```Java
+public SliderPage moveSliderUseJavaScript(int sliderValue) {
+   jse.executeScript("arguments[0].value = arguments[1];", sliderBar, sliderValue);
+   jse.executeScript("arguments[0].value = arguments[1];", sliderValueInput, sliderValue);
+   return this;
+}
+```
+
+**Opis:**
+
+W Selenium nie ma wbudowanej metody przesuwania suwaka do określonych wartości, ale możemy to zrobić za pomocą JavaScript,
+co pozwoli nam bezpośrednio ustawić pozycję suwaka za pomocą jego atrybutu „value”.
+
+**Zastosowanie:**
+
+Ta metoda może być przydatna w przypadku suwaków, w których mamy bardzo duży zakres wartości lub musimy ustawić
+dokładną pozycję suwaka do dalszych testów.
+
+**Zalety:**
+
+Zaletą tej metody jest to, że jest najszybsza, najdokładniejsza i najbezpieczniejsza.
+
+**Wady:**
+
+Wadą tej metody jest to, że nie symuluje ona dokładnego zachowania użytkownika, ponieważ zmienia pozycję suwaka na
+sztywno. Nie ma procesu „łapania” i „przesuwania”. Gdy zmieniamy pozycję suwaka, dane wejściowe wyświetlające jego
+wartość, pozostają niezmienione i w nim również musimy symulować zmianę jego wartości za pomocą JS.
+
+### Metoda 2 - Użycie przesuwania po osi X lub Y
+
+**Kod:**
+
+```Java
+public SliderPage moveSliderUseXOffSetPosition(int xOffSet) {
+   actions.dragAndDropBy(sliderBar, xOffSet, 0).perform();
+   return this;
+}
+```
+
+**Opis:**
+
+Standardowa metoda Selenium, która przesuwa dany element wzdłuż osi X i osi Y.
+
+**Zastosowanie:**
+
+Ta metoda jest przydatna, gdy chcemy sprawdzić, samo przesuwanie suwaka dla wartości maksymalnej i minimalnej bez zbyt
+dużego skupiania się na dokładnej wartości gdzieś pośrodku.
+
+**Zalety:**
+
+Zaletą tej metody jest to, że symuluje ona zachowanie użytkownika, tj. chwytanie elementu i przesuwanie go.
+
+**Wady:**
+
+Wadą tej metody jest to, że trzeba powtarzać test wiele razy, aby metodą prób i błędów odgadnąć, o jaką wartość
+powinniśmy przesunąć element. W przypadku suwaków o dużym zakresie wartości trudno jest trafić w dokładną wartość.
+Ponadto ta metoda jest bardzo niestabilna, ponieważ zależy od rozmiaru okna.
+
+### Metoda 3 - Użycie klawiszy klawiatury
+
+**Kod:**
+
+```Java
+ public SliderPage moveSliderUseKeyboard(int numberOfSliderMovesToOneSide) {
+   if (numberOfSliderMovesToOneSide > 0) {
+      for (int i = 0; i < numberOfSliderMovesToOneSide; i++) {
+         sliderBar.sendKeys(Keys.ARROW_RIGHT);
+      }
+   } else if (numberOfSliderMovesToOneSide < 0) {
+      for (int i = 0; i < Math.abs(numberOfSliderMovesToOneSide); i++) {
+         sliderBar.sendKeys(Keys.ARROW_LEFT);
+      }
+   }
+   return this;
+}
+```
+
+**Opis:**
+
+Metoda przesuwająca suwak w lewo lub prawo za pomocą klawiszy klawiatury.
+
+**Zastosowanie:**
+
+Możemy użyć tej metody, gdy chcemy sprawdzić, czy suwak obsługuje użycie klawiatury i gdy chcemy uzyskać dość
+dokładną wartość. W przypadku suwaków o małych wartościach możemy uzyskać dokładną wartość, ale w przypadku suwaków
+o dużych wartościach nie możemy.
+
+**Zalety:**
+
+Zaletą tej metody jest to, że symuluje ona również zachowanie użytkownika w pewnym stopniu i jest stabilniejsza
+oraz dokładniejsza niż przesuwanie suwaka wzdłuż osi X.
+
+**Wady:**
+
+Wadą tej metody jest to, że jej wykonanie zajmuje dużo czasu. Nie jest zalecana w przypadku suwaków o dużych wartościach.
