@@ -28,39 +28,6 @@ public class SliderTest extends TestBase {
     }
 
     @Test
-    public void shouldMoveSliderTo100And0And50UsingXOffSetPosition() {
-
-        // -------
-        // ARRANGE
-        // -------
-
-        String attribute = "value";
-        int sliderMaxValue = 100;
-        int sliderMinValue = 0;
-        int sliderMiddleValue = 50;
-
-        // ------------
-        // ACT + ASSERT
-        // ------------
-
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeAdFrameAndFooter();
-
-        widgetsPage.goToSliderPage();
-
-        // 100
-        sliderPage.moveSliderUseXOffSetPosition(323);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMaxValue));
-        // 0
-        sliderPage.moveSliderUseXOffSetPosition(-429);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMinValue));
-        // 50
-        sliderPage.moveSliderUseXOffSetPosition(3);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
-    }
-
-    @Test
     public void shouldMoveSliderTo100And0And50UsingJavaScript() {
 
         // -------
@@ -91,5 +58,71 @@ public class SliderTest extends TestBase {
         // 50
         sliderPage.moveSliderUseJavaScript(sliderMiddleValue);
         assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
+    }
+
+    @Test
+    public void shouldMoveSliderTo100And0And50UsingXOffSetPosition() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        String attribute = "value";
+        String expectedSliderMaxValue = "100";
+        String expectedSliderMinValue = "0";
+        String expectedSliderMiddleValue = "50";
+
+        // ------------
+        // ACT + ASSERT
+        // ------------
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToSliderPage();
+
+        // 100
+        sliderPage.moveSliderUseXOffSetPosition(323);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMaxValue);
+        // 0
+        sliderPage.moveSliderUseXOffSetPosition(-429);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMinValue);
+        // 50
+        sliderPage.moveSliderUseXOffSetPosition(3);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMiddleValue);
+    }
+
+    @Test
+    public void shouldMoveSliderTo100And0And50UsingKeyboard() {
+
+        // -------
+        // ARRANGE
+        // -------
+
+        String attribute = "value";
+        String expectedSliderMaxValue = "100";
+        String expectedSliderMinValue = "0";
+        String expectedSliderMiddleValue = "50";
+
+        // ------------
+        // ACT + ASSERT
+        // ------------
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeAdFrameAndFooter();
+
+        widgetsPage.goToSliderPage();
+
+        // 100
+        sliderPage.moveSliderUseKeyboard(75);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMaxValue);
+        // 0
+        sliderPage.moveSliderUseKeyboard(-100);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMinValue);
+        // 50
+        sliderPage.moveSliderUseKeyboard(50);
+        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMiddleValue);
     }
 }

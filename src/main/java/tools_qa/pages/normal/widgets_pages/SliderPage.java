@@ -1,5 +1,6 @@
 package tools_qa.pages.normal.widgets_pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,17 +31,27 @@ public class SliderPage extends BasePage {
     // METHODS
     // -------
 
+    public SliderPage moveSliderUseJavaScript(int sliderValue) {
+        jse.executeScript("arguments[0].value = arguments[1];", sliderBar, sliderValue);
+        jse.executeScript("arguments[0].value = arguments[1];", sliderValueInput, sliderValue);
+        return this;
+    }
+
     public SliderPage moveSliderUseXOffSetPosition(int xOffSet) {
         actions.dragAndDropBy(sliderBar, xOffSet, 0).perform();
         return this;
     }
 
-    // TODO: Opisać te metody w README - Selenium
-    // TODO: Zrobić test przesuwania z klawiatury
-
-    public SliderPage moveSliderUseJavaScript(int sliderValue) {
-        jse.executeScript("arguments[0].value = arguments[1];", sliderBar, sliderValue);
-        jse.executeScript("arguments[0].value = arguments[1];", sliderValueInput, sliderValue);
+    public SliderPage moveSliderUseKeyboard(int numberOfSliderMovesToOneSide) {
+        if (numberOfSliderMovesToOneSide > 0) {
+            for (int i = 0; i < numberOfSliderMovesToOneSide; i++) {
+                sliderBar.sendKeys(Keys.ARROW_RIGHT);
+            }
+        } else if (numberOfSliderMovesToOneSide < 0) {
+            for (int i = 0; i < Math.abs(numberOfSliderMovesToOneSide); i++) {
+                sliderBar.sendKeys(Keys.ARROW_LEFT);
+            }
+        }
         return this;
     }
 
@@ -54,6 +65,7 @@ public class SliderPage extends BasePage {
 }
 
 /*
+
 ------
 NOTES:
 ------
@@ -104,5 +116,24 @@ The disadvantage of this method is that you have to repeat the test many times t
 we should move the element.
 With sliders that have a large range of values, it is difficult to hit the exact value. Additionally, this method is
 very unstable because it depends on the size of the window.
+
+-------------------------------------------------------
+moveSliderUseKeyboard(int numberOfSliderMovesToOneSide)
+-------------------------------------------------------
+
+DESCRIPTION:
+A method that moves the slider left or right using the keyboard keys.
+
+USAGE:
+We can use this method when we want to check if the slider supports keyboard usage and when we want to get a fairly
+accurate value. With sliders with small values we can get an accurate value, but with sliders with large values we can't.
+
+ADVANTAGES:
+The advantage of this method is that it also simulates user behavior to some extent and is more reliable and accurate
+than moving the slider along the X axis.
+
+DISADVANTAGES:
+The disadvantage of this method is that it takes a long time to execute. It is not recommended for sliders with large
+values.
 
 */
