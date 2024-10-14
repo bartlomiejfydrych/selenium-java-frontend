@@ -74,7 +74,7 @@ SOON
 
 ## 🤡How can Frontend developer make Tester mad
 
-By adding on website a lot of:
+By adding on website **a lot of**:
 - Tables
 - Calendars (data pickers)
 - Unusual windows with about:blank URL
