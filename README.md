@@ -44,7 +44,6 @@ This course consisted of 3 parts:
 
 - [Tools QA](https://demoqa.com/)
 - [Testerczaki](https://dawidkaruga.pl/testerczaki/)
-- [Automation Test Store](https://automationteststore.com/)
 
 ### Description
 
@@ -52,8 +51,6 @@ This course consisted of 3 parts:
 
 **Testerczaki** - Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises are done better.  
 However, "QA Test" has exercises that "Testerczaki" do not have.
-
-**Automation Test Store** - A website simulating an online store. It is used to fully cover it with automatic tests.
 
 ## 🎯What I learned and what I practiced
 
@@ -75,6 +72,11 @@ SOON
 
 SOON
 
-### Automation Test Store
+## 🤡How can Frontend developer make Tester mad
 
-SOON
+By adding on website a lot of:
+- Tables
+- Calendars (data pickers)
+- Unusual windows with about:blank URL
+- Nested iFrames
+- Sliders
