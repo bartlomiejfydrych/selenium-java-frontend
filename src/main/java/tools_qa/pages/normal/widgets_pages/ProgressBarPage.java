@@ -1,7 +1,14 @@
 package tools_qa.pages.normal.widgets_pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
+
+import java.time.Duration;
+import java.util.Objects;
 
 public class ProgressBarPage extends BasePage {
 
@@ -17,21 +24,44 @@ public class ProgressBarPage extends BasePage {
     // WEB ELEMENTS
     // ------------
 
-    // button startStop
-    // button reset
-    // progress bar
+    @FindBy(css = "#startStopButton")
+    private WebElement startStopButton;
+    @FindBy(css = "#resetButton")
+    private WebElement resetButton;
+    @FindBy(css = ".progress-bar")
+    private WebElement progressBar;
 
     // -------
     // METHODS
     // -------
 
-    // kliknięcie przycisku start/stop
-    // kliknięcie przycisku reset
+    public ProgressBarPage clickStartStopButton() {
+        startStopButton.click();
+        return this;
+    }
+
+    public ProgressBarPage clickResetButton() {
+        resetButton.click();
+        return this;
+    }
+
+    public ProgressBarPage waitForProgressBar(String expectedValue) {
+        defaultWait.pollingEvery(Duration.ofMillis(1));
+        defaultWait.until(ExpectedConditions.attributeToBe(progressBar, "aria-valuenow", expectedValue));
+        return this;
+    }
+
+    public ProgressBarPage waitForProgressBarAndClickStop(String expectedValue) {
+        waitForProgressBar(expectedValue);
+        clickStartStopButton();
+        return this;
+    }
 
     // -------
     // GETTERS
     // -------
 
-    // get progress bar
-
+    public WebElement getProgressBar() {
+        return progressBar;
+    }
 }
