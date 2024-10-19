@@ -237,6 +237,21 @@ Test:
 assertThat(webElementMethods.isElementClickable(noRadioButton)).isFalse();
 ```
 
+Jeżeli powyższa metoda stwierdza, że element jest klikalny, mimo że nie jest, to można spróbować w niego kliknąć, złapać
+wyjątek, z którym nic nie będziemy robić i spróbować sprawdzić, czy jakiś jego atrybut nie informuje nas o tym, czy dany
+element jest zaznaczony/kliknięty/aktywny, czy nie:
+```Java
+public TabsPage clickMoreTab() {
+    try {
+        moreTabButton.click();
+    } catch (ElementClickInterceptedException e) {
+    }
+    return this;
+}
+
+assertThat(tabsPage.getMoreTabButton().getAttribute("aria-selected")).isEqualTo("false");
+```
+
 ---
 
 ## Wait - czekanie, aż element będzie zawierał określony tekst <a name="wait_for_text"></a>
