@@ -10,6 +10,7 @@
 - [Przycisk - widoczny, ale wewnątrz innego elementu](#button_inside_other_element)
 - [Przycisk - czy element jest klikalny](#button_clickable)
 - [Wait - czekanie, aż element będzie zawierał określony tekst](#wait_for_text)
+- [Wait — czekanie na element, który bardzo szybko i często ulega zmianom](#wait_dynamic_element_polling_every)
 - [Uszkodzony obrazek / Zepsuty link](#broken_image_link)
 - [Obrazek - wymiary](#image_dimensions)
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
@@ -254,6 +255,34 @@ Tzw. **ExpectedConditions** zawierają metody czekające na określone warunki d
 Poniższa metoda "czeka", aż element będzie zawierał określony przez nas tekst:
 ```Java
 defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
+```
+
+---
+
+## Wait — czekanie na element, który bardzo szybko i często ulega zmianom <a name="wait_dynamic_element_polling_every"></a>
+
+**Linki:**  
+https://youtu.be/X21PIW3UKAY?si=Kh3vD_rOdM6BAC5j&t=737
+
+**Problem:**  
+Na stronie: https://demoqa.com/progress-bar  
+Znajduje się progress bar, którego wartość rosła bardzo szybko po uruchomieniu.  
+Nie działał żaden standardowy `wait`.
+
+**Rozwiązanie:**  
+Do metody, która czeka, aż progress bar osiągnie oczekiwaną przez nas wartość, należało dodać `pollingEvery()`.  
+Definiuje ona interwał, w jakim Selenium będzie sprawdzać, czy dany warunek został spełniony.
+```Java
+defaultWait.pollingEvery(Duration.ofMillis(1));
+```
+Więcej o tej metodzie w README dotyczącym Selenium i testów.  
+Zastosowanie w metodzie:
+```Java
+public ProgressBarPage waitForProgressBar(String expectedValue) {
+    defaultWait.pollingEvery(Duration.ofMillis(1));
+    defaultWait.until(ExpectedConditions.attributeToBe(progressBar, "aria-valuenow", expectedValue));
+    return this;
+}
 ```
 
 ---
