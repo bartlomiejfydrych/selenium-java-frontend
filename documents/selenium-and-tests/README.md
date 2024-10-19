@@ -8,6 +8,7 @@
 - [Pobieranie plików](#pobieranie)
 - [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
 - [Slider — metody](#slider_methods)
+- [Wait — pollingEvery()](#wait_polling_every)
 
 ---
 
@@ -528,3 +529,66 @@ oraz dokładniejsza niż przesuwanie suwaka wzdłuż osi X.
 **Wady:**
 
 Wadą tej metody jest to, że jej wykonanie zajmuje dużo czasu. Nie jest zalecana w przypadku suwaków o dużych wartościach.
+
+---
+
+## Wait — pollingEvery() <a name="wait_polling_every"></a>
+
+Metoda `pollingEvery()` jest częścią klasy `FluentWait` w Selenium, która pozwala na bardziej elastyczne kontrolowanie
+czasu oczekiwania na warunki w testach. `pollingEvery()` definiuje interwał, w jakim Selenium będzie sprawdzać, czy
+dany warunek został spełniony. Domyślnie `WebDriverWait` sprawdza warunki co 500 ms, ale `pollingEvery()` pozwala
+zmienić ten interwał na inny, bardziej dopasowany do potrzeb testu.
+
+### Dlaczego warto używać `pollingEvery()`?
+
+Standardowe podejście polega na czekaniu na spełnienie warunku w określonym czasie, np. 10 sekund. Jednak w tym czasie
+Selenium sprawdza warunek co 500 ms. W niektórych przypadkach możesz chcieć zmniejszyć lub zwiększyć częstotliwość
+sprawdzania, aby:
+- Uniknąć nadmiernego sprawdzania, co może być mniej wydajne.
+- Uzyskać szybszą reakcję w sytuacjach, gdzie dokładność czasowa jest kluczowa.
+
+### Składnia
+
+```java
+FluentWait<WebDriver> wait = new FluentWait<>(driver)
+    .withTimeout(Duration.ofSeconds(10))  // Maksymalny czas oczekiwania
+    .pollingEvery(Duration.ofMillis(200))  // Sprawdzaj warunek co 200 milisekund
+    .ignoring(NoSuchElementException.class);  // Ignoruj wyjątki podczas oczekiwania
+```
+
+### Parametry:
+- **`withTimeout()`**: Określa maksymalny czas oczekiwania na spełnienie warunku.
+- **`pollingEvery()`**: Ustawia, jak często Selenium ma sprawdzać, czy warunek jest spełniony.
+- **`ignoring()`**: Pozwala ignorować wyjątki, np. `NoSuchElementException`, które mogą pojawić się w trakcie oczekiwania.
+
+### Przykład zastosowania
+
+Jeśli chcesz, aby Selenium sprawdzało warunek co 100 ms zamiast co 500 ms, możesz użyć `pollingEvery()` w poniższy sposób:
+
+```java
+FluentWait<WebDriver> wait = new FluentWait<>(driver)
+    .withTimeout(Duration.ofSeconds(10))
+    .pollingEvery(Duration.ofMillis(100))  // Sprawdzanie co 100 milisekund
+    .ignoring(NoSuchElementException.class);
+
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("someElement")));
+```
+
+### Zalety użycia `pollingEvery()`:
+1. **Kontrola nad częstotliwością sprawdzania warunków**: Możesz ustalić częstsze lub rzadsze sprawdzanie warunku w
+   zależności od specyfiki testu.
+2. **Lepsza wydajność**: W niektórych przypadkach rzadsze sprawdzanie warunków może zredukować obciążenie systemu.
+3. **Precyzja**: Można szybciej reagować na spełnienie warunku, zamiast czekać na kolejny domyślny cykl sprawdzania.
+
+### Użycie w praktyce:
+Dla twojego przypadku z paskiem postępu, gdzie chcesz reagować precyzyjnie na zmianę wartości, możesz zmniejszyć
+interwał sprawdzania do np. 100 ms, aby szybciej zatrzymać pasek postępu, gdy wartość osiągnie oczekiwany poziom.
+
+```java
+FluentWait<WebDriver> wait = new FluentWait<>(driver)
+    .withTimeout(Duration.ofSeconds(10))
+    .pollingEvery(Duration.ofMillis(100))  // Szybsze sprawdzanie postępu
+    .ignoring(NoSuchElementException.class);
+
+wait.until(driver -> progressBar.getAttribute("aria-valuenow").equals("2"));
+```
