@@ -3,12 +3,10 @@ package tools_qa.pages.normal.widgets_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 import java.time.Duration;
-import java.util.Objects;
 
 public class ProgressBarPage extends BasePage {
 
