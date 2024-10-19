@@ -15,6 +15,7 @@
 - [Obrazek - wymiary](#image_dimensions)
 - [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
 - [Select - utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
+- [Hover/ToolTip — utrzymanie widoczności za pomocą DevTools](#hover_tooltip_hold_visible)
 - [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
 - [WebElementy - czekanie na zakończenie animacji](#webelement_animation_wait)
 
@@ -394,6 +395,25 @@ Po rozwinięciu select'a i kliknięciu w DevToolsy na ten element rozwinięta li
 3. W dolnej sekcji, gdzie wyświetlane są Style przełączamy się na zakładkę `Event Listeners`
 4. Rozwijamy parametr `blur`
 5. Klikamy po kolei ikonkę kosza na znajdujących się tam elementach i sprawdzamy, czy wartości select'a już się nie chowają
+
+---
+
+## Hover/ToolTip — utrzymanie widoczności za pomocą DevTools <a name="hover_tooltip_hold_visible"></a>
+
+**Linki:**  
+https://stackoverflow.com/a/38650137
+
+**Problem:**  
+Podczas pisania testów nie dało się sprawdzić wyświetlanego tooltipa.  
+Po najechaniu myszką na element i kliknięciu w DevToolsy tooltip znikał.
+![](images/hover_tooltip_hold_visible_1.png)
+
+**Rozwiązanie:**
+1. Otwieramy `DevTools`
+2. Najeżdżamy na element, który ma wyświetlić tooltip
+3. Wciskamy klawisz F8
+4. Ruszamy myszką, żeby zobaczyć czy pauza w debugerze została uruchomiona, jeśli nie to powtarzamy proces
+5. Ewentualnie otwieramy zakładkę \[Sources\] i wtedy wciskamy F8
 
 ---
 

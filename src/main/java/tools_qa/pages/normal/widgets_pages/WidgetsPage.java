@@ -31,6 +31,8 @@ public class WidgetsPage extends BasePage {
     private WebElement progressBarButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Tabs']")
     private WebElement tabsButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Tool Tips']")
+    private WebElement toolTipsButton;
 
     // -------
     // METHODS
@@ -64,5 +66,10 @@ public class WidgetsPage extends BasePage {
     public TabsPage goToTabsPage() {
         tabsButton.click();
         return new TabsPage(driver);
+    }
+
+    public ToolTipsPage goToToolTipsPage() {
+        toolTipsButton.click();
+        return new ToolTipsPage(driver);
     }
 }
