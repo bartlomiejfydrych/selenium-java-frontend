@@ -33,6 +33,8 @@ public class WidgetsPage extends BasePage {
     private WebElement tabsButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Tool Tips']")
     private WebElement toolTipsButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Menu']")
+    private WebElement menuButton;
 
     // -------
     // METHODS
@@ -71,5 +73,10 @@ public class WidgetsPage extends BasePage {
     public ToolTipsPage goToToolTipsPage() {
         toolTipsButton.click();
         return new ToolTipsPage(driver);
+    }
+
+    public MenuPage goToMenuPage() {
+        menuButton.click();
+        return new MenuPage(driver);
     }
 }
