@@ -48,7 +48,7 @@ public class ModalDialogsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToModalDialogsPage();
 
@@ -91,7 +91,7 @@ public class ModalDialogsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToModalDialogsPage();
 

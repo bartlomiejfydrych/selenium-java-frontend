@@ -45,7 +45,7 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToBrokenLinksImagesPage();
 
@@ -79,7 +79,7 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToBrokenLinksImagesPage();
 
@@ -118,7 +118,7 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToBrokenLinksImagesPage();
 
@@ -151,7 +151,7 @@ public class BrokenLinksImagesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToBrokenLinksImagesPage();
 

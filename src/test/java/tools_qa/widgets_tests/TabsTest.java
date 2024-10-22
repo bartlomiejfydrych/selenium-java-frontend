@@ -53,7 +53,7 @@ public class TabsTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToTabsPage();
 
@@ -88,7 +88,7 @@ public class TabsTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToTabsPage();
 
@@ -122,7 +122,7 @@ public class TabsTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToTabsPage();
 
@@ -145,7 +145,7 @@ public class TabsTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToTabsPage();
 

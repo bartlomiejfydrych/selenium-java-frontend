@@ -44,7 +44,7 @@ public class AlertsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToAlertsPage();
 
@@ -77,7 +77,7 @@ public class AlertsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToAlertsPage();
 
@@ -111,7 +111,7 @@ public class AlertsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToAlertsPage();
 
@@ -143,7 +143,7 @@ public class AlertsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToAlertsPage();
 
@@ -177,7 +177,7 @@ public class AlertsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToAlertsPage();
 

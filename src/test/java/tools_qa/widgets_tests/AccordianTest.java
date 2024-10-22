@@ -42,7 +42,7 @@ public class AccordianTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAccordianPage();
 
@@ -85,7 +85,7 @@ public class AccordianTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAccordianPage();
 
@@ -124,7 +124,7 @@ public class AccordianTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAccordianPage();
 

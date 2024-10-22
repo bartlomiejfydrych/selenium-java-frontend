@@ -43,7 +43,7 @@ public class NestedFramesTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToNestedFramesPage();
 
@@ -75,7 +75,7 @@ public class NestedFramesTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToNestedFramesPage();
 

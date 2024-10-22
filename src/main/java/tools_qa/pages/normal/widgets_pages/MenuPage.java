@@ -3,7 +3,6 @@ package tools_qa.pages.normal.widgets_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 import java.util.List;
@@ -33,6 +32,10 @@ public class MenuPage extends BasePage {
     @FindBy(xpath = "//a[text()='Main Item 3']")
     private WebElement mainItem3Button;
     // Main item 2 - sub items
+    @FindBy(xpath = "(//a[text()='Sub Item'])[1]")
+    private WebElement subItem1;
+    @FindBy(xpath = "(//a[text()='Sub Item'])[2]")
+    private WebElement subItem2;
     @FindBy(xpath = "//a[text()='SUB SUB LIST »']")
     private WebElement subSubListButton;
     // Main item 2 - sub sub list items
@@ -47,20 +50,21 @@ public class MenuPage extends BasePage {
 
     public MenuPage hoverOverMainItem3() {
         actions.moveToElement(mainItem1Button)
+                .moveToElement(mainItem2Button)
                 .moveToElement(mainItem3Button)
                 .perform();
         return this;
     }
 
     public MenuPage hoverOverSubSubItem2() {
-        defaultWait.until(ExpectedConditions.visibilityOf(mainItem2Button));
-        actions.moveToElement(mainItem2Button).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(subSubListButton));
-        actions.moveToElement(subSubListButton).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(subSubItem1));
-        actions.moveToElement(subSubItem1).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(subSubItem2));
-        actions.moveToElement(subSubItem2).perform();
+        actions.moveToElement(mainItem1Button)
+                .moveToElement(mainItem2Button)
+                .moveToElement(subItem1)
+                .moveToElement(subItem2)
+                .moveToElement(subSubListButton)
+                .moveToElement(subSubItem1)
+                .moveToElement(subSubItem2)
+                .perform();
         return this;
     }
 
@@ -72,3 +76,19 @@ public class MenuPage extends BasePage {
         return menuButtons;
     }
 }
+
+/*
+
+------
+NOTES:
+------
+
+I'm writing it down because I think it's worth remembering just in case.
+
+No waits wanted to work.
+For some reason, adding the following line before the action execution improved their performance:
+int width = subItem1.getSize().getWidth();
+
+It is also worth remembering that it is safest to perform actions item by item, without skipping menu items along the way.
+
+*/

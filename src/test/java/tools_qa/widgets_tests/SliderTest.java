@@ -45,7 +45,7 @@ public class SliderTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToSliderPage();
 
@@ -78,7 +78,7 @@ public class SliderTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToSliderPage();
 
@@ -111,7 +111,7 @@ public class SliderTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToSliderPage();
 

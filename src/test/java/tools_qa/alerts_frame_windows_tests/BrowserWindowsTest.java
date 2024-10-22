@@ -44,7 +44,7 @@ public class BrowserWindowsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToBrowserWindowsPage();
 
@@ -76,7 +76,7 @@ public class BrowserWindowsTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToBrowserWindowsPage();
 

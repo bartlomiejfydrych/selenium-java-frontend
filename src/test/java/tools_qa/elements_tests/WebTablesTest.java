@@ -43,7 +43,7 @@ public class WebTablesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToWebTablesPage();
 
@@ -122,7 +122,7 @@ public class WebTablesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToWebTablesPage();
 

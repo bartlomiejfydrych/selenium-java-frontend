@@ -57,7 +57,7 @@ public class AutoCompleteTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAutoCompletePage();
 
@@ -94,7 +94,7 @@ public class AutoCompleteTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAutoCompletePage();
 
@@ -124,7 +124,7 @@ public class AutoCompleteTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToAutoCompletePage();
 

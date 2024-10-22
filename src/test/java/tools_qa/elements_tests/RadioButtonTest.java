@@ -44,7 +44,7 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToRadioButtonPage();
 
@@ -75,7 +75,7 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToRadioButtonPage();
 
@@ -107,7 +107,7 @@ public class RadioButtonTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToRadioButtonPage();
 

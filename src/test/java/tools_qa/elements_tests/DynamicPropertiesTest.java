@@ -43,7 +43,7 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToDynamicPropertiesPage();
 
@@ -65,7 +65,7 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToDynamicPropertiesPage();
 
@@ -93,7 +93,7 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToDynamicPropertiesPage();
 
@@ -120,7 +120,7 @@ public class DynamicPropertiesTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToDynamicPropertiesPage();
 

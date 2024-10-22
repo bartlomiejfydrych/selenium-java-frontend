@@ -47,7 +47,7 @@ public class UploadAndDownloadTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToUploadAndDownloadPage();
 
@@ -83,7 +83,7 @@ public class UploadAndDownloadTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToUploadAndDownloadPage();
 

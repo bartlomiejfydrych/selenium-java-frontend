@@ -95,7 +95,7 @@ public class TextBoxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToTextBoxPage();
 

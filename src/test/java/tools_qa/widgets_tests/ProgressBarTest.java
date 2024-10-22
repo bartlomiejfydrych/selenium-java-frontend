@@ -47,7 +47,7 @@ public class ProgressBarTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToProgressBarPage();
 
@@ -85,7 +85,7 @@ public class ProgressBarTest extends TestBase {
 
         homePage.goToWidgetsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         widgetsPage.goToProgressBarPage();
 

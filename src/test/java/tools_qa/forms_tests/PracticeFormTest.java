@@ -67,7 +67,7 @@ public class PracticeFormTest extends TestBase {
 
         homePage.goToFormsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         formsPage.goToPracticeFormPage();
 
@@ -145,7 +145,7 @@ public class PracticeFormTest extends TestBase {
 
         homePage.goToFormsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         formsPage.goToPracticeFormPage();
 
@@ -193,7 +193,7 @@ public class PracticeFormTest extends TestBase {
 
         homePage.goToFormsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         formsPage.goToPracticeFormPage();
 

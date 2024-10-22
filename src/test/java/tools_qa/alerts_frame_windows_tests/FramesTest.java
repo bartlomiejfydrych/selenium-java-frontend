@@ -45,7 +45,7 @@ public class FramesTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToFramesPage();
 
@@ -80,7 +80,7 @@ public class FramesTest extends TestBase {
 
         homePage.goToAlertsFrameWindowsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         alertsFrameWindowsPage.goToFramesPage();
 

@@ -61,7 +61,7 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToCheckboxPage();
 
@@ -110,7 +110,7 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToCheckboxPage();
 
@@ -148,7 +148,7 @@ public class CheckboxTest extends TestBase {
 
         homePage.goToElementsPage();
 
-        trainingPage.removeAdFrameAndFooter();
+        trainingPage.removeFooterAndAds();
 
         elementsPage.goToCheckboxPage();
 
