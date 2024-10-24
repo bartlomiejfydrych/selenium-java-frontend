@@ -11,6 +11,8 @@ import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class SelectMenuTest extends TestBase {
 
     HomePage homePage;
@@ -43,6 +45,7 @@ public class SelectMenuTest extends TestBase {
                 "A root option",
                 "Another root option"
         );
+        String valueToSelect = selectMenuPage.getRandomElementFromList(valueListInSelectValue);
 
         // ---
         // ACT
@@ -54,12 +57,32 @@ public class SelectMenuTest extends TestBase {
 
         widgetsPage.goToSelectMenuPage();
 
-        // selectMenuPage.selectValueInSelectValue();
+        selectMenuPage.selectValueInSelectValue(valueToSelect);
 
         // ------
         // ASSERT
         // ------
 
+        assertThat(selectMenuPage.getSelectValueValue().getText()).isEqualTo(valueToSelect);
+    }
+
+    @Test
+    public void shouldSelectValueInSelectOne() {
+
+    }
+
+    @Test
+    public void shouldSelectValueInOldStyleSelectMenu() {
+
+    }
+
+    @Test
+    public void shouldSelectValueInMultiSelectDropDown() {
+
+    }
+
+    @Test
+    public void shouldSelectValueInStandardMultiSelect() {
 
     }
 }

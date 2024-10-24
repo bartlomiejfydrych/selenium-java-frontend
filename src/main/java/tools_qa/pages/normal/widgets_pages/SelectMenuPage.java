@@ -4,7 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import tools_qa.pages.base.BasePage;
+
+import java.util.List;
+import java.util.Random;
 
 public class SelectMenuPage extends BasePage {
 
@@ -23,22 +27,81 @@ public class SelectMenuPage extends BasePage {
     // SELECT VALUE
     @FindBy(css = "#withOptGroup")
     private WebElement selectValueSelect;
-    // Value xpath selector
-    // //div[text()='Group 1, option 1']
-    @FindBy(css = ".css-1uccc91-singleValue")
+    @FindBy(css = "#withOptGroup .css-1uccc91-singleValue")
     private WebElement selectValueValue;
     // SELECT ONE
+    @FindBy(css = "#selectOne")
+    private WebElement selectOneSelect;
+    @FindBy(css = "#selectOne .css-1uccc91-singleValue")
+    private WebElement selectOneValue;
+    // OLD STYLE SELECT MENU
+    @FindBy(css = "#oldSelectMenu")
+    private WebElement oldStyleSelectMenuSelect;
+    // MULTI SELECT DROP DOWN
+    @FindBy(css = ".css-2b097c-container .css-1wa3eu0-placeholder")
+    private WebElement multiSelectDropDownSelect;
+    @FindBy(css = ".css-12jo7m5")
+    private List<WebElement> multiSelectDropDownValue;
+    // STANDARD MULTI SELECT
+    @FindBy(css = "#cars")
+    private WebElement standardMultiSelectSelect;
 
     // -------
     // METHODS
     // -------
 
+    // SELECT VALUE
+
     public SelectMenuPage selectValueInSelectValue(String value) {
+        selectValueSelect.click();
         String selectValueSelector = "//div[text()='" + value + "']";
         WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
-        selectValueSelect.click();
         selectValueLocator.click();
         return this;
+    }
+
+    // SELECT ONE
+
+    public SelectMenuPage selectValueInSelectOne(String value) {
+        selectOneSelect.click();
+        String selectValueSelector = "//div[text()='" + value + "']";
+        WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
+        selectValueLocator.click();
+        return this;
+    }
+
+    // OLD STYLE SELECT MENU
+
+    public SelectMenuPage selectValueInOldStyleSelectMenu(String value) {
+        Select select = new Select(oldStyleSelectMenuSelect);
+        select.selectByVisibleText(value);
+        return this;
+    }
+
+    // MULTI SELECT DROP DOWN
+
+    public SelectMenuPage selectValueInMultiSelectDropDown(List<String> values) {
+        multiSelectDropDownSelect.click();
+        for (String value : values) {
+            String selectValueSelector = "//div[text()='" + value + "']";
+            WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
+            selectValueLocator.click();
+        }
+        return this;
+    }
+
+    // STANDARD MULTI SELECT
+
+
+
+    // -------
+    // HELPERS
+    // -------
+
+    public String getRandomElementFromList(List<String> list) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(list.size());
+        return list.get(randomIndex);
     }
 
     // -------
