@@ -2,6 +2,8 @@ package tools_qa.widgets_tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
@@ -37,7 +39,7 @@ public class SelectMenuTest extends TestBase {
         // ARRANGE
         // -------
 
-        List<String> valueListInSelectValue = Arrays.asList(
+        List<String> valueList = Arrays.asList(
                 "Group 1, option 1",
                 "Group 1, option 2",
                 "Group 2, option 1",
@@ -45,7 +47,7 @@ public class SelectMenuTest extends TestBase {
                 "A root option",
                 "Another root option"
         );
-        String valueToSelect = selectMenuPage.getRandomElementFromList(valueListInSelectValue);
+        String valueToSelect = selectMenuPage.getRandomElementFromList(valueList);
 
         // ---
         // ACT
@@ -69,16 +71,116 @@ public class SelectMenuTest extends TestBase {
     @Test
     public void shouldSelectValueInSelectOne() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        List<String> valueList = Arrays.asList(
+                "Dr.",
+                "Mr.",
+                "Mrs.",
+                "Ms.",
+                "Prof.",
+                "Other"
+        );
+        String valueToSelect = selectMenuPage.getRandomElementFromList(valueList);
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeFooterAndAds();
+
+        widgetsPage.goToSelectMenuPage();
+
+        selectMenuPage.selectValueInSelectOne(valueToSelect);
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(selectMenuPage.getSelectOneValue().getText()).isEqualTo(valueToSelect);
     }
 
     @Test
     public void shouldSelectValueInOldStyleSelectMenu() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        List<String> valueList = Arrays.asList(
+                "Red",
+                "Blue",
+                "Green",
+                "Yellow",
+                "Purple",
+                "Black",
+                "White",
+                "Voilet",
+                "Indigo",
+                "Magenta",
+                "Aqua"
+        );
+        String valueToSelect = selectMenuPage.getRandomElementFromList(valueList);
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeFooterAndAds();
+
+        widgetsPage.goToSelectMenuPage();
+
+        selectMenuPage.selectValueInOldStyleSelectMenu(valueToSelect);
+
+        // ------
+        // ASSERT
+        // ------
+
+        Select select = new Select(selectMenuPage.getOldStyleSelectMenuSelect());
+        assertThat(select.getFirstSelectedOption().getText()).isEqualTo(valueToSelect);
     }
 
     @Test
     public void shouldSelectValueInMultiSelectDropDown() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        List<String> valueList = Arrays.asList(
+                "Green",
+                "Blue",
+                "Black",
+                "Red"
+        );
+        List<String> valuesToSelectList = selectMenuPage.getRandomElementsFromList(valueList);
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeFooterAndAds();
+
+        widgetsPage.goToSelectMenuPage();
+
+        selectMenuPage.selectValueInMultiSelectDropDown(valuesToSelectList);
+
+        // ------
+        // ASSERT
+        // ------
+
+        List<WebElement> selectedValuesList = selectMenuPage.getMultiSelectDropDownValue();
+        for (int i = 0; i < selectedValuesList.size(); i++) {
+            assertThat(selectedValuesList.get(i).getText()).isEqualTo(valuesToSelectList.get(i));
+        }
     }
 
     @Test
