@@ -11,7 +11,10 @@ import tools_qa.pages.normal.widgets_pages.SelectMenuPage;
 import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -186,5 +189,41 @@ public class SelectMenuTest extends TestBase {
     @Test
     public void shouldSelectValueInStandardMultiSelect() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        List<String> valueList = Arrays.asList(
+                "Volvo",
+                "Saab",
+                "Opel",
+                "Audi"
+        );
+        List<String> valuesToSelectList = selectMenuPage.getRandomElementsFromList(valueList);
+        Set<String> valuesToSelectSet = new HashSet<>(valuesToSelectList);
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToWidgetsPage();
+
+        trainingPage.removeFooterAndAds();
+
+        widgetsPage.goToSelectMenuPage();
+
+        selectMenuPage.selectValueInStandardMultiSelect(valuesToSelectList);
+
+        // ------
+        // ASSERT
+        // ------
+
+        Select select = new Select(selectMenuPage.getStandardMultiSelectSelect());
+        List<WebElement> selectedValuesList = select.getAllSelectedOptions();
+        Set<String> selectedValuesSet = selectedValuesList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toSet());
+        assertThat(selectedValuesSet).isEqualTo(valuesToSelectSet);
     }
 }

@@ -94,7 +94,13 @@ public class SelectMenuPage extends BasePage {
 
     // STANDARD MULTI SELECT
 
-
+    public SelectMenuPage selectValueInStandardMultiSelect(List<String> values) {
+        Select select = new Select(standardMultiSelectSelect);
+        for (String value : values) {
+            select.selectByVisibleText(value);
+        }
+        return this;
+    }
 
     // -------
     // HELPERS
@@ -132,5 +138,9 @@ public class SelectMenuPage extends BasePage {
 
     public List<WebElement> getMultiSelectDropDownValue() {
         return multiSelectDropDownValue;
+    }
+
+    public WebElement getStandardMultiSelectSelect() {
+        return standardMultiSelectSelect;
     }
 }
