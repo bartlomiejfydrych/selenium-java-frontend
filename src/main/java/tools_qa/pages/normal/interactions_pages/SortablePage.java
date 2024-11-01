@@ -1,4 +1,4 @@
-package tools_qa.pages.normal.interactions;
+package tools_qa.pages.normal.interactions_pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

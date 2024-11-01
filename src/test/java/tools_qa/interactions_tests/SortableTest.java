@@ -1,4 +1,4 @@
-package tools_qa.interactions;
+package tools_qa.interactions_tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
-import tools_qa.pages.normal.interactions.InteractionsPage;
-import tools_qa.pages.normal.interactions.SortablePage;
+import tools_qa.pages.normal.interactions_pages.InteractionsPage;
+import tools_qa.pages.normal.interactions_pages.SortablePage;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import tools_qa.pages.base.BasePage;
 import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
-import tools_qa.pages.normal.interactions.InteractionsPage;
+import tools_qa.pages.normal.interactions_pages.InteractionsPage;
 import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 
 public class HomePage extends BasePage {
