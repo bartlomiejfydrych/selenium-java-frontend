@@ -122,7 +122,7 @@ public class SelectMenuTest extends TestBase {
                 "Purple",
                 "Black",
                 "White",
-                "Voilet",
+                "Voilet", // They wrote it incorrectly on the website again
                 "Indigo",
                 "Magenta",
                 "Aqua"
