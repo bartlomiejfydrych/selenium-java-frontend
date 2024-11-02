@@ -21,6 +21,8 @@ public class InteractionsPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Sortable']")
     private WebElement sortableButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Selectable']")
+    private WebElement selectableButton;
 
     // -------
     // METHODS
@@ -29,5 +31,10 @@ public class InteractionsPage extends BasePage {
     public SortablePage goToSortablePage() {
         sortableButton.click();
         return new SortablePage(driver);
+    }
+
+    public SelectablePage goToSelectablePage() {
+        selectableButton.click();
+        return new SelectablePage(driver);
     }
 }
