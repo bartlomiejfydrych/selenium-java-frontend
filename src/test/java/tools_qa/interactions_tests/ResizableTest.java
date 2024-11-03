@@ -8,7 +8,9 @@ import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.interactions_pages.InteractionsPage;
 import tools_qa.pages.normal.interactions_pages.ResizablePage;
 
-public class ResizableTest  extends TestBase {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class ResizableTest extends TestBase {
 
     HomePage homePage;
     TrainingPage trainingPage;
@@ -51,12 +53,37 @@ public class ResizableTest  extends TestBase {
         // ASSERT
         // ------
 
-
-
+        assertThat(resizablePage.getBoxWithRestriction().getSize().getWidth()).isEqualTo(width);
+        assertThat(resizablePage.getBoxWithRestriction().getSize().getHeight()).isEqualTo(height);
     }
 
     @Test
     public void shouldReduceBoxToSmallestSize() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        int width = 20;
+        int height = 20;
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToInteractionsPage();
+
+        trainingPage.removeFooterAndAds();
+
+        interactionsPage.goToResizablePage();
+
+        resizablePage.resizeBoxWithoutRestriction(width, height);
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(resizablePage.getBoxWithoutRestriction().getSize().getWidth()).isEqualTo(width);
+        assertThat(resizablePage.getBoxWithoutRestriction().getSize().getHeight()).isEqualTo(height);
     }
 }
