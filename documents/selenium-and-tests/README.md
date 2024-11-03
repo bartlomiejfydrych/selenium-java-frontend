@@ -9,6 +9,7 @@
 - [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
 - [Slider — metody](#slider_methods)
 - [Wait — pollingEvery()](#wait_polling_every)
+- [Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów](#resize_text_area)
 
 ---
 
@@ -591,4 +592,34 @@ FluentWait<WebDriver> wait = new FluentWait<>(driver)
     .ignoring(NoSuchElementException.class);
 
 wait.until(driver -> progressBar.getAttribute("aria-valuenow").equals("2"));
+```
+
+---
+
+## Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów <a name="resize_text_area"></a>
+
+### Przykład
+
+![](images/resize_text_area_1.png)
+
+### Wyjaśnienie
+
+Do zmiany rozmiaru takich okien należy użyć JavaScript, ponieważ jest to niestandardowa akcja i Selenium samo w sobie
+tego tak dobrze nie obsłuży.
+
+#### Metoda
+
+```java
+public ResizablePage resizeBoxWithRestriction(int newWidth, int newHeight) {
+   String script = String.format("arguments[0].style.width='%dpx'; arguments[0].style.height='%dpx';", newWidth, newHeight);
+   jse.executeScript(script, boxWithRestriction);
+   return this;
+}
+```
+
+#### Asercje
+
+```java
+assertThat(resizablePage.getBoxWithRestriction().getSize().getWidth()).isEqualTo(width);
+assertThat(resizablePage.getBoxWithRestriction().getSize().getHeight()).isEqualTo(height);
 ```
