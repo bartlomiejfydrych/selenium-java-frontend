@@ -25,6 +25,8 @@ public class InteractionsPage extends BasePage {
     private WebElement selectableButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Resizable']")
     private WebElement resizableButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Droppable']")
+    private WebElement droppableButton;
 
     // -------
     // METHODS
@@ -43,5 +45,10 @@ public class InteractionsPage extends BasePage {
     public ResizablePage goToResizablePage() {
         resizableButton.click();
         return new ResizablePage(driver);
+    }
+
+    public DroppablePage goToDroppablePage() {
+        droppableButton.click();
+        return new DroppablePage(driver);
     }
 }
