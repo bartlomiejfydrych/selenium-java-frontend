@@ -27,6 +27,8 @@ public class InteractionsPage extends BasePage {
     private WebElement resizableButton;
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Droppable']")
     private WebElement droppableButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Dragabble']")
+    private WebElement dragabbleButton;
 
     // -------
     // METHODS
@@ -50,5 +52,10 @@ public class InteractionsPage extends BasePage {
     public DroppablePage goToDroppablePage() {
         droppableButton.click();
         return new DroppablePage(driver);
+    }
+
+    public DragabblePage goToDragabblePage() {
+        dragabbleButton.click();
+        return new DragabblePage(driver);
     }
 }
