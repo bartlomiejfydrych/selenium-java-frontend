@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tools_qa.pages.base.BasePage;
 import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
+import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
 import tools_qa.pages.normal.interactions_pages.InteractionsPage;
@@ -64,5 +65,10 @@ public class HomePage extends BasePage {
     public InteractionsPage goToInteractionsPage() {
         interactionsButton.click();
         return new InteractionsPage(driver);
+    }
+
+    public BookStoreApplicationPage goToBookStoreApplicationPage() {
+        bookStoreApplicationButton.click();
+        return new BookStoreApplicationPage(driver);
     }
 }
