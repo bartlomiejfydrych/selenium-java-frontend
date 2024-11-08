@@ -10,6 +10,7 @@
 - [Slider — metody](#slider_methods)
 - [Wait — pollingEvery()](#wait_polling_every)
 - [Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów](#resize_text_area)
+- [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
 
 ---
 
@@ -607,7 +608,7 @@ wait.until(driver -> progressBar.getAttribute("aria-valuenow").equals("2"));
 Do zmiany rozmiaru takich okien należy użyć JavaScript, ponieważ jest to niestandardowa akcja i Selenium samo w sobie
 tego tak dobrze nie obsłuży.
 
-#### Metoda
+### Metoda
 
 ```java
 public ResizablePage resizeBoxWithRestriction(int newWidth, int newHeight) {
@@ -617,9 +618,54 @@ public ResizablePage resizeBoxWithRestriction(int newWidth, int newHeight) {
 }
 ```
 
-#### Asercje
+### Asercje
 
 ```java
 assertThat(resizablePage.getBoxWithRestriction().getSize().getWidth()).isEqualTo(width);
 assertThat(resizablePage.getBoxWithRestriction().getSize().getHeight()).isEqualTo(height);
+```
+
+---
+
+## Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie <a name="drag_and_drop_to_set_location"></a>
+
+### Przykład
+
+![](images/drag_and_drop_to_set_location_1.png)
+
+### Wyjaśnienie
+
+W Selenium przemieszczenie elementu w konkretne miejsce za pomocą `Actions` jest bardzo upierdliwe i niedokładne.
+W sytuacji, w której chcemy przemieścić element w konkretne miejsce co do jednego pixela, najlepiej zastosować
+JavaScript, za pomocą którego możemy zmieniać atrybuty stylu elementu `left` oraz `top`.
+
+```css
+element.style {
+    position: relative;
+    left: 775.734px;
+    top: -119px;
+}
+```
+
+### Metoda
+
+```java
+public DragabblePage setPositionLeft(WebElement movedElement, String targetLeft) {
+   String script = "arguments[0].style.left = arguments[1];";
+   jse.executeScript(script, movedElement, targetLeft);
+   return this;
+}
+
+public DragabblePage setPositionTop(WebElement movedElement, String targetTop) {
+   String script = "arguments[0].style.top = arguments[1];";
+   jse.executeScript(script, movedElement, targetTop);
+   return this;
+}
+```
+
+### Asercje
+
+```java
+assertThat(dragBox.getCssValue("left")).isEqualTo(expectedLeftPosition);
+assertThat(dragBox.getCssValue("top")).isEqualTo(expectedTopPosition);
 ```
