@@ -68,7 +68,12 @@ public class HomePage extends BasePage {
     }
 
     public BookStoreApplicationPage goToBookStoreApplicationPage() {
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight);");
         bookStoreApplicationButton.click();
         return new BookStoreApplicationPage(driver);
+        /* NOTE:
+        We can use `actions.sendKeys(Keys.END).perform();` too,
+        but it's slower and not work here (we still click footer AD).
+        */
     }
 }
