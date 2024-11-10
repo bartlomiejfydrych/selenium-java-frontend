@@ -1,10 +1,10 @@
 package tools_qa.pages.normal.book_store_application_pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import tools_qa.models.RegisterUser;
 import tools_qa.pages.base.BasePage;
 
 public class RegisterPage extends BasePage {
@@ -40,10 +40,27 @@ public class RegisterPage extends BasePage {
     private WebElement captchaFrame;
     @FindBy(css = ".recaptcha-checkbox-border")
     private WebElement captchaCheckbox;
+    @FindBy(css = "iframe[title='recaptcha challenge expires in two minutes']")
+    private WebElement captchaImageSelectFrame;
+    @FindBy(css = "#rc-imageselect")
+    private WebElement captchaImageSelect;
+    // MESSAGES
+    @FindBy(css = "#output #name")
+    private WebElement messageText;
 
     // -------
     // METHODS
     // -------
+
+    // BUILDER
+
+    public RegisterPage fillRegisterForm(RegisterUser registerUser) {
+        writeFirstName(registerUser.getFirstName());
+        writeLastName(registerUser.getLastName());
+        writeUserName(registerUser.getUserName());
+        writePassword(registerUser.getPassword());
+        return this;
+    }
 
     // INPUTS
 
@@ -53,17 +70,17 @@ public class RegisterPage extends BasePage {
     }
 
     public RegisterPage writeLastName(String lastName) {
-        firstNameInput.sendKeys(lastName);
+        lastNameInput.sendKeys(lastName);
         return this;
     }
 
     public RegisterPage writeUserName(String userName) {
-        firstNameInput.sendKeys(userName);
+        userNameInput.sendKeys(userName);
         return this;
     }
 
     public RegisterPage writePassword(String password) {
-        firstNameInput.sendKeys(password);
+        passwordInput.sendKeys(password);
         return this;
     }
 
@@ -82,18 +99,26 @@ public class RegisterPage extends BasePage {
     // CAPTCHA
 
     public RegisterPage clickCaptcha() {
-        defaultWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("iframe[title='reCAPTCHA']")));
         defaultWait.until(ExpectedConditions.visibilityOf(captchaFrame));
         driver.switchTo().frame(captchaFrame);
-        defaultWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.recaptcha-checkbox-border")));
         defaultWait.until(ExpectedConditions.elementToBeClickable(captchaCheckbox));
         captchaCheckbox.click();
+        return this;
+    }
+
+    public RegisterPage switchAndWaitForCaptchaImageSelect() {
+        driver.switchTo().defaultContent();
+        defaultWait.until(ExpectedConditions.visibilityOf(captchaImageSelectFrame));
+        driver.switchTo().frame(captchaImageSelectFrame);
+        defaultWait.until(ExpectedConditions.elementToBeClickable(captchaImageSelect));
         return this;
     }
 
     // -------
     // GETTERS
     // -------
+
+    // INPUTS
 
     public WebElement getFirstNameInput() {
         return firstNameInput;
@@ -109,5 +134,17 @@ public class RegisterPage extends BasePage {
 
     public WebElement getPasswordInput() {
         return passwordInput;
+    }
+
+    // CAPTCHA
+
+    public WebElement getCaptchaImageSelect() {
+        return captchaImageSelect;
+    }
+
+    // MESSAGES
+
+    public WebElement getMessageText() {
+        return messageText;
     }
 }
