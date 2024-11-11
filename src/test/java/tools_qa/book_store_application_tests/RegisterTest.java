@@ -10,18 +10,29 @@ import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPa
 import tools_qa.pages.normal.book_store_application_pages.LoginPage;
 import tools_qa.pages.normal.book_store_application_pages.RegisterPage;
 import tools_qa.providers.RegisterUserProvider;
+import tools_qa.utils.WebElementMethods;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegisterTest extends TestBase {
 
-    // TODO: Add explanation NOTE
+    /*
+    NOTE:
+    Due to the reCaptcha mechanism, it is not possible to automate full, correct user registration using Selenium.
+    We will have to create an account ourselves and create an ENV file with its data, which will not be uploaded to GitHub.
+    In the directory of this test collection, I will create a README file in which I will describe all the details.
+
+    Here, there could be an additional test checking whether a message requiring a strong password appears, but
+    to trigger it, we would first have to go through the reCaptcha mechanism.
+    */
 
     HomePage homePage;
     TrainingPage trainingPage;
     BookStoreApplicationPage bookStoreApplicationPage;
     LoginPage loginPage;
     RegisterPage registerPage;
+
+    WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
@@ -32,6 +43,8 @@ public class RegisterTest extends TestBase {
         bookStoreApplicationPage = new BookStoreApplicationPage(driver);
         loginPage = new LoginPage(driver);
         registerPage = new RegisterPage(driver);
+
+        webElementMethods = new WebElementMethods(driver);
     }
 
     @Test
@@ -101,17 +114,72 @@ public class RegisterTest extends TestBase {
     }
 
     @Test
-    public void shouldRequireStrongPassword() {
-
-    }
-
-    @Test
     public void shouldRequireAllFields() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        String expectedClassName = "is-invalid";
+        String expectedInputColor = "rgb(220, 53, 69)";
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToBookStoreApplicationPage();
+
+        trainingPage.removeFooterAndAds();
+
+        bookStoreApplicationPage.goToLoginPage();
+
+        loginPage.clickNewUserButton();
+
+        registerPage.clickRegisterButton();
+
+        webElementMethods.waitForElementToStopColorChanging(registerPage.getFirstNameInput(), "border-color");
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(registerPage.getFirstNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getFirstNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
+        assertThat(registerPage.getLastNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getLastNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
+        assertThat(registerPage.getUserNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getUserNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
+        assertThat(registerPage.getPasswordInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getPasswordInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
     }
 
     @Test
     public void shouldBackToLoginButtonWork() {
 
+        // -------
+        // ARRANGE
+        // -------
+
+        String expectedLoginHeader = "Login";
+
+        // ---
+        // ACT
+        // ---
+
+        homePage.goToBookStoreApplicationPage();
+
+        trainingPage.removeFooterAndAds();
+
+        bookStoreApplicationPage.goToLoginPage();
+
+        loginPage.clickNewUserButton();
+
+        registerPage.clickBackToLoginButton();
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(loginPage.getLoginHeader().getText()).isEqualTo(expectedLoginHeader);
     }
 }

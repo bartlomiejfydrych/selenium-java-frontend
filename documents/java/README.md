@@ -5,6 +5,7 @@
 - [Builder](#builder)
 - [Plik konfiguracyjny — config.properties](#config)
 - [Enum](#enum)
+- [ENV — Zmienne środowiskowe](#env)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
@@ -424,3 +425,48 @@ public enum Planet {
 
 W powyższym przykładzie enum `Planet` zawiera pola `mass` i `radius`, które są inicjalizowane w konstruktorze. Posiada
 również metody do obliczania powierzchniowej grawitacji i wagi na poszczególnych planetach.
+
+---
+
+## ENV — Zmienne środowiskowe <a name="env"></a>
+
+Do ustawiania i zarządzania zmiennymi środowiskowymi możemy użyć biblioteki `dotenv-java`.
+
+**Nazwa:**  
+`Dotenv Java`
+
+**Link do GitHub (dokumentacja):**  
+https://github.com/cdimascio/dotenv-java
+
+**Link do Maven:**  
+https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
+
+1. Dodajemy ją w Maven (oczywiście aktualną wersję, poniżej tylko przykład):
+    ```maven
+    <!-- https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java -->
+    <dependency>
+        <groupId>io.github.cdimascio</groupId>
+        <artifactId>dotenv-java</artifactId>
+        <version>3.0.2</version>
+    </dependency>
+    ```
+2. Tworzymy plik `.env` w głównym katalogu projektu lub gdzie chcemy np.:
+    ```
+    USERNAME=yourUsername
+    PASSWORD=yourPassword
+    ```
+3. Wczytujemy zmienne środowiskowe z pliku `.env`:
+    ```java
+    import io.github.cdimascio.dotenv.Dotenv;
+    
+    public class EnvExample {
+        public static void main(String[] args) {
+            Dotenv dotenv = Dotenv.load();
+            String username = dotenv.get("USERNAME");
+            String password = dotenv.get("PASSWORD");
+    
+            System.out.println("Username: " + username);
+            System.out.println("Password: " + password);
+        }
+    }
+    ```

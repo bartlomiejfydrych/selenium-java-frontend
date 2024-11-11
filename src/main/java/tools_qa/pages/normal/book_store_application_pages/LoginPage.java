@@ -19,6 +19,10 @@ public class LoginPage extends BasePage {
     // WEB ELEMENTS
     // ------------
 
+    // HEADER (for RegisterTest)
+    @FindBy(css = ".login-wrapper .text-center")
+    private WebElement loginHeader;
+    // BUTTONS
     @FindBy(css = "#newUser")
     private WebElement newUserButton;
 
@@ -35,5 +39,9 @@ public class LoginPage extends BasePage {
     // GETTERS
     // -------
 
+    // HEADER
 
+    public WebElement getLoginHeader() {
+        return loginHeader;
+    }
 }

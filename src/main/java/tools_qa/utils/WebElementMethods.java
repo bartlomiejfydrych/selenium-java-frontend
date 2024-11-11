@@ -46,4 +46,20 @@ public class WebElementMethods extends BasePage {
             initialLocation = finalLocation;
         }
     }
+
+    public void waitForElementToStopColorChanging(WebElement webElement, String cssValue) {
+        String initialColor = webElement.getCssValue(cssValue);
+        while (true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            String currentColor = webElement.getCssValue(cssValue);
+            if (initialColor.equals(currentColor)) {
+                break;
+            }
+            initialColor = currentColor;
+        }
+    }
 }
