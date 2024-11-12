@@ -30,9 +30,8 @@ Poniżej instrukcja jak takie coś zrobić.
    Wykonaj następujące polecenie:  
    `git rm --cached environment/.env`  
    To polecenie usunie plik `.env` z kontroli wersji, ale pozostawi go na dysku lokalnym.
-5. Następnie wykonaj commit i push, aby zaktualizować repozytorium:  
-   `git commit -m "Ignore environment directory and .env file"`  
-   `git push`
+5. IDE będzie nam ciągle pokazywało, że w tym pliku są zmiany. Jeśli to pushniemy to zniknie on z GitHub.  
+   Trzeba dać prawym -> Rollback
 
 ### Dodatkowe
 
