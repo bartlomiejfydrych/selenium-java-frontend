@@ -1,4 +1,7 @@
 ### My files
+# Project environment
+environment/.env
+
 # ToolsQA
 sampleFile.jpeg
 
