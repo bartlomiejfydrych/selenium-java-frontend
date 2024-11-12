@@ -19,4 +19,4 @@ https://demoqa.com/register
 
 ### Login user
 
-## Test coverage
+## Test cases
