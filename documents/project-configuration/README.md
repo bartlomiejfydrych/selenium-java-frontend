@@ -52,6 +52,7 @@ https://mvnrepository.com/
         - JUnit Jupiter (Aggregator)
         - Java Faker
         - AssertJ Core
+        - Dotenv Java
     - Frontend:
         - Selenium Java
         - Selenium Support
@@ -190,6 +191,22 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 > **Elastyczność:** Java Faker oferuje dużą elastyczność w dostosowywaniu generowanych danych poprzez dostęp do różnych lokalizacji, ustawień regionalnych, a także możliwość tworzenia niestandardowych dostawców danych.  
 > **Łatwa integracja:** Java Faker jest łatwa w użyciu i integruje się dobrze z różnymi narzędziami do testowania, takimi jak JUnit, TestNG czy Selenium. Może być również wykorzystywana w różnych scenariuszach testowych, w tym testach jednostkowych, testach integracyjnych oraz testach automatycznych interfejsu użytkownika.  
 > Dzięki **"Java Faker"** możliwe jest szybkie i łatwe generowanie różnorodnych danych testowych, co znacząco ułatwia proces testowania aplikacji. Jest to szczególnie przydatne w sytuacjach, gdy potrzebne są realistyczne dane, ale nie jest konieczne korzystanie z rzeczywistych danych użytkowników.*
+</details>
+<details>
+    <summary>4. Dotenv Java</summary>
+
+> *Biblioteka **Dotenv Java** (często nazywana `java-dotenv`) to narzędzie, które umożliwia bezpośrednie ładowanie zmiennych środowiskowych z pliku `.env` do aplikacji napisanej w Javie. Jest szczególnie przydatna podczas pracy z aplikacjami wymagającymi różnych ustawień konfiguracyjnych, które nie powinny być zapisywane bezpośrednio w kodzie, np. dane logowania, klucze API, adresy URL.  
+> Kluczowe cechy Dotenv Java:  
+> **Łatwe ładowanie zmiennych:** Dotenv Java pozwala na odczyt zmiennych środowiskowych z pliku .env bez potrzeby dodatkowych konfiguracji.  
+> **Obsługa zmiennych środowiskowych:** Zmienne te mogą być dostępne w aplikacji jako wartości, które łatwo uzyskać przy użyciu dedykowanej metody.  
+> **Bezpieczeństwo:** Przechowywanie danych w pliku .env ułatwia oddzielenie danych wrażliwych od kodu źródłowego i chroni je przed przypadkowym dodaniem do repozytoriów publicznych (gdy .env jest na przykład wykluczony z wersjonowania).  
+> **Prosta konfiguracja:** Dotenv jest prosty w użyciu i integracji, co sprawia, że jest popularnym wyborem do zarządzania zmiennymi środowiskowymi.*
+>
+> *Dlaczego warto używać Dotenv Java?*  
+> *Dotenv Java jest szczególnie przydatna, gdy:*
+> - *Chcesz oddzielić dane konfiguracyjne od kodu (np. dane dostępowe do bazy danych).*
+> - *Pracujesz z różnymi środowiskami (deweloperskim, testowym, produkcyjnym), gdzie potrzebujesz różnych wartości zmiennych.*
+> - *Chcesz zredukować ryzyko przypadkowego ujawnienia wrażliwych danych w repozytoriach kodu.*
 </details>
 
 #### Frontend
