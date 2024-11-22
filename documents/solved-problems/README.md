@@ -18,6 +18,7 @@
 - [Hover/ToolTip — utrzymanie widoczności za pomocą DevTools](#hover_tooltip_hold_visible)
 - [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
 - [WebElementy - czekanie na zakończenie animacji](#webelement_animation_wait)
+- [Selenium — błąd CDP po aktualizacji DevTools](#selenium_devtools_cdp)
 
 # 📄Opis
 
@@ -456,3 +457,19 @@ public void waitForElementToStopMoving(WebElement webElement) {
     }
 }
 ```
+
+---
+
+## Selenium — błąd CDP po aktualizacji DevTools <a name="selenium_devtools_cdp"></a>
+
+**Link do wątku na ten temat:**  
+https://github.com/SeleniumHQ/selenium/issues/14630#issue-2601723082
+
+**Problem:**  
+
+lis 22, 2024 6:29:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 131, returning the closest version; found: 130; Please update to a Selenium version that supports CDP version 131
+
+**Rozwiązanie:**  
+
+tekst

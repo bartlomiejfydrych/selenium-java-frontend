@@ -32,4 +32,17 @@ TQ_BSA_PASSWORD=yourPassword
 Once we have a registered user and saved his data to the `.env` file, we can start running the test.  
 In the `LoginTest.java` file, the test called `shouldLogInCorrectly()` should now execute correctly.
 
-## Test cases
+## 🧰Test cases
+
+### Register
+
+- shouldCaptchaBlockUs
+- shouldNotRegisterWithoutCaptcha
+- shouldRequireAllFields
+- shouldBackToLoginButtonWork
+
+### Login
+
+- shouldLogInCorrectly
+- shouldMarkEmptyFieldsInRed
+- shouldNotLogInNonExistentUser
