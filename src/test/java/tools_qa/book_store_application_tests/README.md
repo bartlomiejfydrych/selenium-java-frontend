@@ -1,4 +1,4 @@
-# Book Store Application – Test Documentation
+# 📚Book Store Application – Test Documentation
 
 ## Register and Login user – important details
 

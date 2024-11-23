@@ -3,6 +3,7 @@ package tools_qa.book_store_application_tests;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
@@ -76,6 +77,10 @@ public class LoginTest extends TestBase {
 
         String expectedClassName = "is-invalid";
         String expectedInputColor = "rgb(220, 53, 69)";
+        String attribute = "class";
+        String cssValue = "border-color";
+        WebElement userNameInput = loginPage.getUserNameInput();
+        WebElement passwordInput = loginPage.getPasswordInput();
 
         // ---
         // ACT
@@ -89,14 +94,17 @@ public class LoginTest extends TestBase {
 
         loginPage.clickLoginButton();
 
+        webElementMethods.waitForElementToStopColorChanging(userNameInput, cssValue);
+        webElementMethods.waitForElementToStopColorChanging(passwordInput, cssValue);
+
         // ------
         // ASSERT
         // ------
 
-        assertThat(loginPage.getUserNameInput().getAttribute("class")).contains(expectedClassName);
-        assertThat(loginPage.getUserNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
-        assertThat(loginPage.getPasswordInput().getAttribute("class")).contains(expectedClassName);
-        assertThat(loginPage.getPasswordInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
+        assertThat(userNameInput.getAttribute(attribute)).contains(expectedClassName);
+        assertThat(userNameInput.getCssValue(cssValue)).isEqualTo(expectedInputColor);
+        assertThat(passwordInput.getAttribute(attribute)).contains(expectedClassName);
+        assertThat(passwordInput.getCssValue(cssValue)).isEqualTo(expectedInputColor);
     }
 
     @Test
@@ -120,7 +128,8 @@ public class LoginTest extends TestBase {
 
         loginPage.writeUserName("TestNonExistUserName")
                 .writePassword("TestNonExistPassword")
-                .clickLoginButton();
+                .clickLoginButton()
+                .waitForMessageText();
 
         // ------
         // ASSERT

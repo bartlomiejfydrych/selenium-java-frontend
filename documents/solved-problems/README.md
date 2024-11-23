@@ -467,9 +467,32 @@ https://github.com/SeleniumHQ/selenium/issues/14630#issue-2601723082
 
 **Problem:**  
 
+Co jakiś czas narzędzia developerskie `DevTools` mają aktualizacje.  
+Po takiej aktualizacji, gdy uruchamiamy testy w **Selenium**, może pojawiać się poniższy błąd:
+```Java
 lis 22, 2024 6:29:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 131, returning the closest version; found: 130; Please update to a Selenium version that supports CDP version 131
+```
+Czasami mimo tego błędu Selenium działa, a czasami nie.  
+Prawdopodobnie zależy to od tego jak duża była aktualizacja i na jakie elementy mogła mieć wpływ.
 
 **Rozwiązanie:**  
 
-tekst
+Głównym rozwiązaniem problemu jest czekanie, aż twórcy zastosują nową wersję `DevTools` w **Selenium** i wypuszczą
+kolejną aktualizację/wersję do podniesienia w **Maven**.  
+Niestety czekanie może długo potrwać, ponieważ osoby zaangażowane w rozwój Selenium robią to za darmo w swoim wolnym
+czasie.
+
+W linku wyżej na GitHub inni użytkownicy zaproponowali dwa tymczasowe obejścia:
+1. Instalacja wersji przeglądarki sprzed aktualizacji  
+   (Nie jestem pewien czy chodzi o przeglądarkę na komputerze, czy może Driver)
+   - Odinstalowujemy nasz najnowszy, zaktualizowany Google Chrome
+   - Pobieramy i instalujemy starszą wersję, która zawiera taką wersję `DevTools`, jaką obsługuje nasze **Selenium**
+   - Przykładowy link:
+     https://www.filepuma.com/download/google_chrome_64bit_129.0.6668.101-41911/
+2. Użycie **Selenium Manager** i/lub może **WebDriverManager**  
+   (Nie zagłębiałem się dokładnie w ten temat, ale można przeczytać poniższe linki, gdy zajdzie taka potrzeba)
+   - Dokumentacja **Selenium Manager**:
+     https://www.selenium.dev/documentation/selenium_manager/
+   - Dokumentacja **WebDriverManager**:
+     https://bonigarcia.dev/webdrivermanager/#webdrivermanager-and-selenium-manager

@@ -3,6 +3,7 @@ package tools_qa.pages.normal.book_store_application_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 
 public class LoginPage extends BasePage {
@@ -61,6 +62,13 @@ public class LoginPage extends BasePage {
 
     public LoginPage clickNewUserButton() {
         newUserButton.click();
+        return this;
+    }
+
+    // WAITS
+
+    public LoginPage waitForMessageText() {
+        defaultWait.until(ExpectedConditions.visibilityOf(messageText));
         return this;
     }
 
