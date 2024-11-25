@@ -9,6 +9,9 @@ try to set the test order so that this collection is always executed last.
 
 ### Register User
 
+`shouldCaptchaBlockUs()` – Sometimes this test will fail because reCaptcha lets us through...  
+Well, that's what this test is for.
+
 Due to the reCaptcha mechanism, it is not possible to automate full, correct user registration using Selenium.  
 We will have to create an account ourselves and create an **ENV** file with its data, which will not be uploaded
 to GitHub.

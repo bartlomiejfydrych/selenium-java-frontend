@@ -50,6 +50,7 @@ https://mvnrepository.com/
 (Szczegóły o nich w osobnej sekcji z Maven - dependencies)
     - Uniwersalne:
         - JUnit Jupiter (Aggregator)
+        - JUnit Platform Suite (Aggregator)
         - Java Faker
         - AssertJ Core
         - Dotenv Java
@@ -171,7 +172,33 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 > Używanie **"JUnit Jupiter (Aggregator)"** jako zależności w projekcie Java pozwala na łatwe korzystanie z pełnej funkcjonalności JUnit 5 bez konieczności ręcznego dodawania pojedynczych modułów. Wystarczy dodać tę zależność do pliku konfiguracyjnego (np. pom.xml w Maven lub build.gradle w Gradle), a narzędzie budujące automatycznie pobiera i zarządza wszystkimi modułami JUnit 5.*
 </details>
 <details>
-    <summary>2. AssertJ Core</summary>
+    <summary>2. JUnit Platform Suite (Aggregator)</summary>
+
+> ***JUnit Platform Suite (Aggregator)** to moduł JUnit 5, który pozwala na definiowanie i uruchamianie grup testów przy użyciu adnotacji takich jak **@Suite, @SelectPackages, i @SelectClasses**. Jest częścią ekosystemu JUnit Platform i służy jako centralne narzędzie do agregowania testów w zestawy, co ułatwia organizację i kontrolę nad ich wykonywaniem.  
+> Najważniejsze cechy JUnit Platform Suite:  
+> **Agregowanie testów** - Pozwala na grupowanie testów z różnych pakietów lub klas w jeden zestaw testów.  
+> **Adnotacje wspierane przez Suite API:**  
+> `@Suite`: Definiuje klasę jako zestaw testów.  
+> `@SelectPackages`: Wybiera wszystkie klasy testowe z określonych pakietów.  
+> `@SelectClasses`: Wskazuje specyficzne klasy testowe do wykonania.  
+> `@IncludeTags` i `@ExcludeTags`: Wybiera lub wyklucza testy na podstawie tagów.  
+> `@IncludeEngines` i `@ExcludeEngines`: Pozwala selektywnie używać silników testowych.  
+> **Obsługa różnych silników testowych**  
+> JUnit Platform Suite działa z różnymi silnikami testowymi, takimi jak:  
+> JUnit Jupiter (JUnit 5)  
+> JUnit Vintage (JUnit 4)  
+> Spock, TestNG, Cucumber, czy inne wspierające JUnit Platform.  
+> **Elastyczna konfiguracja**  
+> Pozwala na uruchamianie testów zarówno w oparciu o ich lokalizację w projekcie, jak i dodatkowe kryteria (np. tagi).  
+> **Wsparcie dla filtrowania**  
+> Możesz uruchamiać tylko te testy, które spełniają określone kryteria, np. zawierają tag "critical" lub "regression".  
+> **Integracja z Mavenem i Gradle**  
+> Bezproblemowe uruchamianie zestawów testów w popularnych narzędziach budujących.  
+> **Wsparcie w IDE**  
+> JUnit Platform Suite jest w pełni wspierany w IDE takich jak IntelliJ IDEA czy Eclipse, co ułatwia konfigurację i uruchamianie testów.*
+</details>
+<details>
+    <summary>3. AssertJ Core</summary>
 
 > *Dependency o nazwie **"AssertJ Core"** odnosi się do biblioteki AssertJ, która jest popularnym narzędziem do tworzenia testów asercyjnych w języku Java. AssertJ pozwala na pisanie czytelnych, ekspresyjnych i łatwych w utrzymaniu testów poprzez dostarczenie bogatego zestawu metod asercyjnych, które sprawdzają zachowanie kodu w sposób intuicyjny i precyzyjny.  
 > Oto kilka głównych funkcji, za które odpowiada AssertJ Core:  
@@ -182,7 +209,7 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 > W skrócie, **"AssertJ Core"** jest głównym modułem biblioteki AssertJ, który zawiera podstawowe metody asercyjne i narzędzia potrzebne do pisania czytelnych, ekspresyjnych i precyzyjnych testów w języku Java. Dodanie AssertJ Core jako zależności do projektu umożliwia łatwe i efektywne pisanie testów asercyjnych.*
 </details>
 <details>
-    <summary>3. Java Faker</summary>
+    <summary>4. Java Faker</summary>
 
 > *Dependency o nazwie **"Java Faker"** jest biblioteką do generowania danych testowych w języku Java. Pozwala ona tworzyć losowe dane o różnym charakterze, takie jak imiona, nazwiska, adresy e-mail, numery telefonów, daty, numery PESEL itp. Biblioteka Java Faker jest użyteczna w procesie testowania aplikacji, gdy potrzebne są realistyczne, ale losowe dane do zasilenia testów.  
 > Oto kilka głównych funkcji, za które odpowiada Java Faker:  
@@ -193,7 +220,7 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 > Dzięki **"Java Faker"** możliwe jest szybkie i łatwe generowanie różnorodnych danych testowych, co znacząco ułatwia proces testowania aplikacji. Jest to szczególnie przydatne w sytuacjach, gdy potrzebne są realistyczne dane, ale nie jest konieczne korzystanie z rzeczywistych danych użytkowników.*
 </details>
 <details>
-    <summary>4. Dotenv Java</summary>
+    <summary>5. Dotenv Java</summary>
 
 > *Biblioteka **Dotenv Java** (często nazywana `java-dotenv`) to narzędzie, które umożliwia bezpośrednie ładowanie zmiennych środowiskowych z pliku `.env` do aplikacji napisanej w Javie. Jest szczególnie przydatna podczas pracy z aplikacjami wymagającymi różnych ustawień konfiguracyjnych, które nie powinny być zapisywane bezpośrednio w kodzie, np. dane logowania, klucze API, adresy URL.  
 > Kluczowe cechy Dotenv Java:  

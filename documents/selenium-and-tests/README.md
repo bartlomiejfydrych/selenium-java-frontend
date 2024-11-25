@@ -669,3 +669,8 @@ public DragabblePage setPositionTop(WebElement movedElement, String targetTop) {
 assertThat(dragBox.getCssValue("left")).isEqualTo(expectedLeftPosition);
 assertThat(dragBox.getCssValue("top")).isEqualTo(expectedTopPosition);
 ```
+
+TODO: Opisać ustawianie kolejności testów
+https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite/1.11.3
+https://www.baeldung.com/java-junit-test-suite
+klasa suite, kolejkowanie paczek, kolejkowanie klas, instalacja frameworka, ogólne zasady

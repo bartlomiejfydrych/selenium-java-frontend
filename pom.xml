@@ -15,6 +15,7 @@
     <!-- VARIABLES FOR PROJECT DEPENDENCIES VERSIONS -->
         <!-- UNIVERSAL -->
         <junitJupiter.version>5.11.0</junitJupiter.version>
+        <junitSuite.version>1.11.3</junitSuite.version>
         <javafaker.version>1.0.2</javafaker.version>
         <assertjCore.version>3.26.3</assertjCore.version>
         <dotenvJava.version>3.0.2</dotenvJava.version>
@@ -31,6 +32,13 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junitJupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junitSuite.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->

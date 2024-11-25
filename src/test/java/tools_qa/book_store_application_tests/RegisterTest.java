@@ -50,6 +50,15 @@ public class RegisterTest extends TestBase {
     @Test
     public void shouldCaptchaBlockUs() {
 
+        /*
+        NOTE:
+        Sometimes this test will fail because reCaptcha lets us through...
+        Well, that's what this test is for.
+
+        I think that creating some special handling for this test or additional steps to register and remove such user
+        makes no sense, because one test shouldn't check two random conditions.
+        */
+
         // -------
         // ARRANGE
         // -------
