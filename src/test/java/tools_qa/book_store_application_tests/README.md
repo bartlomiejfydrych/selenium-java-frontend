@@ -1,6 +1,6 @@
 # 📚Book Store Application – Test Documentation
 
-## Register and Login user – important details
+## 📌Register and Login user – important details
 
 ### Test order
 

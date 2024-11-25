@@ -42,7 +42,7 @@ public class LoginTest extends TestBase {
         // ARRANGE
         // -------
 
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure().directory("./environment").load();
         String userName = dotenv.get("TQ_BSA_USERNAME");
         String password = dotenv.get("TQ_BSA_PASSWORD");
         ProfilePage profilePage = new ProfilePage(driver);
@@ -60,6 +60,8 @@ public class LoginTest extends TestBase {
         loginPage.writeUserName(userName)
                 .writePassword(password)
                 .clickLoginButton();
+
+        profilePage.waitForLogOutButton();
 
         // ------
         // ASSERT
