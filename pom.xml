@@ -20,8 +20,8 @@
         <assertjCore.version>3.26.3</assertjCore.version>
         <dotenvJava.version>3.0.2</dotenvJava.version>
         <!-- FRONTEND -->
-        <seleniumJava.version>4.26.0</seleniumJava.version>
-        <seleniumSupport.version>4.26.0</seleniumSupport.version>
+        <seleniumJava.version>4.27.0</seleniumJava.version>
+        <seleniumSupport.version>4.27.0</seleniumSupport.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
     </properties>
 
