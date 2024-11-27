@@ -11,6 +11,7 @@
 - [Wait — pollingEvery()](#wait_polling_every)
 - [Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów](#resize_text_area)
 - [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
+- [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
 
 ---
 
@@ -670,7 +671,96 @@ assertThat(dragBox.getCssValue("left")).isEqualTo(expectedLeftPosition);
 assertThat(dragBox.getCssValue("top")).isEqualTo(expectedTopPosition);
 ```
 
-TODO: Opisać ustawianie kolejności testów
-https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite/1.11.3
+---
+
+## JUnit — ustawianie kolejności odpalania testów <a name="junit_test_order"></a>
+
+### Linki
+
+Repozytorium Maven:  
+https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
+
+Opis zastosowania:  
 https://www.baeldung.com/java-junit-test-suite
-klasa suite, kolejkowanie paczek, kolejkowanie klas, instalacja frameworka, ogólne zasady
+
+### Opis
+
+1. Do **Maven** musimy dopisać zależność o nazwie **JUnit Platform Suite (Aggregator)**.  
+   (Jeżeli mamy tylko **JUnit Jupiter (Aggregator)**)
+2. W **katalogu**, w którym znajdują się wszystkie nasze paczki **z testami** tworzymy package o nazwie `suites`.  
+   (Możemy też od razu utworzyć sam plik z klasą, bez umieszczania go w package)  
+   (Przykładowa lokalizacja `src` -> `test` -> `java` -> `tools_qa` -> `suites`)
+3. W utworzonym package **tworzymy klasę** np. `TestsInOrderSuite.java`
+4. Nad klasą `public class TestsInOrderSuite {}` wpisujemy i importujemy adnotację `@Suite`
+5. Adnotacją `@SelectPackages` ustawiamy kolejność odpalania paczek z testami  
+   (Klasy z testami w ramach danej paczki będą już wykonywane losowo)
+6. Adnotacją `@SelectClasses` ustawiamy kolejność odpalania klas z testami w ramach podanych paczek  
+   (Metody (Testy) wewnątrz tych klas będą wywoływane już losowo)
+7. Mamy teraz plik, który możemy **"odpalać"**, aby ustawione przez nas testy były wykonywane w podanej przez nas kolejności
+
+### Przykład skonfigurowanego pliku
+
+```java
+package tools_qa.suites;
+
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
+
+@Suite
+@SelectPackages({
+        "tools_qa.elements_tests",
+        "tools_qa.forms_tests",
+        "tools_qa.alerts_frame_windows_tests",
+        "tools_qa.widgets_tests",
+        "tools_qa.interactions_tests"
+})
+@SelectClasses({
+        tools_qa.book_store_application_tests.RegisterTest.class,
+        tools_qa.book_store_application_tests.LoginTest.class
+})
+public class TestsInOrderSuite {
+}
+```
+
+Jeśli chcemy ustawić kolejność wywoływania metod (testów) wewnątrz klasy użyjemy adnotacji `@Order` wraz z
+zadeklarowaniem nad klasą adnotacji `@TestMethodOrder(MethodOrderer.OrderAnnotation.class)`.  
+Oto przykładowy kod:
+```java
+package tests;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class OrderedTest {
+
+    @Test
+    @Order(2)
+    void testB() {
+        System.out.println("Running testB");
+    }
+
+    @Test
+    @Order(1)
+    void testA() {
+        System.out.println("Running testA");
+    }
+
+    @Test
+    @Order(3)
+    void testC() {
+        System.out.println("Running testC");
+    }
+}
+```
+
+### Zalecane praktyki / Ogólne zasady
+
+Twórcy JUnit ogólnie nie zalecają ustawiania testów w kolejności, gdyż każdy test powinien zawsze działać i to
+niezależnie od pozostałych.  
+Jeśli testy wykonywane są w losowej kolejności, to zawsze jest większa szansa na znalezienie dodatkowych defektów.  
+Kolejność powinna być ustawiana tylko w przypadkach, w których jest to zło konieczne np. zalogowanie się na początku,
+żeby zapisać token autoryzacyjny do pliku itp.
