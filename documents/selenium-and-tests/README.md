@@ -12,6 +12,7 @@
 - [Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów](#resize_text_area)
 - [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
 - [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
+- [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
 
 ---
 
@@ -764,3 +765,67 @@ niezależnie od pozostałych.
 Jeśli testy wykonywane są w losowej kolejności, to zawsze jest większa szansa na znalezienie dodatkowych defektów.  
 Kolejność powinna być ustawiana tylko w przypadkach, w których jest to zło konieczne np. zalogowanie się na początku,
 żeby zapisać token autoryzacyjny do pliku itp.
+
+---
+
+## Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
+
+### Lista sposobów
+
+1. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie kroków logowania:  
+   (Nadaje się tylko do małych testów)
+   ```java
+   @BeforeAll
+   public static void setUpOnce() {
+      driver = new ChromeDriver();
+      driver.get("https://example.com/login");
+      driver.findElement(By.id("username")).sendKeys("user");
+      driver.findElement(By.id("password")).sendKeys("password");
+      driver.findElement(By.id("loginButton")).click();
+   }
+   
+   @Test
+   public void shouldPerformTest() {
+      driver.get("https://example.com/secure-page");
+      // Test actions
+   }
+   ```
+2. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie testu logowania:  
+   (Nadaje się tylko do małych testów)
+   - Akurat w tym przykładzie jest jeszcze dopisane sprawdzanie ważności plików cookies
+   ```java
+   @BeforeAll
+   static void ensureLoggedIn() throws IOException {
+      if (!areCookiesValid(new File("./cookies.txt"))) {
+         LoginTests loginTests = new LoginTests();
+         loginTests.shouldLogInAndSaveCookies(); // Wywołaj test logowania
+      }
+   }
+   ```
+3. Ustawienie kolejności testów w taki sposób, aby test logowania był wykonywany jako pierwszy:  
+   (Dobre, gdy nie zależy nam na pełnej losowości i niezależności testów)
+   - Do testu prawidłowego logowania dodajemy kod, który zapisze cookies do pliku
+   - Za pomocą `@Suite` (JUnit) ustawiamy testy w takiej kolejności, aby paczka z testami logowania była wykonywana
+   jako pierwsza
+   - Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który będzie wgrywał do sesji
+   Drivera wcześniej zapisane cookies'y
+   - Możemy dorobić warunki sprawdzające, czy cookies mają zachowaną ważność i jeśli nie, to zostanie wykonane logowanie
+   ponownie
+4. Autoryzowanie się za pomocą API:  
+   (Prawdopodobnie najlepszy, najszybszy, najstabilniejszy i najbezpieczniejszy sposób)  
+   Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który:
+   - Sprawdzamy warunki, czy plik z cookies'ami i innymi tokenami istnieje
+   - Sprawdzamy, czy cookie nie stracił ważności
+   - Wysyłamy request do API z danymi logowania
+   - Zapisujemy nowe cookie do pliku
+   - Wczytujemy nowe cookie z pliku i wgrywamy je do sesji Drivera
+5. Utworzenie klasy pomocniczej `SessionManager`:  
+   (Najlepszy sposób, gdy zależy nam na pełnej niezależności testów)
+   - Szczegółowy opis niżej, gdyż ten sposób właśnie wybrałem
+
+### (5) SessionManager - dokładny opis
+
+Jako że są to testy Frontendu i uważam, że dogrywanie specjalnie frameworka Rest Assured tylko pod jedno logowanie
+jest trochę słabe wybrałem sposób na utworzenie klasy z **SessionManager'em**.
+
+CDN.
