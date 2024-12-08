@@ -4,6 +4,8 @@ environment/.env
 
 # ToolsQA
 sampleFile.jpeg
+src/main/resources/tools_qa/Auth/*
+!src/main/resources/tools_qa/Auth/.gitkeep
 
 ### Java template
 # Compiled class file

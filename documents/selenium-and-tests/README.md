@@ -770,6 +770,10 @@ Kolejność powinna być ustawiana tylko w przypadkach, w których jest to zło 
 
 ## Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
 
+### Uwagi
+
+Należy pamiętać, aby tworzony plik z ciasteczkami dodać do `.gitignore`.
+
 ### Lista sposobów
 
 1. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie kroków logowania:  

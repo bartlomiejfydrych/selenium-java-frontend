@@ -21,6 +21,8 @@ public class BookStoreApplicationPage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Login']")
     private WebElement loginButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Profile']")
+    private WebElement profileButton;
 
     // -------
     // METHODS
@@ -29,5 +31,10 @@ public class BookStoreApplicationPage extends BasePage {
     public LoginPage goToLoginPage() {
         loginButton.click();
         return new LoginPage(driver);
+    }
+
+    public ProfilePage goToProfilePage() {
+        profileButton.click();
+        return new ProfilePage(driver);
     }
 }

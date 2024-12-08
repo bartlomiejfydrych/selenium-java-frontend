@@ -36,7 +36,7 @@ public class LoginTest extends TestBase {
     }
 
     @Test
-    public void shouldLogInCorrectly() {
+    public void shouldLogInAndLogOutUserCorrectly() {
 
         // -------
         // ARRANGE
@@ -47,9 +47,9 @@ public class LoginTest extends TestBase {
         String password = dotenv.get("TQ_BSA_PASSWORD");
         ProfilePage profilePage = new ProfilePage(driver);
 
-        // ---
-        // ACT
-        // ---
+        // ------------
+        // ACT + ASSERT
+        // ------------
 
         homePage.goToBookStoreApplicationPage();
 
@@ -57,17 +57,22 @@ public class LoginTest extends TestBase {
 
         bookStoreApplicationPage.goToLoginPage();
 
+        // LOG IN
+
         loginPage.writeUserName(userName)
                 .writePassword(password)
                 .clickLoginButton();
 
         profilePage.waitForLogOutButton();
 
-        // ------
-        // ASSERT
-        // ------
-
         assertThat(profilePage.getLogOutButton().isDisplayed()).isTrue();
+        assertThat(profilePage.getUserNameValue().getText()).isEqualTo(userName);
+
+        // LOG OUT
+
+        profilePage.clickLogOutButton();
+
+        assertThat(loginPage.getLoginHeader().getText()).isEqualTo("Login");
     }
 
     @Test

@@ -1,6 +1,13 @@
 # 📚Book Store Application – Test Documentation
 
-## 📌Register and Login user – important details
+## 📌Book Store tests - information
+
+- These tests require a logged-in user
+- There is no test for deleting a user, because after that a new one would have to be created manually
+- When I click on the book name, a blank page opens and nothing else happens.  
+  This makes larger and more thorough tests of the Book Store impossible, so I test everything I can.
+
+## 🔐Register and Login user – details
 
 ### Test order
 
