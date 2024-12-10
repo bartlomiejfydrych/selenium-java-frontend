@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import tools_qa.configuration.Config;
+import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.book_store_application_pages.LoginPage;
 import tools_qa.pages.normal.book_store_application_pages.ProfilePage;
 
@@ -24,10 +25,9 @@ public class CookiesProvider {
     // -----------
 
     public static void loadCookiesOrLogIn(WebDriver driver) {
-        if (checkIfCookieFileExists() && checkCookieValidity(driver)) {
+        if (checkIfCookieFileExists() && checkCookieValidity()) {
             loadCookies(driver);
             driver.navigate().refresh(); // Refresh to apply cookies
-            driver.get(UrlProvider.homePage);
         } else {
             logIn(driver);
             saveCookiesToFile(driver);
@@ -48,6 +48,9 @@ public class CookiesProvider {
         String password = dotenv.get("TQ_BSA_PASSWORD");
         // Go to login page
         driver.get(UrlProvider.loginPage);
+        // Remove footer and ads
+        TrainingPage trainingPage = new TrainingPage(driver);
+        trainingPage.removeFooterAndAds();
         // Log in
         LoginPage loginPage = new LoginPage(driver);
         loginPage.writeUserName(userName)
@@ -56,8 +59,6 @@ public class CookiesProvider {
         // Wait for log in
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.waitForLogOutButton();
-        System.out.println("Poniżej mają być cookies: ");
-        System.out.println(driver.manage().getCookies());
     }
 
     // SAVE AND LOAD
@@ -91,7 +92,6 @@ public class CookiesProvider {
         for (Cookie cookie : cookies) {
             driver.manage().addCookie(cookie);
         }
-        driver.manage().getCookies().forEach(cookie -> System.out.println(cookie.toString()));
     }
 
     // VALIDATION
@@ -101,14 +101,17 @@ public class CookiesProvider {
         return cookieFile.exists() && cookieFile.isFile();
     }
 
-    public static boolean checkCookieValidity(WebDriver driver) {
+    public static boolean checkCookieValidity() {
         List<Cookie> cookies = readCookiesFromFile();
+        Date now = new Date();
+
         for (Cookie cookie : cookies) {
-            if (cookie.getExpiry() != null && cookie.getExpiry().before(new Date())) {
-                return false; // Cookie expired
+            if (cookie.getExpiry() != null && cookie.getExpiry().before(now)) {
+                System.out.println("Expired cookie: " + cookie.getName() + " (expired: " + cookie.getExpiry() + ")");
+                return false; // At least one cookie has expired
             }
         }
-        return true;
+        return true; // All cookies are valid
     }
 
     // READ FROM FILE
@@ -126,7 +129,7 @@ public class CookiesProvider {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (parts.length < 6) {
-                    throw new IllegalArgumentException("Nieprawidłowy format linii: " + line);
+                    throw new IllegalArgumentException("Incorrect line format: " + line);
                 }
 
                 String name = parts[0];
@@ -135,7 +138,7 @@ public class CookiesProvider {
                 String path = parts[3];
                 Date expiry = null;
 
-                // Parsowanie daty wygasania
+                // Parsing the expiration date
                 if (!parts[4].equals("null")) {
                     try {
                         expiry = iso8601DateFormat.parse(parts[4]);
@@ -143,7 +146,7 @@ public class CookiesProvider {
                         try {
                             expiry = simpleDateFormat.parse(parts[4]);
                         } catch (ParseException ignored) {
-                            // Nieobsługiwany format daty
+                            // Unhandled date format
                         }
                     }
                 }
@@ -151,7 +154,7 @@ public class CookiesProvider {
                 boolean isSecure = Boolean.parseBoolean(parts[5]);
                 boolean isHttpOnly = Boolean.parseBoolean(parts[6]);
 
-                // Tworzenie obiektu Cookie
+                // Creating a Cookie Object
                 Cookie.Builder cookieBuilder = new Cookie.Builder(name, value)
                         .domain(domain)
                         .path(path)
@@ -167,7 +170,7 @@ public class CookiesProvider {
                 cookies.add(cookieBuilder.build());
             }
         } catch (IOException e) {
-            throw new RuntimeException("Błąd odczytu pliku cookies", e);
+            throw new RuntimeException("Error reading cookie file", e);
         }
         return cookies;
     }

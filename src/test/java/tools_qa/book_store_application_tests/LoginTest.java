@@ -108,6 +108,8 @@ public class LoginTest extends TestBase {
         // ASSERT
         // ------
 
+        // TODO: Poprawić getAttribute() na nowsze getDomAttribute() lub getDomProperty()
+        // https://www.linkedin.com/pulse/selenium-427-deprecates-getattributemethod-ranjit-biswal-bvopc/
         assertThat(userNameInput.getAttribute(attribute)).contains(expectedClassName);
         assertThat(userNameInput.getCssValue(cssValue)).isEqualTo(expectedInputColor);
         assertThat(passwordInput.getAttribute(attribute)).contains(expectedClassName);
