@@ -9,6 +9,7 @@ import tools_qa.pages.normal.book_store_application_pages.LoginPage;
 import tools_qa.pages.normal.book_store_application_pages.ProfilePage;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,8 +18,8 @@ public class CookiesProvider {
 
     // FILE PATHS
     private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
-    private static final String COOKIES_DIR = "\\Auth";
-    private static final String COOKIES_FILE_PATH = GENERAL_FILES_PATH + COOKIES_DIR + "\\cookies.txt";
+    private static final String COOKIES_DIR = "Auth";
+    private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
 
     // -----------
     // MAIN METHOD
