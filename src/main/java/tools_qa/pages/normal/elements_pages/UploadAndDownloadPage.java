@@ -53,7 +53,7 @@ public class UploadAndDownloadPage extends BasePage {
         return null;
     }
 
-    public Path downloadFile(String downloadFilePath, String expectedFileName, int timeoutInSeconds) throws InterruptedException {
+    public Path downloadFile(String downloadFilePath, String expectedFileName, int timeoutInSeconds) {
         try {
             Path downloadedFile = waitForFileDownload(downloadFilePath, expectedFileName, timeoutInSeconds);
             return downloadedFile;
@@ -76,7 +76,8 @@ public class UploadAndDownloadPage extends BasePage {
     // UPLOAD FILE
 
     public void uploadFile() {
-        File fileToUpload = new File("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png");
+        Path fileToUploadPath = Paths.get("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png").toAbsolutePath();
+        File fileToUpload = fileToUploadPath.toFile();
         selectFileButton.sendKeys(fileToUpload.getAbsolutePath());
     }
 

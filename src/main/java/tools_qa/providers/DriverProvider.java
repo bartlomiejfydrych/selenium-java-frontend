@@ -9,6 +9,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import tools_qa.configuration.Config;
 import tools_qa.enums.Browser;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class DriverProvider {
                 }
 
                 Map<String, Object> prefs = new HashMap<>();
-                prefs.put("download.default_directory", downloadFilePath);
+                prefs.put("download.default_directory", Paths.get(downloadFilePath).toAbsolutePath().toString());
                 prefs.put("download.prompt_for_download", false);
                 // To disable Chrome PDF viewer we should write this:
                 // prefs.put("plugins.always_open_pdf_externally", true);

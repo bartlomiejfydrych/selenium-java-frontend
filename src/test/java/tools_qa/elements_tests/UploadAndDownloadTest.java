@@ -13,6 +13,7 @@ import tools_qa.providers.UrlProvider;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,8 +25,8 @@ public class UploadAndDownloadTest extends TestBase {
     UploadAndDownloadPage uploadAndDownloadPage;
 
     String generalDownloadPath = Config.getDownloadFilePath();
-    String downloadDir = "\\UploadAndDownload";
-    String downloadPath = generalDownloadPath + downloadDir;
+    String downloadDir = "UploadAndDownload";
+    String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
 
     @Override
     @BeforeEach
@@ -39,7 +40,7 @@ public class UploadAndDownloadTest extends TestBase {
     }
 
     @Test
-    public void shouldDownloadFile() throws InterruptedException {
+    public void shouldDownloadFile() {
 
         // ---
         // ACT

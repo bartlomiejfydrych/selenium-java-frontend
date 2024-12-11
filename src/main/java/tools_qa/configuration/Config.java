@@ -4,6 +4,7 @@ import tools_qa.enums.Browser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Config {
@@ -54,6 +55,6 @@ public class Config {
     }
 
     public static String getDownloadFilePath() {
-        return properties.getProperty("downloadFilePath");
+        return Paths.get(properties.getProperty("downloadFilePath")).toAbsolutePath().toString();
     }
 }
