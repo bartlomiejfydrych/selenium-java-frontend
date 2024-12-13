@@ -6,6 +6,7 @@
 - [Plik konfiguracyjny — config.properties](#config)
 - [Enum](#enum)
 - [ENV — Zmienne środowiskowe](#env)
+- [Pliki — ścieżki](#files_paths)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
@@ -488,3 +489,46 @@ https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
         }
     }
     ```
+
+---
+
+## Pliki — ścieżki <a name="files_paths"></a>
+
+Przy deklaracji ścieżek do plików **nie należy** ich podawać/zapisywać bezpośrednio z ukośnikami np.:  
+`String path = "C:/KatalogA/KatalogB/KatalogC/plik.txt"`
+
+**Dlaczego?**  
+Różne systemy używają różnych ukośników, raz jest tak `/`, a raz tak `\`.  
+Przez to jest szansa, że nasz kod nie zadziała na innym systemie operacyjnym.
+
+**Rozwiązaniem** tego problemu będzie:  
+Korzystanie pod to z dedykowanych metod, które będą dostosowywały ukośniki do systemu, na którym kod będzie uruchamiany.  
+W Java służy do tego metoda:  
+`Paths.get()`
+
+**Przykłady** zastosowania w różnych miejscach kodu:
+```java
+// --------------------------------------------------
+public static String getDownloadFilePath() {
+    return Paths.get(properties.getProperty("downloadFilePath")).toAbsolutePath().toString();
+}
+// --------------------------------------------------
+prefs.put("download.default_directory", Paths.get(downloadFilePath).toAbsolutePath().toString());
+// --------------------------------------------------
+Path filePath = Paths.get(downloadDir, expectedFileName);
+// --------------------------------------------------
+public void uploadFile() {
+    Path fileToUploadPath = Paths.get("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png").toAbsolutePath();
+    File fileToUpload = fileToUploadPath.toFile();
+    selectFileButton.sendKeys(fileToUpload.getAbsolutePath());
+}
+// --------------------------------------------------
+String generalDownloadPath = Config.getDownloadFilePath();
+String downloadDir = "UploadAndDownload";
+String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
+// --------------------------------------------------
+private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
+private static final String COOKIES_DIR = "Auth";
+private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
+// --------------------------------------------------
+```
