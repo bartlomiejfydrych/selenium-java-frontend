@@ -85,6 +85,23 @@ TODO
 
 ## 👨‍💻IDE
 
+### Zapełnione miejsce na dysku systemowym (C:) przez katalog AppData
+
+**Link:**  
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/360010670000-Is-it-safe-to-delete-C-Users-user-AppData-Local-JetBrains-IdeaIC2020-3-folder
+
+Po każdej aktualizacji IDE do nowej wersji jest tworzony nowy katalog na jej dane.  
+Poprzednie katalogi zostają i jak się ich nazbiera, to zajmują sporo GB.
+
+IDE ma wbudowaną funkcję, żeby poradzić sobie z tym problemem:
+
+1. Klikamy "hamburger menu"
+2. Klikamy `Help`
+3. Klikamy `Delete Leftover IDE Directories...`
+4. W prawym dolnym rogu klikamy to co powiadomienie sugeruje
+5. Następnie zostanie wyświetlona lista z katalogami możliwymi do usunięcia
+6. Zatwierdzamy
+
 ### Formatowanie kodu
 
 `Ctrl + Alt + L`
