@@ -467,12 +467,19 @@ https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
      - Natomiast jeśli utworzymy go gdzieś indziej lub umieścimy w jakimś pod-katalogu, to wtedy będzie konieczne podanie
        ścieżki do tego pliku w deklaracji obiektu:  
        `Dotenv dotenv = Dotenv.configure().directory("./environment").load();`
-3. Tworzymy plik `.env` w głównym katalogu projektu lub gdzie chcemy np.:
+3. Przed dodaniem pliku musimy nasz `.env` dopisać w `.gitignore`:
+   ```gitignore
+   # Project environment
+   environment/.env
+   ```
+4. Jeśli na zmienne środowiskowe stworzyliśmy osobny katalog warto dodać w nim plik `.env.example`.  
+   Możemy do niego zapisywać puste zmienne środowiskowe, aby reszta członków zespołu miała do pobrania jakiś wzornik.
+5. Tworzymy plik `.env` w głównym katalogu projektu lub gdzie chcemy np.:
     ```.env
     USERNAME=yourUsername
     PASSWORD=yourPassword
     ```
-4. Wczytujemy zmienne środowiskowe z pliku `.env`:
+6. Wczytujemy zmienne środowiskowe z pliku `.env`:
     ```java
     import io.github.cdimascio.dotenv.Dotenv;
     
