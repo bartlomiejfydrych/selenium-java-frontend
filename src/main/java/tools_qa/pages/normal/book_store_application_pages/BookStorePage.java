@@ -1,5 +1,6 @@
 package tools_qa.pages.normal.book_store_application_pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,9 +31,11 @@ public class BookStorePage extends BasePage {
     // BOOKS TABLE
     @FindBy(css = ".rt-table")
     private WebElement booksTable;
-    @FindBy(css = ".rt-tr-group")
+    private final String tableRowsLocator = ".rt-tr-group";
+    @FindBy(css = tableRowsLocator)
     private List<WebElement> tableRows;
-    @FindBy(css = ".rt-td")
+    private final String tableColumnsLocator = ".rt-td";
+    @FindBy(css = tableColumnsLocator)
     private List<WebElement> tableColumns;
     @FindBy(css = "div .-odd:nth-of-type(1) .rt-td")
     private List<WebElement> firstRowCells;
@@ -73,6 +76,23 @@ public class BookStorePage extends BasePage {
     public BookStorePage clickPreviousPageButton() {
         previousPageButton.click();
         return this;
+    }
+
+    public boolean isRowDataValid(int rowIndex, String expectedImageSrc, String expectedTitle, String expectedAuthor, String expectedPublisher) {
+        // Fetch a row based on index
+        WebElement row = driver.findElements(By.cssSelector(tableRowsLocator)).get(rowIndex);
+        // Get columns
+        List<WebElement> columns = row.findElements(By.cssSelector(tableColumnsLocator));
+        // Get data from each column
+        String actualImageSrc = columns.get(0).findElement(By.tagName("img")).getDomAttribute("src");
+        String actualTitle = columns.get(1).findElement(By.tagName("a")).getText();
+        String actualAuthor = columns.get(2).getText();
+        String actualPublisher = columns.get(3).getText();
+        // Check all data
+        return actualImageSrc.contains(expectedImageSrc) &&
+                actualTitle.equals(expectedTitle) &&
+                actualAuthor.equals(expectedAuthor) &&
+                actualPublisher.equals(expectedPublisher);
     }
 
     // WAITS
