@@ -56,3 +56,15 @@ In the `LoginTest.java` file, the test called `shouldLogInCorrectly()` should no
 - shouldLogInCorrectly
 - shouldMarkEmptyFieldsInRed
 - shouldNotLogInNonExistentUser
+
+### Profile
+
+- shouldChangeNumberOfRows
+- shouldCancelDeleteAllBooks
+- shouldAlertAppearWhenTryingToDeleteAllBooksFromEmptyCollection
+- shouldGoToBookStore
+
+### Book Store
+
+- shouldSearchCorrectBook
+- shouldChangeAmountOfRowsAndSwitchPagesToNextAndPrevious
