@@ -63,19 +63,4 @@ public abstract class BasePage {
         element.clear();
         sendKeys(element, textToSend);
     }
-
-    // ----------------------
-    // Method / Generic Types
-    // ----------------------
-
-    /*
-    NOTES FOR ME:
-    To jest metoda generyczna. Przyjmuje listę dowolnych obiektów i zwraca jeden z nich.
-    Typy generyczne <T> - https://www.youtube.com/watch?v=K1iu1kXkVoA
-    TODO: Zapoznać się kiedyś dokładniej z tym tematem
-    */
-
-    public <T> T getRandomElement(List<T> list) {
-        return list.get(new Random().nextInt(list.size()));
-    }
 }

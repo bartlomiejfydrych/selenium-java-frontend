@@ -7,6 +7,7 @@
 - [Enum](#enum)
 - [ENV — Zmienne środowiskowe](#env)
 - [Pliki — ścieżki](#files_paths)
+- [Generics — typy generyczne](#generics)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
@@ -538,4 +539,22 @@ private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
 private static final String COOKIES_DIR = "Auth";
 private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
 // --------------------------------------------------
+```
+
+---
+
+## Generics — typy generyczne <a name="generics"></a>
+
+**Link:**  
+https://www.youtube.com/watch?v=K1iu1kXkVoA
+
+Zapisuję to tutaj jako ciekawostkę z kursu, jeżeli miałoby się to kiedyś przydać.  
+
+**Typy generyczne \<T\>** - Jest to metoda generyczna, która przyjmuję listę dowolnych obiektów i zwraca jeden z nich.
+
+**Przykładowy kod:**
+```java
+public <T> T getRandomElement(List<T> list) {
+    return list.get(new Random().nextInt(list.size()));
+}
 ```
