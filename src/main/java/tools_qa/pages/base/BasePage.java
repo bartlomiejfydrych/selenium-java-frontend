@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import tools_qa.configuration.Config;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Random;
 
 public abstract class BasePage {
     protected WebDriver driver;
@@ -25,9 +23,9 @@ public abstract class BasePage {
 
     private void initDriver(WebDriver driver) {
         this.driver = driver;
-        actions = new Actions(driver);
-        defaultWait = new WebDriverWait(driver, Duration.ofSeconds(Config.getDefaultWait()));
-        jse = (JavascriptExecutor)driver;
+        this.actions = new Actions(driver);
+        this.defaultWait = new WebDriverWait(driver, Duration.ofSeconds(Config.getDefaultWait()));
+        this.jse = (JavascriptExecutor) driver;
     }
 
     // ------------------
@@ -35,32 +33,57 @@ public abstract class BasePage {
     // ------------------
 
     public BasePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         initDriver(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public BasePage(WebElement parent, WebDriver driver) {
-        PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
         initDriver(driver);
-    }
-
-    // ----------------------------------------------
-    // Overriding methods with action logging methods
-    // ----------------------------------------------
-
-    protected void click(WebElement element) {
-        System.out.println("Clicking on: " + element.getText().replace("\r\n", " "));
-        element.click();
-    }
-
-    protected void sendKeys(WebElement element, String textToSend) {
-        System.out.println("Typing: " + textToSend);
-        element.sendKeys(textToSend);
-    }
-
-    protected void sendKeysAndClear(WebElement element, String textToSend) {
-        System.out.println("Clearing input");
-        element.clear();
-        sendKeys(element, textToSend);
+        PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
     }
 }
+
+/*
+
+// -----------------------------------------------------------------------
+// Examples of overriding basic methods to ones that log performed actions
+// -----------------------------------------------------------------------
+
+I believe that logging the actions performed in the console is unnecessary, because it can slow down the process
+a bit and if the test fails, it is usually known at what step.
+
+// ACTION METHODS WITH LOGGING
+
+protected void click(WebElement element) {
+    logAction("Clicking on", element);
+    element.click();
+}
+
+protected void sendKeys(WebElement element, String textToSend) {
+    logAction("Typing: " + textToSend, element);
+    element.sendKeys(textToSend);
+}
+
+protected void sendKeysAndClear(WebElement element, String textToSend) {
+    logAction("Clearing input", element);
+    element.clear();
+    sendKeys(element, textToSend);
+}
+
+protected void scrollToElement(WebElement element) {
+    logAction("Scrolling to element", element);
+    jse.executeScript("arguments[0].scrollIntoView(true);", element);
+}
+
+// HELPER LOG METHOD
+
+private void logAction(String action, WebElement element) {
+    try {
+        String elementText = element.getText().replace("\r\n", " ").trim();
+        System.out.println(action + ": " + (elementText.isEmpty() ? "[non-visible element]" : elementText));
+    } catch (Exception e) {
+        System.out.println(action + ": [unable to retrieve element details]");
+    }
+}
+
+*/
