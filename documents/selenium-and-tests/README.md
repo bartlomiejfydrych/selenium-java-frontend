@@ -2,6 +2,7 @@
 
 ## 📑Spis treści
 
+- [BasePage — Wyjaśnienie + "parent"](#base_page_parent)
 - [CSS — Sprawdzenie atrybutu elementu np. kolor](#css_color)
 - [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
 - [Wzorzec Arrange-Act-Assert](#AAA)
@@ -13,6 +14,90 @@
 - [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
 - [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
 - [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
+
+---
+
+## BasePage — Wyjaśnienie + "parent" <a name="base_page_parent"></a>
+
+Obie te metody to **konstruktory** klasy `BasePage`, które pełnią różne role w inicjalizacji klasy w zależności
+od sytuacji. Wyjaśnijmy je krok po kroku.
+
+### Pierwszy konstruktor:
+```java
+public BasePage(WebDriver driver) {
+    initDriver(driver);
+    PageFactory.initElements(driver, this);
+}
+```
+
+#### 1. **Cel:**
+Ten konstruktor jest używany, gdy tworzysz stronę bazując na pełnym kontekście przeglądarki (`WebDriver`). Jest to
+najczęstszy scenariusz, gdzie instancja strony reprezentuje całą stronę internetową lub jej główny kontekst.
+
+#### 2. **Działanie:**
+- `initDriver(driver)`:
+   - Inicjalizuje główne komponenty wymagane do działania strony, takie jak:
+      - `Actions` (do obsługi akcji myszą/klawiaturą),
+      - `WebDriverWait` (do czekania na elementy),
+      - `JavascriptExecutor` (do wykonywania skryptów JS).
+- `PageFactory.initElements(driver, this)`:
+   - **PageFactory** to mechanizm dostarczany przez Selenium, który automatycznie wyszukuje i inicjalizuje pola w
+     klasie oznaczone adnotacją `@FindBy` lub innymi adnotacjami Selenium.
+   - W tym przypadku:
+      - `driver`: Określa, gdzie szukać elementów.
+      - `this`: Określa, że pola tej klasy (`BasePage`) mają być zainicjalizowane.
+
+### Drugi konstruktor:
+```java
+public BasePage(WebElement parent, WebDriver driver) {
+    initDriver(driver);
+    PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
+}
+```
+
+#### 1. **Cel:**
+Ten konstruktor jest używany, gdy reprezentujesz tylko **część strony internetowej** (tzw. komponent). Kontekst
+wyszukiwania elementów jest ograniczony do podanego elementu `parent`, a nie całej strony.
+
+#### 2. **Działanie:**
+- `initDriver(driver)`:
+   - Podobnie jak w pierwszym konstruktorze, inicjalizuje główne komponenty do działania strony.
+- `PageFactory.initElements(new DefaultElementLocatorFactory(parent), this)`:
+   - **DefaultElementLocatorFactory**:
+      - Tworzy kontekst wyszukiwania ograniczony do elementu `parent`.
+      - Oznacza to, że wszystkie elementy oznaczone w tej klasie (za pomocą np. `@FindBy`) będą szukane
+        **wewnątrz `parent`**, a nie w całej stronie.
+   - `PageFactory.initElements`:
+      - Inicjalizuje pola tej klasy, ale w kontekście zdefiniowanym przez `parent`.
+
+#### Przykład zastosowania:
+Wyobraź sobie, że masz stronę internetową z tabelą, gdzie każda komórka zawiera przycisk. Możesz stworzyć osobną
+klasę do reprezentowania każdej komórki tabeli, ograniczając kontekst wyszukiwania do konkretnej komórki:
+
+```java
+public class TableCellPage extends BasePage {
+    @FindBy(tagName = "button")
+    private WebElement button;
+
+    public TableCellPage(WebElement cellElement, WebDriver driver) {
+        super(cellElement, driver);
+    }
+
+    public void clickButton() {
+        button.click();
+    }
+}
+```
+W tym przypadku, `cellElement` przekazany do konstruktora ogranicza wyszukiwanie tylko do tej konkretnej komórki tabeli.
+
+### Podsumowanie:
+| Konstruktor                         | Kiedy używać?                                                                 |
+|-------------------------------------|-------------------------------------------------------------------------------|
+| `BasePage(WebDriver driver)`        | Gdy reprezentujesz całą stronę lub jej główny kontekst.                      |
+| `BasePage(WebElement parent, ...)`  | Gdy reprezentujesz komponent ograniczony do elementu nadrzędnego (`parent`). |
+
+Dzięki temu podejściu klasa `BasePage` jest uniwersalna i może być używana zarówno do reprezentowania całej
+strony, jak i jej części.
 
 ---
 
