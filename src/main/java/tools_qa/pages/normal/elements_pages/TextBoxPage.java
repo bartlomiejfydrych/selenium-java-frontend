@@ -45,22 +45,22 @@ public class TextBoxPage extends BasePage {
     // -------
 
     public TextBoxPage writeFullName(String fullName) {
-        sendKeys(this.userNameInput, fullName);
+        userEmailInput.sendKeys(fullName);
         return this;
     }
 
     public TextBoxPage writeEmail(String email) {
-        sendKeys(this.userEmailInput, email);
+        userEmailInput.sendKeys(email);
         return this;
     }
 
     public TextBoxPage writeCurrentAddress(String currentAddress) {
-        sendKeys(this.currentAddressTextArea, currentAddress);
+        currentAddressTextArea.sendKeys(currentAddress);
         return this;
     }
 
     public TextBoxPage writePermanentAddress(String permanentAddress) {
-        sendKeys(this.permanentAddressTextArea, permanentAddress);
+        permanentAddressTextArea.sendKeys(permanentAddress);
         return this;
     }
 

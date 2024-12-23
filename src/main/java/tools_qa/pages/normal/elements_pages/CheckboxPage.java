@@ -75,12 +75,12 @@ public class CheckboxPage extends BasePage {
     // -------
 
     public CheckboxPage clickExpandAll() {
-        click(this.plusExpandAllButton);
+        plusExpandAllButton.click();
         return this;
     }
 
     public CheckboxPage clickCollapseAll() {
-        click(this.minusCollapseAllButton);
+        minusCollapseAllButton.click();
         return this;
     }
 
@@ -91,17 +91,17 @@ public class CheckboxPage extends BasePage {
     // Methods for selecting checkboxes
 
     public CheckboxPage clickHomeCheckbox() {
-        click(this.homeCheckbox);
+        homeCheckbox.click();
         return this;
     }
 
     public CheckboxPage clickWorkSpaceCheckbox() {
-        click(this.workSpaceCheckbox);
+        workSpaceCheckbox.click();
         return this;
     }
 
     public CheckboxPage clickExcelFileCheckbox() {
-        click(this.excelFileCheckbox);
+        excelFileCheckbox.click();
         return this;
     }
 
