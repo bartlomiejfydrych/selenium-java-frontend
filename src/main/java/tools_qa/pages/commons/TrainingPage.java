@@ -22,13 +22,11 @@ public class TrainingPage extends BasePage {
     // Footer
     @FindBy(css = "footer")
     private WebElement footer;
-    // Footer AD
+    // Ads
     @FindBy(css = "#fixedban")
     private WebElement footerAdFrame;
-    // Top AD
     @FindBy(xpath = "//div[@id='Ad.Plus-970x250-1']")
     private WebElement topAdFrame;
-    // Bottom AD
     @FindBy(xpath = "//div[@id='Ad.Plus-970x250-2']")
     private WebElement bottomAdFrame;
 
@@ -37,30 +35,23 @@ public class TrainingPage extends BasePage {
     // -------
 
     public TrainingPage removeFooterAndAds() {
-        removeFooter();
-        removeFooterAD();
-        removeTopAD();
-        removeBottomAD();
+        removeElements(footer, footerAdFrame, topAdFrame, bottomAdFrame);
         return this;
     }
 
-    public TrainingPage removeFooter() {
-        jse.executeScript("arguments[0].remove();", footer);
-        return this;
+    // -------
+    // HELPERS
+    // -------
+
+    private void removeElements(WebElement... elements) {
+        for (WebElement element : elements) {
+            removeElement(element);
+        }
     }
 
-    public TrainingPage removeFooterAD() {
-        jse.executeScript("arguments[0].remove();", footerAdFrame);
-        return this;
-    }
-
-    public TrainingPage removeTopAD() {
-        jse.executeScript("arguments[0].remove();", topAdFrame);
-        return this;
-    }
-
-    public TrainingPage removeBottomAD() {
-        jse.executeScript("arguments[0].remove();", bottomAdFrame);
-        return this;
+    private void removeElement(WebElement element) {
+        if (element != null) {
+            jse.executeScript("arguments[0].remove();", element);
+        }
     }
 }

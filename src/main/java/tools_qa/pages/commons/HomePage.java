@@ -39,9 +39,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Book Store Application']")
     private WebElement bookStoreApplicationButton;
 
-    // ------------
-    // MAIN METHODS
-    // ------------
+    // -------
+    // METHODS
+    // -------
 
     public ElementsPage goToElementsPage() {
         navigateToPage(elementsButton, ElementsPage.class);
