@@ -3,6 +3,7 @@ package tools_qa.pages.normal.elements_pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import tools_qa.models.TextBoxForm;
 import tools_qa.pages.base.BasePage;
 
 
@@ -20,19 +21,20 @@ public class TextBoxPage extends BasePage {
     // WEB ELEMENTS
     // ------------
 
+    // Input fields
     @FindBy(css = "#userName")
-    private WebElement userNameInput;
+    private WebElement fullNameInput;
     @FindBy(css = "#userEmail")
-    private WebElement userEmailInput;
+    private WebElement emailInput;
     @FindBy(css = "#currentAddress")
     private WebElement currentAddressTextArea;
     @FindBy(css = "#permanentAddress")
     private WebElement permanentAddressTextArea;
     @FindBy(css = "#submit")
     private WebElement submitButton;
-    // Output
+    // Output fields
     @FindBy(css = "#output p#name")
-    private WebElement nameParagraph;
+    private WebElement fullNameParagraph;
     @FindBy(css = "#output p#email")
     private WebElement emailParagraph;
     @FindBy(css = "#output p#currentAddress")
@@ -44,30 +46,35 @@ public class TextBoxPage extends BasePage {
     // METHODS
     // -------
 
-    public TextBoxPage writeFullName(String fullName) {
-        userEmailInput.sendKeys(fullName);
+    public TextBoxPage fillTextBoxForm(TextBoxForm textBoxForm) {
+        writeFullName(textBoxForm.getFullName());
+        writeEmail(textBoxForm.getEmail());
+        writeCurrentAddress(textBoxForm.getCurrentAddress());
+        writePermanentAddress(textBoxForm.getPermanentAddress());
         return this;
+    }
+
+    public TextBoxPage writeFullName(String fullName) {
+        return sendKeys(fullNameInput, fullName);
     }
 
     public TextBoxPage writeEmail(String email) {
-        userEmailInput.sendKeys(email);
-        return this;
+        return sendKeys(emailInput, email);
     }
 
     public TextBoxPage writeCurrentAddress(String currentAddress) {
-        currentAddressTextArea.sendKeys(currentAddress);
-        return this;
+        return sendKeys(currentAddressTextArea, currentAddress);
     }
 
     public TextBoxPage writePermanentAddress(String permanentAddress) {
-        permanentAddressTextArea.sendKeys(permanentAddress);
-        return this;
+        return sendKeys(permanentAddressTextArea, permanentAddress);
     }
 
     public TextBoxPage clickSubmit() {
-        jse.executeScript("arguments[0].click();", this.submitButton);
+        jse.executeScript("arguments[0].click();", submitButton);
         return this;
         /*
+        NOTE:
         Ads on the page cover the button. Because of this, you had to use JavaScript.
         Added the following line to the BasePage:
         JavascriptExecutor jse = (JavascriptExecutor)driver;
@@ -76,19 +83,33 @@ public class TextBoxPage extends BasePage {
         */
     }
 
-    public String getNameParagraph() {
-        return nameParagraph.getText();
+    // -------
+    // GETTERS
+    // -------
+
+    public WebElement getFullNameParagraph() {
+        return fullNameParagraph;
     }
 
-    public String getEmailParagraph() {
-        return emailParagraph.getText();
+    public WebElement getEmailParagraph() {
+        return emailParagraph;
     }
 
-    public String getCurrentAddressParagraph() {
-        return currentAddressParagraph.getText();
+    public WebElement getCurrentAddressParagraph() {
+        return currentAddressParagraph;
     }
 
-    public String getPermanentAddressParagraph() {
-        return permanentAddressParagraph.getText();
+    public WebElement getPermanentAddressParagraph() {
+        return permanentAddressParagraph;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private TextBoxPage sendKeys(WebElement element, String textToWrite) {
+        element.clear();
+        element.sendKeys(textToWrite);
+        return this;
     }
 }
