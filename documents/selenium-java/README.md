@@ -251,6 +251,31 @@ Dokumentacja: https://www.markdownguide.org/basic-syntax/
 
 `&emsp;`
 
+## Pozostałe
+
+### Przełożenie struktury projektu na tekst
+
+**Link:**  
+https://your-codes.vercel.app/how-to-easily-create-folder-structure-in-readme-with-two-simple-steps
+
+**Potrzeba:**  
+Chciałem łatwo przełożyć strukturę projektu na tekst, zamiast przepisywać ją ręcznie w notatniku.  
+Dlaczego?  
+Pod koniec pisania projektu chciałem zapytać czat GPT czy da się jeszcze lepiej zorganizować cały projekt tj.
+porozdzielać pliki na odpowiednie pod-katalogi itp.
+
+**Opis:**  
+1. Otwieramy konsolę/terminal w naszym katalogu z projektem
+   - Obojętne czy to PowerShell czy CMD, czy jeszcze inne konsole
+   - Gdy otwieramy projekt w eksploratorze Windows to:
+     - Wciskamy w pustym obszarze kombinację `Lewy Shift + Prawy przycisk myszy`
+     - "Otwórz tutaj okno programu PowerShell"
+   - Gdy mamy otwarte IDE od JetBrains to:
+     - W lewym dolnym rogu, na bocznym pasku powinna być trzecia od dołu ikonka z terminalem
+     - Otworzy nam ona w IDE konsolę PowerShell
+2. Wpisujemy i zatwierdzamy polecenie: `tree`
+3. Możemy zaznaczyć i skopiować nasze drzewo ze strukturą projektu
+
 ## 🗃Repozytorium z kursu
 
 https://github.com/simplelogic2023szkolenie
