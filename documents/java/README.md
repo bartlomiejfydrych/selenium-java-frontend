@@ -552,9 +552,86 @@ Zapisuję to tutaj jako ciekawostkę z kursu, jeżeli miałoby się to kiedyś p
 
 **Typy generyczne \<T\>** - Jest to metoda generyczna, która przyjmuję listę dowolnych obiektów i zwraca jeden z nich.
 
-**Przykładowy kod:**
+### Przykładowy kod 1 - prosty
+
 ```java
 public <T> T getRandomElement(List<T> list) {
     return list.get(new Random().nextInt(list.size()));
 }
 ```
+
+### Przykładowy kod 2 - rozbudowany z wyjaśnieniem
+
+#### 1. **Co oznacza `Class<?> pageClass`?**
+
+**Class\<?\>** jest to typ generyczny reprezentujący dowolną klasę w Javie.  
+Składnik `<?>` oznacza **"dowolny typ"** (ang. "wildcard type"), w kontekście metody, np.:
+
+```java
+private void navigateToPage(WebElement button, Class<?> pageClass) {
+    waitForElementToBeClickable(button);
+    button.click();
+}
+```
+
+- **`Class<?>`**: Oznacza, że argument `pageClass` może być dowolną klasą (np. `BookStoreApplicationPage.class`,
+  `ElementsPage.class`, itp.).
+- **Dlaczego wildcard?** Używamy `<?>`, ponieważ metoda jest ogólna i nie ogranicza się do konkretnego typu klasy.
+- Klasa `Class` w Javie jest częścią refleksji, co oznacza, że możemy używać jej do przechowywania metadanych o klasach
+  w czasie działania programu.
+
+#### 2. **Co oznacza `BookStoreApplicationPage.class`?**
+
+`BookStoreApplicationPage.class` to odniesienie do **obiektu reprezentującego klasę** `BookStoreApplicationPage`.
+W Javie każda klasa ma skojarzony obiekt typu `Class`, który przechowuje informacje o tej klasie.
+
+Przykład:
+- `BookStoreApplicationPage.class` pozwala na dostęp do informacji o klasie `BookStoreApplicationPage` w czasie
+  działania programu (np. jej nazwa, metody, pola itp.).
+- Jest to część mechanizmu refleksji, ale w naszym przypadku najczęściej jest używane do przekazania klasy jako
+  argumentu (dla celów informacyjnych lub instancjacji).
+
+#### **Dlaczego jest to używane w tym kontekście?**
+
+W metodzie `navigateToPage`:
+
+```java
+private void navigateToPage(WebElement button, Class<?> pageClass) {
+    waitForElementToBeClickable(button);
+    button.click();
+}
+```
+
+Argument `Class<?> pageClass` nie jest obecnie wykorzystywany wewnątrz metody. Jest to konstrukcja pozwalająca na
+przekazanie dodatkowej informacji (np. typu strony, do której nawigujemy), co mogłoby być użyte w bardziej
+zaawansowanych implementacjach.
+
+Przykładowe potencjalne użycie:
+
+```java
+private void navigateToPage(WebElement button, Class<?> pageClass) {
+    waitForElementToBeClickable(button);
+    button.click();
+    System.out.println("Navigated to: " + pageClass.getSimpleName());
+}
+```
+
+- Tutaj `pageClass.getSimpleName()` zwraca nazwę klasy (np. `"BookStoreApplicationPage"`).
+
+#### **Porównanie `Class` z instancją klasy:**
+Jeśli mamy:
+
+```java
+BookStoreApplicationPage page = new BookStoreApplicationPage(driver);
+```
+
+To:
+1. `page` – jest instancją klasy (obiektem).
+2. `BookStoreApplicationPage.class` – jest obiektem typu `Class` reprezentującym klasę `BookStoreApplicationPage`.
+
+#### **Podsumowanie:**
+
+- **`Class<?>`**: To generyczna klasa reprezentująca dowolną klasę w Javie.
+- **`BookStoreApplicationPage.class`**: Reprezentuje klasę `BookStoreApplicationPage` i jest częścią mechanizmu refleksji.
+- W kontekście metody `navigateToPage` przekazywanie `Class<?> pageClass` może być pomocne do identyfikacji klasy
+  strony, do której się przenosimy, nawet jeśli w tej chwili jest to tylko nadmiarowe.
