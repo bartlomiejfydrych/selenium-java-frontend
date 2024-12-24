@@ -3,6 +3,7 @@ package tools_qa.pages.commons;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
 import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
@@ -38,42 +39,59 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'card')]/h5[text()='Book Store Application']")
     private WebElement bookStoreApplicationButton;
 
-    // -------
-    // METHODS
-    // -------
+    // ------------
+    // MAIN METHODS
+    // ------------
 
     public ElementsPage goToElementsPage() {
-        elementsButton.click();
+        navigateToPage(elementsButton, ElementsPage.class);
         return new ElementsPage(driver);
     }
 
     public FormsPage goToFormsPage() {
-        formsButton.click();
+        navigateToPage(formsButton, FormsPage.class);
         return new FormsPage(driver);
     }
 
     public AlertsFrameWindowsPage goToAlertsFrameWindowsPage() {
-        alertsFrameWindowsButton.click();
+        navigateToPage(alertsFrameWindowsButton, AlertsFrameWindowsPage.class);
         return new AlertsFrameWindowsPage(driver);
     }
 
     public WidgetsPage goToWidgetsPage() {
-        widgetsButton.click();
+        navigateToPage(widgetsButton, WidgetsPage.class);
         return new WidgetsPage(driver);
     }
 
     public InteractionsPage goToInteractionsPage() {
-        interactionsButton.click();
+        navigateToPage(interactionsButton, InteractionsPage.class);
         return new InteractionsPage(driver);
     }
 
     public BookStoreApplicationPage goToBookStoreApplicationPage() {
-        jse.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        bookStoreApplicationButton.click();
+        scrollToBottom();
+        navigateToPage(bookStoreApplicationButton, BookStoreApplicationPage.class);
         return new BookStoreApplicationPage(driver);
         /* NOTE:
         We can use `actions.sendKeys(Keys.END).perform();` too,
         but it's slower and not work here (we still click footer AD).
         */
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToPage(WebElement button, Class<?> pageClass) {
+        waitForElementToBeClickable(button);
+        button.click();
+    }
+
+    private void waitForElementToBeClickable(WebElement element) {
+        defaultWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    private void scrollToBottom() {
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 }
