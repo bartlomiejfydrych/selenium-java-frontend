@@ -2,13 +2,11 @@ package tools_qa.elements_tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.elements_pages.CheckboxPage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
-import tools_qa.utils.WebElementMethods;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,6 +26,20 @@ public class CheckboxTest extends TestBase {
         elementsPage = new ElementsPage(driver);
         checkboxPage = new CheckboxPage(driver);
     }
+
+    // ------
+    // HELPER
+    // ------
+
+    private void navigateToCheckboxPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToCheckboxPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldExpandAllAndCheckAllCheckboxes() {
@@ -59,61 +71,43 @@ public class CheckboxTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToCheckboxPage();
-
+        navigateToCheckboxPage();
         checkboxPage.clickExpandAll()
-                .clickHomeCheckbox();
+                .clickCheckbox("home");
 
         // ------
         // ASSERT
         // ------
 
-        assertThat(checkboxPage.getAssertHomeCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertDesktopCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertNotesCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertCommandsCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertDocumentsCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertWorkSpaceCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertReactCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertAngularCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertVeuCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertOfficeCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertPublicCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertPrivateCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertClassifiedCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertGeneralCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertDownloadsCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertWordFileCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertExcelFileCheckbox().isSelected()).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("home")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("desktop")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("notes")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("commands")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("documents")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("workspace")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("react")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("angular")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("veu")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("office")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("public")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("private")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("classified")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("general")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("downloads")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("wordFile")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("excelFile")).isTrue();
 
-        String actualResultField = checkboxPage.getResultText();
-        assertThat(actualResultField).isEqualTo(expectedResultField);
+        assertThat(checkboxPage.getResultTextField().getText()).isEqualTo(expectedResultField);
     }
 
     @Test
     public void shouldCollapseAll() {
 
-        // -------
-        // ARRANGE
-        // -------
-
-        WebElement desktopCheckBox = checkboxPage.getDesktopCheckbox();
-        WebElementMethods webElementMethods = new WebElementMethods(driver);
-
         // ---
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToCheckboxPage();
-
+        navigateToCheckboxPage();
         checkboxPage.clickExpandAll()
                 .clickCollapseAll();
 
@@ -121,7 +115,7 @@ public class CheckboxTest extends TestBase {
         // ASSERT
         // ------
 
-        assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
+        assertThat(checkboxPage.isCheckboxDisplayed("desktop")).isFalse();
     }
 
     @Test
@@ -146,16 +140,11 @@ public class CheckboxTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToCheckboxPage();
-
+        navigateToCheckboxPage();
         checkboxPage.clickExpandAll()
-                .clickHomeCheckbox()
-                .clickWorkSpaceCheckbox()
-                .clickExcelFileCheckbox();
+                .clickCheckbox("home")
+                .clickCheckbox("workspace")
+                .clickCheckbox("excelFile");
 
         // ------
         // ASSERT
@@ -166,25 +155,24 @@ public class CheckboxTest extends TestBase {
         I haven't found a way to check it thoroughly
         */
 
-        // assertThat(checkboxPage.getAssertHomeCheckBox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertDesktopCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertNotesCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertCommandsCheckbox().isSelected()).isTrue();
-        // assertThat(checkboxPage.getAssertDocumentsCheckBox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertWorkSpaceCheckbox().isSelected()).isFalse();
-        assertThat(checkboxPage.getAssertReactCheckbox().isSelected()).isFalse();
-        assertThat(checkboxPage.getAssertAngularCheckbox().isSelected()).isFalse();
-        assertThat(checkboxPage.getAssertVeuCheckbox().isSelected()).isFalse();
-        assertThat(checkboxPage.getAssertOfficeCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertPublicCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertPrivateCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertClassifiedCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertGeneralCheckbox().isSelected()).isTrue();
-        // assertThat(checkboxPage.getAssertDownloadsCheckBox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertWordFileCheckbox().isSelected()).isTrue();
-        assertThat(checkboxPage.getAssertExcelFileCheckbox().isSelected()).isFalse();
+        // assertThat(checkboxPage.isCheckboxSelected("home")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("desktop")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("notes")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("commands")).isTrue();
+        // assertThat(checkboxPage.isCheckboxSelected("documents")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("workspace")).isFalse();
+        assertThat(checkboxPage.isCheckboxSelected("react")).isFalse();
+        assertThat(checkboxPage.isCheckboxSelected("angular")).isFalse();
+        assertThat(checkboxPage.isCheckboxSelected("veu")).isFalse();
+        assertThat(checkboxPage.isCheckboxSelected("office")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("public")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("private")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("classified")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("general")).isTrue();
+        // assertThat(checkboxPage.isCheckboxSelected("downloads")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("wordFile")).isTrue();
+        assertThat(checkboxPage.isCheckboxSelected("excelFile")).isFalse();
 
-        String actualResultField = checkboxPage.getResultText();
-        assertThat(actualResultField).isEqualTo(expectedResultField);
+        assertThat(checkboxPage.getResultTextField().getText()).isEqualTo(expectedResultField);
     }
 }
