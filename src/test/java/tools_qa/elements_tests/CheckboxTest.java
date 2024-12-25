@@ -27,9 +27,9 @@ public class CheckboxTest extends TestBase {
         checkboxPage = new CheckboxPage(driver);
     }
 
-    // ------
-    // HELPER
-    // ------
+    // -------
+    // HELPERS
+    // -------
 
     private void navigateToCheckboxPage() {
         homePage.goToElementsPage();

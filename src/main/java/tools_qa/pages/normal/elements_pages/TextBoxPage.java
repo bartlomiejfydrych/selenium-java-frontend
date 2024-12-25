@@ -84,6 +84,16 @@ public class TextBoxPage extends BasePage {
     }
 
     // -------
+    // HELPERS
+    // -------
+
+    private TextBoxPage sendKeys(WebElement element, String textToWrite) {
+        element.clear();
+        element.sendKeys(textToWrite);
+        return this;
+    }
+
+    // -------
     // GETTERS
     // -------
 
@@ -101,15 +111,5 @@ public class TextBoxPage extends BasePage {
 
     public WebElement getPermanentAddressParagraph() {
         return permanentAddressParagraph;
-    }
-
-    // -------
-    // HELPERS
-    // -------
-
-    private TextBoxPage sendKeys(WebElement element, String textToWrite) {
-        element.clear();
-        element.sendKeys(textToWrite);
-        return this;
     }
 }

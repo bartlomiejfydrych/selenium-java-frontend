@@ -24,7 +24,7 @@ public class RadioButtonPage extends BasePage {
     private WebElement yesRadioButton;
     @FindBy(css = "#impressiveRadio")
     private WebElement impressiveRadioButton;
-    @FindBy(css = "noRadio")
+    @FindBy(css = "#noRadio")
     private WebElement noRadioButton;
     @FindBy(css = "span.text-success")
     private WebElement confirmationText;
@@ -33,21 +33,35 @@ public class RadioButtonPage extends BasePage {
     // METHODS
     // -------
 
-    public RadioButtonPage waitForConfirmationText() {
-        defaultWait.until(ExpectedConditions.visibilityOf(confirmationText));
-        return this;
-    }
-
     public RadioButtonPage clickYesRadioButton() {
-        actions.moveToElement(this.yesRadioButton).click().perform();
-        waitForConfirmationText();
+        clickRadioButton(yesRadioButton);
         return this;
     }
 
     public RadioButtonPage clickImpressiveRadioButton() {
-        actions.moveToElement(this.impressiveRadioButton).click().perform();
-        waitForConfirmationText();
+        clickRadioButton(impressiveRadioButton);
         return this;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void clickRadioButton(WebElement radioButton) {
+        // NOTE:
+        // I know that in IF there could be a simpler notation (!radioButton.isSelected()), but
+        // I find this one more readable and understandable.
+        boolean selectState = radioButton.isSelected();
+        if (selectState == false) {
+            actions.moveToElement(radioButton).click().perform();
+            waitForConfirmationText();
+        } else {
+            throw new IllegalStateException("Radio button is already selected.");
+        }
+    }
+
+    private void waitForConfirmationText() {
+        defaultWait.until(ExpectedConditions.visibilityOf(confirmationText));
     }
 
     // -------
