@@ -32,6 +32,20 @@ public class WebTablesTest extends TestBase {
         webTablesPage = new WebTablesPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToWebTablesPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToWebTablesPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldAddFindEditAndDeleteRow() {
 
@@ -41,12 +55,7 @@ public class WebTablesTest extends TestBase {
 
         TableRow addedTableRow = TableRowProvider.getRandomTableRow();
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToWebTablesPage();
-
+        navigateToWebTablesPage();
         webTablesPage.clickAddNewRowButton()
                 .fillRowForm(addedTableRow);
 
@@ -70,8 +79,7 @@ public class WebTablesTest extends TestBase {
 
         TableRow editedTableRow = TableRowProvider.getRandomTableRow();
 
-        webTablesPage
-                .clickEditFirstRowButton()
+        webTablesPage.clickEditFirstRowButton()
                 .fillRowForm(editedTableRow);
 
         // --------
@@ -120,12 +128,7 @@ public class WebTablesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToWebTablesPage();
-
+        navigateToWebTablesPage();
         webTablesPage.clickAddNewRowButton()
                 .fillRowForm(tableRow1)
                 .clickAddNewRowButton()

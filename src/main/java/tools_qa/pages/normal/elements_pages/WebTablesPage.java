@@ -62,13 +62,13 @@ public class WebTablesPage extends BasePage {
 
     public WebTablesPage clickAddNewRowButton() {
         addNewRowButton.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        waitForLoad(1);
         return this;
     }
 
     public WebTablesPage clickEditFirstRowButton() {
         editFirstRowButton.click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        waitForLoad(1);
         return this;
     }
 
@@ -89,11 +89,12 @@ public class WebTablesPage extends BasePage {
     }
 
     public WebTablesPage writeTextToSearch(String searchText) {
-        searchInput.clear();
-        searchInput.sendKeys(searchText);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        sendKeys(searchInput, searchText);
+        waitForLoad(1);
         return this;
     }
+
+    // Registration form
 
     public WebTablesPage fillRowForm(TableRow tableRow) {
         writeFirstName(tableRow.getFirstName());
@@ -106,47 +107,55 @@ public class WebTablesPage extends BasePage {
         return this;
     }
 
-    // Registration form
-
     public WebTablesPage writeFirstName(String firstName) {
-        firstNameInput.clear();
-        firstNameInput.sendKeys(firstName);
+        sendKeys(firstNameInput, firstName);
         return this;
     }
 
     public WebTablesPage writeLastName(String lastName) {
-        lastNameInput.clear();
-        lastNameInput.sendKeys(lastName);
+        sendKeys(lastNameInput, lastName);
         return this;
     }
 
     public WebTablesPage writeEmail(String email) {
-        emailInput.clear();
-        emailInput.sendKeys(email);
+        sendKeys(emailInput, email);
         return this;
     }
 
     public WebTablesPage writeAge(String age) {
-        ageInput.clear();
-        ageInput.sendKeys(age);
+        sendKeys(ageInput, age);
         return this;
     }
 
     public WebTablesPage writeSalary(String salary) {
-        salaryInput.clear();
-        salaryInput.sendKeys(salary);
+        sendKeys(salaryInput, salary);
         return this;
     }
 
     public WebTablesPage writeDepartment(String department) {
-        departmentInput.clear();
-        departmentInput.sendKeys(department);
+        sendKeys(departmentInput, department);
         return this;
     }
 
     public WebTablesPage clickSubmitButton() {
         submitButton.click();
         return this;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private WebTablesPage sendKeys(WebElement element, String textToWrite) {
+        element.clear();
+        element.sendKeys(textToWrite);
+        return this;
+    }
+
+    private void waitForLoad(int timeInSeconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeInSeconds));
+        // NOTE:
+        // I had to use "implicitlyWait" here because standard waits didn't work on refreshed/loaded page elements
     }
 
     // -------
