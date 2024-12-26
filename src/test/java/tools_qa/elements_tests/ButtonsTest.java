@@ -43,11 +43,8 @@ public class ButtonsTest extends TestBase {
         // ---
 
         homePage.goToElementsPage();
-
         trainingPage.removeFooterAndAds();
-
         elementsPage.goToButtonsPage();
-
         buttonsPage.clickDoubleClickMeButton()
                 .clickRightClickMeButton()
                 .clickClickMeButton();
