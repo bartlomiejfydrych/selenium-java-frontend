@@ -28,6 +28,20 @@ public class BrokenLinksImagesTest extends TestBase {
         brokenLinksImagesPage = new BrokenLinksImagesPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToBrokenLinksImagesPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToBrokenLinksImagesPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldValidImageLoadAndHaveCorrectWidthAndHeight() {
 
@@ -43,12 +57,7 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToBrokenLinksImagesPage();
-
+        navigateToBrokenLinksImagesPage();
         int responseCode = brokenLinksImagesPage.getHttpStatus(validImage, "src");
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(validImage);
         int actualImageHeight = brokenLinksImagesPage.getImageHeight(validImage);
@@ -77,12 +86,7 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToBrokenLinksImagesPage();
-
+        navigateToBrokenLinksImagesPage();
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenImage, "src");
         int actualImageWidth = brokenLinksImagesPage.getImageWidth(brokenImage);
         int actualImageHeight = brokenLinksImagesPage.getImageHeight(brokenImage);
@@ -116,12 +120,7 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToBrokenLinksImagesPage();
-
+        navigateToBrokenLinksImagesPage();
         int responseCode = brokenLinksImagesPage.getHttpStatus(validLink, "href");
 
         brokenLinksImagesPage.clickValidLink();
@@ -149,12 +148,7 @@ public class BrokenLinksImagesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToBrokenLinksImagesPage();
-
+        navigateToBrokenLinksImagesPage();
         int responseCode = brokenLinksImagesPage.getHttpStatus(brokenLink, "href");
 
         brokenLinksImagesPage.clickBrokenLink();

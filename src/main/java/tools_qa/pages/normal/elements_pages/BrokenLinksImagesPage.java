@@ -38,18 +38,16 @@ public class BrokenLinksImagesPage extends BasePage {
 
     // Images
 
-    public int getHttpStatus(WebElement webElement, String attributeName) {
-        int responseCode = 0;
+    public int getHttpStatus(WebElement webElement, String propertyName) {
         try {
-            String elementUrl = webElement.getAttribute(attributeName);
+            String elementUrl = webElement.getDomProperty(propertyName); // getDomAttribute() did not return the full path
             URL url = new URI(elementUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD");
-            responseCode = connection.getResponseCode();
+            return connection.getResponseCode();
         } catch (Exception e) {
-            System.out.println("An error occurred while retrieving the HTTP status of Web Element");
+            throw new RuntimeException("Error retrieving HTTP status of WebElement: " + webElement, e);
         }
-        return responseCode;
     }
 
     public int getImageWidth(WebElement webElement) {
