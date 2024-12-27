@@ -53,15 +53,11 @@ public class LinksPage extends BasePage {
     // Links - new tab
 
     public LinksPage clickNewTabHomeLink() {
-        homeLink.click();
-        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        return this;
+        return clickLinkAndWaitForNewTab(homeLink);
     }
 
     public LinksPage clickNewTabHomeDynamicLink() {
-        homeDynamicLink.click();
-        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
-        return this;
+        return clickLinkAndWaitForNewTab(homeDynamicLink);
     }
 
     public LinksPage switchTab(int tabNumber) {
@@ -112,5 +108,15 @@ public class LinksPage extends BasePage {
     public String getTextLinkResponseMessage(String expectedText) {
         defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));
         return linkResponseMessage.getText();
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private LinksPage clickLinkAndWaitForNewTab(WebElement link) {
+        link.click();
+        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        return this;
     }
 }

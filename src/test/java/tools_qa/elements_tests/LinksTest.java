@@ -28,6 +28,20 @@ public class LinksTest extends TestBase {
         linksPage = new LinksPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToLinksPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToLinksPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldOpenHomeLinkInNewTab() {
 
@@ -41,12 +55,7 @@ public class LinksTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToLinksPage();
-
+        navigateToLinksPage();
         linksPage.clickNewTabHomeLink()
                 .switchTab(1);
 
@@ -70,12 +79,7 @@ public class LinksTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToLinksPage();
-
+        navigateToLinksPage();
         linksPage.clickNewTabHomeDynamicLink()
                 .switchTab(1);
 
@@ -105,17 +109,12 @@ public class LinksTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToLinksPage();
+        navigateToLinksPage();
 
         /*
         NOTE:
-        I know these assertions are a bit weird, but I decided to use
+        I know that with such a wait these assertions seem a bit strange, but this was the only working wait to not use Thread.sleep()
         "defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessage, expectedText));"
-        instead of Thread.sleep()
         */
 
         // Created
