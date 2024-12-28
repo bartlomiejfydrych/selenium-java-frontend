@@ -24,6 +24,7 @@ public class UploadAndDownloadTest extends TestBase {
     ElementsPage elementsPage;
     UploadAndDownloadPage uploadAndDownloadPage;
 
+    // File download path configuration
     String generalDownloadPath = Config.getDownloadFilePath();
     String downloadDir = "UploadAndDownload";
     String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
@@ -39,6 +40,20 @@ public class UploadAndDownloadTest extends TestBase {
         uploadAndDownloadPage = new UploadAndDownloadPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToUploadAndDownloadPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToUploadAndDownloadPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldDownloadFile() {
 
@@ -46,12 +61,7 @@ public class UploadAndDownloadTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToUploadAndDownloadPage();
-
+        navigateToUploadAndDownloadPage();
         uploadAndDownloadPage.clickDownloadButton();
 
         Path downloadedFile = uploadAndDownloadPage.downloadFile(downloadPath, "sampleFile.jpeg", 5);
@@ -67,6 +77,12 @@ public class UploadAndDownloadTest extends TestBase {
         // -----------
 
         uploadAndDownloadPage.deleteDownloadedFile(downloadedFile);
+
+        // ------
+        // ASSERT
+        // ------
+
+        assertThat(Files.notExists(downloadedFile)).isTrue();
     }
 
     @Test
@@ -82,12 +98,7 @@ public class UploadAndDownloadTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToUploadAndDownloadPage();
-
+        navigateToUploadAndDownloadPage();
         uploadAndDownloadPage.uploadFile();
 
         // ------

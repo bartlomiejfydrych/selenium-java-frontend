@@ -50,7 +50,7 @@ public class UploadAndDownloadPage extends BasePage {
             }
             Thread.sleep(1000);
         }
-        return null;
+        throw new RuntimeException("File was not downloaded within the timeout period: " + expectedFileName);
     }
 
     public Path downloadFile(String downloadFilePath, String expectedFileName, int timeoutInSeconds) {
@@ -58,8 +58,7 @@ public class UploadAndDownloadPage extends BasePage {
             Path downloadedFile = waitForFileDownload(downloadFilePath, expectedFileName, timeoutInSeconds);
             return downloadedFile;
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Plik nie został pobrany");
+            throw new RuntimeException("Error during file download: " + e.getMessage(), e);
         }
     }
 
@@ -69,7 +68,7 @@ public class UploadAndDownloadPage extends BasePage {
                 Files.delete(filePath);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error deleting file: " + filePath, e);
         }
     }
 
@@ -78,6 +77,9 @@ public class UploadAndDownloadPage extends BasePage {
     public void uploadFile() {
         Path fileToUploadPath = Paths.get("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png").toAbsolutePath();
         File fileToUpload = fileToUploadPath.toFile();
+        if (!fileToUpload.exists()) {
+            throw new IllegalArgumentException("File does not exist: " + fileToUploadPath);
+        }
         selectFileButton.sendKeys(fileToUpload.getAbsolutePath());
     }
 
