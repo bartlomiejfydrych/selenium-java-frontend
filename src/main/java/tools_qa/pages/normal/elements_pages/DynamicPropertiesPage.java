@@ -35,7 +35,7 @@ public class DynamicPropertiesPage extends BasePage {
 
     // Button 1 (enable after 5 seconds)
 
-    public WebElement waitForButtonBeClickable() {
+    public WebElement waitForButtonToBeClickable() {
         WebElement buttonClickable = defaultWait.until(ExpectedConditions.elementToBeClickable(enableFiveSecondsButton));
         return buttonClickable;
     }
@@ -47,14 +47,14 @@ public class DynamicPropertiesPage extends BasePage {
         return buttonColor;
     }
 
-    public boolean waitForButtonChangeColor(String startColor) {
-        boolean colorChanged = defaultWait.until(ExpectedConditions.not(ExpectedConditions.attributeToBe(colorChangeButton, "color", startColor)));
+    public boolean waitForButtonColorChange(String initialColor) {
+        boolean colorChanged = defaultWait.until(ExpectedConditions.not(ExpectedConditions.attributeToBe(colorChangeButton, "color", initialColor)));
         return colorChanged;
     }
 
     // Button 3 (visible after 5 seconds)
 
-    public WebElement waitForButtonBeVisible() {
+    public WebElement waitForButtonToBeVisible() {
         WebElement buttonVisible = defaultWait.until(ExpectedConditions.visibilityOf(visibleFiveSecondsButton));
         return buttonVisible;
     }

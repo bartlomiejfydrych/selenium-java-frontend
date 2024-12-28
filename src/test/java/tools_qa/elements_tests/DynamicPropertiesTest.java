@@ -28,6 +28,20 @@ public class DynamicPropertiesTest extends TestBase {
         dynamicPropertiesPage = new DynamicPropertiesPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToDynamicPropertiesPage() {
+        homePage.goToElementsPage();
+        trainingPage.removeFooterAndAds();
+        elementsPage.goToDynamicPropertiesPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldXpathWorkOnTextWithRandomId() {
 
@@ -41,19 +55,19 @@ public class DynamicPropertiesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToDynamicPropertiesPage();
+        navigateToDynamicPropertiesPage();
 
         String actualText = dynamicPropertiesPage.getRandomIdText().getText();
+        String textFirstID = dynamicPropertiesPage.getRandomIdText().getDomAttribute("id");
+        driver.navigate().refresh();
+        String textSecondID = dynamicPropertiesPage.getRandomIdText().getDomAttribute("id");
 
         // ------
         // ASSERT
         // ------
 
         assertThat(actualText).isEqualTo(expectedText);
+        assertThat(textSecondID).isNotEqualTo(textFirstID);
     }
 
     @Test
@@ -63,13 +77,9 @@ public class DynamicPropertiesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
+        navigateToDynamicPropertiesPage();
 
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToDynamicPropertiesPage();
-
-        WebElement buttonClickable = dynamicPropertiesPage.waitForButtonBeClickable();
+        WebElement buttonClickable = dynamicPropertiesPage.waitForButtonToBeClickable();
 
         // ------
         // ASSERT
@@ -91,16 +101,10 @@ public class DynamicPropertiesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToDynamicPropertiesPage();
+        navigateToDynamicPropertiesPage();
 
         String buttonStartColor = dynamicPropertiesPage.getButtonColor();
-
-        boolean colorChanged = dynamicPropertiesPage.waitForButtonChangeColor(buttonStartColor);
-
+        boolean colorChanged = dynamicPropertiesPage.waitForButtonColorChange(buttonStartColor);
         String buttonEndColor = dynamicPropertiesPage.getButtonColor();
 
         // ------
@@ -118,13 +122,9 @@ public class DynamicPropertiesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToElementsPage();
+        navigateToDynamicPropertiesPage();
 
-        trainingPage.removeFooterAndAds();
-
-        elementsPage.goToDynamicPropertiesPage();
-
-        WebElement buttonVisible = dynamicPropertiesPage.waitForButtonBeVisible();
+        WebElement buttonVisible = dynamicPropertiesPage.waitForButtonToBeVisible();
 
         // ------
         // ASSERT
