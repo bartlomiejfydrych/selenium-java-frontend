@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RadioButtonTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    RadioButtonPage radioButtonPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private RadioButtonPage radioButtonPage;
 
     @Override
     @BeforeEach

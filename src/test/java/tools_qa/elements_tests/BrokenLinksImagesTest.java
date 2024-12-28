@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BrokenLinksImagesTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    BrokenLinksImagesPage brokenLinksImagesPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private BrokenLinksImagesPage brokenLinksImagesPage;
 
     @Override
     @BeforeEach

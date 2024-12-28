@@ -14,10 +14,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TextBoxTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    TextBoxPage textBoxPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private TextBoxPage textBoxPage;
 
     @Override
     @BeforeEach

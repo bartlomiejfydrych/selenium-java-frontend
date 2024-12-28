@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckboxTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    CheckboxPage checkboxPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private CheckboxPage checkboxPage;
 
     @Override
     @BeforeEach

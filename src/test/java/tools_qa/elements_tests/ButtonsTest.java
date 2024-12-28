@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ButtonsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    ButtonsPage buttonsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private ButtonsPage buttonsPage;
 
     @Override
     @BeforeEach

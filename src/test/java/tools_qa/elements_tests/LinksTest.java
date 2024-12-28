@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LinksTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    LinksPage linksPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private LinksPage linksPage;
 
     @Override
     @BeforeEach

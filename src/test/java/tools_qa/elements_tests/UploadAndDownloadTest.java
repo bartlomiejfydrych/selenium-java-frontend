@@ -19,15 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadAndDownloadTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    UploadAndDownloadPage uploadAndDownloadPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private UploadAndDownloadPage uploadAndDownloadPage;
 
     // File download path configuration
-    String generalDownloadPath = Config.getDownloadFilePath();
-    String downloadDir = "UploadAndDownload";
-    String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
+    private final String generalDownloadPath = Config.getDownloadFilePath();
+    private final String downloadDir = "UploadAndDownload";
+    private final String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
 
     @Override
     @BeforeEach

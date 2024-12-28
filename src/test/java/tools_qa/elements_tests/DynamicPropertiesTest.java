@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DynamicPropertiesTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    DynamicPropertiesPage dynamicPropertiesPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private DynamicPropertiesPage dynamicPropertiesPage;
 
     @Override
     @BeforeEach

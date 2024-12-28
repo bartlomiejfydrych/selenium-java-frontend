@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebTablesTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    ElementsPage elementsPage;
-    WebTablesPage webTablesPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private ElementsPage elementsPage;
+    private WebTablesPage webTablesPage;
 
     @Override
     @BeforeEach
