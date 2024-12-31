@@ -18,11 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PracticeFormTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    FormsPage formsPage;
-    PracticeFormPage practiceFormPage;
-    List<String> summaryTableLabelList = Arrays.asList(
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private FormsPage formsPage;
+    private PracticeFormPage practiceFormPage;
+
+    private  final List<String> summaryTableLabelList = Arrays.asList(
             "Student Name",
             "Student Email",
             "Gender",
@@ -45,6 +46,20 @@ public class PracticeFormTest extends TestBase {
         practiceFormPage = new PracticeFormPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToPracticeFormPage() {
+        homePage.goToFormsPage();
+        trainingPage.removeFooterAndAds();
+        formsPage.goToPracticeFormPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldFillFormCorrect() {
 
@@ -65,12 +80,7 @@ public class PracticeFormTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToFormsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        formsPage.goToPracticeFormPage();
-
+        navigateToPracticeFormPage();
         practiceFormPage.fillForm(practiceFormData)
                 .clickSubmitAndWaitForSummaryTable();
 
@@ -80,16 +90,9 @@ public class PracticeFormTest extends TestBase {
 
         // Label column
         List<WebElement> labelColumnCells = practiceFormPage.getLabelColumnCells();
-        assertThat(labelColumnCells.get(0).getText()).isEqualTo(summaryTableLabelList.get(0));
-        assertThat(labelColumnCells.get(1).getText()).isEqualTo(summaryTableLabelList.get(1));
-        assertThat(labelColumnCells.get(2).getText()).isEqualTo(summaryTableLabelList.get(2));
-        assertThat(labelColumnCells.get(3).getText()).isEqualTo(summaryTableLabelList.get(3));
-        assertThat(labelColumnCells.get(4).getText()).isEqualTo(summaryTableLabelList.get(4));
-        assertThat(labelColumnCells.get(5).getText()).isEqualTo(summaryTableLabelList.get(5));
-        assertThat(labelColumnCells.get(6).getText()).isEqualTo(summaryTableLabelList.get(6));
-        assertThat(labelColumnCells.get(7).getText()).isEqualTo(summaryTableLabelList.get(7));
-        assertThat(labelColumnCells.get(8).getText()).isEqualTo(summaryTableLabelList.get(8));
-        assertThat(labelColumnCells.get(9).getText()).isEqualTo(summaryTableLabelList.get(9));
+        for (int i = 0; i < summaryTableLabelList.size(); i++) {
+            assertThat(labelColumnCells.get(i).getText()).isEqualTo(summaryTableLabelList.get(i));
+        }
 
         // Values column
         List<WebElement> valuesColumnCells = practiceFormPage.getValuesColumnCells();
@@ -143,12 +146,7 @@ public class PracticeFormTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToFormsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        formsPage.goToPracticeFormPage();
-
+        navigateToPracticeFormPage();
         practiceFormPage.fillFormOnlyRequiredData(practiceFormData)
                 .clickSubmitAndWaitForSummaryTable();
 
@@ -191,12 +189,7 @@ public class PracticeFormTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToFormsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        formsPage.goToPracticeFormPage();
-
+        navigateToPracticeFormPage();
         practiceFormPage.clickSubmitAndWaitForFieldColorChange();
 
         // ------

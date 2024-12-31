@@ -158,14 +158,14 @@ public class PracticeFormPage extends BasePage {
     // Gender
 
     public PracticeFormPage clickGenderRadioButton(String gender) {
-        switch (gender) {
-            case "Male":
+        switch (gender.toLowerCase()) {
+            case "male":
                 genderMaleRadioButton.click();
                 break;
-            case "Female":
+            case "female":
                 genderFemaleRadioButton.click();
                 break;
-            case "Other":
+            case "other":
                 genderOtherRadioButton.click();
                 break;
             default:
@@ -237,15 +237,9 @@ public class PracticeFormPage extends BasePage {
     // Hobbies
 
     public PracticeFormPage checkHobbyCheckboxes(List<String> hobbyList) {
-        if (hobbyList.contains("Sports")) {
-            hobbiesSportsCheckbox.click();
-        }
-        if (hobbyList.contains("Reading")) {
-            hobbiesReadingCheckbox.click();
-        }
-        if (hobbyList.contains("Music")) {
-            hobbiesMusicCheckbox.click();
-        }
+        if (hobbyList.contains("Sports")) hobbiesSportsCheckbox.click();
+        if (hobbyList.contains("Reading")) hobbiesReadingCheckbox.click();
+        if (hobbyList.contains("Music")) hobbiesMusicCheckbox.click();
         return this;
     }
 
