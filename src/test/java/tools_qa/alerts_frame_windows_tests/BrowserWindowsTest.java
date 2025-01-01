@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BrowserWindowsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    AlertsFrameWindowsPage alertsFrameWindowsPage;
-    BrowserWindowsPage browserWindowsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private AlertsFrameWindowsPage alertsFrameWindowsPage;
+    private BrowserWindowsPage browserWindowsPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class BrowserWindowsTest extends TestBase {
         alertsFrameWindowsPage = new AlertsFrameWindowsPage(driver);
         browserWindowsPage = new BrowserWindowsPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToBrowserWindowsPage() {
+        homePage.goToAlertsFrameWindowsPage();
+        trainingPage.removeFooterAndAds();
+        alertsFrameWindowsPage.goToBrowserWindowsPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldOpenNewTab() {
@@ -42,12 +56,7 @@ public class BrowserWindowsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToBrowserWindowsPage();
-
+        navigateToBrowserWindowsPage();
         browserWindowsPage.clickNewTabButton()
                 .switchTabOrWindowAndMaximize(1);
 
@@ -74,12 +83,7 @@ public class BrowserWindowsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToBrowserWindowsPage();
-
+        navigateToBrowserWindowsPage();
         browserWindowsPage.clickNewWindowButton()
                 .switchTabOrWindowAndMaximize(1);
 

@@ -40,13 +40,13 @@ public class BrowserWindowsPage extends BasePage {
 
     public BrowserWindowsPage clickNewTabButton() {
         newTabButton.click();
-        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        waitForNewTabOrWindow();
         return this;
     }
 
     public BrowserWindowsPage clickNewWindowButton() {
         newWindowButton.click();
-        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        waitForNewTabOrWindow();
         return this;
     }
 
@@ -62,6 +62,14 @@ public class BrowserWindowsPage extends BasePage {
             driver.manage().window().maximize();
         }
         return this;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void waitForNewTabOrWindow() {
+        defaultWait.until(ExpectedConditions.numberOfWindowsToBe(2));
     }
 
     // -------
