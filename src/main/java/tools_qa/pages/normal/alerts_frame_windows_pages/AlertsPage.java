@@ -69,24 +69,24 @@ public class AlertsPage extends BasePage {
     }
 
     public String getAlertText() {
-        Alert alert = waitForAlert();
-        return alert.getText();
+        return waitForAlert().getText();
     }
 
-    public void acceptAlert() {
-        Alert alert = waitForAlert();
-        alert.accept();
+    public AlertsPage acceptAlert() {
+        waitForAlert().accept();
+        return this;
     }
 
-    public void dismissAlert() {
-        Alert alert = waitForAlert();
-        alert.dismiss();
+    public AlertsPage dismissAlert() {
+        waitForAlert().dismiss();
+        return this;
     }
 
-    public void writeTextInAlert(String textInAlert) {
+    public AlertsPage writeTextInAlertAndAccept(String textInAlert) {
         Alert alert = waitForAlert();
         alert.sendKeys(textInAlert);
         alert.accept();
+        return this;
     }
 
     // -------

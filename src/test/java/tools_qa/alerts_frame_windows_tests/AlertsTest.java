@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AlertsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    AlertsFrameWindowsPage alertsFrameWindowsPage;
-    AlertsPage alertsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private AlertsFrameWindowsPage alertsFrameWindowsPage;
+    private AlertsPage alertsPage;
 
     @Override
     @BeforeEach
@@ -27,6 +27,20 @@ public class AlertsTest extends TestBase {
         alertsFrameWindowsPage = new AlertsFrameWindowsPage(driver);
         alertsPage = new AlertsPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToAlertsPage() {
+        homePage.goToAlertsFrameWindowsPage();
+        trainingPage.removeFooterAndAds();
+        alertsFrameWindowsPage.goToAlertsPage();
+    }
+
+    // ----
+    // TEST
+    // ----
 
     @Test
     public void shouldOpenAlert() {
@@ -42,16 +56,9 @@ public class AlertsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToAlertsPage();
-
+        navigateToAlertsPage();
         alertsPage.clickAlertButton();
-
         alertText = alertsPage.getAlertText();
-
         alertsPage.acceptAlert();
 
         // ------
@@ -75,16 +82,9 @@ public class AlertsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToAlertsPage();
-
+        navigateToAlertsPage();
         alertsPage.clickAlertFiveSecondsButton();
-
         alertText = alertsPage.getAlertText();
-
         alertsPage.acceptAlert();
 
         // ------
@@ -109,12 +109,7 @@ public class AlertsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToAlertsPage();
-
+        navigateToAlertsPage();
         alertsPage.clickAlertConfirmButton()
                 .acceptAlert();
 
@@ -141,12 +136,7 @@ public class AlertsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToAlertsPage();
-
+        navigateToAlertsPage();
         alertsPage.clickAlertConfirmButton()
                 .dismissAlert();
 
@@ -175,14 +165,9 @@ public class AlertsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToAlertsPage();
-
+        navigateToAlertsPage();
         alertsPage.clickAlertPromptButton()
-                .writeTextInAlert(textWriteInAlert);
+                .writeTextInAlertAndAccept(textWriteInAlert);
 
         // ------
         // ASSERT
