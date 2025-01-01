@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class NestedFramesTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    AlertsFrameWindowsPage alertsFrameWindowsPage;
-    NestedFramesPage nestedFramesPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private AlertsFrameWindowsPage alertsFrameWindowsPage;
+    private NestedFramesPage nestedFramesPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class NestedFramesTest extends TestBase {
         alertsFrameWindowsPage = new AlertsFrameWindowsPage(driver);
         nestedFramesPage = new NestedFramesPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToNestedFramesPage() {
+        homePage.goToAlertsFrameWindowsPage();
+        trainingPage.removeFooterAndAds();
+        alertsFrameWindowsPage.goToNestedFramesPage();
+    }
+
+    // ----
+    // TEST
+    // ----
 
     @Test
     public void shouldGetTextFromParentFrame() {
@@ -41,14 +55,8 @@ public class NestedFramesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToNestedFramesPage();
-
+        navigateToNestedFramesPage();
         nestedFramesPage.switchToParentFrame();
-
         String pageSource = nestedFramesPage.getPageSource();
 
         // ------
@@ -73,15 +81,9 @@ public class NestedFramesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToNestedFramesPage();
-
+        navigateToNestedFramesPage();
         nestedFramesPage.switchToParentFrame()
                 .switchToChildFrame();
-
         String pageSource = nestedFramesPage.getPageSource();
 
         // ------
