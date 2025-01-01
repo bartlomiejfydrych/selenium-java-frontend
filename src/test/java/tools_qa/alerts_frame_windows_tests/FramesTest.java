@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FramesTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    AlertsFrameWindowsPage alertsFrameWindowsPage;
-    FramesPage framesPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private AlertsFrameWindowsPage alertsFrameWindowsPage;
+    private FramesPage framesPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class FramesTest extends TestBase {
         alertsFrameWindowsPage = new AlertsFrameWindowsPage(driver);
         framesPage = new FramesPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToFramesPage() {
+        homePage.goToAlertsFrameWindowsPage();
+        trainingPage.removeFooterAndAds();
+        alertsFrameWindowsPage.goToFramesPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldGetTextFromBigFrame() {
@@ -43,14 +57,8 @@ public class FramesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToFramesPage();
-
+        navigateToFramesPage();
         framesPage.switchToBigFrame();
-
         String pageSource = framesPage.getPageSource();
 
         // ------
@@ -78,14 +86,8 @@ public class FramesTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToFramesPage();
-
+        navigateToFramesPage();
         framesPage.switchToSmallFrame();
-
         String pageSource = framesPage.getPageSource();
 
         // ------
