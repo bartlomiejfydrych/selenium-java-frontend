@@ -13,12 +13,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ModalDialogsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    AlertsFrameWindowsPage alertsFrameWindowsPage;
-    ModalDialogsPage modalDialogsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private AlertsFrameWindowsPage alertsFrameWindowsPage;
+    private ModalDialogsPage modalDialogsPage;
 
-    WebElementMethods webElementMethods;
+    private WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
@@ -31,6 +31,20 @@ public class ModalDialogsTest extends TestBase {
 
         webElementMethods = new WebElementMethods(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToModalDialogsPage() {
+        homePage.goToAlertsFrameWindowsPage();
+        trainingPage.removeFooterAndAds();
+        alertsFrameWindowsPage.goToModalDialogsPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldOpenAndGetTextFromSmallModal() {
@@ -46,19 +60,11 @@ public class ModalDialogsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToModalDialogsPage();
-
+        navigateToModalDialogsPage();
         modalDialogsPage.clickSmallModalButton();
-
         webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow());
-
         String modalHeader = modalDialogsPage.getModalHeader().getText();
         String modalText = modalDialogsPage.getSmallModalBody().getText();
-
         modalDialogsPage.clickSmallModalCloseButton();
 
         // ------
@@ -89,19 +95,11 @@ public class ModalDialogsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToAlertsFrameWindowsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        alertsFrameWindowsPage.goToModalDialogsPage();
-
+        navigateToModalDialogsPage();
         modalDialogsPage.clickLargeModalButton();
-
         webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow());
-
         String modalHeader = modalDialogsPage.getModalHeader().getText();
         String modalText = modalDialogsPage.getLargeModalBody().getText();
-
         modalDialogsPage.clickLargeModalCloseButton();
 
         // ------

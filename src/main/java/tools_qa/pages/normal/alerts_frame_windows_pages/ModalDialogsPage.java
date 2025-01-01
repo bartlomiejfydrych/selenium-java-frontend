@@ -44,11 +44,6 @@ public class ModalDialogsPage extends BasePage {
     // METHODS
     // -------
 
-    public ModalDialogsPage waitForModal() {
-        defaultWait.until(ExpectedConditions.visibilityOf(modalWindow));
-        return this;
-    }
-
     // Small modal
 
     public ModalDialogsPage clickSmallModalButton() {
@@ -59,7 +54,6 @@ public class ModalDialogsPage extends BasePage {
 
     public ModalDialogsPage clickSmallModalCloseButton() {
         smallModalCloseButton.click();
-        waitForModal();
         return this;
     }
 
@@ -73,8 +67,15 @@ public class ModalDialogsPage extends BasePage {
 
     public ModalDialogsPage clickLargeModalCloseButton() {
         largeModalCloseButton.click();
-        waitForModal();
         return this;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void waitForModal() {
+        defaultWait.until(ExpectedConditions.visibilityOf(modalWindow));
     }
 
     // -------
