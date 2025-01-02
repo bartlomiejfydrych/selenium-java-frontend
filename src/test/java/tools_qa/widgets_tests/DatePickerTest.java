@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DatePickerTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    DatePickerPage datePickerPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private DatePickerPage datePickerPage;
 
     @Override
     @BeforeEach
@@ -28,6 +28,20 @@ public class DatePickerTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         datePickerPage = new DatePickerPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToDatePickerPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToDatePickerPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldSelectDate() throws ParseException {
@@ -43,19 +57,14 @@ public class DatePickerTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToDatePickerPage();
-
+        navigateToDatePickerPage();
         datePickerPage.selectDate(date);
 
         // ------
         // ASSERT
         // ------
 
-        assertThat(datePickerPage.getSelectDateInput().getAttribute("value")).isEqualTo(formattedDate);
+        assertThat(datePickerPage.getSelectDateInput().getDomProperty("value")).isEqualTo(formattedDate);
     }
 
     @Test
@@ -72,18 +81,13 @@ public class DatePickerTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToDatePickerPage();
-
+        navigateToDatePickerPage();
         datePickerPage.selectDateAndTime(dateAndTime);
 
         // ------
         // ASSERT
         // ------
 
-        assertThat(datePickerPage.getSelectDateAndTimeInput().getAttribute("value")).isEqualTo(formattedDateAndTime);
+        assertThat(datePickerPage.getSelectDateAndTimeInput().getDomProperty("value")).isEqualTo(formattedDateAndTime);
     }
 }
