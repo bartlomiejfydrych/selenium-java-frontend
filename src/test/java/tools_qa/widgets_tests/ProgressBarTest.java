@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProgressBarTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    ProgressBarPage progressBarPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private ProgressBarPage progressBarPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class ProgressBarTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         progressBarPage = new ProgressBarPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToProgressBarPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToProgressBarPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldWaitUntilBarIsFullAndGreenAndResetItToZero() {
@@ -45,23 +59,19 @@ public class ProgressBarTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToProgressBarPage();
+        navigateToProgressBarPage();
 
         // 100
         progressBarPage.clickStartStopButton()
                 .waitForProgressBar(progressBarValue100);
 
-        assertThat(progressBarPage.getProgressBar().getAttribute(progressBarAttribute)).isEqualTo(progressBarValue100);
+        assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue100);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorGreen);
 
         // Reset
         progressBarPage.clickResetButton();
 
-        assertThat(progressBarPage.getProgressBar().getAttribute(progressBarAttribute)).isEqualTo(progressBarValue0);
+        assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue0);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorBlue);
     }
 
@@ -83,31 +93,27 @@ public class ProgressBarTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToProgressBarPage();
+        navigateToProgressBarPage();
 
         // 1
         progressBarPage.clickStartStopButton()
                 .waitForProgressBarAndClickStop(progressBarValue1);
 
-        assertThat(progressBarPage.getProgressBar().getAttribute(progressBarAttribute)).isEqualTo(progressBarValue1);
+        assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue1);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorBlue);
 
         // 50
         progressBarPage.clickStartStopButton()
                 .waitForProgressBarAndClickStop(progressBarValue50);
 
-        assertThat(progressBarPage.getProgressBar().getAttribute(progressBarAttribute)).isEqualTo(progressBarValue50);
+        assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue50);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorBlue);
 
         // 99
         progressBarPage.clickStartStopButton()
                 .waitForProgressBarAndClickStop(progressBarValue99);
 
-        assertThat(progressBarPage.getProgressBar().getAttribute(progressBarAttribute)).isEqualTo(progressBarValue99);
+        assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue99);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorBlue);
     }
 }
