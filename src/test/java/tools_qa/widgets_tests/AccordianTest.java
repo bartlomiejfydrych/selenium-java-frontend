@@ -18,10 +18,10 @@ public class AccordianTest extends TestBase {
     but I use the name as it is on the page to be consistent.
     */
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    AccordianPage accordianPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private AccordianPage accordianPage;
 
     @Override
     @BeforeEach
@@ -33,6 +33,20 @@ public class AccordianTest extends TestBase {
         accordianPage = new AccordianPage(driver);
     }
 
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToAccordianPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToAccordianPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
+
     @Test
     public void shouldManuallyCloseFirstSection() {
 
@@ -40,12 +54,7 @@ public class AccordianTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAccordianPage();
-
+        navigateToAccordianPage();
         accordianPage.clickSection1Button()
                 .waitForElementToBeHidden(accordianPage.getSection1Text());
 
@@ -83,12 +92,7 @@ public class AccordianTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAccordianPage();
-
+        navigateToAccordianPage();
         accordianPage.clickSection2Button()
                 .waitForElementToBeVisible(accordianPage.getSection2Text1());
 
@@ -122,12 +126,7 @@ public class AccordianTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAccordianPage();
-
+        navigateToAccordianPage();
         accordianPage.clickSection1Button()
                 .clickSection3Button()
                 .waitForElementToBeVisible(accordianPage.getSection3Text());
