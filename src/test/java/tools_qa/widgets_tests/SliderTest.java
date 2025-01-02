@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SliderTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    SliderPage sliderPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private SliderPage sliderPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class SliderTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         sliderPage = new SliderPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToSliderPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToSliderPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldMoveSliderTo100And0And50UsingJavaScript() {
@@ -43,21 +57,17 @@ public class SliderTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSliderPage();
+        navigateToSliderPage();
 
         // 100
         sliderPage.moveSliderUseJavaScript(sliderMaxValue);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMaxValue));
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(Integer.toString(sliderMaxValue));
         // 0
         sliderPage.moveSliderUseJavaScript(sliderMinValue);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMinValue));
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(Integer.toString(sliderMinValue));
         // 50
         sliderPage.moveSliderUseJavaScript(sliderMiddleValue);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(Integer.toString(sliderMiddleValue));
     }
 
     @Test
@@ -76,21 +86,17 @@ public class SliderTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSliderPage();
+        navigateToSliderPage();
 
         // 100
         sliderPage.moveSliderUseXOffSetPosition(323);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMaxValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMaxValue);
         // 0
         sliderPage.moveSliderUseXOffSetPosition(-429);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMinValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMinValue);
         // 50
         sliderPage.moveSliderUseXOffSetPosition(3);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMiddleValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMiddleValue);
     }
 
     @Test
@@ -109,20 +115,16 @@ public class SliderTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSliderPage();
+        navigateToSliderPage();
 
         // 100
         sliderPage.moveSliderUseKeyboard(75);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMaxValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMaxValue);
         // 0
         sliderPage.moveSliderUseKeyboard(-100);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMinValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMinValue);
         // 50
         sliderPage.moveSliderUseKeyboard(50);
-        assertThat(sliderPage.getSliderValueInput().getAttribute(attribute)).isEqualTo(expectedSliderMiddleValue);
+        assertThat(sliderPage.getSliderValueInput().getDomProperty(attribute)).isEqualTo(expectedSliderMiddleValue);
     }
 }
