@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AutoCompleteTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    AutoCompletePage autoCompletePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private AutoCompletePage autoCompletePage;
 
     @Override
     @BeforeEach
@@ -29,6 +29,20 @@ public class AutoCompleteTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         autoCompletePage = new AutoCompletePage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToAutoCompletePage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToAutoCompletePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldWriteAllColorsAndClearInputInMultiColorInput() {
@@ -55,12 +69,7 @@ public class AutoCompleteTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAutoCompletePage();
-
+        navigateToAutoCompletePage();
         autoCompletePage.writeColors(colorList);
 
         // ------
@@ -92,12 +101,7 @@ public class AutoCompleteTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAutoCompletePage();
-
+        navigateToAutoCompletePage();
         autoCompletePage.writeColors(colorList)
                 .clearOneColor(colorList.get(0));
 
@@ -122,12 +126,7 @@ public class AutoCompleteTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToAutoCompletePage();
-
+        navigateToAutoCompletePage();
         autoCompletePage.writeColorInSingleColorInput(firstColor)
                 .writeColorInSingleColorInput(secondColor);
 
