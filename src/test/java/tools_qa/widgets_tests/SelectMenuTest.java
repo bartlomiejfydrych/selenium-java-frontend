@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SelectMenuTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    SelectMenuPage selectMenuPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private SelectMenuPage selectMenuPage;
 
     @Override
     @BeforeEach
@@ -34,6 +34,20 @@ public class SelectMenuTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         selectMenuPage = new SelectMenuPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToSelectMenuPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToSelectMenuPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldSelectValueInSelectValue() {
@@ -56,12 +70,7 @@ public class SelectMenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSelectMenuPage();
-
+        navigateToSelectMenuPage();
         selectMenuPage.selectValueInSelectValue(valueToSelect);
 
         // ------
@@ -92,12 +101,7 @@ public class SelectMenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSelectMenuPage();
-
+        navigateToSelectMenuPage();
         selectMenuPage.selectValueInSelectOne(valueToSelect);
 
         // ------
@@ -133,12 +137,7 @@ public class SelectMenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSelectMenuPage();
-
+        navigateToSelectMenuPage();
         selectMenuPage.selectValueInOldStyleSelectMenu(valueToSelect);
 
         // ------
@@ -168,12 +167,7 @@ public class SelectMenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSelectMenuPage();
-
+        navigateToSelectMenuPage();
         selectMenuPage.selectValueInMultiSelectDropDown(valuesToSelectList);
 
         // ------
@@ -206,12 +200,7 @@ public class SelectMenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToSelectMenuPage();
-
+        navigateToSelectMenuPage();
         selectMenuPage.selectValueInStandardMultiSelect(valuesToSelectList);
 
         // ------

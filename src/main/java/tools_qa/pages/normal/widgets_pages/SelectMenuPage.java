@@ -55,39 +55,39 @@ public class SelectMenuPage extends BasePage {
     // SELECT VALUE
 
     public SelectMenuPage selectValueInSelectValue(String value) {
-        selectValueSelect.click();
-        String selectValueSelector = "//div[text()='" + value + "']";
-        WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
-        selectValueLocator.click();
-        return this;
+        return selectValueByVisibleText(selectValueSelect, value);
     }
 
     // SELECT ONE
 
     public SelectMenuPage selectValueInSelectOne(String value) {
-        selectOneSelect.click();
-        String selectValueSelector = "//div[text()='" + value + "']";
-        WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
-        selectValueLocator.click();
-        return this;
+        return selectValueByVisibleText(selectOneSelect, value);
     }
 
     // OLD STYLE SELECT MENU
 
     public SelectMenuPage selectValueInOldStyleSelectMenu(String value) {
-        Select select = new Select(oldStyleSelectMenuSelect);
-        select.selectByVisibleText(value);
+        try {
+            Select select = new Select(oldStyleSelectMenuSelect);
+            select.selectByVisibleText(value);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to select value in Old Style Select Menu: " + value, e);
+        }
         return this;
     }
 
     // MULTI SELECT DROP DOWN
 
     public SelectMenuPage selectValueInMultiSelectDropDown(List<String> values) {
-        multiSelectDropDownSelect.click();
-        for (String value : values) {
-            String selectValueSelector = "//div[text()='" + value + "']";
-            WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
-            selectValueLocator.click();
+        try {
+            multiSelectDropDownSelect.click();
+            for (String value : values) {
+                String selectValueSelector = "//div[text()='" + value + "']";
+                WebElement selectValueLocator = driver.findElement(By.xpath(selectValueSelector));
+                selectValueLocator.click();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to select values in Multi Select Drop Down: " + values, e);
         }
         return this;
     }
@@ -95,9 +95,13 @@ public class SelectMenuPage extends BasePage {
     // STANDARD MULTI SELECT
 
     public SelectMenuPage selectValueInStandardMultiSelect(List<String> values) {
-        Select select = new Select(standardMultiSelectSelect);
-        for (String value : values) {
-            select.selectByVisibleText(value);
+        try {
+            Select select = new Select(standardMultiSelectSelect);
+            for (String value : values) {
+                select.selectByVisibleText(value);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to select values in Standard Multi Select: " + values, e);
         }
         return this;
     }
@@ -106,10 +110,24 @@ public class SelectMenuPage extends BasePage {
     // HELPERS
     // -------
 
+    private SelectMenuPage selectValueByVisibleText(WebElement selectElement, String value) {
+        try {
+            selectElement.click();
+            String valueSelector = "//div[text()='" + value + "']";
+            WebElement valueLocator = driver.findElement(By.xpath(valueSelector));
+            valueLocator.click();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to select value: " + value, e);
+        }
+        return this;
+    }
+
     public String getRandomElementFromList(List<String> list) {
         Random random = new Random();
         int randomIndex = random.nextInt(list.size());
         return list.get(randomIndex);
+        // OR can be just:
+        // return list.get(new Random().nextInt(list.size()));
     }
 
     public List<String> getRandomElementsFromList(List<String> list) {
