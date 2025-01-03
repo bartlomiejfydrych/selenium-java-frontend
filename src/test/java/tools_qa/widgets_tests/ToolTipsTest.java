@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ToolTipsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    ToolTipsPage toolTipsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private ToolTipsPage toolTipsPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class ToolTipsTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         toolTipsPage = new ToolTipsPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToToolTipsPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToToolTipsPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldHoverOverButton() {
@@ -40,12 +54,7 @@ public class ToolTipsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToToolTipsPage();
-
+        navigateToToolTipsPage();
         toolTipsPage.hoverOverButton();
 
         // ------
@@ -68,12 +77,7 @@ public class ToolTipsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToToolTipsPage();
-
+        navigateToToolTipsPage();
         toolTipsPage.hoverOverInput();
 
         // ------
@@ -96,12 +100,7 @@ public class ToolTipsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToToolTipsPage();
-
+        navigateToToolTipsPage();
         toolTipsPage.hoverOverContraryText();
 
         // ------
@@ -124,12 +123,7 @@ public class ToolTipsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToToolTipsPage();
-
+        navigateToToolTipsPage();
         toolTipsPage.hoverOver11032Text();
 
         // ------

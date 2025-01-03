@@ -36,26 +36,32 @@ public class ToolTipsPage extends BasePage {
     // -------
 
     public ToolTipsPage hoverOverButton() {
-        actions.moveToElement(hoverButton).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(tooltipText));
-        return this;
+        return hoverOverElementAndWait(hoverButton);
     }
 
     public ToolTipsPage hoverOverInput() {
-        actions.moveToElement(hoverInput).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(tooltipText));
-        return this;
+        return hoverOverElementAndWait(hoverInput);
     }
 
     public ToolTipsPage hoverOverContraryText() {
-        actions.moveToElement(hoverContraryText).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(tooltipText));
-        return this;
+        return hoverOverElementAndWait(hoverContraryText);
     }
 
     public ToolTipsPage hoverOver11032Text() {
-        actions.moveToElement(hover11032Text).perform();
-        defaultWait.until(ExpectedConditions.visibilityOf(tooltipText));
+        return hoverOverElementAndWait(hover11032Text);
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private ToolTipsPage hoverOverElementAndWait(WebElement element) {
+        try {
+            actions.moveToElement(element).perform();
+            defaultWait.until(ExpectedConditions.visibilityOf(tooltipText));
+        } catch (Exception e) {
+            throw new RuntimeException("Error while hovering over element: " + element, e);
+        }
         return this;
     }
 
