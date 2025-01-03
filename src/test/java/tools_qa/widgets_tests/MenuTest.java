@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MenuTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    MenuPage menuPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private MenuPage menuPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class MenuTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         menuPage = new MenuPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToMenuPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToMenuPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldFromItem1GoToItem3() {
@@ -41,12 +55,7 @@ public class MenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToMenuPage();
-
+        navigateToMenuPage();
         menuPage.hoverOverMainItem3();
 
         // ------
@@ -70,12 +79,7 @@ public class MenuTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToMenuPage();
-
+        navigateToMenuPage();
         menuPage.hoverOverSubSubItem2();
 
         // ------
