@@ -47,20 +47,17 @@ public class TabsPage extends BasePage {
     // -------
 
     public TabsPage clickWhatTab() {
-        whatTabButton.click();
-        defaultWait.until(ExpectedConditions.visibilityOf(whatTabText));
+        clickTabAndWait(whatTabButton, whatTabText);
         return this;
     }
 
     public TabsPage clickOriginTab() {
-        originTabButton.click();
-        defaultWait.until(ExpectedConditions.visibilityOf(originTabText1));
+        clickTabAndWait(originTabButton, originTabText1);
         return this;
     }
 
     public TabsPage clickUseTab() {
-        useTabButton.click();
-        defaultWait.until(ExpectedConditions.visibilityOf(useTabText));
+        clickTabAndWait(useTabButton, useTabText);
         return this;
     }
 
@@ -68,8 +65,18 @@ public class TabsPage extends BasePage {
         try {
             moreTabButton.click();
         } catch (ElementClickInterceptedException e) {
+            // This error is intentionally not handled to avoid unnecessary messages in the console.
         }
         return this;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void clickTabAndWait(WebElement tabButton, WebElement tabContentArea) {
+        tabButton.click();
+        defaultWait.until(ExpectedConditions.visibilityOf(tabContentArea));
     }
 
     // -------

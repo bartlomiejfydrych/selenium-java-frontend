@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TabsTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    WidgetsPage widgetsPage;
-    TabsPage tabsPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private WidgetsPage widgetsPage;
+    private TabsPage tabsPage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class TabsTest extends TestBase {
         widgetsPage = new WidgetsPage(driver);
         tabsPage = new TabsPage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToTabsPage() {
+        homePage.goToWidgetsPage();
+        trainingPage.removeFooterAndAds();
+        widgetsPage.goToTabsPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldSwitchToOriginTab() {
@@ -51,12 +65,7 @@ public class TabsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToTabsPage();
-
+        navigateToTabsPage();
         tabsPage.clickOriginTab();
 
         // ------
@@ -86,12 +95,7 @@ public class TabsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToTabsPage();
-
+        navigateToTabsPage();
         tabsPage.clickUseTab();
 
         // ------
@@ -120,12 +124,7 @@ public class TabsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToTabsPage();
-
+        navigateToTabsPage();
         tabsPage.clickUseTab()
                 .clickWhatTab();
 
@@ -143,18 +142,13 @@ public class TabsTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToWidgetsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        widgetsPage.goToTabsPage();
-
+        navigateToTabsPage();
         tabsPage.clickMoreTab();
 
         // ------
         // ASSERT
         // ------
 
-        assertThat(tabsPage.getMoreTabButton().getAttribute("aria-selected")).isEqualTo("false");
+        assertThat(tabsPage.getMoreTabButton().getDomAttribute("aria-selected")).isEqualTo("false");
     }
 }
