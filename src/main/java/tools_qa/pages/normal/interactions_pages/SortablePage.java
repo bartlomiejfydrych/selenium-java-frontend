@@ -65,8 +65,8 @@ public class SortablePage extends BasePage {
     // METHODS
     // -------
 
-    public SortablePage moveElementToAnotherElement(WebElement movedElement, WebElement targetElement) {
-        actions.clickAndHold(movedElement)
+    public SortablePage moveElementToAnotherElement(WebElement elementToMove, WebElement targetElement) {
+        actions.clickAndHold(elementToMove)
                 .moveToElement(targetElement)
                 .release()
                 .perform();
@@ -83,19 +83,19 @@ public class SortablePage extends BasePage {
     // -------
 
     public List<String> getListElementsAsText() {
-        List<String> listElementsTextList = listElements
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
-        return listElementsTextList;
+        return getElementsText(listElements);
     }
 
     public List<String> getGridElementsAsText() {
-        List<String> gridElementsTextList = gridElements
+        return getElementsText(gridElements);
+    }
+
+    public List<String> getElementsText(List<WebElement> webElements) {
+        List<String> elementsTextList = webElements
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
-        return gridElementsTextList;
+        return elementsTextList;
     }
 
     // -------

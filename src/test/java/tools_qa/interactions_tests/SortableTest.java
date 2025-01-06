@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortableTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    InteractionsPage interactionsPage;
-    SortablePage sortablePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private InteractionsPage interactionsPage;
+    private SortablePage sortablePage;
 
     @Override
     @BeforeEach
@@ -29,6 +29,20 @@ public class SortableTest extends TestBase {
         interactionsPage = new InteractionsPage(driver);
         sortablePage = new SortablePage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToSortablePage() {
+        homePage.goToInteractionsPage();
+        trainingPage.removeFooterAndAds();
+        interactionsPage.goToSortablePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldSortListInReverseOrder() {
@@ -56,12 +70,7 @@ public class SortableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToSortablePage();
-
+        navigateToSortablePage();
         sortablePage.moveElementToAnotherElement(sixElement, oneElement)
                         .moveElementToAnotherElement(fiveElement, oneElement)
                         .moveElementToAnotherElement(fourElement, oneElement)
@@ -108,12 +117,7 @@ public class SortableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToSortablePage();
-
+        navigateToSortablePage();
         sortablePage.clickGridTab()
                 .moveElementToAnotherElement(nineElement, oneElement)
                 .moveElementToAnotherElement(eightElement, oneElement)
