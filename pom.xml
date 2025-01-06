@@ -12,13 +12,14 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- VARIABLES FOR PROJECT DEPENDENCIES VERSIONS -->
+        <!-- VARIABLES FOR PROJECT DEPENDENCIES VERSIONS -->
         <!-- UNIVERSAL -->
         <junitJupiter.version>5.11.0</junitJupiter.version>
         <junitSuite.version>1.11.3</junitSuite.version>
         <javafaker.version>1.0.2</javafaker.version>
         <assertjCore.version>3.26.3</assertjCore.version>
         <dotenvJava.version>3.0.2</dotenvJava.version>
+        <allureJunit5.version>2.29.1</allureJunit5.version>
         <!-- FRONTEND -->
         <seleniumJava.version>4.27.0</seleniumJava.version>
         <seleniumSupport.version>4.27.0</seleniumSupport.version>
@@ -26,7 +27,7 @@
     </properties>
 
     <dependencies>
-    <!-- UNIVERSAL -->
+        <!-- UNIVERSAL -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -60,7 +61,14 @@
             <artifactId>dotenv-java</artifactId>
             <version>${dotenvJava.version}</version>
         </dependency>
-    <!-- FRONTEND -->
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allureJunit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- FRONTEND -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

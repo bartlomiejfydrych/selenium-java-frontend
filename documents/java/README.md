@@ -8,6 +8,7 @@
 - [ENV — Zmienne środowiskowe](#env)
 - [Pliki — ścieżki](#files_paths)
 - [Generics — typy generyczne](#generics)
+- [Allure Report — konfiguracja](#allure_report_configuration)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
@@ -635,3 +636,129 @@ To:
 - **`BookStoreApplicationPage.class`**: Reprezentuje klasę `BookStoreApplicationPage` i jest częścią mechanizmu refleksji.
 - W kontekście metody `navigateToPage` przekazywanie `Class<?> pageClass` może być pomocne do identyfikacji klasy
   strony, do której się przenosimy, nawet jeśli w tej chwili jest to tylko nadmiarowe.
+
+---
+
+## Allure Report — konfiguracja <a name="allure_report_configuration"></a>
+
+**Link do dokumentacji:**  
+https://allurereport.org/docs/
+
+1. Dodajemy **Allure Report** dependencies do Maven:
+   - W Maven Repository wyszukujemy `Allure JUnit 5`
+   - Dodajemy dependencies najnowszej wersji do naszego `pom.xml`
+   ```java
+   <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-junit5</artifactId>
+        <version>2.29.1</version>
+        <scope>test</scope>
+    </dependency>
+   ```
+   - W `pom.xml` klikamy ikonę załadowania dependencies ponownie
+2. Dodajemy do zmiennych środowiskowych zmienną o nazwie `JAVA_HOME`:
+   - Zmienna środowiskowa `JAVA_HOME` musi posiadać ścieżkę do miejsca, w którym jest zainstalowane nasze SDK/JDK/JRE
+   - Żeby zdobyć ścieżkę do naszego SDK/JDK to:
+     - Klikamy "hamburger menu"
+     - Rozwijamy `File`
+     - Klikamy `Project Structure...`
+     - Mamy mieć otwartą zakładkę `Project`
+     - Klikamy przycisk `Edit` przy naszym SDK
+     - Kopiujemy ścieżkę z `JDK home path:`  
+       `C:\Users\Bartek\.jdks\corretto-21.0.5`
+   - Ustawiany zmienną środowiskową `JAVA_HOME` (Windows 10):
+     - Otwieramy `Ten komputer`
+     - Prawym -> `Właściwości`
+     - W kolumnie po lewej `Zaawansowane ustawienia systemu`
+     - Mając otwartą zakładkę `Zaawansowane` klikamy przycisk`Zmienne środowiskowe...`
+     - W zmiennych systemowych i zmiennych dla użytkownika klikamy przycisk `Nowa...`
+     - Nazwa zmiennej: `JAVA_HOME`
+     - Wartość zmiennej: Wklejamy skopiowaną ścieżkę `C:\Users\Bartek\.jdks\corretto-21.0.5`
+     - OK -> OK -> OK
+3. Pobieramy **Allure Report** dla systemu Windows:  
+   (dzięki temu będą rozpoznawane jego polecenia w konsoli)
+   - Wchodzimy tutaj:  
+     https://allurereport.org/docs/install-for-windows/#install-from-an-archive
+   - Wchodzimy na link do GitHub dla najnowszej wersji:  
+     https://github.com/allure-framework/allure2/releases/tag/2.32.0
+   - Pobieramy plik `allure-2.32.0.zip`
+   - Zapisałem i rozpakowałem go gdzieś niedaleko projektu:  
+     `E:\Nauka\allure_java`
+   - Kopiujemy lub zapisujemy sobie gdzieś ścieżkę do katalogu `bin`:  
+     `E:\Nauka\allure_java\allure-2.32.0\bin`
+4. Dodajemy ścieżkę katalogu `bin` do `Path` w zmiennych środowiskowych systemu (Windows 10):
+    - Otwieramy `Ten komputer`
+    - Prawym -> `Właściwości`
+    - W kolumnie po lewej `Zaawansowane ustawienia systemu`
+    - Mając otwartą zakładkę `Zaawansowane` klikamy przycisk`Zmienne środowiskowe...`
+    - W zmiennych systemowych i zmiennych dla użytkownika zaznaczamy zmienną `Path`
+    - Klikamy `Edytuj...`
+    - Klikamy `Nowy`
+    - Wklejamy naszą skopiowaną ścieżkę do katalogu bin:  
+      `E:\Nauka\allure_java\allure-2.32.0\bin`
+    - OK -> OK -> OK
+5. Tworzymy plik konfiguracyjny, w którym wskażemy lokalizację miejsca, do którego będą generowane pliki raportowe:
+   - Link pomocniczy: https://allurereport.org/docs/junit5/
+   - W katalogu **test** tworzymy katalog `resources`
+   - W katalogu **resources** tworzymy plik `allure.properties`
+   - W pliku tym umieszczamy taką linijkę:
+     `allure.results.directory=target/allure-results`
+   - **Musimy pamiętać, aby po każdych testach czyścić zawartość tego katalogu (usuwać go)**
+6. Wywołujemy otwarcie raportu za pomocą konsoli:
+   - Uruchamiamy jakieś nasze testy
+   - W katalogu `target/allure-results` pojawiają się pliki raportowe
+   - W IDE otwieramy terminal
+   - Wpisujemy polecenie `allure serve target/allure-results`
+7. (Opcjonalne) Chciałem, by przed **WSZYSTKIMI** testami katalog z plikami Allure był zawsze czyszczony.  
+   Niestety, JUnit nie ma takiej możliwości, a adnotacja `@BeforeAll` dotyczy "przed każdą klasą".  
+   Można sobie dodać w `TestBase` w `@BeforeAll`.  
+   Zapisuję poniżej funkcję czyszczącą na wszelki wypadek:
+   ```java
+    // -------
+    // HELPERS
+    // -------
+
+    // Allure report files are generated every time the tests are run. This method will clean them up regularly.
+    private static void cleanAllureResultsDirectory() {
+        Path allureResultsPath = Paths.get("target", "allure-results");
+        try {
+            if (Files.exists(allureResultsPath)) {
+                try (Stream<Path> paths = Files.walk(allureResultsPath)) {
+                    paths.sorted((path1, path2) -> path2.compareTo(path1)) // First internal files, then directories.
+                            .forEach(path -> {
+                                try {
+                                    Files.delete(path);
+                                } catch (IOException e) {
+                                    System.err.println("Error deleting file: " + path);
+                                }
+                            });
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error cleaning allure-results directory: " + e.getMessage());
+        }
+    }
+   ```
+   Jedyne sensowne rozwiązanie, jakie mi pozostało to w `TestBase.java` dodanie loga przypominającego o czyszczeniu tego katalogu:
+   ```java
+   @AfterEach
+   public void cleanUp() {
+        driver.quit();
+        System.out.println("Remember to delete the directory: [project/target/allure-results] before running the tests again.");
+   }
+   ```
+   Poniżej jest jakieś rozwiązanie, ale uznałem je za zbyt przekombinowane:  
+   https://stackoverflow.com/questions/43282798/in-junit-5-how-to-run-code-before-all-tests
+8. Instalujemy plugin pozwalający na generowanie raportu bezpośrednio z IDE:
+   - Klikamy "hamburger menu"
+   - Rozwijamy `File`
+   - Klikamy `Settings...`
+   - Zaznaczamy `Plugins` po lewej
+   - Mamy otwartą zakładkę `Marketplace`
+   - Wyszukujemy `Allure`
+   - Wybieramy i instalujemy `Allure Report`
+   - Apply -> Restart IDE -> OK
+9. Dzięki temu pluginowi możemy klikać prawym na katalog `allure-results` i generować raport z menu IDE
+10. Do konfiguracji raportów Allure z serwerem można używać wtyczki:  
+    `Allure TestOps Support`

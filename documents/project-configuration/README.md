@@ -54,6 +54,7 @@ https://mvnrepository.com/
         - Java Faker
         - AssertJ Core
         - Dotenv Java
+        - Allure Report
     - Frontend:
         - Selenium Java
         - Selenium Support
@@ -234,6 +235,63 @@ Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy 
 > - *Chcesz oddzielić dane konfiguracyjne od kodu (np. dane dostępowe do bazy danych).*
 > - *Pracujesz z różnymi środowiskami (deweloperskim, testowym, produkcyjnym), gdzie potrzebujesz różnych wartości zmiennych.*
 > - *Chcesz zredukować ryzyko przypadkowego ujawnienia wrażliwych danych w repozytoriach kodu.*
+</details>
+<details>
+    <summary>6. Allure Report</summary>
+
+> Biblioteka **Allure Report** to wszechstronny framework do generowania raportów z testów, który dostarcza bogate w szczegóły i interaktywne raporty, umożliwiające łatwe analizowanie wyników testów. Jest kompatybilny z wieloma narzędziami testowymi i językami programowania, co czyni go jednym z najczęściej używanych rozwiązań w świecie QA i automatyzacji testów.
+> Najważniejsze cechy Allure Report
+> 1. Interaktywne raporty
+   Raporty generowane przez Allure są interaktywne i dostarczają kompleksowych informacji o:
+> - Wynikach testów (sukcesy, niepowodzenia, pominięcia),
+> - Strukturze uruchamianych testów,
+> - Logach, załącznikach (np. zrzuty ekranu, logi aplikacji),
+> - Czasach wykonania testów.
+> 2. Wsparcie dla różnych frameworków
+   Allure integruje się z popularnymi frameworkami testowymi, takimi jak:
+> - JUnit 4, JUnit 5,
+> - TestNG,
+> - Cucumber,
+> - Selenium,
+> - Pytest (dla Python),
+> - Mocha, Jasmine (dla JavaScript).
+> 3. Łatwość konfiguracji
+   Allure jest stosunkowo prosty w konfiguracji i pozwala na automatyczne generowanie raportów przy użyciu wtyczek dla Maven, Gradle lub bezpośredniej konfiguracji w kodzie testowym.
+> 4. Struktura raportu
+   Raport jest zorganizowany w sposób przejrzysty:
+> - Test Suites – zestawy testów z podziałem na klasy i metody,
+> - Behaviors – raportowanie na podstawie zachowań (np. tagi @Feature, @Story w testach),
+> - Graphs – statystyki w formie wykresów,
+> - Timeline – szczegóły dotyczące czasu wykonania testów,
+> - Attachments – załączniki (zrzuty ekranu, pliki z logami),
+> - Retries – śledzenie testów powtarzanych (retries).
+> 5. Możliwość rozszerzeń
+   Allure wspiera integracje z:
+> - CI/CD (np. Jenkins, GitLab, GitHub Actions),
+> - Narzędziami do zarządzania testami (np. TestRail),
+> - Bazami danych lub własnymi wtyczkami za pomocą API Allure.
+> Jak działa Allure?
+> 1. Integracja z frameworkiem testowym  
+Dodaje się odpowiednie zależności do projektu (np. Maven/Gradle) i konfiguruje listener Allure, aby zbierać dane o wynikach testów.
+> 2. Zbieranie danych podczas testów  
+Podczas uruchamiania testów Allure zbiera dane, takie jak:
+> - Wynik testu (pass/fail/skip),
+> - Czas wykonania,
+> - Logi i załączniki (np. zrzuty ekranu),
+> - Tagi (feature, story, owner).
+>3. Generowanie raportu  
+Na podstawie danych zapisanych w formacie JSON Allure generuje HTML-owy raport za pomocą polecenia:  
+>`allure serve <katalog wyników>`
+> 
+> Zalety Allure Report:
+> - Przejrzystość: Raporty są czytelne i intuicyjne, co ułatwia analizę wyników.
+> - Rozszerzalność: Możliwość dostosowania do specyficznych potrzeb projektu.
+> - Szerokie wsparcie: Obsługuje wiele języków i narzędzi.
+> - Wizualizacja danych: Wykresy, statystyki i szczegóły testów.
+> 
+> Wady:
+> - Konfiguracja początkowa: Może być czasochłonna, szczególnie w dużych projektach.
+> - Zależność od narzędzi: Generowanie raportów wymaga narzędzi CLI Allure lub integracji w CI/CD.
 </details>
 
 #### Frontend
