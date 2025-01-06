@@ -1,6 +1,8 @@
 package tools_qa.base;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import tools_qa.configuration.Config;
@@ -16,11 +18,18 @@ import java.util.stream.Stream;
 public class TestBase {
     public WebDriver driver;
 
+    @BeforeAll
+    public static void setUpAll() {
+        /*
+        NOTE:
+        Since I don't use the Allure report for further learning, I added deleting its files so that it doesn't fill up my disk.
+        Comment this all "@BeforeAll" section if you need to use the Allure report.
+        */
+        cleanAllureResultsDirectory();
+    }
+
     @BeforeEach
     public void setUp() {
-        // NOTE:
-        // Since I don't use the Allure report for further learning, I added deleting its files so that it doesn't fill up my disk
-        cleanAllureResultsDirectory(); // Comment if you need to use the Allure report
         driver = DriverProvider.getDriver(Config.getBrowser(), Config.getDownloadFilePath());
         driver.get(UrlProvider.homePage);
     }
@@ -28,6 +37,10 @@ public class TestBase {
     @AfterEach
     public void cleanUp() {
         driver.quit();
+    }
+
+    @AfterAll
+    public static void cleanUpAll() {
         System.out.println("Remember to delete the directory: [project/target/allure-results] before running the tests again.");
     }
 
