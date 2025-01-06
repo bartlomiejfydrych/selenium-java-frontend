@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SelectableTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    InteractionsPage interactionsPage;
-    SelectablePage selectablePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private InteractionsPage interactionsPage;
+    private SelectablePage selectablePage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class SelectableTest extends TestBase {
         interactionsPage = new InteractionsPage(driver);
         selectablePage = new SelectablePage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToSelectablePage() {
+        homePage.goToInteractionsPage();
+        trainingPage.removeFooterAndAds();
+        interactionsPage.goToSelectablePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldSelectAllElementsOnList() {
@@ -43,12 +57,7 @@ public class SelectableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToSelectablePage();
-
+        navigateToSelectablePage();
         selectablePage.clickCrasListElement()
                 .clickDapibusListElement()
                 .clickMorbiListElement()
@@ -58,13 +67,13 @@ public class SelectableTest extends TestBase {
         // ASSERT
         // ------
 
-        assertThat(selectablePage.getCrasListElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getCrasListElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getCrasListElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getDapibusListElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getDapibusListElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getDapibusListElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getMorbiListElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getMorbiListElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getMorbiListElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getPortaListElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getPortaListElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getPortaListElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
     }
 
@@ -84,12 +93,7 @@ public class SelectableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToSelectablePage();
-
+        navigateToSelectablePage();
         selectablePage.clickGridTab()
                 .clickOneGridElement()
                 .clickTwoGridElement()
@@ -105,23 +109,23 @@ public class SelectableTest extends TestBase {
         // ASSERT
         // ------
 
-        assertThat(selectablePage.getOneGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getOneGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getOneGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getTwoGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getTwoGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getTwoGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getThreeGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getThreeGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getThreeGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getFourGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getFourGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getFourGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getFiveGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getFiveGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getFiveGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getSixGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getSixGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getSixGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getSevenGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getSevenGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getSevenGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getEightGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getEightGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getEightGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
-        assertThat(selectablePage.getNineGridElement().getAttribute(attributeClass)).contains(expectedClassName);
+        assertThat(selectablePage.getNineGridElement().getDomAttribute(attributeClass)).contains(expectedClassName);
         assertThat(selectablePage.getNineGridElement().getCssValue(cssValueBackgroundColor)).isEqualTo(expectedBackgroundColor);
     }
 }
