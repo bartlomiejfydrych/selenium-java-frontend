@@ -29,14 +29,20 @@ public class ResizablePage extends BasePage {
     // -------
 
     public ResizablePage resizeBoxWithRestriction(int newWidth, int newHeight) {
-        String script = String.format("arguments[0].style.width='%dpx'; arguments[0].style.height='%dpx';", newWidth, newHeight);
-        jse.executeScript(script, boxWithRestriction);
-        return this;
+        return resizeElement(boxWithRestriction, newWidth, newHeight);
     }
 
     public ResizablePage resizeBoxWithoutRestriction(int newWidth, int newHeight) {
+        return resizeElement(boxWithoutRestriction, newWidth, newHeight);
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private ResizablePage resizeElement(WebElement element, int newWidth, int newHeight) {
         String script = String.format("arguments[0].style.width='%dpx'; arguments[0].style.height='%dpx';", newWidth, newHeight);
-        jse.executeScript(script, boxWithoutRestriction);
+        jse.executeScript(script, element);
         return this;
     }
 

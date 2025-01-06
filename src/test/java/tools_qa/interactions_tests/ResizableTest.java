@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResizableTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    InteractionsPage interactionsPage;
-    ResizablePage resizablePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private InteractionsPage interactionsPage;
+    private ResizablePage resizablePage;
 
     @Override
     @BeforeEach
@@ -26,6 +26,20 @@ public class ResizableTest extends TestBase {
         interactionsPage = new InteractionsPage(driver);
         resizablePage = new ResizablePage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToResizablePage() {
+        homePage.goToInteractionsPage();
+        trainingPage.removeFooterAndAds();
+        interactionsPage.goToResizablePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldEnlargeBoxToItsMaximumSize() {
@@ -41,12 +55,7 @@ public class ResizableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToResizablePage();
-
+        navigateToResizablePage();
         resizablePage.resizeBoxWithRestriction(width, height);
 
         // ------
@@ -71,12 +80,7 @@ public class ResizableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToResizablePage();
-
+        navigateToResizablePage();
         resizablePage.resizeBoxWithoutRestriction(width, height);
 
         // ------
