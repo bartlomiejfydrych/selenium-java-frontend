@@ -15,10 +15,10 @@ public class DragabbleTest extends TestBase {
 
     // NOTE: The creators made a mistake in the name of this sub-page. It should be "Draggable"
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    InteractionsPage interactionsPage;
-    DragabblePage dragabblePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private InteractionsPage interactionsPage;
+    private DragabblePage dragabblePage;
 
     @Override
     @BeforeEach
@@ -29,6 +29,20 @@ public class DragabbleTest extends TestBase {
         interactionsPage = new InteractionsPage(driver);
         dragabblePage = new DragabblePage(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToDragabblePage() {
+        homePage.goToInteractionsPage();
+        trainingPage.removeFooterAndAds();
+        interactionsPage.goToDragabblePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     // SIMPLE
 
@@ -47,12 +61,7 @@ public class DragabbleTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDragabblePage();
-
+        navigateToDragabblePage();
         dragabblePage.setPositionLeftAndTop(dragBox, expectedLeftPosition, expectedTopPosition);
 
         // ------
@@ -85,12 +94,7 @@ public class DragabbleTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDragabblePage();
-
+        navigateToDragabblePage();
         dragabblePage.clickAxisRestrictedTab()
                 .setPositionLeft(dragBoxX, expectedBoxXLeftPosition)
                 .setPositionTop(dragBoxY, expectedBoxYTopPosition);
@@ -129,12 +133,7 @@ public class DragabbleTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDragabblePage();
-
+        navigateToDragabblePage();
         dragabblePage.clickContainerRestrictedTab()
                 .setPositionLeftAndTop(dragBoxInContainer, expectedBoxInContainerLeftPosition, expectedBoxInContainerTopPosition)
                 .setPositionLeftAndTop(dragTextInContainer, expectedTextInContainerLeftPosition, expectedTextInContainerTopPosition);
@@ -177,12 +176,7 @@ public class DragabbleTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDragabblePage();
-
+        navigateToDragabblePage();
         dragabblePage.clickCursorStyleTab()
                 .setPositionLeftAndTop(dragTopLeftBox, expectedTopLeftBoxLeftPosition, expectedTopLeftBoxTopPosition)
                 .setPositionLeftAndTop(dragCenterBox, expectedCenterBoxLeftPosition, expectedCenterBoxTopPosition)
