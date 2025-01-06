@@ -14,12 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DroppableTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    InteractionsPage interactionsPage;
-    DroppablePage droppablePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private InteractionsPage interactionsPage;
+    private DroppablePage droppablePage;
 
-    WebElementMethods webElementMethods;
+    private WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
@@ -32,6 +32,20 @@ public class DroppableTest extends TestBase {
 
         webElementMethods = new WebElementMethods(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToDroppablePage() {
+        homePage.goToInteractionsPage();
+        trainingPage.removeFooterAndAds();
+        interactionsPage.goToDroppablePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     // SIMPLE
 
@@ -53,12 +67,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.moveElementToAnotherElement(dragBox, dropBox);
 
         // ------
@@ -91,12 +100,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickAcceptTab()
                 .moveElementToAnotherElement(dragBox, dropBox);
 
@@ -128,12 +132,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickAcceptTab()
                 .moveElementToAnotherElement(dragBox, dropBox);
 
@@ -169,12 +168,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickPreventPropogationTab()
                 .moveElementToAnotherElement(dragBox, innerDropBox);
 
@@ -211,12 +205,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickPreventPropogationTab()
                 .moveElementToAnotherElement(dragBox, innerDropBox);
 
@@ -252,15 +241,9 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickRevertDraggableTab()
                 .moveElementToAnotherElement(dragBox, dropBox);
-
         webElementMethods.waitForElementToStopMoving(dragBox);
 
         // ------
@@ -291,12 +274,7 @@ public class DroppableTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToInteractionsPage();
-
-        trainingPage.removeFooterAndAds();
-
-        interactionsPage.goToDroppablePage();
-
+        navigateToDroppablePage();
         droppablePage.clickRevertDraggableTab()
                 .moveElementToAnotherElement(dragBox, dropBox);
 
