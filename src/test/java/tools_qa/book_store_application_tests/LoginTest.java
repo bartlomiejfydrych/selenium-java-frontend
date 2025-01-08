@@ -16,12 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginTest extends TestBase {
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    BookStoreApplicationPage bookStoreApplicationPage;
-    LoginPage loginPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private BookStoreApplicationPage bookStoreApplicationPage;
+    private LoginPage loginPage;
 
-    WebElementMethods webElementMethods;
+    private WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
@@ -34,6 +34,20 @@ public class LoginTest extends TestBase {
 
         webElementMethods = new WebElementMethods(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToLoginPage() {
+        homePage.goToBookStoreApplicationPage();
+        trainingPage.removeFooterAndAds();
+        bookStoreApplicationPage.goToLoginPage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldLogInAndLogOutUserCorrectly() {
@@ -51,18 +65,13 @@ public class LoginTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToBookStoreApplicationPage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStoreApplicationPage.goToLoginPage();
+        navigateToLoginPage();
 
         // LOG IN
 
         loginPage.writeUserName(userName)
                 .writePassword(password)
                 .clickLoginButton();
-
         profilePage.waitForLogOutButton();
 
         assertThat(profilePage.getLogOutButton().isDisplayed()).isTrue();
@@ -93,14 +102,8 @@ public class LoginTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStoreApplicationPage.goToLoginPage();
-
+        navigateToLoginPage();
         loginPage.clickLoginButton();
-
         webElementMethods.waitForElementToStopColorChanging(userNameInput, cssValue);
         webElementMethods.waitForElementToStopColorChanging(passwordInput, cssValue);
 
@@ -108,11 +111,9 @@ public class LoginTest extends TestBase {
         // ASSERT
         // ------
 
-        // TODO: Poprawić getAttribute() na nowsze getDomAttribute() lub getDomProperty()
-        // https://www.linkedin.com/pulse/selenium-427-deprecates-getattributemethod-ranjit-biswal-bvopc/
-        assertThat(userNameInput.getAttribute(attribute)).contains(expectedClassName);
+        assertThat(userNameInput.getDomAttribute(attribute)).contains(expectedClassName);
         assertThat(userNameInput.getCssValue(cssValue)).isEqualTo(expectedInputColor);
-        assertThat(passwordInput.getAttribute(attribute)).contains(expectedClassName);
+        assertThat(passwordInput.getDomAttribute(attribute)).contains(expectedClassName);
         assertThat(passwordInput.getCssValue(cssValue)).isEqualTo(expectedInputColor);
     }
 
@@ -129,12 +130,7 @@ public class LoginTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStoreApplicationPage.goToLoginPage();
-
+        navigateToLoginPage();
         loginPage.writeUserName("TestNonExistUserName")
                 .writePassword("TestNonExistPassword")
                 .clickLoginButton()
