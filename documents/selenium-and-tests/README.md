@@ -14,6 +14,7 @@
 - [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
 - [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
 - [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
+- [getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice](#get_dom_attribute_property)
 
 ---
 
@@ -1125,3 +1126,29 @@ jest trochę słabe, wybrałem sposób na utworzenie klasy z **SessionManager'em
     Dodatkowe wyjaśnienie:  
     - Metoda `setUp()` wchodzi na stronę główną
     - Następnie nasza metoda `loadCookiesOrLogIn(driver)` ładuje cookies z pliku do przeglądarki, albo nas loguje
+
+---
+
+## getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice <a name="get_dom_attribute_property"></a>
+
+**Link:**  
+https://www.linkedin.com/pulse/selenium-427-deprecates-getattributemethod-ranjit-biswal-bvopc/
+
+### Wstęp
+
+W najnowszej wersji **Selenium**, czyli `4.27`, wycofano metodę `getAttribute()` zastępując ją dwiema nowymi metodami
+`getDomAttribute()` i `getDomProperty()`. To dostosowuje API Selenium do nowoczesnych zachowań i standardów przeglądarek.
+
+### getDomAttribute()
+
+- Cel — pobieranie wartości atrybutu HTML
+- Źródło wartości — wartość początkowa ze znacznika HTML
+- Dynamiczne aktualizacje — nie odzwierciedlają zmian w czasie wykonywania
+- Przykładowy przypadek użycia — pobieranie href linku z HTML
+
+### getDomProperty()
+
+- Cel — Pobieranie wartości właściwości DOM
+- Źródło wartości — Bieżąca, dynamiczna wartość w DOM
+- Dynamiczne aktualizacje — Odzwierciedla zmiany w czasie wykonywania w elemencie
+- Przykładowy przypadek użycia — Pobieranie wartości pola tekstowego
