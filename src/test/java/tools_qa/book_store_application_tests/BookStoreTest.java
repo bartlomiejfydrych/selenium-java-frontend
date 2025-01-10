@@ -50,7 +50,7 @@ public class BookStoreTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
@@ -122,7 +122,7 @@ public class BookStoreTest extends TestBase {
         // ACT + ASSERT
         // ------------
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
-import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
+import tools_qa.pages.normal.book_store_application_pages.BookStorePage;
 import tools_qa.pages.normal.book_store_application_pages.LoginPage;
 import tools_qa.pages.normal.book_store_application_pages.ProfilePage;
 import tools_qa.utils.WebElementMethods;
@@ -18,7 +18,7 @@ public class LoginTest extends TestBase {
 
     private HomePage homePage;
     private TrainingPage trainingPage;
-    private BookStoreApplicationPage bookStoreApplicationPage;
+    private BookStorePage bookStorePage;
     private LoginPage loginPage;
 
     private WebElementMethods webElementMethods;
@@ -29,7 +29,7 @@ public class LoginTest extends TestBase {
         super.setUp();
         homePage = new HomePage(driver);
         trainingPage = new TrainingPage(driver);
-        bookStoreApplicationPage = new BookStoreApplicationPage(driver);
+        bookStorePage = new BookStorePage(driver);
         loginPage = new LoginPage(driver);
 
         webElementMethods = new WebElementMethods(driver);
@@ -40,9 +40,9 @@ public class LoginTest extends TestBase {
     // -------
 
     private void navigateToLoginPage() {
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
         trainingPage.removeFooterAndAds();
-        bookStoreApplicationPage.goToLoginPage();
+        bookStorePage.goToLoginPage();
     }
 
     // -----

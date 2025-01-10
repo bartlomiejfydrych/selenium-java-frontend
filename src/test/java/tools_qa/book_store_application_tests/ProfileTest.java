@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import tools_qa.base.TestBase;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
-import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
 import tools_qa.pages.normal.book_store_application_pages.BookStorePage;
 import tools_qa.pages.normal.book_store_application_pages.ProfilePage;
 import tools_qa.providers.CookiesProvider;
@@ -32,7 +31,7 @@ public class ProfileTest extends TestBase {
 
     HomePage homePage;
     TrainingPage trainingPage;
-    BookStoreApplicationPage bookStoreApplicationPage;
+    BookStorePage bookStorePage;
     ProfilePage profilePage;
 
     WebElementMethods webElementMethods;
@@ -44,7 +43,7 @@ public class ProfileTest extends TestBase {
         CookiesProvider.loadCookiesOrLogIn(driver);
         homePage = new HomePage(driver);
         trainingPage = new TrainingPage(driver);
-        bookStoreApplicationPage = new BookStoreApplicationPage(driver);
+        bookStorePage = new BookStorePage(driver);
         profilePage = new ProfilePage(driver);
 
         webElementMethods = new WebElementMethods(driver);
@@ -66,11 +65,11 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToProfilePage();
+        bookStorePage.goToProfilePage();
 
         profilePage.waitForBooksTable()
                 .selectRowsAmount(rowsSelectValue);
@@ -95,11 +94,11 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToProfilePage();
+        bookStorePage.goToProfilePage();
 
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
@@ -130,11 +129,11 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToProfilePage();
+        bookStorePage.goToProfilePage();
 
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
@@ -167,11 +166,11 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToProfilePage();
+        bookStorePage.goToProfilePage();
 
         profilePage.waitForBooksTable()
                 .clickGoToBookStoreButton();

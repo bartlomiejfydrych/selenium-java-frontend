@@ -51,6 +51,12 @@ public class BookStorePage extends BasePage {
     @FindBy(css = ".select-wrap select")
     private WebElement rowsSelect;
 
+    // NAVIGATE TO OTHER BOOK STORE APPLICATION PAGES
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Login']")
+    private WebElement loginButton;
+    @FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Profile']")
+    private WebElement profileButton;
+
     // -------
     // METHODS
     // -------
@@ -100,6 +106,18 @@ public class BookStorePage extends BasePage {
     public BookStorePage waitForBooksTable() {
         defaultWait.until(ExpectedConditions.visibilityOf(booksTable));
         return this;
+    }
+
+    // NAVIGATE TO OTHER BOOK STORE APPLICATION PAGES
+
+    public LoginPage goToLoginPage() {
+        loginButton.click();
+        return new LoginPage(driver);
+    }
+
+    public ProfilePage goToProfilePage() {
+        profileButton.click();
+        return new ProfilePage(driver);
     }
 
     // -------

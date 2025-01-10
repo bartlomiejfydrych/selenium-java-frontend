@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import tools_qa.pages.base.BasePage;
 import tools_qa.pages.normal.alerts_frame_windows_pages.AlertsFrameWindowsPage;
-import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
+import tools_qa.pages.normal.book_store_application_pages.BookStorePage;
 import tools_qa.pages.normal.elements_pages.ElementsPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
 import tools_qa.pages.normal.interactions_pages.InteractionsPage;
@@ -68,10 +68,10 @@ public class HomePage extends BasePage {
         return new InteractionsPage(driver);
     }
 
-    public BookStoreApplicationPage goToBookStoreApplicationPage() {
+    public BookStorePage goToBookStorePage() {
         scrollToBottom();
-        navigateToPage(bookStoreApplicationButton, BookStoreApplicationPage.class);
-        return new BookStoreApplicationPage(driver);
+        navigateToPage(bookStoreApplicationButton, BookStorePage.class);
+        return new BookStorePage(driver);
         /* NOTE:
         We can use `actions.sendKeys(Keys.END).perform();` too,
         but it's slower and not work here (we still click footer AD).

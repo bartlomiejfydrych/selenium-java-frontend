@@ -6,7 +6,7 @@ import tools_qa.base.TestBase;
 import tools_qa.models.RegisterUser;
 import tools_qa.pages.commons.HomePage;
 import tools_qa.pages.commons.TrainingPage;
-import tools_qa.pages.normal.book_store_application_pages.BookStoreApplicationPage;
+import tools_qa.pages.normal.book_store_application_pages.BookStorePage;
 import tools_qa.pages.normal.book_store_application_pages.LoginPage;
 import tools_qa.pages.normal.book_store_application_pages.RegisterPage;
 import tools_qa.providers.RegisterUserProvider;
@@ -28,7 +28,7 @@ public class RegisterTest extends TestBase {
 
     HomePage homePage;
     TrainingPage trainingPage;
-    BookStoreApplicationPage bookStoreApplicationPage;
+    BookStorePage bookStorePage;
     LoginPage loginPage;
     RegisterPage registerPage;
 
@@ -40,7 +40,7 @@ public class RegisterTest extends TestBase {
         super.setUp();
         homePage = new HomePage(driver);
         trainingPage = new TrainingPage(driver);
-        bookStoreApplicationPage = new BookStoreApplicationPage(driver);
+        bookStorePage = new BookStorePage(driver);
         loginPage = new LoginPage(driver);
         registerPage = new RegisterPage(driver);
 
@@ -69,11 +69,11 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToLoginPage();
+        bookStorePage.goToLoginPage();
 
         loginPage.clickNewUserButton();
 
@@ -103,11 +103,11 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToLoginPage();
+        bookStorePage.goToLoginPage();
 
         loginPage.clickNewUserButton();
 
@@ -136,11 +136,11 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToLoginPage();
+        bookStorePage.goToLoginPage();
 
         loginPage.clickNewUserButton();
 
@@ -175,11 +175,11 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStoreApplicationPage();
+        homePage.goToBookStorePage();
 
         trainingPage.removeFooterAndAds();
 
-        bookStoreApplicationPage.goToLoginPage();
+        bookStorePage.goToLoginPage();
 
         loginPage.clickNewUserButton();
 

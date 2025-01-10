@@ -15,6 +15,7 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({
         tools_qa.book_store_application_tests.RegisterTest.class,
         tools_qa.book_store_application_tests.LoginTest.class
+        // TODO: DOPISAĆ POZOSTAŁE KLASY
 })
 public class TestsInOrderSuite {
 }
