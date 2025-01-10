@@ -26,6 +26,7 @@ public class TestBase {
         Comment this all "@BeforeAll" section if you need to use the Allure report.
         */
         cleanAllureResultsDirectory();
+        // TODO: Spróbować ustawić używanie tej metody w zależności od konfiguracji
     }
 
     @BeforeEach
@@ -42,6 +43,7 @@ public class TestBase {
     @AfterAll
     public static void cleanUpAll() {
         System.out.println("Remember to delete the directory: [project/target/allure-results] before running the tests again.");
+        System.out.println("If you want to fully use 'Allure Report' remember to comment out the 'cleanAllureResultsDirectory();' method in the '@BeforeAll' annotation.");
     }
 
     // -------
