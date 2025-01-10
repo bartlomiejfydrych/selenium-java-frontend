@@ -84,21 +84,23 @@ public class BookStorePage extends BasePage {
         return this;
     }
 
-    public boolean isRowDataValid(int rowIndex, String expectedImageSrc, String expectedTitle, String expectedAuthor, String expectedPublisher) {
+    public boolean isRowDataValid(int rowIndex, String... expectedData) {
         // Fetch a row based on index
         WebElement row = driver.findElements(By.cssSelector(tableRowsLocator)).get(rowIndex);
         // Get columns
         List<WebElement> columns = row.findElements(By.cssSelector(tableColumnsLocator));
-        // Get data from each column
-        String actualImageSrc = columns.get(0).findElement(By.tagName("img")).getDomAttribute("src");
-        String actualTitle = columns.get(1).findElement(By.tagName("a")).getText();
-        String actualAuthor = columns.get(2).getText();
-        String actualPublisher = columns.get(3).getText();
-        // Check all data
-        return actualImageSrc.contains(expectedImageSrc) &&
-                actualTitle.equals(expectedTitle) &&
-                actualAuthor.equals(expectedAuthor) &&
-                actualPublisher.equals(expectedPublisher);
+        // Get data from each column into Strings Array
+        String[] actualData = {
+                columns.get(0).findElement(By.tagName("img")).getDomAttribute("src"),
+                columns.get(1).findElement(By.tagName("a")).getText(),
+                columns.get(2).getText(),
+                columns.get(3).getText()
+        };
+        // Check if any column with current data does not contain the expected data and return 'false'
+        for (int i = 0; i < expectedData.length; i++) {
+            if (!actualData[i].contains(expectedData[i])) return false;
+        }
+        return true;
     }
 
     // WAITS
