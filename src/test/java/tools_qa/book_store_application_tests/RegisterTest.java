@@ -26,13 +26,13 @@ public class RegisterTest extends TestBase {
     to trigger it, we would first have to go through the reCaptcha mechanism.
     */
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    BookStorePage bookStorePage;
-    LoginPage loginPage;
-    RegisterPage registerPage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private BookStorePage bookStorePage;
+    private LoginPage loginPage;
+    private RegisterPage registerPage;
 
-    WebElementMethods webElementMethods;
+    private WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
@@ -46,6 +46,21 @@ public class RegisterTest extends TestBase {
 
         webElementMethods = new WebElementMethods(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToRegisterPage() {
+        homePage.goToBookStorePage();
+        trainingPage.removeFooterAndAds();
+        bookStorePage.goToLoginPage();
+        loginPage.clickNewUserButton();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldCaptchaBlockUs() {
@@ -69,14 +84,7 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToLoginPage();
-
-        loginPage.clickNewUserButton();
-
+        navigateToRegisterPage();
         registerPage.fillRegisterForm(registerUser)
                 .clickCaptcha()
                 .switchAndWaitForCaptchaImageSelect();
@@ -103,14 +111,7 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToLoginPage();
-
-        loginPage.clickNewUserButton();
-
+        navigateToRegisterPage();
         registerPage.fillRegisterForm(registerUser)
                 .clickRegisterButton();
 
@@ -136,29 +137,21 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToLoginPage();
-
-        loginPage.clickNewUserButton();
-
+        navigateToRegisterPage();
         registerPage.clickRegisterButton();
-
         webElementMethods.waitForElementToStopColorChanging(registerPage.getFirstNameInput(), "border-color");
 
         // ------
         // ASSERT
         // ------
 
-        assertThat(registerPage.getFirstNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getFirstNameInput().getDomAttribute("class")).contains(expectedClassName);
         assertThat(registerPage.getFirstNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
-        assertThat(registerPage.getLastNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getLastNameInput().getDomAttribute("class")).contains(expectedClassName);
         assertThat(registerPage.getLastNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
-        assertThat(registerPage.getUserNameInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getUserNameInput().getDomAttribute("class")).contains(expectedClassName);
         assertThat(registerPage.getUserNameInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
-        assertThat(registerPage.getPasswordInput().getAttribute("class")).contains(expectedClassName);
+        assertThat(registerPage.getPasswordInput().getDomAttribute("class")).contains(expectedClassName);
         assertThat(registerPage.getPasswordInput().getCssValue("border-color")).isEqualTo(expectedInputColor);
     }
 
@@ -175,14 +168,7 @@ public class RegisterTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToLoginPage();
-
-        loginPage.clickNewUserButton();
-
+        navigateToRegisterPage();
         registerPage.clickBackToLoginButton();
 
         // ------
