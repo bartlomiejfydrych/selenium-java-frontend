@@ -4,43 +4,48 @@ import java.util.List;
 
 public class PracticeForm {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String gender;
-    private String mobileNumber;
-    private String dateOfBirth;
-    private List<String> subjectList;
-    private List<String> hobbyList;
-    private String currentAddress;
-    private String state;
-    private String city;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String gender;
+    private final String mobileNumber;
+    private final String dateOfBirth;
+    private final List<String> subjectList;
+    private final List<String> hobbyList;
+    private final String currentAddress;
+    private final String state;
+    private final String city;
 
     // -----------
     // CONSTRUCTOR
     // -----------
 
-    public PracticeForm(String firstName, String lastName, String email, String gender, String mobileNumber,
-                        String dateOfBirth, List<String> subjectList, List<String> hobbyList, String currentAddress,
-                        String state, String city) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.gender = gender;
-        this.mobileNumber = mobileNumber;
-        this.dateOfBirth = dateOfBirth;
-        this.subjectList = subjectList;
-        this.hobbyList = hobbyList;
-        this.currentAddress = currentAddress;
-        this.state = state;
-        this.city = city;
+    private PracticeForm(PracticeFormBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.gender = builder.gender;
+        this.mobileNumber = builder.mobileNumber;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.subjectList = builder.subjectList;
+        this.hobbyList = builder.hobbyList;
+        this.currentAddress = builder.currentAddress;
+        this.state = builder.state;
+        this.city = builder.city;
     }
 
-    public PracticeForm(String firstName, String lastName, String gender, String mobileNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.mobileNumber = mobileNumber;
+    private PracticeForm(PracticeFormOnlyRequiredDataBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = null;
+        this.gender = builder.gender;
+        this.mobileNumber = builder.mobileNumber;
+        this.dateOfBirth = null;
+        this.subjectList = null;
+        this.hobbyList = null;
+        this.currentAddress = null;
+        this.state = null;
+        this.city = null;
     }
 
     // -------
@@ -95,7 +100,7 @@ public class PracticeForm {
     // BUILDER
     // -------
 
-    public static final class PracticeFormBuilder {
+    public static class PracticeFormBuilder {
 
         private String firstName;
         private String lastName;
@@ -165,12 +170,11 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, email, gender, mobileNumber, dateOfBirth, subjectList,
-                    hobbyList, currentAddress, state, city);
+            return new PracticeForm(this);
         }
     }
 
-    public static final class PracticeFormOnlyRequiredDataBuilder {
+    public static class PracticeFormOnlyRequiredDataBuilder {
 
         private String firstName;
         private String lastName;
@@ -198,7 +202,7 @@ public class PracticeForm {
         }
 
         public PracticeForm build() {
-            return new PracticeForm(firstName, lastName, gender, mobileNumber);
+            return new PracticeForm(this);
         }
     }
 }

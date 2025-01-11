@@ -8,30 +8,31 @@ import java.util.*;
 
 public class PracticeFormProvider {
 
+    private static final Faker faker = new Faker();
+    private static final Random random = new Random();
+
     public static PracticeForm getRandomPracticeForm() {
-        Faker faker = new Faker();
-        String state = getRandomState();
+        String state = getRandomElementFromList(stateList);
         return new PracticeForm.PracticeFormBuilder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress())
-                .gender(getRandomGender())
+                .gender(getRandomElementFromList(genderList))
                 .mobileNumber(faker.number().digits(10))
                 .dateOfBirth(getRandomDateOfBirth())
-                .subjectList(getRandomSubjectList(subjectList))
-                .hobbyList(getRandomHobbyList(hobbyList))
-                .currentAddress(getRandomCurrentAddress())
+                .subjectList(getRandomSublist(subjectList, 5))
+                .hobbyList(getRandomSublist(hobbyList, 3))
+                .currentAddress(generateRandomCurrentAddress())
                 .state(state)
-                .city(getRandomCity(state))
+                .city(getRandomElementFromList(stateCityMap.get(state)))
                 .build();
     }
 
     public static PracticeForm getRandomPracticeFormRequiredData() {
-        Faker faker = new Faker();
         return new PracticeForm.PracticeFormOnlyRequiredDataBuilder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
-                .gender(getRandomGender())
+                .gender(getRandomElementFromList(genderList))
                 .mobileNumber(faker.number().digits(10))
                 .build();
     }
@@ -40,14 +41,17 @@ public class PracticeFormProvider {
     // METHODS
     // -------
 
-    public static String getRandomGender() {
-        Random random = new Random();
-        String randomGender = genderList.get(random.nextInt(genderList.size()));
-        return randomGender;
+    private static String getRandomElementFromList(List<String> list) {
+        String randomElement = list.get(random.nextInt(list.size()));
+        return randomElement;
     }
 
-    public static String getRandomDateOfBirth() {
-        Faker faker = new Faker();
+    private static List<String> getRandomSublist(List<String> list, int maxAmountOfElements) {
+        int numberOfElementsToGet = random.nextInt(maxAmountOfElements) + 1;
+        return new ArrayList<>(list.subList(0, numberOfElementsToGet));
+    }
+
+    private static String getRandomDateOfBirth() {
         Calendar startCalendar = Calendar.getInstance();
         startCalendar.set(1900, Calendar.JANUARY, 1);
         Calendar endCalendar = Calendar.getInstance();
@@ -58,63 +62,14 @@ public class PracticeFormProvider {
         return formattedDate;
     }
 
-    public static List<String> getRandomSubjectList(List<String> subjectList) {
-        Random random = new Random();
-        int numberOfSubjectsToSelect = random.nextInt(5) + 1;
-        List<String> subjectListCopy = new ArrayList<>(subjectList);
-        Collections.shuffle(subjectListCopy, random);
-        return new ArrayList<>(subjectListCopy.subList(0, numberOfSubjectsToSelect));
-    }
-
-    public static List<String> getRandomHobbyList(List<String> hobbyList) {
-        Random random = new Random();
-        int numberOfHobbies = random.nextInt(3) + 1;
-        List<String> hobbyListCopy = new ArrayList<>(hobbyList);
-        Collections.shuffle(hobbyListCopy, random);
-        return new ArrayList<>(hobbyList.subList(0, numberOfHobbies));
-    }
-
-    public static String getRandomCurrentAddress() {
-        Faker faker = new Faker();
-        String country = faker.address().country();
-        String city = faker.address().city();
-        String zipCode = faker.address().zipCode();
-        String streetName = faker.address().streetName();
-        String streetNumber = faker.address().streetAddressNumber();
-        String buildingNumber = faker.address().buildingNumber();
-        String currentAddress = country + "\n"
-                + city + "\n"
-                + zipCode + "\n"
-                + streetName + " " + streetNumber + "/" + buildingNumber;
-        return currentAddress;
-    }
-
-    public static String getRandomState() {
-        Random random = new Random();
-        String randomState = stateList.get(random.nextInt(stateList.size()));
-        return randomState;
-    }
-
-    public static String getRandomCity(String state) {
-        Random random = new Random();
-        String randomCity = "";
-        switch (state) {
-            case "NCR":
-                randomCity = cityNcrList.get(random.nextInt(cityNcrList.size()));
-                break;
-            case "Uttar Pradesh":
-                randomCity = cityUttarPradeshList.get(random.nextInt(cityUttarPradeshList.size()));
-                break;
-            case "Haryana":
-                randomCity = cityHaryanaList.get(random.nextInt(cityHaryanaList.size()));
-                break;
-            case "Rajasthan":
-                randomCity = cityRajasthanList.get(random.nextInt(cityRajasthanList.size()));
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid state: " + state);
-        }
-        return randomCity;
+    private static String generateRandomCurrentAddress() {
+        return String.format("%s\n%s\n%s\n%s %s/%s",
+                faker.address().country(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().streetName(),
+                faker.address().streetAddressNumber(),
+                faker.address().buildingNumber());
     }
 
     // ----
@@ -122,16 +77,10 @@ public class PracticeFormProvider {
     // ----
 
     // Gender
-
-    static List<String> genderList = Arrays.asList(
-            "Male",
-            "Female",
-            "Other"
-    );
+    private static final List<String> genderList = List.of("Male", "Female", "Other");
 
     // Subjects
-
-    static List<String> subjectList = Arrays.asList(
+    private static final List<String> subjectList = List.of(
             "English",
             "Chemistry",
             "Computer Science",
@@ -148,43 +97,16 @@ public class PracticeFormProvider {
     );
 
     // Hobbies
-
-    static List<String> hobbyList = Arrays.asList(
-            "Sports",
-            "Reading",
-            "Music"
-    );
+    private static final List<String> hobbyList = List.of("Sports", "Reading", "Music");
 
     // State
-
-    static List<String> stateList = Arrays.asList(
-            "NCR",
-            "Uttar Pradesh",
-            "Haryana",
-            "Rajasthan"
-    );
+    private static final List<String> stateList = List.of("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
 
     // City
-
-    static List<String> cityNcrList = Arrays.asList(
-            "Delhi",
-            "Gurgaon",
-            "Noida"
-    );
-
-    static List<String> cityUttarPradeshList = Arrays.asList(
-            "Agra",
-            "Lucknow",
-            "Merrut"
-    );
-
-    static List<String> cityHaryanaList = Arrays.asList(
-            "Karnal",
-            "Panipat"
-    );
-
-    static List<String> cityRajasthanList = Arrays.asList(
-            "Jaipur",
-            "Jaiselmer"
+    private static final Map<String, List<String>> stateCityMap = Map.of(
+            "NCR", List.of("Delhi", "Gurgaon", "Noida"),
+            "Uttar Pradesh", List.of("Agra", "Lucknow", "Merrut"),
+            "Haryana", List.of("Karnal", "Panipat"),
+            "Rajasthan", List.of("Jaipur", "Jaiselmer")
     );
 }

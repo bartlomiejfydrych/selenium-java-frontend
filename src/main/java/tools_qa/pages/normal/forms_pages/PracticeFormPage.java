@@ -301,17 +301,6 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
-    public PracticeFormPage clickSubmitAndWaitForFieldColorChange() {
-        clickSubmit();
-        String cssValue = "border-color";
-        String initialColor = firstNameInput.getCssValue(cssValue);
-        defaultWait.until((ExpectedCondition<Boolean>) driver -> {
-            String currentColor = firstNameInput.getCssValue(cssValue);
-            return !currentColor.equals(initialColor);
-        });
-        return this;
-    }
-
     // SUMMARY TABLE
 
     public PracticeFormPage clickCloseSummaryTable() {

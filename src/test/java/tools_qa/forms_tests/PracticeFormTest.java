@@ -10,6 +10,7 @@ import tools_qa.pages.commons.TrainingPage;
 import tools_qa.pages.normal.forms_pages.FormsPage;
 import tools_qa.pages.normal.forms_pages.PracticeFormPage;
 import tools_qa.providers.PracticeFormProvider;
+import tools_qa.utils.WebElementMethods;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ public class PracticeFormTest extends TestBase {
     private TrainingPage trainingPage;
     private FormsPage formsPage;
     private PracticeFormPage practiceFormPage;
+
+    private WebElementMethods webElementMethods;
 
     private  final List<String> summaryTableLabelList = Arrays.asList(
             "Student Name",
@@ -44,6 +47,8 @@ public class PracticeFormTest extends TestBase {
         trainingPage = new TrainingPage(driver);
         formsPage = new FormsPage(driver);
         practiceFormPage = new PracticeFormPage(driver);
+
+        webElementMethods = new WebElementMethods(driver);
     }
 
     // -------
@@ -190,7 +195,8 @@ public class PracticeFormTest extends TestBase {
         // ---
 
         navigateToPracticeFormPage();
-        practiceFormPage.clickSubmitAndWaitForFieldColorChange();
+        practiceFormPage.clickSubmit();
+        webElementMethods.waitForElementToStopColorChanging(practiceFormPage.getFirstNameInput(), cssValue);
 
         // ------
         // ASSERT
