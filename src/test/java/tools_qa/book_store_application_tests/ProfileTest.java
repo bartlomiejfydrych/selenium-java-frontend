@@ -29,18 +29,19 @@ public class ProfileTest extends TestBase {
       This makes larger and more thorough tests of the Book Store impossible, so I test everything I can.
     */
 
-    HomePage homePage;
-    TrainingPage trainingPage;
-    BookStorePage bookStorePage;
-    ProfilePage profilePage;
+    private HomePage homePage;
+    private TrainingPage trainingPage;
+    private BookStorePage bookStorePage;
+    private ProfilePage profilePage;
 
-    WebElementMethods webElementMethods;
+    private WebElementMethods webElementMethods;
 
     @Override
     @BeforeEach
     public void setUp() {
         super.setUp();
         CookiesProvider.loadCookiesOrLogIn(driver);
+
         homePage = new HomePage(driver);
         trainingPage = new TrainingPage(driver);
         bookStorePage = new BookStorePage(driver);
@@ -48,6 +49,20 @@ public class ProfileTest extends TestBase {
 
         webElementMethods = new WebElementMethods(driver);
     }
+
+    // -------
+    // HELPERS
+    // -------
+
+    private void navigateToProfilePage() {
+        homePage.goToBookStorePage();
+        trainingPage.removeFooterAndAds();
+        bookStorePage.goToProfilePage();
+    }
+
+    // -----
+    // TESTS
+    // -----
 
     @Test
     public void shouldChangeNumberOfRows() {
@@ -65,12 +80,7 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToProfilePage();
-
+        navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .selectRowsAmount(rowsSelectValue);
 
@@ -94,17 +104,10 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToProfilePage();
-
+        navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
-
         webElementMethods.waitForElementToStopMoving(deleteAllBooksModal);
-
         profilePage.clickDeleteAllBooksModalCancelButton()
                 .waitForDisappearDeleteAllBooksModal();
 
@@ -129,21 +132,12 @@ public class ProfileTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToProfilePage();
-
+        navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
-
         webElementMethods.waitForElementToStopMoving(profilePage.getDeleteAllBooksModal());
-
         profilePage.clickDeleteAllBooksModalOKButton();
-
         alertText = profilePage.getAlertText();
-
         profilePage.acceptAlert();
 
         // ------
@@ -156,25 +150,13 @@ public class ProfileTest extends TestBase {
     @Test
     public void shouldGoToBookStore() {
 
-        // -------
-        // ARRANGE
-        // -------
-
-        BookStorePage bookStorePage = new BookStorePage(driver);
-
         // ---
         // ACT
         // ---
 
-        homePage.goToBookStorePage();
-
-        trainingPage.removeFooterAndAds();
-
-        bookStorePage.goToProfilePage();
-
+        navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .clickGoToBookStoreButton();
-
         bookStorePage.waitForBooksTable();
 
         // ------
