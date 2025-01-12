@@ -2,21 +2,25 @@ package tools_qa.models;
 
 public class RegisterUser {
 
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String password;
+    private final String firstName;
+    private final String lastName;
+    private final String userName;
+    private final String password;
 
+    // -----------
     // CONSTRUCTOR
+    // -----------
 
-    public RegisterUser(String firstName, String lastName, String userName, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
+    private RegisterUser(RegisterUserBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.userName = builder.userName;
+        this.password = builder.password;
     }
 
+    // -------
     // GETTERS
+    // -------
 
     public String getFirstName() {
         return firstName;
@@ -38,7 +42,7 @@ public class RegisterUser {
     // BUILDER
     // -------
 
-    public static final class RegisterUserBuilder {
+    public static class RegisterUserBuilder {
 
         private String firstName;
         private String lastName;
@@ -66,7 +70,7 @@ public class RegisterUser {
         }
 
         public RegisterUser build() {
-            return new RegisterUser(firstName, lastName, userName, password);
+            return new RegisterUser(this);
         }
     }
 }
