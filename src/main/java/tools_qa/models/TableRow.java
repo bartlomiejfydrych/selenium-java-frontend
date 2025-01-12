@@ -2,21 +2,29 @@ package tools_qa.models;
 
 public class TableRow {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String age;
-    private String salary;
-    private String department;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String age;
+    private final String salary;
+    private final String department;
 
-    public TableRow(String firstName, String lastName, String email, String age, String salary, String department) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-        this.salary = salary;
-        this.department = department;
+    // -----------
+    // CONSTRUCTOR
+    // -----------
+
+    private TableRow(TableRowBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.age = builder.age;
+        this.salary = builder.salary;
+        this.department = builder.department;
     }
+
+    // -------
+    // GETTERS
+    // -------
 
     public String getAge() {
         return age;
@@ -46,7 +54,7 @@ public class TableRow {
     // BUILDER
     // -------
 
-    public static final class TableRowBuilder {
+    public static class TableRowBuilder {
 
         private String firstName;
         private String lastName;
@@ -86,7 +94,7 @@ public class TableRow {
         }
 
         public TableRow build() {
-            return new TableRow(firstName, lastName, email, age, salary, department);
+            return new TableRow(this);
         }
     }
 }

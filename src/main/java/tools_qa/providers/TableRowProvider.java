@@ -5,8 +5,9 @@ import tools_qa.models.TableRow;
 
 public class TableRowProvider {
 
+    private static final Faker faker = new Faker();
+
     public static TableRow getRandomTableRow() {
-        Faker faker = new Faker();
         return new TableRow.TableRowBuilder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
