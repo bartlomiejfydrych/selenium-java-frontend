@@ -11,11 +11,11 @@ public class TextBoxForm {
     // CONSTRUCTOR
     // -----------
 
-    public TextBoxForm(String fullName, String email, String currentAddress, String permanentAddress) {
-        this.fullName = fullName;
-        this.email = email;
-        this.currentAddress = currentAddress;
-        this.permanentAddress = permanentAddress;
+    private TextBoxForm(TextBoxFormBuilder builder) {
+        this.fullName = builder.fullName;
+        this.email = builder.email;
+        this.currentAddress = builder.currentAddress;
+        this.permanentAddress = builder.permanentAddress;
     }
 
     // -------
@@ -42,7 +42,7 @@ public class TextBoxForm {
     // BUILDER
     // -------
 
-    public static final class TextBoxFormBuilder {
+    public static class TextBoxFormBuilder {
 
         private String fullName;
         private String email;
@@ -70,7 +70,7 @@ public class TextBoxForm {
         }
 
         public TextBoxForm build() {
-            return new TextBoxForm(fullName, email, currentAddress, permanentAddress);
+            return new TextBoxForm(this);
         }
     }
 }
