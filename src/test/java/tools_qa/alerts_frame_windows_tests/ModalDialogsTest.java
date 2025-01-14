@@ -62,7 +62,7 @@ public class ModalDialogsTest extends TestBase {
 
         navigateToModalDialogsPage();
         modalDialogsPage.clickSmallModalButton();
-        webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow());
+        webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow(), 3000);
         String modalHeader = modalDialogsPage.getModalHeader().getText();
         String modalText = modalDialogsPage.getSmallModalBody().getText();
         modalDialogsPage.clickSmallModalCloseButton();
@@ -97,7 +97,7 @@ public class ModalDialogsTest extends TestBase {
 
         navigateToModalDialogsPage();
         modalDialogsPage.clickLargeModalButton();
-        webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow());
+        webElementMethods.waitForElementToStopMoving(modalDialogsPage.getModalWindow(), 3000);
         String modalHeader = modalDialogsPage.getModalHeader().getText();
         String modalText = modalDialogsPage.getLargeModalBody().getText();
         modalDialogsPage.clickLargeModalCloseButton();

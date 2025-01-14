@@ -139,7 +139,7 @@ public class RegisterTest extends TestBase {
 
         navigateToRegisterPage();
         registerPage.clickRegisterButton();
-        webElementMethods.waitForElementToStopColorChanging(registerPage.getFirstNameInput(), "border-color");
+        webElementMethods.waitForElementToStopColorChanging(registerPage.getFirstNameInput(), "border-color", 2000);
 
         // ------
         // ASSERT

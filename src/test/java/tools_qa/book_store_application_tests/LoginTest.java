@@ -104,8 +104,8 @@ public class LoginTest extends TestBase {
 
         navigateToLoginPage();
         loginPage.clickLoginButton();
-        webElementMethods.waitForElementToStopColorChanging(userNameInput, cssValue);
-        webElementMethods.waitForElementToStopColorChanging(passwordInput, cssValue);
+        webElementMethods.waitForElementToStopColorChanging(userNameInput, cssValue, 2000);
+        webElementMethods.waitForElementToStopColorChanging(passwordInput, cssValue, 2000);
 
         // ------
         // ASSERT

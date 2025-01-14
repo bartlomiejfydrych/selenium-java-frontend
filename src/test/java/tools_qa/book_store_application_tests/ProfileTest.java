@@ -107,7 +107,7 @@ public class ProfileTest extends TestBase {
         navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
-        webElementMethods.waitForElementToStopMoving(deleteAllBooksModal);
+        webElementMethods.waitForElementToStopMoving(deleteAllBooksModal, 2000);
         profilePage.clickDeleteAllBooksModalCancelButton()
                 .waitForDisappearDeleteAllBooksModal();
 
@@ -135,7 +135,7 @@ public class ProfileTest extends TestBase {
         navigateToProfilePage();
         profilePage.waitForBooksTable()
                 .clickDeleteAllBooksButton();
-        webElementMethods.waitForElementToStopMoving(profilePage.getDeleteAllBooksModal());
+        webElementMethods.waitForElementToStopMoving(profilePage.getDeleteAllBooksModal(), 2000);
         profilePage.clickDeleteAllBooksModalOKButton();
         alertText = profilePage.getAlertText();
         profilePage.acceptAlert();

@@ -196,7 +196,7 @@ public class PracticeFormTest extends TestBase {
 
         navigateToPracticeFormPage();
         practiceFormPage.clickSubmit();
-        webElementMethods.waitForElementToStopColorChanging(practiceFormPage.getFirstNameInput(), cssValue);
+        webElementMethods.waitForElementToStopColorChanging(practiceFormPage.getFirstNameInput(), cssValue, 2000);
 
         // ------
         // ASSERT

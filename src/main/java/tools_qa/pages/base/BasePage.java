@@ -12,6 +12,7 @@ import tools_qa.configuration.Config;
 import java.time.Duration;
 
 public abstract class BasePage {
+
     protected WebDriver driver;
     protected Actions actions;
     protected WebDriverWait defaultWait;

@@ -244,7 +244,7 @@ public class DroppableTest extends TestBase {
         navigateToDroppablePage();
         droppablePage.clickRevertDraggableTab()
                 .moveElementToAnotherElement(dragBox, dropBox);
-        webElementMethods.waitForElementToStopMoving(dragBox);
+        webElementMethods.waitForElementToStopMoving(dragBox, 4000);
 
         // ------
         // ASSERT
