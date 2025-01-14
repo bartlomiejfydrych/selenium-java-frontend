@@ -3,10 +3,20 @@ package tools_qa.providers;
 import tools_qa.configuration.Config;
 
 public class UrlProvider {
-    private static String baseUrl = Config.getAppUrl();
-    public static String homePage = baseUrl;
-    public static String loginPage = baseUrl + "/login";
-    // NOTE FOR ME:
-    // Przykłady budowania innych URLi:
-    public static String elementsUrl = baseUrl + "/elements";
+
+    private static final String BASE_URL = Config.getAppUrl();
+
+    public static String getHomePageUrl() {
+        return BASE_URL;
+    }
+
+    // Examples of building other URLs:
+
+    public static String getLoginPageUrl() {
+        return BASE_URL + "/login";
+    }
+
+    public static String getElementsPageUrl() {
+        return BASE_URL + "/elements";
+    }
 }

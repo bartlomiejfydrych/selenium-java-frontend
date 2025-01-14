@@ -32,7 +32,7 @@ public class CookiesProvider {
         } else {
             logIn(driver);
             saveCookiesToFile(driver);
-            driver.get(UrlProvider.homePage);
+            driver.get(UrlProvider.getHomePageUrl());
         }
     }
 
@@ -48,7 +48,7 @@ public class CookiesProvider {
         String userName = dotenv.get("TQ_BSA_USERNAME");
         String password = dotenv.get("TQ_BSA_PASSWORD");
         // Go to login page
-        driver.get(UrlProvider.loginPage);
+        driver.get(UrlProvider.getLoginPageUrl());
         // Remove footer and ads
         TrainingPage trainingPage = new TrainingPage(driver);
         trainingPage.removeFooterAndAds();

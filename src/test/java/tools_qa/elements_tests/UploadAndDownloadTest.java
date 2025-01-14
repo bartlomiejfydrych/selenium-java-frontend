@@ -33,7 +33,7 @@ public class UploadAndDownloadTest extends TestBase {
     @BeforeEach
     public void setUp() {
         driver = DriverProvider.getDriver(Config.getBrowser(), downloadPath);
-        driver.get(UrlProvider.homePage);
+        driver.get(UrlProvider.getHomePageUrl());
         homePage = new HomePage(driver);
         trainingPage = new TrainingPage(driver);
         elementsPage = new ElementsPage(driver);
