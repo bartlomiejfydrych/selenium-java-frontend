@@ -86,4 +86,9 @@ public class Config {
     public static String getDownloadFilePath() {
         return Paths.get(getProperty("downloadFilePath", ".")).toAbsolutePath().toString();
     }
+
+    // Get clear Allure Report files setting, with a default value of false
+    public static boolean getClearAllureReportFiles() {
+        return Boolean.parseBoolean(getProperty("clearAllureReportFiles", "false"));
+    }
 }

@@ -23,10 +23,11 @@ public class TestBase {
         /*
         NOTE:
         Since I don't use the Allure report for further learning, I added deleting its files so that it doesn't fill up my disk.
-        Comment this all "@BeforeAll" section if you need to use the Allure report.
+        Set 'clearAllureReportFiles=true' in [config.properties] if you need to use the Allure report.
         */
-        cleanAllureResultsDirectory();
-        // TODO: Spróbować ustawić używanie tej metody w zależności od konfiguracji
+        if (Config.getClearAllureReportFiles()) {
+            cleanAllureResultsDirectory();
+        }
     }
 
     @BeforeEach
@@ -42,8 +43,9 @@ public class TestBase {
 
     @AfterAll
     public static void cleanUpAll() {
-        System.out.println("Remember to delete the directory: [project/target/allure-results] before running the tests again.");
-        System.out.println("If you want to fully use 'Allure Report' remember to comment out the 'cleanAllureResultsDirectory();' method in the '@BeforeAll' annotation.");
+        System.out.println("Remember to check and delete the directory: [project/target/allure-results] before running the tests again." +
+                "(If in [config.properties] is set 'clearAllureReportFiles=false').");
+        System.out.println("If you want to fully use 'Allure Report' remember to set 'clearAllureReportFiles=true' in [config.properties].");
     }
 
     // -------
