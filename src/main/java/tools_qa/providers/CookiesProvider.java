@@ -26,7 +26,7 @@ public class CookiesProvider {
     // -----------
 
     public static void loadCookiesOrLogIn(WebDriver driver) {
-        if (checkIfCookieFileExists() && checkCookieValidity()) {
+        if (checkIfCookieFileExists() && areCookiesValid()) {
             loadCookies(driver);
             driver.navigate().refresh(); // Refresh to apply cookies
         } else {
@@ -42,7 +42,10 @@ public class CookiesProvider {
 
     // LOG IN
 
-    public static void logIn(WebDriver driver) {
+    /**
+     * Log in to the application and navigate to the home page.
+     */
+    private static void logIn(WebDriver driver) {
         // Load .env variables
         Dotenv dotenv = Dotenv.configure().directory("./environment").load();
         String userName = dotenv.get("TQ_BSA_USERNAME");
@@ -64,23 +67,16 @@ public class CookiesProvider {
 
     // SAVE AND LOAD
 
-    public static void saveCookiesToFile(WebDriver driver) {
+    /**
+     * Save cookies to a file.
+     */
+    private static void saveCookiesToFile(WebDriver driver) {
         Set<Cookie> cookies = driver.manage().getCookies();
-
         File cookieFile = new File(COOKIES_FILE_PATH);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cookieFile))) {
             for (Cookie cookie : cookies) {
-                String cookieString = String.format(
-                        "%s;%s;%s;%s;%s;%s;%b",
-                        cookie.getName(),
-                        cookie.getValue(),
-                        cookie.getDomain(),
-                        cookie.getPath(),
-                        cookie.getExpiry() != null ? cookie.getExpiry().toString() : "null",
-                        cookie.isSecure(),
-                        cookie.isHttpOnly()
-                );
-                writer.write(cookieString);
+                writer.write(formatCookie(cookie));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -88,7 +84,10 @@ public class CookiesProvider {
         }
     }
 
-    public static void loadCookies(WebDriver driver) {
+    /**
+     * Load cookies from a file and add them to the browser.
+     */
+    private static void loadCookies(WebDriver driver) {
         List<Cookie> cookies = readCookiesFromFile();
         for (Cookie cookie : cookies) {
             driver.manage().addCookie(cookie);
@@ -97,12 +96,18 @@ public class CookiesProvider {
 
     // VALIDATION
 
-    public static boolean checkIfCookieFileExists() {
+    /**
+     * Check if the cookie file exists.
+     */
+    private static boolean checkIfCookieFileExists() {
         File cookieFile = new File(COOKIES_FILE_PATH);
         return cookieFile.exists() && cookieFile.isFile();
     }
 
-    public static boolean checkCookieValidity() {
+    /**
+     * Check if cookies in the file are valid (not expired).
+     */
+    private static boolean areCookiesValid() {
         List<Cookie> cookies = readCookiesFromFile();
         Date now = new Date();
 
@@ -117,62 +122,84 @@ public class CookiesProvider {
 
     // READ FROM FILE
 
+    /**
+     * Read cookies from the file.
+     */
     private static List<Cookie> readCookiesFromFile() {
         File cookieFile = new File(COOKIES_FILE_PATH);
         List<Cookie> cookies = new ArrayList<>();
 
-        // Handle different date formats
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-        SimpleDateFormat iso8601DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
-
         try (BufferedReader reader = new BufferedReader(new FileReader(cookieFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length < 6) {
-                    throw new IllegalArgumentException("Incorrect line format: " + line);
-                }
-
-                String name = parts[0];
-                String value = parts[1];
-                String domain = parts[2];
-                String path = parts[3];
-                Date expiry = null;
-
-                // Parsing the expiration date
-                if (!parts[4].equals("null")) {
-                    try {
-                        expiry = iso8601DateFormat.parse(parts[4]);
-                    } catch (ParseException e) {
-                        try {
-                            expiry = simpleDateFormat.parse(parts[4]);
-                        } catch (ParseException ignored) {
-                            // Unhandled date format
-                        }
-                    }
-                }
-
-                boolean isSecure = Boolean.parseBoolean(parts[5]);
-                boolean isHttpOnly = Boolean.parseBoolean(parts[6]);
-
-                // Creating a Cookie Object
-                Cookie.Builder cookieBuilder = new Cookie.Builder(name, value)
-                        .domain(domain)
-                        .path(path)
-                        .isSecure(isSecure);
-
-                if (expiry != null) {
-                    cookieBuilder.expiresOn(expiry);
-                }
-                if (isHttpOnly) {
-                    cookieBuilder.isHttpOnly(true);
-                }
-
-                cookies.add(cookieBuilder.build());
+                cookies.add(parseCookie(line));
             }
         } catch (IOException e) {
             throw new RuntimeException("Error reading cookie file", e);
         }
         return cookies;
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    /**
+     * Format a cookie as a string for saving to a file.
+     */
+    private static String formatCookie(Cookie cookie) {
+        return String.format("%s;%s;%s;%s;%s;%b;%b",
+                cookie.getName(),
+                cookie.getValue(),
+                cookie.getDomain(),
+                cookie.getPath(),
+                cookie.getExpiry() != null ? cookie.getExpiry().toString() : "null",
+                cookie.isSecure(),
+                cookie.isHttpOnly());
+    }
+
+    /**
+     * Parse a 'cookie string' into a 'Cookie object'.
+     */
+    private static Cookie parseCookie(String line) {
+        String[] parts = line.split(";");
+        if (parts.length < 6) {
+            throw new IllegalArgumentException("Incorrect cookie format: " + line);
+        }
+
+        String name = parts[0];
+        String value = parts[1];
+        String domain = parts[2];
+        String path = parts[3];
+        Date expiry = parseDate(parts[4]);
+        boolean isSecure = Boolean.parseBoolean(parts[5]);
+        boolean isHttpOnly = Boolean.parseBoolean(parts[6]);
+
+        return new Cookie.Builder(name, value)
+                .domain(domain)
+                .path(path)
+                .isSecure(isSecure)
+                .expiresOn(expiry)
+                .isHttpOnly(isHttpOnly)
+                .build();
+    }
+
+    private static Date parseDate(String dateString) {
+        SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat ISO_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
+
+        if ("null".equals(dateString)) {
+            return null;
+        }
+
+        try {
+            return ISO_DATE_FORMAT.parse(dateString);
+        } catch (ParseException e) {
+            try {
+                return SIMPLE_DATE_FORMAT.parse(dateString);
+            } catch (ParseException ex) {
+                throw new IllegalArgumentException("Unsupported date format: " + dateString, ex);
+            }
+        }
     }
 }
