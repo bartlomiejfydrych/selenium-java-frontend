@@ -21,8 +21,8 @@
         <dotenvJava.version>3.0.2</dotenvJava.version>
         <allureJunit5.version>2.29.1</allureJunit5.version>
         <!-- FRONTEND -->
-        <seleniumJava.version>4.27.0</seleniumJava.version>
-        <seleniumSupport.version>4.27.0</seleniumSupport.version>
+        <seleniumJava.version>4.28.0</seleniumJava.version>
+        <seleniumSupport.version>4.28.0</seleniumSupport.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
     </properties>
 
