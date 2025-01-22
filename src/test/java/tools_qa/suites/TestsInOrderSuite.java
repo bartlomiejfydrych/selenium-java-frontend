@@ -3,20 +3,25 @@ package tools_qa.suites;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
+import tools_qa.tests.book_store_application_tests.BookStoreTest;
+import tools_qa.tests.book_store_application_tests.LoginTest;
+import tools_qa.tests.book_store_application_tests.ProfileTest;
+import tools_qa.tests.book_store_application_tests.RegisterTest;
 
 @Suite
 @SelectPackages({
-        "tools_qa.elements_tests",
-        "tools_qa.forms_tests",
-        "tools_qa.alerts_frame_windows_tests",
-        "tools_qa.widgets_tests",
-        "tools_qa.interactions_tests"
+        "tools_qa.tests.elements_tests",
+        "tools_qa.tests.forms_tests",
+        "tools_qa.tests.alerts_frame_windows_tests",
+        "tools_qa.tests.widgets_tests",
+        "tools_qa.tests.interactions_tests"
 })
 @SelectClasses({
-        tools_qa.book_store_application_tests.RegisterTest.class,
-        tools_qa.book_store_application_tests.LoginTest.class,
-        tools_qa.book_store_application_tests.ProfileTest.class,
-        tools_qa.book_store_application_tests.BookStoreTest.class
+        // Path to Class is optional. 'RegisterTest.class' works too
+        tools_qa.tests.book_store_application_tests.RegisterTest.class,
+        tools_qa.tests.book_store_application_tests.LoginTest.class,
+        tools_qa.tests.book_store_application_tests.ProfileTest.class,
+        tools_qa.tests.book_store_application_tests.BookStoreTest.class
 })
 public class TestsInOrderSuite {
 }

@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import tools_qa.models.TableRow;
+import tools_qa.models_providers.elements_models.web_tables.TableRow;
 import tools_qa.pages.base.BasePage;
 
 import java.time.Duration;

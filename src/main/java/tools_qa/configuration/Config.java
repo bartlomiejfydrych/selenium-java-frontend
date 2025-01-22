@@ -24,7 +24,7 @@ public class Config {
 
     // Static initializer to load the configuration file
     static {
-        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("tools_qa/config.properties")) {
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("tools_qa/configs/config.properties")) {
             if (inputStream == null) {
                 throw new IllegalStateException("Configuration file 'config.properties' not found");
             }

@@ -5,10 +5,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import tools_qa.models.PracticeForm;
+import tools_qa.models_providers.forms_models.practice_form.PracticeForm;
 import tools_qa.pages.base.BasePage;
 
 import java.io.File;
@@ -251,7 +250,7 @@ public class PracticeFormPage extends BasePage {
     // Picture
 
     public PracticeFormPage uploadPicture() {
-        File pictureToUpload = new File("src/main/resources/tools_qa/PracticeForm/PracticeFormTest_UploadPicture.png");
+        File pictureToUpload = new File("src/main/resources/tools_qa/test_files/forms_files/PracticeFormTest_UploadPicture.png");
         uploadPictureButton.sendKeys(pictureToUpload.getAbsolutePath());
         return this;
     }

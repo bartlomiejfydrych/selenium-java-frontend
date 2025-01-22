@@ -75,7 +75,7 @@ public class UploadAndDownloadPage extends BasePage {
     // UPLOAD FILE
 
     public void uploadFile() {
-        Path fileToUploadPath = Paths.get("src/main/resources/tools_qa/UploadAndDownload/UploadAndDownloadTest_UploadFile.png").toAbsolutePath();
+        Path fileToUploadPath = Paths.get("src/main/resources/tools_qa/test_files/elements_files/upload_and_download/UploadAndDownloadTest_UploadFile.png").toAbsolutePath();
         File fileToUpload = fileToUploadPath.toFile();
         if (!fileToUpload.exists()) {
             throw new IllegalArgumentException("File does not exist: " + fileToUploadPath);

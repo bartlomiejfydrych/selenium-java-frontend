@@ -3,9 +3,11 @@
 environment/.env
 
 # ToolsQA
+src/main/resources/tools_qa/auth/*
+!src/main/resources/tools_qa/auth/.gitkeep
+src/test/resources/tools_qa/download/elements_files/upload_and_download/*
+!src/test/resources/tools_qa/download/elements_files/upload_and_download/.gitkeep
 sampleFile.jpeg
-src/main/resources/tools_qa/Auth/*
-!src/main/resources/tools_qa/Auth/.gitkeep
 
 ### Java template
 # Compiled class file

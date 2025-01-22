@@ -18,7 +18,7 @@ public class CookiesProvider {
 
     // FILE PATHS
     private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
-    private static final String COOKIES_DIR = "Auth";
+    private static final String COOKIES_DIR = "auth";
     private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
 
     // -----------

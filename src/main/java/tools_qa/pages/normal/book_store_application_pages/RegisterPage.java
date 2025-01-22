@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import tools_qa.models.RegisterUser;
+import tools_qa.models_providers.book_store_application_models.register_user.RegisterUser;
 import tools_qa.pages.base.BasePage;
 
 public class RegisterPage extends BasePage {
