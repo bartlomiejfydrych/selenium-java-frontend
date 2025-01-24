@@ -1,13 +1,19 @@
-### My files
-# Project environment
+### MY FILES
+# PROJECT
+# environment
 environment/.env
 
-# ToolsQA
+# TOOLS_QA
+# auth
 src/main/resources/tools_qa/auth/*
 !src/main/resources/tools_qa/auth/.gitkeep
+# download
 src/test/resources/tools_qa/download/elements_files/upload_and_download/*
 !src/test/resources/tools_qa/download/elements_files/upload_and_download/.gitkeep
 sampleFile.jpeg
+# output
+output/*
+!output/.gitkeep
 
 ### Java template
 # Compiled class file

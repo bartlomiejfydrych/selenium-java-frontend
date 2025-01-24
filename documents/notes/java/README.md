@@ -704,54 +704,81 @@ https://allurereport.org/docs/
    - W katalogu **test** tworzymy katalog `resources`
    - W katalogu **resources** tworzymy plik `allure.properties`
    - W pliku tym umieszczamy taką linijkę:
-     `allure.results.directory=target/allure-results`
+     `allure.results.directory=output/allure_results`
    - **Musimy pamiętać, aby po każdych testach czyścić zawartość tego katalogu (usuwać go)**
-6. Wywołujemy otwarcie raportu za pomocą konsoli:
+6. Jeżeli ustawiliśmy inny katalog niż `target` to musimy nasz katalog **dodać do .gitignore**:  
+   (Jeżeli chcemy zachować pusty katalog w repo to dodajemy do niego pliczek `.gitkeep`)
+   ```.gitignore
+   # output
+    output/*
+    !output/.gitkeep
+   ```
+7. Wywołujemy otwarcie raportu za pomocą konsoli:
    - Uruchamiamy jakieś nasze testy
-   - W katalogu `target/allure-results` pojawiają się pliki raportowe
+   - W katalogu `output/allure_results` pojawiają się pliki raportowe
    - W IDE otwieramy terminal
-   - Wpisujemy polecenie `allure serve target/allure-results`
-7. (Opcjonalne) Chciałem, by przed **WSZYSTKIMI** testami katalog z plikami Allure był zawsze czyszczony.  
-   Niestety, JUnit nie ma takiej możliwości, a adnotacja `@BeforeAll` dotyczy "przed każdą klasą".  
-   Można sobie dodać w `TestBase` w `@BeforeAll`.  
-   Zapisuję poniżej funkcję czyszczącą na wszelki wypadek:
-   ```java
-    // -------
-    // HELPERS
-    // -------
-
-    // Allure report files are generated every time the tests are run. This method will clean them up regularly.
-    private static void cleanAllureResultsDirectory() {
-        Path allureResultsPath = Paths.get("target", "allure-results");
-        try {
-            if (Files.exists(allureResultsPath)) {
-                try (Stream<Path> paths = Files.walk(allureResultsPath)) {
-                    paths.sorted((path1, path2) -> path2.compareTo(path1)) // First internal files, then directories.
-                            .forEach(path -> {
-                                try {
-                                    Files.delete(path);
-                                } catch (IOException e) {
-                                    System.err.println("Error deleting file: " + path);
-                                }
-                            });
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error cleaning allure-results directory: " + e.getMessage());
-        }
-    }
-   ```
-   Jedyne sensowne rozwiązanie, jakie mi pozostało to w `TestBase.java` dodanie loga przypominającego o czyszczeniu tego katalogu:
-   ```java
-   @AfterEach
-   public void cleanUp() {
-        driver.quit();
-        System.out.println("Remember to delete the directory: [project/target/allure-results] before running the tests again.");
-   }
-   ```
+   - Wpisujemy polecenie `allure serve output/allure_results`
+8. (Opcjonalne) Tworzymy **funkcję czyszczącą** generowane pliki z Allure:  
+   Chciałem, by przed **WSZYSTKIMI** testami katalog z plikami Allure był zawsze czyszczony.  
+   Niestety, JUnit nie ma takiej możliwości, a adnotacja `@BeforeAll` dotyczy tylko "przed każdą klasą".  
    Poniżej jest jakieś rozwiązanie, ale uznałem je za zbyt przekombinowane:  
    https://stackoverflow.com/questions/43282798/in-junit-5-how-to-run-code-before-all-tests
-8. Instalujemy plugin pozwalający na generowanie raportu bezpośrednio z IDE:
+     - Do pliku `config.properties`, który znajduje się w `src/main/resources/tools_qa/configs/config.properties`
+       dodajemy nową zmienną:
+       ```config.properties
+       clearAllureReportFiles=true
+       ```
+     - W pliku `TestBase.java` tworzymy metodę czyszczącą:
+       ```java
+       // -------
+       // HELPERS
+       // -------
+
+       // Allure report files are generated every time the tests are run. This method will clean them up regularly.
+       private static void cleanAllureResultsDirectory() {
+           Path allureResultsPath = Paths.get("output", "allure_results");
+           try {
+               if (Files.exists(allureResultsPath)) {
+                   try (Stream<Path> paths = Files.walk(allureResultsPath)) {
+                       paths.sorted((path1, path2) -> path2.compareTo(path1)) // First internal files, then directories.
+                               .forEach(path -> {
+                                   try {
+                                       Files.delete(path);
+                                   } catch (IOException e) {
+                                       System.err.println("Error deleting file: " + path);
+                                   }
+                               });
+                   }
+               }
+           } catch (IOException e) {
+               System.err.println("Error cleaning allure_results directory: " + e.getMessage());
+           }
+       }
+       ```
+     - Dodajemy adnotację `@BeforeAll` w której będzie ona wywoływana w zależności od ustawienia w konfiguracji: 
+       ```java
+       @BeforeAll
+           public static void setUpAll() {
+               /*
+               NOTE:
+               Since I don't use the Allure report for further learning, I added deleting its files so that it doesn't fill up my disk.
+               Set 'clearAllureReportFiles=true' in [config.properties] if you need to use the Allure report.
+               */
+               if (Config.getClearAllureReportFiles()) {
+                   cleanAllureResultsDirectory();
+               }
+           }
+       ```
+     - Dodajemy adnotację `@AfterAll` logi, które będą nam przypominać o pilnowaniu tego:
+       ```java
+       @AfterAll
+       public static void cleanUpAll() {
+           System.out.println("Remember to check and delete the directory: [project/output/allure_results] before running the tests again." +
+                    "(If in [config.properties] is set 'clearAllureReportFiles=false').");
+           System.out.println("If you want to fully use 'Allure Report' remember to set 'clearAllureReportFiles=true' in [config.properties].");
+       }
+       ```
+9. Instalujemy plugin pozwalający na generowanie raportu bezpośrednio z IDE:
    - Klikamy "hamburger menu"
    - Rozwijamy `File`
    - Klikamy `Settings...`
@@ -760,6 +787,6 @@ https://allurereport.org/docs/
    - Wyszukujemy `Allure`
    - Wybieramy i instalujemy `Allure Report`
    - Apply -> Restart IDE -> OK
-9. Dzięki temu pluginowi możemy klikać prawym na katalog `allure-results` i generować raport z menu IDE
-10. Do konfiguracji raportów Allure z serwerem można używać wtyczki:  
+10. Dzięki temu pluginowi możemy klikać prawym na katalog `allure_results` i generować raport z menu IDE
+11. Do konfiguracji raportów Allure z serwerem można używać wtyczki:  
     `Allure TestOps Support`

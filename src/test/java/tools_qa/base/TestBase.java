@@ -43,7 +43,7 @@ public class TestBase {
 
     @AfterAll
     public static void cleanUpAll() {
-        System.out.println("Remember to check and delete the directory: [project/target/allure-results] before running the tests again." +
+        System.out.println("Remember to check and delete the directory: [project/output/allure_results] before running the tests again." +
                 "(If in [config.properties] is set 'clearAllureReportFiles=false').");
         System.out.println("If you want to fully use 'Allure Report' remember to set 'clearAllureReportFiles=true' in [config.properties].");
     }
@@ -54,7 +54,7 @@ public class TestBase {
 
     // Allure report files are generated every time the tests are run. This method will clean them up regularly.
     private static void cleanAllureResultsDirectory() {
-        Path allureResultsPath = Paths.get("target", "allure-results");
+        Path allureResultsPath = Paths.get("output", "allure_results");
         try {
             if (Files.exists(allureResultsPath)) {
                 try (Stream<Path> paths = Files.walk(allureResultsPath)) {
@@ -69,7 +69,7 @@ public class TestBase {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error cleaning allure-results directory: " + e.getMessage());
+            System.err.println("Error cleaning allure_results directory: " + e.getMessage());
         }
     }
 }
