@@ -1,6 +1,6 @@
-<p style = "text-align:center">
-  <img src="project_banner.png"  alt="banner, selenium logo, java logo, project name"/>
-</p>
+<div style="text-align:center">
+    <img src="project_banner.png"  alt="project banner, selenium and java logo, project name"/>
+</div>.
 
 # 🚧Repository under construction - do not enter🚧
 
