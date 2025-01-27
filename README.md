@@ -1,6 +1,8 @@
+![](project_banner.png)
+
 # 🚧Repository under construction - do not enter🚧
 
-# 📑Informations about this repository (for recruiters)
+# 📑Information about this repository (for recruiters)
 
 ## 📄Description
 
