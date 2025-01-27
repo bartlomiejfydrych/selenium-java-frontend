@@ -1,4 +1,6 @@
-![](project_banner.png)
+<p align="center">
+  <img src="project_banner.png" />
+</p>
 
 # 🚧Repository under construction - do not enter🚧
 
