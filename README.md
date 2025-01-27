@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="project_banner.png" />
+<p style = "text-align:center">
+  <img src="project_banner.png"  alt="banner, selenium logo, java logo, project name"/>
 </p>
 
 # 🚧Repository under construction - do not enter🚧
