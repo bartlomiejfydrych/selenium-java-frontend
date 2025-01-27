@@ -19,6 +19,7 @@
 - [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
 - [WebElementy - czekanie na zakończenie animacji](#webelement_animation_wait)
 - [Selenium — błąd CDP po aktualizacji DevTools](#selenium_devtools_cdp)
+- [Warningi SLF4J — prawdopodobnie po instalacji Allure Report](#slf4j_warnings)
 
 # 📄Opis
 
@@ -496,3 +497,66 @@ W linku wyżej na GitHub inni użytkownicy zaproponowali dwa tymczasowe obejści
      https://www.selenium.dev/documentation/selenium_manager/
    - Dokumentacja **WebDriverManager**:
      https://bonigarcia.dev/webdrivermanager/#webdrivermanager-and-selenium-manager
+
+## Warningi SLF4J — prawdopodobnie po instalacji Allure Report <a name="slf4j_warnings"></a>
+
+**Linki:**  
+Maven: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic/1.5.16  
+Dokumentacja: https://logback.qos.ch/manual/configuration.html  
+Poradnik: https://www.baeldung.com/logback
+
+**Problem:**  
+
+Po instalacji **Allure Report** po każdym uruchomieniu testów zaczęły w konsoli pojawiać się poniższe warningi:  
+```
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+```
+
+![](images/slf4j_warnings_1.png)
+
+Nie robią one nic złego, ale mogą denerwować.
+
+Te warningi oznaczają, że biblioteka **SLF4J (Simple Logging Facade for Java)** została poprawnie dodana do projektu,
+ale brak jest odpowiedniego providera (implementacji logowania), który obsługiwałby wywołania logowania.
+
+SLF4J działa jako interfejs dla różnych frameworków logowania, takich jak Logback, Log4j, czy java.util.logging.
+Jeśli nie dostarczysz implementacji logowania, SLF4J domyślnie przełącza się na "NOP" (no-operation), co oznacza,
+że wszystkie komunikaty logowania będą ignorowane.
+
+**Rozwiązanie:**
+
+1. Musimy dodać odpowiedni provider do swojego projektu:  
+   Wybierz implementację logowania, której chcesz używać (np. **Logback**, **Log4j**, **java.util.logging**) i dodaj ją
+   do swojego menedżera zależności (np. Maven, Gradle). Najczęściej stosowaną implementacją jest **Logback**.
+   - W repozytorium Maven wyszukujemy **Logback Classic**
+   - Link: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic/1.5.16
+   - Dodajemy do naszego `pom.xml`
+   - Przeładowujemy projekt
+2. Inicjujemy konfigurację logowania:
+   - W przypadku korzystania z **Logback** gdzieś w katalogu `resources` tworzymy plik `logback.xml`
+   - Wklejamy w niego poniższą konfigurację i zapisujemy:  
+     ```xml
+     <configuration>
+         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+             <encoder>
+                 <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+             </encoder>
+         </appender>
+     
+         <root level="debug">
+             <appender-ref ref="STDOUT"/>
+         </root>
+     </configuration>
+     ```
+3. Sprawdzamy, czy **SLF4J** jest prawidłowo skonfigurowane:
+   - Uruchamiamy ponownie jakiś test
+   - Warningi powinny zniknąć, a logi zaczną być wyświetlane na konsoli (lub w plikach, w zależności od konfiguracji).
+
+**Komentarz:**
+
+Jeśli nie planujesz używać logowania, możesz po prostu zignorować te warningi, ale jeśli w przyszłości będziesz
+potrzebować logowania, najlepiej skonfigurować jedną z popularnych implementacji.  
+Jeśli chcesz pozbyć się warningów bez dodawania providera, usuń zależność SLF4J z projektu (niezalecane w przypadku
+bibliotek, które wymagają logowania).

@@ -55,6 +55,7 @@ https://mvnrepository.com/
         - AssertJ Core
         - Dotenv Java
         - Allure Report
+        - Logback Classic (opcjonalne, żeby nie denerwowały warningi SLF4J)
     - Frontend:
         - Selenium Java
         - Selenium Support
