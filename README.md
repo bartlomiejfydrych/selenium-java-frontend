@@ -8,16 +8,34 @@
 
 ## 📄Description
 
-🙋‍♂️Hello to all recruiters and I invite you to check out my repository.
+### Introduction
 
-Frontend tests using Selenium and Java.
+Hello to all recruiters and I invite you to check out my repository.🙋‍♂️
 
-This repository was created so that I could easily organize and better absorb all the knowledge acquired during **the test automation course conducted by "Sii Poland"**.  
-This repository contains **frontend tests using Selenium and Java.**  
+This repository was created so that I could easily organize and better absorb all the knowledge acquired during
+**the test automation course conducted by "Sii Poland"**.
+
 A separate repository will be allocated for **API testing using REST Assured.**
 
-The comments in the code are in Polish because they help me remember something and make it easier to explain how something works. You can ignore them.  
-Of course, I am aware that depending on the language of communication used in the project, comments should also be written in that language.
+### About repository
+
+This repository contains **Frontend Tests using Selenium and Java.**
+
+I covered **two websites** with tests containing **different elements and mechanisms**.
+
+I have described everything I have learned in the lower sections of this document.
+
+*Why didn't I cover a "normal" website, e.g. an online store?*  
+Because most of the steps on such a website are very simple and repeatable, so I wouldn't really learn much there.  
+I'm saving such websites for learning how to write tests using BDD in the distant future.
+
+### Additional notes
+
+Some of the comments in the repository are in Polish, so that when I come back to it, I can more easily remember and
+understand what a given piece of code was about.
+
+There are also comments in English to explain to you (recruiters) what a given piece of code is about and why I wrote
+a given method/test this way and not another.
 
 ## 🏆Certificates - test automation course (Sii Poland)
 
@@ -35,40 +53,96 @@ This course consisted of 3 parts:
 
 ## 🧰Used frameworks and technologies
 
+### General
+
 - IntelliJ IDEA
 - Java
-- JUnit
+- Dotenv Java
+- ChatGPT (for refactor and complicated methods)
+
+### Frontend (tests)
+
 - Selenium
 - Selenium Support
-- Webdriver Manager
+- WebDriver Manager
+
+### Tests
+
+- JUnit
+- JUnit Platform Suite
 - Java Faker
 - AssertJ
+- Allure Report
 
 ## 🌐Pages covered with tests
+
+### Links
 
 - [Tools QA](https://demoqa.com/)
 - [Testerczaki](https://dawidkaruga.pl/testerczaki/)
 
 ### Description
 
-**Tools QA** - A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and many others.
+**Tools QA** - A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and
+many others.
 
-**Testerczaki** - Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises are done better.  
-However, "QA Test" has exercises that "Testerczaki" do not have.
+**Testerczaki** - Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises
+are done better. However, "QA Test" has exercises that "Testerczaki" do not have.
 
 ## 🎯What I learned and what I practiced
 
 ### General
 
-- Project configuration
-- .gitignore file configuration for Java
-- Installing plugins for the IDE
-- Adding dependencies to Maven
-- Setting variables for version dependencies in Maven
-- What each dependency is responsible for
-- 🟥TODO: dopisać rzeczy związane z konfiguracją testów
+#### Project
+
+- Project setup (JDK etc.)
+- Setting `.gitignore` file for Java files and more
+- Adding dependencies from Maven repository to `pom.xml` file
+- Setting variables to dependency versions in Maven
+- Finding out what each framework/dependencies is responsible for
+- Generating the project structure in the console using the `tree` command
+- Installing and using plugins for IDE:
+  - .ignore
+  - Rainbow Brackets
+  - Key Promoter X
+  - Allure Report
+
+#### Java
+
+- Using environment variables (`.env`) with Dotenv Java
+- Using `Builder`
+- Using `config.properties` file
+- Using `Enum` variables
+- Managing file paths with `Paths.get()` methods
+- Directory and class naming convention
+
+#### Tests
+
+SOON
 
 ### Tools QA
+
+#### Elements
+
+SOON
+
+#### Forms
+
+SOON
+
+#### Alerts, Frame & Windows
+
+SOON
+
+#### Widgets
+
+SOON
+
+#### Interactions
+
+SOON
+
+#### Book Store Application
 
 SOON
 
@@ -76,7 +150,11 @@ SOON
 
 SOON
 
-## 🤡How can Frontend developer make Tester mad
+### Solved problems
+
+SOON
+
+## 🤡How can Frontend developer make Tester mad?
 
 By adding on website **a lot of**:
 - Tables

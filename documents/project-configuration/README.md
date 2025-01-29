@@ -123,6 +123,8 @@ Sposób użycia:
 *Uwaga! Żeby z tego korzystać trzeba również do Mavena dodać dependencies z Lomboka.  
 Lombok to biblioteka dla języka Java, która ma na celu uproszczenie pisania kodu poprzez automatyzację generowania standardowych fragmentów kodu, takich jak gettery, settery, konstruktory, metody equals(), hashCode() i inne.  
 Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy chcemy zbudować body responsa na podstawie klasy.*
+5. **Allure Report**  
+Umożliwia generowanie raportu z poziomu IDE, a nie konsoli.
 
 ## ⓂMaven - dependencies
 

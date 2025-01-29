@@ -11,5 +11,5 @@ This course consisted of 3 parts:
 - **Part 3:** Writing API tests in `REST Assured`
 
 This repository was created so that I could easily organize and better absorb all the knowledge acquired during **the test automation course conducted by "Sii Poland"**.  
-This repository contains **frontend tests using Selenium and Java.**  
+This repository contains **Frontend Tests using Selenium and Java.**  
 A separate repository will be allocated for **API testing using REST Assured.**
