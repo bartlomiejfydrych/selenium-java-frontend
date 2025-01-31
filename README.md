@@ -83,10 +83,10 @@ This course consisted of 3 parts:
 
 ### Description
 
-**Tools QA** - A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and
+**Tools QA** – A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and
 many others.
 
-**Testerczaki** - Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises
+**Testerczaki** – Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises
 are done better. However, "QA Test" has exercises that "Testerczaki" do not have.
 
 ## 🎯What I learned and what I practiced
@@ -101,6 +101,7 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 - Setting variables to dependency versions in Maven
 - Finding out what each framework/dependencies is responsible for
 - Generating the project structure in the console using the `tree` command
+- Refactor and optimize code with `ChatGPT`
 - Installing and using plugins for IDE:
   - .ignore
   - Rainbow Brackets
@@ -118,17 +119,58 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 #### Tests
 
-SOON
+- Using the `Page Object Pattern`
+- Configuring `Allure Report` and generating a test report
+- Generating random test data with `JavaFaker`
+- Using the `Arrange-Act-Assert` pattern
+- Setting tests to run in a specific order with `JUnit Suite`
+- Checking the `CSS Attribute` of a Web Element
+- Using assertions from the `AssertJ` framework
 
 ### Tools QA
 
 #### Elements
 
-SOON
+- Text Box:
+  - Filling out a simple form
+  - Getting and checking the expected text
+  - Concatenating Strings
+- Check Box:
+  - Expanding and collapsing lists
+  - Checking and unchecking checkboxes
+- Radio Button:
+  - Checking radiobuttons
+- Web Tables:
+  - Adding, editing, searching and reading data from table rows
+  - Waiting for a Web Element to load
+- Buttons:
+  - Clicking buttons with single, double and right clicks
+- Links:
+  - Clicking links
+  - Waiting for a new tab to load
+  - Switching between tabs
+- Broken Links - Images:
+  - Checking for unloaded images and broken links
+  - Checking image dimensions (using JavaScript)
+  - Checking the current page address
+  - Getting HTTP status
+- Upload and Download:
+  - Downloading files
+  - Uploading files
+  - Waiting for a file to download
+  - Deleting a downloaded file
+- Dynamic Properties:
+  - Getting and checking the random ID of the element
+  - Waiting for the button to be clickable
+  - Getting and checking the color of the button/element
+  - Waiting for the button/element to change color
+  - Waiting for the button/element to be visible
 
 #### Forms
 
-SOON
+- Practice Form
+  - Filling and validating data in a larger form containing many different types of Web Elements
+  - String Formatting
 
 #### Alerts, Frame & Windows
 
