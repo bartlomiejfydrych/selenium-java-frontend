@@ -91,6 +91,6 @@ public class NestedFramesTest extends TestBase {
         // ------
 
         assertThat(pageSource).isEqualTo(expectedFramePageSource);
-        assertThat(nestedFramesPage.getParentFrameBody().getText()).isEqualTo(expectedFrameText);
+        assertThat(nestedFramesPage.getChildFrameBody().getText()).isEqualTo(expectedFrameText);
     }
 }

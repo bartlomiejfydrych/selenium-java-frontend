@@ -174,7 +174,30 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 #### Alerts, Frame & Windows
 
-SOON
+- Browser Windows:
+  - Waiting for a new tab/window to load
+  - Opening and switching between tabs/windows
+  - Enlarging the window to full screen
+- Alerts:
+  - Opening alerts
+  - Waiting for alerts
+  - Getting alert text
+  - Typing text into the alert
+  - Accepting the alert
+  - Closing the alert
+- Frames:
+  - Switching between iFrames
+  - Getting text from an iFrame
+  - Getting the page source from an iFrame
+- Nested Frames:
+  - Switching between nested iFrames
+  - Getting text from nested iFrames
+  - Getting the page source from nested iFrames
+- Modal Dialogs:
+  - Opening modal windows
+  - Waiting for the modal window slide animation to finish
+  - Getting text from modal windows
+  - Closing modal windows
 
 #### Widgets
 
@@ -194,7 +217,7 @@ SOON
 
 ### Solved problems
 
-SOON
+- Deleting directories from previous IDE versions in the AppData folder that were cluttering up the system drive
 
 ## 🤡How can Frontend developer make Tester mad?
 
