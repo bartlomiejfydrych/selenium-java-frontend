@@ -201,7 +201,38 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 #### Widgets
 
-SOON
+- Accordian: (on the website they wrote it with a typo)
+  - Waiting for the element to be visible/invisible
+  - Fetching and comparing text
+- Auto Complete:
+  - Approving elements that appear as hints in inputs
+- Date Picker:
+  - Selecting a date in the date picker
+  - Selecting a date and time in the date picker
+  - Modifying the date and time format
+  - Generating a random date and time in the selected range
+- Slider:
+  - Moving the slider using JavaScript
+  - Moving the slider along the X axis
+  - Moving the slider by pressing the arrow keys on the keyboard
+- Progress Bar:
+  - Waiting for the entire progress bar to load
+  - Waiting and stopping the progress bar loading until it reaches a specified value
+- Tabs:
+  - Clicking on tabs on the page
+  - Waiting for the text from the tab to load
+- Tool Tips:
+  - Hovering over an element
+  - Waiting for the tool tip to appear
+  - Fetching text from the tool tip
+- Menu:
+  - Moving the cursor through the menu items
+- Select Menu:
+  - Using a select that contains groups
+  - Using a select that selects only one item
+  - Using a simple old-style select
+  - Using a multiselect drop down
+  - Using a standard multiselect where we can see all the items at once, and we only need to select them
 
 #### Interactions
 
@@ -218,12 +249,13 @@ SOON
 ### Solved problems
 
 - Deleting directories from previous IDE versions in the AppData folder that were cluttering up the system drive
+- Removing page elements (ads) using JavaScript that blocked access to other elements and increased test instability
 
 ## 🤡How can Frontend developer make Tester mad?
 
 By adding on website **a lot of**:
 - Tables
-- Calendars (data pickers)
+- Calendars (date pickers)
 - Unusual windows with about:blank URL
 - Nested iFrames
 - Sliders
