@@ -250,6 +250,22 @@ SOON
 
 - Deleting directories from previous IDE versions in the AppData folder that were cluttering up the system drive
 - Removing page elements (ads) using JavaScript that blocked access to other elements and increased test instability
+- Creating dynamic locators (when we need to insert a variable with text under the locator)
+- Accessing a private WebElement in an assertion using `Getter`
+- Writing a method that checks if an element is not visible without returning an error that it was not found
+- Clicking a button that is inside another element using `actions`
+- Writing a method that checks if an element is clickable without returning an error
+- Using `ExpectedConditions` instead of `Thread.sleep()` to wait until an element contains a specific text
+- Waiting for an element that changes very quickly and frequently using `pollingEvery()`
+- Checking for a broken link or image using `HttpURLConnection`
+- Getting image dimensions using JavaScript
+- Disabling the display of the default search engine in Chrome using `options.addArguments("--disable-search-engine-choice-screen");`
+- Keeping the expanded select using DevTools
+- Keeping hover/tool tip visible using DevTools
+- Fixing bugs after upgrading dependencies in Maven by turn off and on the IDE
+- Writing a method that checks if an element has finished animating its movement
+- Getting to know CDP bug after updating DevTools in Selenium
+- Fixing `SLF4J` warnings
 
 ## 🤡How can Frontend developer make Tester mad?
 
