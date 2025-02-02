@@ -285,7 +285,21 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 ### Testerczaki
 
-SOON
+- Filling out a simple, basic form
+- Filling out a more advanced form that contains various elements such as select, radiobuttons, attachments
+- Writing correct assertions to catch errors
+- Writing difficult/complex selectors/locators
+- Filling out the correct one between two overlapping forms
+- Waiting for and filling in additional fields that appear after checking a checkbox
+- Switching between iFrames
+- Switching between more nested iFrames
+- Switching between browser tabs and windows
+- Managing alerts
+- Navigating between different types of menus
+- Dragging and dropping web elements including those written in HTML5
+- Right-clicking and holding for a specified time
+- Clicking and searching in custom lists
+- Reading data from a table
 
 ### Solved problems
 
