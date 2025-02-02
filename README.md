@@ -151,7 +151,7 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
   - Switching between tabs
 - Broken Links - Images:
   - Checking for unloaded images and broken links
-  - Checking image dimensions (using JavaScript)
+  - Checking image dimensions
   - Checking the current page address
   - Getting HTTP status
 - Upload and Download:
@@ -236,7 +236,31 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 #### Interactions
 
-SOON
+- Sortable:
+  - Sorting a list of items by moving them
+  - Sorting tiles-items by moving them
+- Selectable:
+  - Selecting items in a list
+  - Selecting tiles-items
+  - Checking if items are selected
+- Resizable:
+  - Changing the size of windows/frames/inputs on the page
+- Droppable:
+  - Moving and dropping an item onto another item
+  - Moving and dropping an item onto another item and checking if it has been accepted
+  - Moving and dropping an item onto another item and checking if it has not been accepted
+  - Moving and dropping an item onto two nested other items and checking if both have accepted it
+  - Moving and dropping an item onto two nested other items and checking if only the inner item has accepted it
+  - Moving and dropping an item onto another item and checking if it has returned to its previous position
+  - Moving and dropping an item onto another item and checking if it has not returned to its previous position place
+- Dragabble: (on the website they wrote it with a typo)
+  - Moving elements along the X and Y axes
+  - Moving an element inside a box
+  - Moving text itself inside a box
+  - Moving an element that the cursor grabs in the middle
+  - Moving an element that the cursor grabs in the top left corner
+  - Moving an element that the cursor grabs at the bottom
+  - Checking the "left" and "top" positions of a moved element
 
 #### Book Store Application
 

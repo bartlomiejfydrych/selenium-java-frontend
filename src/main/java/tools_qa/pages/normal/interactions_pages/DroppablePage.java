@@ -111,7 +111,7 @@ public class DroppablePage extends BasePage {
         return acceptDropHereBox;
     }
 
-    // PREVENT PROPOGATION
+    // PREVENT PROPOGATION (on the website they wrote it with a typo)
 
     public WebElement getPreventDragMeBox() {
         return preventDragMeBox;

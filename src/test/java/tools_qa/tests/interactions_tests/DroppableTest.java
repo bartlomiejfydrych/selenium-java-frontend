@@ -146,7 +146,7 @@ public class DroppableTest extends TestBase {
         assertThat(dragBox.getCssValue("top")).isEqualTo(expectedTopPosition);
     }
 
-    // PREVENT PROPOGATION
+    // PREVENT PROPOGATION (on the website they wrote it with a typo)
 
     @Test
     public void shouldDragElementToInnerBoxAndInfluenceOuterBox() {
