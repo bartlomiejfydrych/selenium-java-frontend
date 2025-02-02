@@ -126,6 +126,7 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 - Setting tests to run in a specific order with `JUnit Suite`
 - Checking the `CSS Attribute` of a Web Element
 - Using assertions from the `AssertJ` framework
+- Session management, i.e. tests remembering that we are logged in by saving and loading `cookies`
 
 ### Tools QA
 
@@ -264,7 +265,23 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 
 #### Book Store Application
 
-SOON
+- Register:
+  - Filling out the registration form
+  - Clicking the reCaptcha mechanism
+  - Checking if the reCaptcha mechanism blocked us and displayed the image selection
+  - Checking if required fields are marked in red
+- Login:
+  - Filling out the login form using environment variables (`.env`)
+- Profiles:
+  - Checking table pagination
+  - Checking changing the number of rows per table page
+  - Managing modal windows and alerts
+  - Managing the login session via `cookies`
+- Book Store:
+  - Checking table pagination
+  - Checking changing the number of rows per table page
+  - Searching for data in a table
+  - Checking the correctness of data for all table rows
 
 ### Testerczaki
 
