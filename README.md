@@ -10,10 +10,10 @@
 
 ### Introduction
 
-Hello to all recruiters and I invite you to check out my repository.🙋‍♂️
+Welcome to my repository, recruiters. Feel free to review its contents at your convenience.🙋‍♂️
 
-This repository was created so that I could easily organize and better absorb all the knowledge acquired during
-**the test automation course conducted by "Sii Poland"**.
+This repository was created to structure and reinforce the knowledge I acquired during **the test automation course
+conducted by "Sii Poland"**.
 
 A separate repository will be allocated for **API testing using REST Assured.**
 
@@ -23,11 +23,11 @@ This repository contains **Frontend Tests using Selenium and Java.**
 
 I covered **two websites** with tests containing **different elements and mechanisms**.
 
-I have described everything I have learned in the lower sections of this document.
+I have described everything I have learned in the later sections of this document.
 
-*Why didn't I cover a "normal" website, e.g. an online store?*  
-Because most of the steps on such a website are very simple and repeatable, so I wouldn't really learn much there.  
-I'm saving such websites for learning how to write tests using BDD in the distant future.
+*Why didn't I choose a typical website, such as an online store?*  
+Most steps on such websites are straightforward and repetitive, offering limited learning opportunities.  
+I plan to use that simple websites in the future when learning writing tests in BDD.
 
 ### Additional notes
 
@@ -35,7 +35,7 @@ Some of the comments in the repository are in Polish, so that when I come back t
 understand what a given piece of code was about.
 
 There are also comments in English to explain to you (recruiters) what a given piece of code is about and why I wrote
-a given method/test this way and not another.
+a certain method/test this way and not another.
 
 ## 🏆Certificates - test automation course (Sii Poland)
 
@@ -43,15 +43,15 @@ In the catalogue:
 &emsp;📁documents  
 &emsp;&emsp;📁certificates
 
-I have placed here certificates of completion of the test automation course conducted by "Sii Poland".
+The catalogue contains certificates of completion of the test automation course conducted by "Sii Poland".
 
-This course consisted of 3 parts:
+The course consisted of 3 parts:
 
 - **Part 1:** Basics of programming in `Java`
 - **Part 2:** Writing frontend tests in `Selenium`
 - **Part 3:** Writing API tests in `REST Assured`
 
-## 🧰Used frameworks and technologies
+## 🧰Frameworks and technologies used
 
 ### General
 
@@ -83,11 +83,11 @@ This course consisted of 3 parts:
 
 ### Description
 
-**Tools QA** – A website for practicing interacting with various website elements, e.g. forms, alerts, checkboxes and
+**Tools QA** – A website for practicing interactions various website elements, e.g. forms, alerts, checkboxes and
 many others.
 
-**Testerczaki** – Like "Tools QA" a website for practicing interacting with various website elements BUT the exercises
-are done better. However, "QA Test" has exercises that "Testerczaki" do not have.
+**Testerczaki** – Just like "Tools QA", this is a website for practicing interactions with a variety of website
+elements, but the exercises have been improved. However, "QA Test" has exercises that "Testerczaki" do not have.
 
 ## 🎯What I learned and what I practiced
 
@@ -322,9 +322,9 @@ are done better. However, "QA Test" has exercises that "Testerczaki" do not have
 - Getting to know CDP bug after updating DevTools in Selenium
 - Fixing `SLF4J` warnings
 
-## 🤡How can Frontend developer make Tester mad?
+## 🤡How can a Frontend developer make a Tester mad?
 
-By adding on website **a lot of**:
+By adding tons of these to a website:
 - Tables
 - Calendars (date pickers)
 - Unusual windows with about:blank URL
