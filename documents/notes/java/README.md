@@ -543,6 +543,28 @@ private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, CO
 // --------------------------------------------------
 ```
 
+**Dodatkowo:**  
+Każdy użytkownik będzie miał ten projekt w innych/różnych miejscach systemu.
+Dlatego w pliku konfiguracyjnym `config.properties` nie podajemy pełnej ścieżki absolutnej.  
+Podajemy tylko ścieżkę względną:
+```config
+mainResourcesPath=src\\main\\resources\\tools_qa
+testResourcesPath=src\\test\\resources\\tools_qa
+```
+
+Żeby "dokleić" początek tej ścieżki, czyli w moim przypadku:  
+`E:\\Nauka\\Projekty\\selenium-java-frontend`
+
+Należy użyć `System.getProperty("user.dir")`.
+
+**Przykład:**
+```java
+// Helper method to resolve path based on user directory
+private static String getResolvedPath(String key, String defaultPath) {
+    return Paths.get(System.getProperty("user.dir"), getProperty(key, defaultPath)).toAbsolutePath().toString();
+}
+```
+
 ---
 
 ## Generics — typy generyczne <a name="generics"></a>

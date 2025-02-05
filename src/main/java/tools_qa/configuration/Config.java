@@ -70,7 +70,7 @@ public class Config {
 
     // Get headless mode setting, with a default value of false
     public static boolean isHeadless() {
-        return Boolean.parseBoolean(getProperty("isHeadless", "false"));
+        return getBooleanProperty("isHeadless", false);
     }
 
     // Get default wait time, with a fallback to 10 seconds
@@ -82,13 +82,32 @@ public class Config {
         }
     }
 
-    // Get the file download path, defaulting to the current directory
-    public static String getDownloadFilePath() {
-        return Paths.get(getProperty("downloadFilePath", ".")).toAbsolutePath().toString();
+    // Get the main resources path, defaulting to the current directory
+    public static String getMainResourcesPath() {
+        return getResolvedPath("mainResourcesPath", ".");
+    }
+
+    // Get the test resources path, defaulting to the current directory
+    public static String getTestResourcesPath() {
+        return getResolvedPath("testResourcesPath", ".");
     }
 
     // Get clear Allure Report files setting, with a default value of false
     public static boolean getClearAllureReportFiles() {
-        return Boolean.parseBoolean(getProperty("clearAllureReportFiles", "false"));
+        return getBooleanProperty("clearAllureReportFiles", false);
+    }
+
+    // -------
+    // HELPERS
+    // -------
+
+    // Helper method to get boolean property with default value
+    private static boolean getBooleanProperty(String key, boolean defaultValue) {
+        return Boolean.parseBoolean(getProperty(key, String.valueOf(defaultValue)));
+    }
+
+    // Helper method to resolve path based on user directory
+    private static String getResolvedPath(String key, String defaultPath) {
+        return Paths.get(System.getProperty("user.dir"), getProperty(key, defaultPath)).toAbsolutePath().toString();
     }
 }

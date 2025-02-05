@@ -25,8 +25,8 @@ public class UploadAndDownloadTest extends TestBase {
     private UploadAndDownloadPage uploadAndDownloadPage;
 
     // File download path configuration
-    private final String generalDownloadPath = Config.getDownloadFilePath();
-    private final String downloadDir = "elements_files\\upload_and_download";
+    private final String generalDownloadPath = Config.getTestResourcesPath();
+    private final String downloadDir = "download\\elements_files\\upload_and_download";
     private final String downloadPath = Paths.get(generalDownloadPath, downloadDir).toString();
 
     @Override

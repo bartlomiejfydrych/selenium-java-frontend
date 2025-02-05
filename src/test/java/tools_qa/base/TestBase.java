@@ -32,7 +32,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
-        driver = DriverProvider.getDriver(Config.getBrowser(), Config.getDownloadFilePath());
+        driver = DriverProvider.getDriver(Config.getBrowser(), Config.getTestResourcesPath());
         driver.get(UrlProvider.getHomePageUrl());
     }
 
