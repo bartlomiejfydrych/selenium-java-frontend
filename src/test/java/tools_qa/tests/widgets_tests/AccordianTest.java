@@ -94,7 +94,8 @@ public class AccordianTest extends TestBase {
 
         navigateToAccordianPage();
         accordianPage.clickSection2Button()
-                .waitForElementToBeVisible(accordianPage.getSection2Text1());
+                .waitForElementToBeVisible(accordianPage.getSection2Text1())
+                .waitForElementToBeVisible(accordianPage.getSection2Text2());
 
         // ------
         // ASSERT
@@ -128,6 +129,7 @@ public class AccordianTest extends TestBase {
 
         navigateToAccordianPage();
         accordianPage.clickSection1Button()
+                .waitForElementToBeHidden(accordianPage.getSection1Text())
                 .clickSection3Button()
                 .waitForElementToBeVisible(accordianPage.getSection3Text());
 
