@@ -69,7 +69,8 @@ public class ProgressBarTest extends TestBase {
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorGreen);
 
         // Reset
-        progressBarPage.clickResetButton();
+        progressBarPage.clickResetButton()
+                        .waitForProgressBar(progressBarValue0);
 
         assertThat(progressBarPage.getProgressBar().getDomAttribute(progressBarAttribute)).isEqualTo(progressBarValue0);
         assertThat(progressBarPage.getProgressBar().getCssValue(progressBarCss)).isEqualTo(progressBarColorBlue);
