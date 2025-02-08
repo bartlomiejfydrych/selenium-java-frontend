@@ -92,8 +92,4 @@ public class PodstawyPage extends BasePage {
     public WebElement getGratulacjeAlert() {
         return gratulacjeAlert;
     }
-
-//    public void sprawdzAlert() {
-//        Assert.assertTrue(gratulacjeAlert.isDisplayed());
-//    }
 }
