@@ -87,7 +87,10 @@ The course consisted of 3 parts:
 many others.
 
 **Testerczaki** – Just like "Tools QA", this is a website for practicing interactions with a variety of website
-elements, but the exercises have been improved. However, "QA Test" has exercises that "Testerczaki" do not have.
+elements, but the exercises have been improved. However, "QA Test" has exercises that "Testerczaki" do not have.  
+As this is a Polish website, I decided that I would also write the names of the elements referred to in the code in
+Polish, to make it consistent.  
+Since there are specific exercises to complete, there will be no negative tests unless the task requires it.
 
 ## 🎯What I learned and what I practiced
 

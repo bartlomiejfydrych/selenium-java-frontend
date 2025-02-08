@@ -1,4 +1,4 @@
-package tools_qa.enums;
+package global.enums;
 
 public enum Browser {
     CHROME, FIREFOX, EDGE, IE

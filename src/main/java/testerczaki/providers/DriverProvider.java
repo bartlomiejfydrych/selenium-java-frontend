@@ -1,13 +1,13 @@
-package tools_qa.providers;
+package testerczaki.providers;
 
+import global.enums.Browser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import tools_qa.configuration.Config;
-import global.enums.Browser;
+import testerczaki.configuration.Config;
 
 import java.nio.file.Paths;
 import java.util.HashMap;

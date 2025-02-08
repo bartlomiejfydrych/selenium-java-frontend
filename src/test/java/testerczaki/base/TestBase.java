@@ -1,13 +1,13 @@
-package tools_qa.base;
+package testerczaki.base;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import tools_qa.configuration.Config;
-import tools_qa.providers.DriverProvider;
-import tools_qa.providers.UrlProvider;
+import testerczaki.configuration.Config;
+import testerczaki.providers.DriverProvider;
+import testerczaki.providers.UrlProvider;
 
 import java.io.IOException;
 import java.nio.file.Files;
