@@ -1,0 +1,1 @@
+Plik tekstowy używany jako załącznik w testach strony "Więcej Elementów".
