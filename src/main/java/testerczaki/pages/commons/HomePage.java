@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import testerczaki.pages.base.BasePage;
+import testerczaki.pages.normal.AsercjaPage;
 import testerczaki.pages.normal.PodstawyPage;
 import testerczaki.pages.normal.WiecejElementowPage;
 
@@ -66,12 +67,12 @@ public class HomePage extends BasePage {
         navigateToPage(wiecejElementowZacznijButton, WiecejElementowPage.class);
         return new WiecejElementowPage(driver);
     }
-//
-//    public AsercjaPage goToAsercjaPage() {
-//        asercjaZacznij.click();
-//        return new AsercjaPage(driver);
-//    }
-//
+
+    public AsercjaPage goToAsercjaPage() {
+        navigateToPage(asercjaZacznijButton, AsercjaPage.class);
+        return new AsercjaPage(driver);
+    }
+
 //    public LokalizatoryPage goToLokalizatoryPage() {
 //        lokalizatoryZacznij.click();
 //        return new LokalizatoryPage(driver);
