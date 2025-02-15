@@ -5,10 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import testerczaki.pages.base.BasePage;
-import testerczaki.pages.normal.AsercjaPage;
-import testerczaki.pages.normal.LokalizatoryPage;
-import testerczaki.pages.normal.PodstawyPage;
-import testerczaki.pages.normal.WiecejElementowPage;
+import testerczaki.pages.normal.*;
 
 public class HomePage extends BasePage {
 
@@ -79,11 +76,11 @@ public class HomePage extends BasePage {
         return new LokalizatoryPage(driver);
     }
 
-//    public UkryteElementyPage goToUkryteElementyPage() {
-//        ukryteElementyZacznij.click();
-//        return new UkryteElementyPage(driver);
-//    }
-//
+    public UkryteElementyPage goToUkryteElementyPage() {
+        navigateToPage(ukryteElementyZacznijButton, UkryteElementyPage.class);
+        return new UkryteElementyPage(driver);
+    }
+
 //    public OpcjonalnyFormularzPage goToOpcjonalnyFormularzPage() {
 //        opcjonalnyFormularzZacznij.click();
 //        return new OpcjonalnyFormularzPage(driver);
