@@ -81,11 +81,11 @@ public class HomePage extends BasePage {
         return new UkryteElementyPage(driver);
     }
 
-//    public OpcjonalnyFormularzPage goToOpcjonalnyFormularzPage() {
-//        opcjonalnyFormularzZacznij.click();
-//        return new OpcjonalnyFormularzPage(driver);
-//    }
-//
+    public OpcjonalnyFormularzPage goToOpcjonalnyFormularzPage() {
+        navigateToPage(opcjonalnyFormularzZacznijButton, OpcjonalnyFormularzPage.class);
+        return new OpcjonalnyFormularzPage(driver);
+    }
+
 //    public RamkaPage goToRamkaPage() {
 //        ramkaZacznij.click();
 //        return new RamkaPage(driver);
