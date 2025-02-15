@@ -38,7 +38,7 @@ public class WiecejElementowTest extends TestBase {
         // ---
 
         homePage.goToWiecejElementowPage();
-        wiecejElementowPage.fillWiecejElementowForm(wiecejElementowForm)
+        wiecejElementowPage.fillForm(wiecejElementowForm)
                 .checkRegulaminCheckbox()
                 .clickWyslijButton();
 

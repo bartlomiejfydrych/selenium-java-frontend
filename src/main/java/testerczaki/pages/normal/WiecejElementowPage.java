@@ -63,7 +63,7 @@ public class WiecejElementowPage extends BasePage {
     // METHODS
     // -------
 
-    public WiecejElementowPage fillWiecejElementowForm(WiecejElementowForm wiecejElementowForm) {
+    public WiecejElementowPage fillForm(WiecejElementowForm wiecejElementowForm) {
         writeImie(wiecejElementowForm.getImie());
         writeNazwisko(wiecejElementowForm.getNazwisko());
         selectKraj(wiecejElementowForm.getKraj());

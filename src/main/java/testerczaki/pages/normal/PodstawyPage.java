@@ -41,7 +41,7 @@ public class PodstawyPage extends BasePage {
     // METHODS
     // -------
 
-    public PodstawyPage fillPodstawyForm(PodstawyForm podstawyForm) {
+    public PodstawyPage fillForm(PodstawyForm podstawyForm) {
         writeImie(podstawyForm.getImie());
         writeNazwisko(podstawyForm.getNazwisko());
         writeEmail(podstawyForm.getEmail());

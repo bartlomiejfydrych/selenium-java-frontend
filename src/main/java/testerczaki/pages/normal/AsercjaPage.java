@@ -3,7 +3,7 @@ package testerczaki.pages.normal;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import testerczaki.models_providers.asercja_models.AsercjaForm;
+import testerczaki.models_providers.podstawy_models.PodstawyForm;
 import testerczaki.pages.base.BasePage;
 
 public class AsercjaPage extends BasePage {
@@ -41,12 +41,12 @@ public class AsercjaPage extends BasePage {
     // METHODS
     // -------
 
-    public AsercjaPage fillAsercjaForm(AsercjaForm asercjaForm) {
-        writeImie(asercjaForm.getImie());
-        writeNazwisko(asercjaForm.getNazwisko());
-        writeEmail(asercjaForm.getEmail());
-        writeMiasto(asercjaForm.getMiasto());
-        writeUlica(asercjaForm.getUlica());
+    public AsercjaPage fillForm(PodstawyForm podstawyForm) {
+        writeImie(podstawyForm.getImie());
+        writeNazwisko(podstawyForm.getNazwisko());
+        writeEmail(podstawyForm.getEmail());
+        writeMiasto(podstawyForm.getMiasto());
+        writeUlica(podstawyForm.getUlica());
         return this;
     }
 

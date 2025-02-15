@@ -38,7 +38,7 @@ public class PodstawyTest extends TestBase {
         // ---
 
         homePage.goToPodstawyPage();
-        podstawyPage.fillPodstawyForm(podstawyForm)
+        podstawyPage.fillForm(podstawyForm)
                 .checkRegulaminCheckbox()
                 .clickWyslijButton();
 

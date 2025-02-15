@@ -3,8 +3,8 @@ package testerczaki.tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import testerczaki.base.TestBase;
-import testerczaki.models_providers.asercja_models.AsercjaForm;
-import testerczaki.models_providers.asercja_models.AsercjaFormProvider;
+import testerczaki.models_providers.podstawy_models.PodstawyForm;
+import testerczaki.models_providers.podstawy_models.PodstawyFormProvider;
 import testerczaki.pages.commons.HomePage;
 import testerczaki.pages.normal.AsercjaPage;
 import utils.WebElementMethods;
@@ -41,14 +41,14 @@ public class AsercjaTest extends TestBase {
         // ARRANGE
         // -------
 
-        AsercjaForm asercjaForm = AsercjaFormProvider.getRandomAsercjaForm();
+        PodstawyForm podstawyForm = PodstawyFormProvider.getRandomPodstawyForm();
 
         // ---
         // ACT
         // ---
 
         homePage.goToAsercjaPage();
-        asercjaPage.fillAsercjaForm(asercjaForm)
+        asercjaPage.fillForm(podstawyForm)
                 .checkRegulaminCheckbox()
                 .clickWyslijButton();
 
@@ -56,11 +56,11 @@ public class AsercjaTest extends TestBase {
         // ASSERT
         // ------
 
-        assertThat(asercjaPage.getImieInput().getDomProperty("value")).isEqualTo(asercjaForm.getImie());
-        assertThat(asercjaPage.getNazwiskoInput().getDomProperty("value")).isEqualTo(asercjaForm.getNazwisko());
-        assertThat(asercjaPage.getEmailInput().getDomProperty("value")).isEqualTo(asercjaForm.getEmail());
+        assertThat(asercjaPage.getImieInput().getDomProperty("value")).isEqualTo(podstawyForm.getImie());
+        assertThat(asercjaPage.getNazwiskoInput().getDomProperty("value")).isEqualTo(podstawyForm.getNazwisko());
+        assertThat(asercjaPage.getEmailInput().getDomProperty("value")).isEqualTo(podstawyForm.getEmail());
         assertThat(asercjaPage.getMiastoInput().getDomProperty("value")).isEqualTo("");
-        assertThat(asercjaPage.getUlicaInput().getDomProperty("value")).isEqualTo(asercjaForm.getUlica());
+        assertThat(asercjaPage.getUlicaInput().getDomProperty("value")).isEqualTo(podstawyForm.getUlica());
         assertThat(asercjaPage.getRegulaminCheckbox().isSelected()).isFalse();
         assertThat(webElementMethods.isElementPresent(asercjaPage.getGratulacjeAlert())).isFalse();
     }
