@@ -89,6 +89,30 @@ public class PodstawyPage extends BasePage {
     // GETTERS
     // -------
 
+    public WebElement getImieInput() {
+        return imieInput;
+    }
+
+    public WebElement getNazwiskoInput() {
+        return nazwiskoInput;
+    }
+
+    public WebElement getEmailInput() {
+        return emailInput;
+    }
+
+    public WebElement getMiastoInput() {
+        return miastoInput;
+    }
+
+    public WebElement getUlicaInput() {
+        return ulicaInput;
+    }
+
+    public WebElement getRegulaminCheckbox() {
+        return regulaminCheckbox;
+    }
+
     public WebElement getGratulacjeAlert() {
         return gratulacjeAlert;
     }
