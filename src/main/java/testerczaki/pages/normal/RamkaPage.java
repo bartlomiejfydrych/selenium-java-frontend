@@ -20,14 +20,14 @@ public class RamkaPage extends BasePage {
     // ------------
 
     @FindBy(id = "frame")
-    private WebElement iframeOne;
+    private WebElement iframe1;
 
     // -------
     // METHODS
     // -------
 
-    public RamkaPage switchToIFrameOne() {
-        driver.switchTo().frame(iframeOne);
+    public RamkaPage switchToIframe1() {
+        driver.switchTo().frame(iframe1);
         return this;
     }
 

@@ -7,15 +7,15 @@ import testerczaki.models_providers.podstawy_models.PodstawyForm;
 import testerczaki.models_providers.podstawy_models.PodstawyFormProvider;
 import testerczaki.pages.commons.HomePage;
 import testerczaki.pages.normal.PodstawyPage;
-import testerczaki.pages.normal.RamkaPage;
+import testerczaki.pages.normal.WiecejRamekPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RamkaTest extends TestBase {
+public class WiecejRamekTest extends TestBase {
 
     private HomePage homePage;
     private PodstawyPage podstawyPage;
-    private RamkaPage ramkaPage;
+    private WiecejRamekPage wiecejRamekPage;
 
     @Override
     @BeforeEach
@@ -23,7 +23,7 @@ public class RamkaTest extends TestBase {
         super.setUp();
         homePage = new HomePage(driver);
         podstawyPage = new PodstawyPage(driver);
-        ramkaPage = new RamkaPage(driver);
+        wiecejRamekPage = new WiecejRamekPage(driver);
     }
 
     @Test
@@ -40,10 +40,20 @@ public class RamkaTest extends TestBase {
         // ACT
         // ---
 
-        homePage.goToRamkaPage();
-        ramkaPage.switchToIframe1();
-        podstawyPage.fillForm(podstawyForm)
-                .checkRegulaminCheckbox()
+        homePage.goToWiecejRamekPage();
+        wiecejRamekPage.switchToIframe2();
+        podstawyPage.writeImie(podstawyForm.getImie())
+                .writeNazwisko(podstawyForm.getNazwisko());
+        wiecejRamekPage.switchToIframe3();
+        podstawyPage.writeEmail(podstawyForm.getEmail());
+        wiecejRamekPage.switchToParentFrame()
+                .switchToIframe4();
+        podstawyPage.writeMiasto(podstawyForm.getMiasto());
+        wiecejRamekPage.switchToDefaultContent()
+                .switchToIframe5();
+        podstawyPage.writeUlica(podstawyForm.getUlica());
+        wiecejRamekPage.switchToDefaultContent();
+        podstawyPage.checkRegulaminCheckbox()
                 .clickWyslijButton();
 
         // ------
@@ -52,11 +62,5 @@ public class RamkaTest extends TestBase {
 
         assertThat(podstawyPage.getGratulacjeAlert().isDisplayed()).isTrue();
         assertThat(podstawyPage.getGratulacjeAlert().getText()).isEqualTo(expectedMessage);
-
-        // -----------------------
-        // BACK TO DEFAULT CONTENT
-        // -----------------------
-
-        ramkaPage.switchToDefaultContent();
     }
 }

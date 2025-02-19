@@ -91,11 +91,11 @@ public class HomePage extends BasePage {
         return new RamkaPage(driver);
     }
 
-//    public WiecejRamekPage goToWiecejRamekPage() {
-//        wiecejRamekZacznij.click();
-//        return new WiecejRamekPage(driver);
-//    }
-//
+    public WiecejRamekPage goToWiecejRamekPage() {
+        navigateToPage(wiecejRamekZacznijButton, WiecejRamekPage.class);
+        return new WiecejRamekPage(driver);
+    }
+
 //    public OknaZakladkiPage goToOknaZakladkiPage() {
 //        oknaZakladkiZacznij.click();
 //        return new OknaZakladkiPage(driver);
