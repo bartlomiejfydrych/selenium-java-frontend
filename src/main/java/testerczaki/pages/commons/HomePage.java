@@ -106,11 +106,11 @@ public class HomePage extends BasePage {
         return new KomunikatyPage(driver);
     }
 
-//    public MenuPage goToMenuPage() {
-//        menuZacznij.click();
-//        return new MenuPage(driver);
-//    }
-//
+    public MenuPage goToMenuPage() {
+        navigateToPage(menuZacznijButton, MenuPage.class);
+        return new MenuPage(driver);
+    }
+
 //    public PrzeciagnijUpuscPage goToPrzeciagnijUpuscPage() {
 //        przeciagnijUpuscZacznij.click();
 //        return new PrzeciagnijUpuscPage(driver);
