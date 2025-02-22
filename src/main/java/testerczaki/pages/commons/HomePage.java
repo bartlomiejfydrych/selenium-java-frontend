@@ -111,11 +111,11 @@ public class HomePage extends BasePage {
         return new MenuPage(driver);
     }
 
-//    public PrzeciagnijUpuscPage goToPrzeciagnijUpuscPage() {
-//        przeciagnijUpuscZacznij.click();
-//        return new PrzeciagnijUpuscPage(driver);
-//    }
-//
+    public PrzeciagnijUpuscPage goToPrzeciagnijUpuscPage() {
+        navigateToPage(przeciagnijUpuscZacznijButton, PrzeciagnijUpuscPage.class);
+        return new PrzeciagnijUpuscPage(driver);
+    }
+
 //    public KliknijPrzytrzymajPage goToKliknijPrzytrzymajPage() {
 //        kliknijPrzetrzymajZacznij.click();
 //        return new KliknijPrzytrzymajPage(driver);
