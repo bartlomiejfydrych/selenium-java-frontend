@@ -121,11 +121,11 @@ public class HomePage extends BasePage {
         return new KliknijPrzytrzymajPage(driver);
     }
 
-//    public NiestandardoweListyPage goToNiestandardoweListyPage() {
-//        niestandardoweListyZacznij.click();
-//        return new NiestandardoweListyPage(driver);
-//    }
-//
+    public NiestandardoweListyPage goToNiestandardoweListyPage() {
+        navigateToPage(niestandardoweListyZacznijButton, NiestandardoweListyPage.class);
+        return new NiestandardoweListyPage(driver);
+    }
+
 //    public TabelePage goToTabelePage() {
 //        tabeleZacznij.click();
 //        return new TabelePage(driver);
