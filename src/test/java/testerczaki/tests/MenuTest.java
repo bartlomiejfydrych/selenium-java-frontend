@@ -22,7 +22,7 @@ public class MenuTest extends TestBase {
     }
 
     @Test
-    public void shouldCompleteZadanie1Correctly() {
+    public void z1ShouldCorrectlyClickLink2OnSimpleMenu() {
 
         // -------
         // ARRANGE
@@ -46,7 +46,7 @@ public class MenuTest extends TestBase {
     }
 
     @Test
-    public void shouldCompleteZadanie2Correctly() {
+    public void z2ShouldCorrectlyClickLink3OnMobileMenu() {
 
         // -------
         // ARRANGE
@@ -71,7 +71,7 @@ public class MenuTest extends TestBase {
     }
 
     @Test
-    public void shouldCompleteZadanie3Correctly() {
+    public void z3ShouldCorrectlyClickLink3COnClickMenu() {
 
         // -------
         // ARRANGE
@@ -96,7 +96,7 @@ public class MenuTest extends TestBase {
     }
 
     @Test
-    public void shouldCompleteZadanie4Correctly() {
+    public void z4ShouldCorrectlyClickLink3BOnHoverMenu() {
 
         // -------
         // ARRANGE
@@ -120,7 +120,7 @@ public class MenuTest extends TestBase {
     }
 
     @Test
-    public void shouldCompleteZadanie5Correctly() {
+    public void z5ShouldCorrectlyClickLink3B5OnHover2ndMenu() {
 
         // -------
         // ARRANGE
