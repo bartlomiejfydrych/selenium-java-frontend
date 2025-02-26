@@ -126,10 +126,10 @@ public class HomePage extends BasePage {
         return new NiestandardoweListyPage(driver);
     }
 
-//    public TabelePage goToTabelePage() {
-//        tabeleZacznij.click();
-//        return new TabelePage(driver);
-//    }
+    public TabelePage goToTabelePage() {
+        navigateToPage(tabeleZacznijButton, TabelePage.class);
+        return new TabelePage(driver);
+    }
 
     // -------
     // HELPERS
