@@ -9,6 +9,7 @@
 - [Pliki — ścieżki](#files_paths)
 - [Generics — typy generyczne](#generics)
 - [Allure Report — konfiguracja](#allure_report_configuration)
+- [Obiekt — odczytywanie danych z listy obiektów](#object_list_print_data)
 3. TODO: JavaFaker
    https://www.baeldung.com/java-faker
 
@@ -812,3 +813,23 @@ https://allurereport.org/docs/
 10. Dzięki temu pluginowi możemy klikać prawym na katalog `allure_results` i generować raport z menu IDE
 11. Do konfiguracji raportów Allure z serwerem można używać wtyczki:  
     `Allure TestOps Support`
+
+---
+
+## Obiekt — odczytywanie danych z listy obiektów <a name="object_list_print_data"></a>
+
+### Jeżeli:
+
+Mamy taką listę obiektów `List<TabeleData> tableData`
+
+### I:
+
+Chcemy wyświetlić wszystkie dane, wszystkich obiektów na tej liście
+
+### To:
+
+Możemy użyć poniższej funkcji:
+
+```JAVA
+tableData.forEach(d -> System.out.println("Imię: " + d.getImie() + ", Wiek: " + d.getWiek()));
+```
