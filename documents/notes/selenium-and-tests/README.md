@@ -15,6 +15,7 @@
 - [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
 - [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
 - [getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice](#get_dom_attribute_property)
+- [Tabele — pomijanie nagłówków](#tables_skip_headers)
 
 ---
 
@@ -1152,3 +1153,80 @@ W najnowszej wersji **Selenium**, czyli `4.27`, wycofano metodę `getAttribute()
 - Źródło wartości — Bieżąca, dynamiczna wartość w DOM
 - Dynamiczne aktualizacje — Odzwierciedla zmiany w czasie wykonywania w elemencie
 - Przykładowy przypadek użycia — Pobieranie wartości pola tekstowego
+
+---
+
+## Tabele — pomijanie nagłówków <a name="tables_skip_headers"></a>
+
+### Problem
+
+Czasami jest tak, że do lokatora z **listą WebElementów** podajemy selektor, który "łapie" również jej nagłówek
+
+### Rozwiązanie
+
+Do poniższej metody możemy dodać `skip(1)` lub `filter()`.
+
+### Wersja z `skip(1)`:
+
+```JAVA
+/**
+ * Odczytuje dane z tabeli i zwraca je jako listę obiektów TabelaDane.
+ */
+public List<TabelaDane> odczytajDaneZTabeli() {
+    return wiersze.stream()
+            .skip(1) // Pomijamy nagłówek tabeli
+            .map(wiersz -> {
+                List<WebElement> kolumny = wiersz.findElements(By.tagName("td"));
+                return new TabelaDane(
+                        kolumny.get(0).getText(), 
+                        Integer.parseInt(kolumny.get(1).getText()), 
+                        kolumny.get(2).getText()
+                );
+            })
+            .collect(Collectors.toList());
+}
+```
+
+### Problem związany ze `skip(1)`
+
+W moim teście okazało się, że selektor nie zawierał nagłówka i `skip()` niepotrzebnie pomijał rzeczywiste dane.
+
+#### Dlaczego tak się stało?
+Zazwyczaj nagłówek tabeli (`<th>`) znajduje się w `<thead>`, a dane są w `<tbody>`. Jeśli wiersze już zawiera tylko
+`<tr>` z `<tbody>`, to `skip(1)` niepotrzebnie pomija pierwszy wiersz z rzeczywistymi danymi.
+
+#### Podsumowanie
+
+Jeśli wiersze zawiera tylko `<tbody>`, usuń `.skip(1)`. Jeśli wiersze zawiera `<thead>`, lepiej zastosować `.filter()`
+zamiast `.skip(1)`, aby pomijać tylko nagłówki.
+
+### Wersja z `filter()`:
+
+Możesz użyć `.filter()`, aby upewnić się, że przetwarzasz tylko te wiersze, które zawierają dane (`td`), a pomijasz te,
+które zawierają nagłówki (`th`).
+
+```JAVA
+public List<TabelaDane> odczytajDaneZTabeli() {
+    return wiersze.stream()
+            .filter(wiersz -> !wiersz.findElements(By.tagName("td")).isEmpty()) // Pomija nagłówki
+            .map(wiersz -> {
+                List<WebElement> kolumny = wiersz.findElements(By.tagName("td"));
+                return new TabelaDane(
+                        kolumny.get(0).getText(),
+                        Integer.parseInt(kolumny.get(1).getText()),
+                        kolumny.get(2).getText()
+                );
+            })
+            .collect(Collectors.toList());
+}
+```
+
+#### Jak to działa?
+
+1. `filter(wiersz -> !wiersz.findElements(By.tagName("td")).isEmpty())`
+   - Sprawdza, czy wiersz zawiera `td` (czyli dane).
+   - Jeśli wiersz zawiera tylko `th` (czyli nagłówek), zostanie pominięty.
+2. Reszta kodu działa tak samo
+   - Pobieramy listę td z wiersza.
+   - Tworzymy nowy obiekt TabelaDane.
+   - Zwracamy listę obiektów.
