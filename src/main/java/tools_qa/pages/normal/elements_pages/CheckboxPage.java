@@ -9,6 +9,8 @@ import java.util.List;
 
 public class CheckboxPage extends BasePage {
 
+    // https://demoqa.com/checkbox
+
     // -----------
     // CONSTRUCTOR
     // -----------

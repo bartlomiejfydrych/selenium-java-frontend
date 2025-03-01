@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DroppableTest extends TestBase {
 
+    // https://demoqa.com/droppable
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private InteractionsPage interactionsPage;

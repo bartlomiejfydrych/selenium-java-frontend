@@ -14,6 +14,8 @@ import tools_qa.pages.normal.widgets_pages.WidgetsPage;
 
 public class HomePage extends BasePage {
 
+    // https://demoqa.com/
+
     // -----------
     // CONSTRUCTOR
     // -----------

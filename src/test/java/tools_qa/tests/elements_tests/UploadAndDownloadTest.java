@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UploadAndDownloadTest extends TestBase {
 
+    // https://demoqa.com/upload-download
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

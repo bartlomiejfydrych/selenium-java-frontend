@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ToolTipsTest extends TestBase {
 
+    // https://demoqa.com/tool-tips
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private WidgetsPage widgetsPage;

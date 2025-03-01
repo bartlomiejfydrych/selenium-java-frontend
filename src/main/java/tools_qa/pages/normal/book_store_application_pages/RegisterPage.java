@@ -9,6 +9,8 @@ import tools_qa.pages.base.BasePage;
 
 public class RegisterPage extends BasePage {
 
+    // https://demoqa.com/register
+
     // -----------
     // CONSTRUCTOR
     // -----------

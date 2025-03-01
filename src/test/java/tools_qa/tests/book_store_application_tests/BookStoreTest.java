@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BookStoreTest extends TestBase {
 
+    // https://demoqa.com/books
+
     /*
     NOTES:
     When I click on the book name, a blank page opens and nothing else happens.

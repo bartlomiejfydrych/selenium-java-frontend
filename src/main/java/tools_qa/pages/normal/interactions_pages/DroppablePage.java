@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class DroppablePage extends BasePage {
 
+    // https://demoqa.com/droppable
+
     // -----------
     // CONSTRUCTOR
     // -----------

@@ -10,6 +10,8 @@ import java.time.Duration;
 
 public class ProgressBarPage extends BasePage {
 
+    // https://demoqa.com/progress-bar
+
     // -----------
     // CONSTRUCTOR
     // -----------

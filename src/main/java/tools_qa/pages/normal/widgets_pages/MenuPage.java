@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MenuPage extends BasePage {
 
+    // https://demoqa.com/menu
+
     // -----------
     // CONSTRUCTOR
     // -----------

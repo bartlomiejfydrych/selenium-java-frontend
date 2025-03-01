@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class DynamicPropertiesPage extends BasePage {
 
+    // https://demoqa.com/dynamic-properties
+
     // -----------
     // CONSTRUCTOR
     // -----------

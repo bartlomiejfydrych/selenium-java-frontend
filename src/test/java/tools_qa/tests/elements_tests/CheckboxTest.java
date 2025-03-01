@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckboxTest extends TestBase {
 
+    // https://demoqa.com/checkbox
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

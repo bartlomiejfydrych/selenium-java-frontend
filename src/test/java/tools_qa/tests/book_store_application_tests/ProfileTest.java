@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfileTest extends TestBase {
 
+    // https://demoqa.com/profile
+
     /*
     NOTES:
     - These tests require a logged-in user

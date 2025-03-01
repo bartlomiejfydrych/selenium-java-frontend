@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProgressBarTest extends TestBase {
 
+    // https://demoqa.com/progress-bar
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private WidgetsPage widgetsPage;

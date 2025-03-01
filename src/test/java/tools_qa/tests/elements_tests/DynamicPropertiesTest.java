@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DynamicPropertiesTest extends TestBase {
 
+    // https://demoqa.com/dynamic-properties
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

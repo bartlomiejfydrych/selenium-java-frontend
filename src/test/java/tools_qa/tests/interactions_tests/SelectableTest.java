@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SelectableTest extends TestBase {
 
+    // https://demoqa.com/selectable
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private InteractionsPage interactionsPage;

@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DatePickerTest extends TestBase {
 
+    // https://demoqa.com/date-picker
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private WidgetsPage widgetsPage;

@@ -19,6 +19,8 @@ import java.util.Locale;
 
 public class PracticeFormPage extends BasePage {
 
+    // https://demoqa.com/automation-practice-form
+
     // -----------
     // CONSTRUCTOR
     // -----------

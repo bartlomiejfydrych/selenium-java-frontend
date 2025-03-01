@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class LoginPage extends BasePage {
 
+    // https://demoqa.com/login
+
     // -----------
     // CONSTRUCTOR
     // -----------

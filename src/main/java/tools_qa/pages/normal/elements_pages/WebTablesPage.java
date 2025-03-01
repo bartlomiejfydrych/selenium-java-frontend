@@ -12,6 +12,8 @@ import java.util.List;
 
 public class WebTablesPage extends BasePage {
 
+    // https://demoqa.com/webtables
+
     // -----------
     // CONSTRUCTOR
     // -----------

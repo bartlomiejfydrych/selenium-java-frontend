@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class AlertsFrameWindowsPage extends BasePage {
 
+    // https://demoqa.com/alertsWindows
+
     // -----------
     // CONSTRUCTOR
     // -----------

@@ -16,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginTest extends TestBase {
 
+    // https://demoqa.com/login
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private BookStorePage bookStorePage;

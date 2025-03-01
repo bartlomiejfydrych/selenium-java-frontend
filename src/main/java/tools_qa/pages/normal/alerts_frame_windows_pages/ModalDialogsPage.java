@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class ModalDialogsPage extends BasePage {
 
+    // https://demoqa.com/modal-dialogs
+
     // -----------
     // CONSTRUCTOR
     // -----------

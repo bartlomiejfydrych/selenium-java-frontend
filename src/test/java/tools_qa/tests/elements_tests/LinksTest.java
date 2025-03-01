@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LinksTest extends TestBase {
 
+    // https://demoqa.com/links
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

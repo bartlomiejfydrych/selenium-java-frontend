@@ -16,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegisterTest extends TestBase {
 
+    // https://demoqa.com/register
+
     /*
     NOTE:
     Due to the reCaptcha mechanism, it is not possible to automate full, correct user registration using Selenium.

@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class DragabblePage extends BasePage {
 
+    // https://demoqa.com/dragabble
+
     // NOTE: The creators made a mistake in the name of this sub-page. It should be "Draggable"
 
     // -----------

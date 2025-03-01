@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class WidgetsPage extends BasePage {
 
+    // https://demoqa.com/widgets
+
     // -----------
     // CONSTRUCTOR
     // -----------

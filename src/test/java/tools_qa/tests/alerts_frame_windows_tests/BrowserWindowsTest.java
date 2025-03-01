@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BrowserWindowsTest extends TestBase {
 
+    // https://demoqa.com/browser-windows
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private AlertsFrameWindowsPage alertsFrameWindowsPage;

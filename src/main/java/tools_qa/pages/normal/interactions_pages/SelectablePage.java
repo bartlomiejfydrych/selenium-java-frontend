@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class SelectablePage extends BasePage {
 
+    // https://demoqa.com/selectable
+
     // -----------
     // CONSTRUCTOR
     // -----------

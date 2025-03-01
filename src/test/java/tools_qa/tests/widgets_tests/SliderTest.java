@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SliderTest extends TestBase {
 
+    // https://demoqa.com/slider
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private WidgetsPage widgetsPage;

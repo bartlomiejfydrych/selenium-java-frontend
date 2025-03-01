@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PracticeFormTest extends TestBase {
 
+    // https://demoqa.com/automation-practice-form
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private FormsPage formsPage;

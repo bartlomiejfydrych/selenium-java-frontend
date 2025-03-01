@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MenuTest extends TestBase {
 
+    // https://demoqa.com/menu
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private WidgetsPage widgetsPage;

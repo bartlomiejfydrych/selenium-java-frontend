@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 public class TestBase {
 
+    // https://demoqa.com/
+
     public WebDriver driver;
 
     @BeforeAll

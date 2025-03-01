@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AlertsTest extends TestBase {
 
+    // https://demoqa.com/alerts
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private AlertsFrameWindowsPage alertsFrameWindowsPage;

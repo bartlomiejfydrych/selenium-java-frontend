@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RadioButtonTest extends TestBase {
 
+    // https://demoqa.com/radio-button
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

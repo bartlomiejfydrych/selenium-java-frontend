@@ -17,6 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebTablesTest extends TestBase {
 
+    // https://demoqa.com/webtables
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private ElementsPage elementsPage;

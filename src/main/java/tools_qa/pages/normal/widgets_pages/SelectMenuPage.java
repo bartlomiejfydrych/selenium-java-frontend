@@ -14,6 +14,8 @@ import java.util.Random;
 
 public class SelectMenuPage extends BasePage {
 
+    // https://demoqa.com/select-menu
+
     // -----------
     // CONSTRUCTOR
     // -----------

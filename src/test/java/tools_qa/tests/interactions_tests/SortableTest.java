@@ -15,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortableTest extends TestBase {
 
+    // https://demoqa.com/sortable
+
     private HomePage homePage;
     private TrainingPage trainingPage;
     private InteractionsPage interactionsPage;

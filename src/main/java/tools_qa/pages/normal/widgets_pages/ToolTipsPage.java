@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class ToolTipsPage extends BasePage {
 
+    // https://demoqa.com/tool-tips
+
     // -----------
     // CONSTRUCTOR
     // -----------

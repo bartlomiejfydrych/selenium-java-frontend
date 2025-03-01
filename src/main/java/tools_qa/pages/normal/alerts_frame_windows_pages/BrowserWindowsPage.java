@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class BrowserWindowsPage extends BasePage {
 
+    // https://demoqa.com/browser-windows
+
     // -----------
     // CONSTRUCTOR
     // -----------

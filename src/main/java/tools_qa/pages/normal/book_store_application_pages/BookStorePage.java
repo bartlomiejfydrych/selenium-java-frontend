@@ -13,6 +13,8 @@ import java.util.List;
 
 public class BookStorePage extends BasePage {
 
+    // https://demoqa.com/books
+
     // -----------
     // CONSTRUCTOR
     // -----------

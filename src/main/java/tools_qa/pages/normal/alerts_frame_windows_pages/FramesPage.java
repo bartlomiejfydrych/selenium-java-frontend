@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class FramesPage extends BasePage {
 
+    // https://demoqa.com/frames
+
     // -----------
     // CONSTRUCTOR
     // -----------

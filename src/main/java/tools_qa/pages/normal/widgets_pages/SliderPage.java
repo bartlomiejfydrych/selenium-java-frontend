@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class SliderPage extends BasePage {
 
+    // https://demoqa.com/slider
+
     // -----------
     // CONSTRUCTOR
     // -----------

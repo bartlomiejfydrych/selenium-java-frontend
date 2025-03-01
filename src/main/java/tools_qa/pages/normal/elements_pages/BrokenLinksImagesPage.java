@@ -11,6 +11,8 @@ import java.net.URL;
 
 public class BrokenLinksImagesPage extends BasePage {
 
+    // https://demoqa.com/broken
+
     // -----------
     // CONSTRUCTOR
     // -----------

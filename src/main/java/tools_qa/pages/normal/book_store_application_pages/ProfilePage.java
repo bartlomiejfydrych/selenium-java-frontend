@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ProfilePage extends BasePage {
 
+    // https://demoqa.com/profile
+
     // -----------
     // CONSTRUCTOR
     // -----------

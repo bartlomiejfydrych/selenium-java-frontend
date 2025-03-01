@@ -8,6 +8,8 @@ import tools_qa.pages.base.BasePage;
 
 public class AccordianPage extends BasePage {
 
+    // https://demoqa.com/accordian
+
     /*
     NOTE:
     There is a typo on the page and the correct name is "Accordions"

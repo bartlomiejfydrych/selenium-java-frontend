@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class ResizablePage extends BasePage {
 
+    // https://demoqa.com/resizable
+
     // -----------
     // CONSTRUCTOR
     // -----------

@@ -7,6 +7,8 @@ import tools_qa.pages.base.BasePage;
 
 public class InteractionsPage extends BasePage {
 
+    // https://demoqa.com/interaction
+
     // -----------
     // CONSTRUCTOR
     // -----------
