@@ -89,6 +89,7 @@ The course consisted of 3 parts:
 
 - IntelliJ IDEA
 - Java
+- JDK - Amazon Corretto 21.0.6
 - Dotenv Java
 - ChatGPT (for refactor and complicated methods)
 
