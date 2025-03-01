@@ -3,10 +3,6 @@ package tools_qa.suites;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
-import tools_qa.tests.book_store_application_tests.BookStoreTest;
-import tools_qa.tests.book_store_application_tests.LoginTest;
-import tools_qa.tests.book_store_application_tests.ProfileTest;
-import tools_qa.tests.book_store_application_tests.RegisterTest;
 
 @Suite
 @SelectPackages({
