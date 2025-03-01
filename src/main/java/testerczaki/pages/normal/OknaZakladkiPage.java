@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class OknaZakladkiPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/okna
+
     // -----------
     // CONSTRUCTOR
     // -----------

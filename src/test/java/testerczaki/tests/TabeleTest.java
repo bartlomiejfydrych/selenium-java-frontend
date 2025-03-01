@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TabeleTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/tabele
+
     private HomePage homePage;
     private TabelePage tabelePage;
 

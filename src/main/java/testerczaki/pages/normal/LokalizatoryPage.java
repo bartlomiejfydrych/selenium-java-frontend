@@ -12,6 +12,8 @@ import java.util.List;
 
 public class LokalizatoryPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/lokalizatory
+
     // -----------
     // CONSTRUCTOR
     // -----------

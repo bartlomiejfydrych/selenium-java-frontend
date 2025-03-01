@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LokalizatoryTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/lokalizatory
+
     private HomePage homePage;
     private LokalizatoryPage lokalizatoryPage;
 

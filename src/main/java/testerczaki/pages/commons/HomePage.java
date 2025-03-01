@@ -9,6 +9,8 @@ import testerczaki.pages.normal.*;
 
 public class HomePage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/
+
     // -----------
     // CONSTRUCTOR
     // -----------

@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class KomunikatyTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/komunikaty
+
     private HomePage homePage;
     private KomunikatyPage komunikatyPage;
 

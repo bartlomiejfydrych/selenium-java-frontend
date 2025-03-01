@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public class PrzeciagnijUpuscPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/przeciagnij
+
     // -----------
     // CONSTRUCTOR
     // -----------

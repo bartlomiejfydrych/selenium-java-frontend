@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MenuTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/menu
+
     private HomePage homePage;
     private MenuPage menuPage;
 

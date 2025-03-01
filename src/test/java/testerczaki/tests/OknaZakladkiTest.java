@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class OknaZakladkiTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/okna
+
     private HomePage homePage;
     private PodstawyPage podstawyPage;
     private OknaZakladkiPage oknaZakladkiPage;

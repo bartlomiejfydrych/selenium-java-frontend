@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class TabelePage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/tabele
+
     // -----------
     // CONSTRUCTOR
     // -----------

@@ -7,6 +7,8 @@ import testerczaki.pages.base.BasePage;
 
 public class RamkaPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/ramka
+
     // -----------
     // CONSTRUCTOR
     // -----------

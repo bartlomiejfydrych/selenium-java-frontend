@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 public class TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/
+
     public WebDriver driver;
 
     @BeforeAll

@@ -7,6 +7,8 @@ import testerczaki.pages.base.BasePage;
 
 public class AsercjaPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/asercja
+
     /*
     NOTE:
     This page uses the same elements and methods as the 'PodstawyPage'.

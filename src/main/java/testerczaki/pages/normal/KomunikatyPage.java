@@ -9,6 +9,8 @@ import testerczaki.pages.base.BasePage;
 
 public class KomunikatyPage extends BasePage {
 
+    // https://dawidkaruga.pl/testerczaki/komunikaty
+
     // -----------
     // CONSTRUCTOR
     // -----------

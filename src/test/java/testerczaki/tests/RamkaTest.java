@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RamkaTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/ramka
+
     private HomePage homePage;
     private PodstawyPage podstawyPage;
     private RamkaPage ramkaPage;

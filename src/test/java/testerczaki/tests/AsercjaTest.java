@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AsercjaTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/asercja
+
     /*
     NOTES:
     This page uses the same elements and methods as the 'PodstawyPage'.

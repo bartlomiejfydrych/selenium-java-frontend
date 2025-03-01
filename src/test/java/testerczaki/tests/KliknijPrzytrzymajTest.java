@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class KliknijPrzytrzymajTest extends TestBase {
 
+    // https://dawidkaruga.pl/testerczaki/mysz
+
     private HomePage homePage;
     private KliknijPrzytrzymajPage kliknijPrzytrzymajPage;
 
