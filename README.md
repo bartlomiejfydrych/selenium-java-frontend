@@ -2,8 +2,6 @@
   <img src="project_banner.png" alt="project banner, selenium and java logo, project name">
 </div>
 
-# 🚧Repository under construction - do not enter🚧
-
 # 📑Information about this repository (for recruiters)
 
 ## 📄Description
@@ -36,6 +34,40 @@ understand what a given piece of code was about.
 
 There are also comments in English to explain to you (recruiters) what a given piece of code is about and why I wrote
 a certain method/test this way and not another.
+
+## 🌐Pages covered with tests
+
+### Links
+
+- 1️⃣[Tools QA](https://demoqa.com/)
+- 2️⃣[Testerczaki](https://dawidkaruga.pl/testerczaki/)
+
+### Description
+
+**Tools QA** – A website for practicing interactions various website elements, e.g. forms, alerts, checkboxes and
+many others.
+
+**Testerczaki** – Just like "Tools QA", this is a website for practicing interactions with a variety of website
+elements, but the exercises have been improved. However, "QA Test" has exercises that "Testerczaki" do not have.  
+As this is a Polish website, I decided that I would also write the names of the elements referred to in the code in
+Polish, to make it consistent.  
+Since there are specific exercises to complete, there will be no negative tests unless the task requires it.
+
+## 🧭Where to start?
+
+When reviewing code/tests you should start with **Tools QA**, as the **Testerczaki** page is a smaller add-on.
+
+## 📊Test Statistics
+
+- **Summary:**
+  - Number of tests: 123
+  - Average test execution time: 9min 10sec
+- **Tools QA:**
+  - Number of tests: 97
+  - Average test execution time: 7min 13sec
+- **Testerczaki:**
+  - Number of tests: 26
+  - Average test execution time: 1min 57sec
 
 ## 🏆Certificates - test automation course (Sii Poland)
 
@@ -73,24 +105,6 @@ The course consisted of 3 parts:
 - Java Faker
 - AssertJ
 - Allure Report
-
-## 🌐Pages covered with tests
-
-### Links
-
-- [Tools QA](https://demoqa.com/)
-- [Testerczaki](https://dawidkaruga.pl/testerczaki/)
-
-### Description
-
-**Tools QA** – A website for practicing interactions various website elements, e.g. forms, alerts, checkboxes and
-many others.
-
-**Testerczaki** – Just like "Tools QA", this is a website for practicing interactions with a variety of website
-elements, but the exercises have been improved. However, "QA Test" has exercises that "Testerczaki" do not have.  
-As this is a Polish website, I decided that I would also write the names of the elements referred to in the code in
-Polish, to make it consistent.  
-Since there are specific exercises to complete, there will be no negative tests unless the task requires it.
 
 ## 🎯What I learned and what I practiced
 
@@ -294,6 +308,7 @@ Since there are specific exercises to complete, there will be no negative tests 
 - Writing difficult/complex selectors/locators
 - Filling out the correct one between two overlapping forms
 - Waiting for and filling in additional fields that appear after checking a checkbox
+- Using common models and page elements in multiple places without duplicating code
 - Switching between iFrames
 - Switching between more nested iFrames
 - Switching between browser tabs and windows
