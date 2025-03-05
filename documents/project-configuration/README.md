@@ -1,84 +1,166 @@
-# 📚Notatki - dotyczące samej konfiguracji projektu
+# 📑Spis treści
 
-## 🔧Konfiguracja
+1. [🔧Konfiguracja](#configuration)
+   - [Tworzenie nowego projektu](#create_new_project)
+   - [Instalacja pluginów](#plugin_installation)
+   - [Dodawanie projektu do GitHub](#adding_project_to_github)
+   - [Dodawanie dependencies do Maven](#adding_dependencies_to_maven)
+   - [Dalsze kroki — rozpoczęcie pisania testów](#next_steps_writing_tests)
+2. [🧩Dodatkowe](#additional)
+   - [Typo — poprawienie błędów w tekście dla plików (głównie Markdown) pisanych w języku polskim](#typo_pl)
+   - [Maven dependencies — ustawianie zmiennych dla numerów wersji](#maven_dependencies_variables)
+3. [🔌Pluginy do IDE — opis](#plugins_description)
+   - [.ignore](#ignore)
+   - [Rainbow Brackets](#rainbow_brackets)
+   - [Key Promoter X](#key_promoter_x)
+   - [Lombok](#lombok)
+   - [Allure Report](#allure_report_plugin)
+4. [📚Dependencies — opis](#dependencies_description)
+   - [⭐Uniwersalne](#universal)
+     - [JUnit Jupiter (Aggregator)](#junit_jupiter_aggregator)
+     - [JUnit Platform Suite (Aggregator)](#junit_platform_suite_aggregator)
+     - [AssertJ Core](#assertj_core)
+     - [Java Faker](#java_faker)
+     - [Dotenv Java](#dotenv_java)
+     - [Allure Report](#allure_report_dependency)
+   - [🎨Frontend](#frontend)
+     - [Selenium Java](#selenium_java)
+     - [Selenium Support](#selenium_support)
+     - [WebDriverManager](#web_driver_manager)
+   - [🌐Backend](#backend)
+     - [REST Assured](#rest_assured)
+     - [JSON Schema Validator](#json_schema_validator)
+     - [Project Lombok](#project_lombok)
+     - [Jackson Databind](#jackson_databind)
+     - [Jakarta JSON Processing API](#jakarta_json_processing_api)
+
+---
+
+# 🔧Konfiguracja <a name="configuration"></a>
+
+## Tworzenie nowego projektu <a name="create_new_project"></a>
 
 1. Instalujemy `IntelliJ IDEA`
-   - `JDK` - Jest już wbudowane w IDE. Nie trzeba go pobierać osobno tak jak kiedyś
-   - `Zmienne środowiskowe` - nimi również nie musimy się przejmować tak jak kiedyś
-2. Klikamy utworzenie nowego projektu
-   - Jeżeli już jesteśmy w jakimś projekcie to:
-     - Klikamy na "Hamburger Menu" w lewym, górnym rogu
-     - Klikamy `New`
-     - Klikamy `Project`
-3. Podajemy `nazwę projektu`
-   - Dla projektów Git najlepiej stosować format `nazwa-mojego-projektu`  
-4. Wybieramy `lokalizację` projektu
+    - `JDK` — Jest już wbudowane w IDE. Nie trzeba go pobierać osobno tak jak kiedyś
+    - `Zmienne środowiskowe` — nimi również nie musimy się przejmować tak jak kiedyś
+2. Klikamy **utworzenie nowego projektu**
+    - Jeżeli już jesteśmy w jakimś projekcie to:
+        - Klikamy na `Hamburger Menu` w lewym, górnym rogu
+        - Klikamy `New`
+        - Klikamy `Project`
+3. Podajemy **nazwę projektu**
+    - Dla projektów Git najlepiej stosować format `nazwa-mojego-projektu`
+4. Wybieramy **lokalizację** projektu
 5. Pomijamy `Create new Git repository`, ponieważ lepiej to zrobić jak będziemy mieć już skonfigurowany plik `.gitignore`
 6. Wybieramy `język: Java`
 7. Wybieramy `Build system: Maven`
-   - Maven jest fajny do zarządzania frameworkami
+    - Maven jest fajny do zarządzania frameworkami
 8. Wybieramy `JDK`
-   - Jeżeli nie ma na liście, to pobieramy.  
-        Może być dowolne np. z Amazona.  
-        Z Oracle może być ten problem, że mają inne prawa oraz są powiązane z Chinami (podobno).
-   - JDK warto wybierać jak najnowsze (ale też nie takie, które dopiero co wyszło) oraz wybierać wersję z długotrwałym wsparciem, czyli oznaczone jako (LTS) Long Term Support.
+    - Jeżeli nie ma na liście, to pobieramy  
+      Może być dowolne np. z Amazona.  
+      W tym projekcie użyłem `Amazon Corretto 21.0.6`.  
+      Z Oracle może być ten problem, że mają inne prawa autorskie oraz są powiązane z Chinami (podobno).
+    - `JDK` warto wybierać jak najnowsze (ale też nie takie, które dopiero co wyszło) oraz wybierać wersję
+      z długotrwałym wsparciem, czyli oznaczone jako **(LTS) Long Term Support**
 9. Można zaznaczyć `Add sample code`
-   - Żeby lepiej się orientować w katalogach. Potem się go usunie
-10. Kasujemy plik `.gitignore`  
-    - Stworzymy za chwilę własny za pomocą pluginu .ignore
+    - Żeby lepiej się orientować w katalogach. Potem się go usunie
+10. Kasujemy plik `.gitignore`
+    - Stworzymy za chwilę własny za pomocą pluginu `.ignore`
     - Możemy też zostawić i wkleić do niego gotowy szablon z internetu
-11. Instalujemy `pluginy` (więcej w sekcji z Pluginami)
-12. Generujemy plik `.gitignore` za pomocą pluginu `.ignore` (więcej w sekcji z Pluginami)
-13. Wrzucamy projekt na GitHub
+
+## Instalacja pluginów <a name="plugin_installation"></a>
+
+11. Instalujemy **pluginy**:
+    - Klikamy `Hamburger Menu`
+    - Klikamy `Settings`
+    - Wybieramy z menu po lewej `Plugins`
+    - W zakładce `Marketplace` wyszukujemy pluginy, które nas interesują
+    - Klikamy `Install` przy wybranym pluginie
+    - W zakładce `Installed` mamy listę pluginów, które są już zainstalowane
+    - Wyszukujemy i instalujemy następujące **pluginy**:
+      - .ignore
+      - Rainbow Brackets
+      - Key Promoter X
+      - Lombok
+      - Allure Report
+
+## Dodawanie projektu do GitHub <a name="adding_project_to_github"></a>
+
+12. Generujemy plik `.gitignore` za pomocą pluginu `.ignore`
+    - Klikamy `prawym na katalog z projektem`
+    - Klikamy `New`
+    - Klikamy `.ignore File`
+    - Klikamy `.gitignore File (Git)`
+    - Na liście wyszukujemy i zaznaczamy następujące templatki:
+        - `JetBrains / IntelliJ`
+        - `Java`
+        - `Maven`
+    - Klikamy `Generate`
+13. Wrzucamy projekt na `GitHub`
     - Klikamy `Hamburger Menu`
     - Klikamy `VCS`
     - Klikamy `Share Project on GitHub`
     - Podajemy `nazwę` repozytorium
-    - Zaznaczamy / Odznaczamy `Private`
-    - Możemy dodać `opis`, ale jeżeli mamy już plik README w projekcie to lepiej zostawić puste
+    - Zaznaczamy/Odznaczamy `Private`
+    - Możemy dodać `opis`, ale jeżeli mamy już plik `README` w projekcie to lepiej zostawić puste
     - Klikamy `Share`
-14. Wpisujemy w google `maven repository` lub wchodzimy na stronę:
-https://mvnrepository.com/
+
+## Dodawanie dependencies do Maven <a name="adding_dependencies_to_maven"></a>
+
+14. Wpisujemy w google `maven repository` lub wchodzimy na stronę:  
+    https://mvnrepository.com/
     - Wyszukujemy interesujący nas framework
     - Klikamy na niego
     - Klikamy w najbardziej aktualną i stabilną wersję
-    - Kopiujemy <dependencies> z zakładki Maven
+    - Kopiujemy `<dependencies>` z zakładki `Maven`
 15. Otwieramy plik `pom.xml` i tam to wklejamy
     - Pod `<properties>` musimy dodać `<dependencies></dependencies>`
-    - Pomiędzy <dependencies> wklejamy nasze <dependency> z repozytorium Maven
-16. Wrzucamy następujące `<dependencies>`:  
-(Szczegóły o nich w osobnej sekcji z Maven - dependencies)
-    - Uniwersalne:
+    - Pomiędzy `<dependencies>` wklejamy nasze `<dependency>` z repozytorium `Maven`
+16. Wrzucamy następujące `<dependencies>`:
+    - **Uniwersalne**
         - JUnit Jupiter (Aggregator)
         - JUnit Platform Suite (Aggregator)
         - Java Faker
         - AssertJ Core
         - Dotenv Java
         - Allure Report
-        - Logback Classic (opcjonalne, żeby nie denerwowały warningi SLF4J)
-    - Frontend:
+        - Logback Classic (opcjonalne, żeby nie denerwowały nas warningi `SLF4J`, które może powodować `Allure Report`)
+    - **Frontend**
         - Selenium Java
         - Selenium Support
         - WebDriverManager
-    - Backend:
+    - **Backend**
         - REST Assured
         - JSON Schema Validator
-        - Project Lombok
+        - Project Lombok (opcjonalne)
         - Jackson Databind (opcjonalne)
         - Jakarta JSON Processing API (opcjonalne)
 17. Jeżeli chcemy, możemy w `<properties>` zdefiniować sobie zmienne dla numerów wersji naszych dependencies  
-    (Więcej w sekcji: Maven - dependencies -> Ustawianie zmiennych...)
-18. Po wklejeniu naszych dependencies gdzieś w okolicach prawego, górnego rogu powinna pojawić się ikona Mavena. Klikamy w nią.  
-Sprawi to, że dependencies zostaną pobrane i zainstalowane do naszego projektu.  
-Niektóre dependencies będą podkreślone z informacjami, że mają jakieś luki w zabezpieczeniach. No ale nic się z tym za bardzo nie zrobi.
-19. Warto się upewnić czy dependencies zostały dodane do projektu:
-    - Klikamy na pasku po prawej na ikonę Mavena (m)
+    (Instrukcja jak to zrobić jest w niższych sekcjach tego dokumentu)
+18. Po wklejeniu naszych dependencies gdzieś w okolicach prawego, górnego rogu powinna pojawić się `ikona Mavena`.  
+    Klikamy w nią.  
+    Sprawi to, że `dependencies` zostaną **pobrane i zainstalowane** do naszego projektu.  
+    Niektóre `dependencies` będą podkreślone z informacjami, że mają jakieś **luki w zabezpieczeniach**.  
+    No ale **nic** się z tym za bardzo **nie zrobi**.
+19. Warto się upewnić czy `dependencies` zostały dodane do projektu:
+    - Klikamy na pasku po prawej na `ikonę Mavena (m)`
     - Rozwijamy katalog `Dependencies`
-    - Patrzymy czy są wszystkie, które podaliśmy w pom.xml
-20. Możemy rozpocząć pisanie testów.  
-Dalsze kroki w `README` katalogu `selenium-java` 
+    - Patrzymy czy są wszystkie, które podaliśmy w `pom.xml`
+20. Możemy **rozpocząć pisanie testów**
 
-## ✔Typo - poprawienie dla plików Markdown pisanych w języku polskim
+## Dalsze kroki — rozpoczęcie pisania testów <a name="next_steps_writing_tests"></a>
+
+📌DOKOŃCZYĆ!  
+Dalsze kroki opisujące jak rozpocząć pisanie testów znajdują się w:  
+&emsp;📁text  
+&emsp;&emsp;📁text  
+Dalsze kroki w `README` katalogu `selenium-java`
+
+---
+
+# 🧩Dodatkowe <a name="additional"></a>
+
+## ✔Typo — poprawienie błędów w tekście dla plików (głównie Markdown) pisanych w języku polskim <a name="typo_pl"></a>
 
 1. Klikamy `Hamburger Menu` w lewym, górnym rogu
 2. Klikamy `File`
@@ -90,47 +172,9 @@ Dalsze kroki w `README` katalogu `selenium-java`
 8. Klikamy `Apply`
 9. Klikamy `OK`
 
-## 🔌Pluginy do IDE
+## ⓂMaven dependencies — ustawianie zmiennych dla numerów wersji <a name="maven_dependencies_variables"></a>
 
-### Instalacja / Lokalizacja
-
-1. Klikamy `Hamburger Menu`
-2. Klikamy `Settings`
-3. Wybieramy z menu po lewej `Plugins`
-4. W zakładce `Marketplace` wyszukujemy pluginy, które nas interesują
-5. Klikamy `Install` przy wybranym pluginie
-6. W zakładce `Installed` mamy listę pluginów, które są już zainstalowane
-
-### Lista pluginów z opisem
-
-1. **.ignore**  
-*Służy do generowania plików .gitignore np. gotowy plik ignorujący wszystkie zbędne pliki pod Javę.*  
-Sposób użycia:
-   - Klikamy `prawym na katalog z projektem`
-   - Klikamy `New`
-   - Klikamy `.ignore File`
-   - Klikamy `.gitignore File (Git)`
-   - Na liście wyszukujemy i zaznaczamy następujące templatki:
-     - JetBrains / IntelliJ
-     - Java
-     - Maven
-   - Klikamy `Generate`
-2. **Rainbow Brackets**  
-*Lepiej i wyraźniej koloruje nam nawiasy niż standardowo robi to IDE.*
-3. **Key Promoter X**  
-*Służy do nauki skrótów klawiszowych jakie znajdują się w IDE.*
-4. **Lombok** (Dla testów API)  
-*Uwaga! Żeby z tego korzystać trzeba również do Mavena dodać dependencies z Lomboka.  
-Lombok to biblioteka dla języka Java, która ma na celu uproszczenie pisania kodu poprzez automatyzację generowania standardowych fragmentów kodu, takich jak gettery, settery, konstruktory, metody equals(), hashCode() i inne.  
-Dodatkowo posiada adnotację @Builder, która jest przydatna w testach API, gdy chcemy zbudować body responsa na podstawie klasy.*
-5. **Allure Report**  
-Umożliwia generowanie raportu z poziomu IDE, a nie konsoli.
-
-## ⓂMaven - dependencies
-
-### Ustawianie zmiennych dla numerów wersji
-
-1. W sekcji z `<properties>` dodajemy coś zgodnie z poniższym przykładem:  
+1. W sekcji z `<properties>` dodajemy coś zgodnie z poniższym przykładem:
     ```Java
     <properties>
         <<u góry jakieś rzeczy od Mavena, które były już w pliku>>
@@ -141,9 +185,9 @@ Umożliwia generowanie raportu z poziomu IDE, a nie konsoli.
         <javafaker.version>1.0.2</javafaker.version>
     </properties>
     ```
-2. `<selenium.version>` to nazwa naszej zmiennej.  
+2. `<selenium.version>` to nazwa naszej zmiennej.
 3. Podstawiamy ją w naszym `dependency` w miejscu numeru wersji jako `${selenium.version}`:  
-    Przed: 
+   Przed:
     ```Java
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
@@ -151,7 +195,7 @@ Umożliwia generowanie raportu z poziomu IDE, a nie konsoli.
         <version>4.19.1</version>
     </dependency>
     ```
-    Po:  
+   Po:
     ```Java
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
@@ -159,6 +203,498 @@ Umożliwia generowanie raportu z poziomu IDE, a nie konsoli.
         <version>${selenium.version}</version>
     </dependency>
     ```
+
+---
+
+# 🔌Pluginy do IDE — opis <a name="plugins_description"></a>
+
+## .ignore <a name="ignore"></a>
+
+### **.ignore – Wtyczka do zarządzania plikami ignorowanymi w projektach**
+
+🔹 **`.ignore`** to wtyczka do popularnych środowisk IDE, takich jak **IntelliJ IDEA**, **PyCharm**, **WebStorm**,
+czy **Android Studio**, ułatwiająca zarządzanie plikami ignorowanymi przez systemy kontroli wersji, np. **Git**.
+
+### **📌 Kluczowe funkcje wtyczki `.ignore`**
+✅ **Automatyczne generowanie plików `.gitignore`** – wspiera różne technologie i języki, oferując gotowe szablony.  
+✅ **Podpowiedzi składni** – IntelliSense dla reguł ignorowania plików.  
+✅ **Podświetlanie składni** – ułatwia edycję plików `.gitignore`, `.dockerignore`, `.npmignore` itd.  
+✅ **Sugerowanie plików do ignorowania** – na podstawie struktury projektu.  
+✅ **Szybkie dodawanie plików do `.gitignore`** – kliknij prawym przyciskiem na plik → "Add to .gitignore".  
+✅ **Obsługa wielu systemów kontroli wersji** – Git, Mercurial, Bazaar, Darcs itp.
+
+### **📦 Instalacja w IntelliJ IDEA**
+1️⃣ Otwórz **File → Settings → Plugins** (lub `Ctrl + Alt + S`).  
+2️⃣ Wyszukaj **“.ignore”** w zakładce Marketplace.  
+3️⃣ Kliknij **Install** i zrestartuj IDE.
+
+### **📁 Obsługiwane formaty plików**
+- `.gitignore`
+- `.dockerignore`
+- `.npmignore`
+- `.cvsignore`
+- `.bzrignore`
+- `.hgignore`
+- `.tfignore`
+- `.boringignore`
+
+### **🎯 Dlaczego warto używać `.ignore`?**
+🔹 Ułatwia zarządzanie ignorowanymi plikami.  
+🔹 Redukuje błędy w konfiguracji `.gitignore`.  
+🔹 Automatyzuje tworzenie reguł dla różnych technologii.  
+🔹 Przyspiesza workflow w repozytorium Git.
+
+## Rainbow Brackets <a name="rainbow_brackets"></a>
+
+### **🌈 Rainbow Brackets – Wtyczka do podświetlania nawiasów w IDE**
+
+**Rainbow Brackets** to wtyczka do **IntelliJ IDEA**, **PyCharm**, **WebStorm**, **Android Studio** i innych IDE
+z rodziny **JetBrains**, która podświetla nawiasy w różnych kolorach, ułatwiając analizę kodu.
+
+### **📌 Kluczowe funkcje wtyczki Rainbow Brackets**
+✅ **Kolorowe podświetlanie nawiasów** – różne poziomy zagnieżdżenia otrzymują różne kolory.  
+✅ **Obsługa wielu języków programowania** – działa m.in. w **Java, Python, JavaScript, Kotlin, HTML, XML, JSON** i wielu innych.  
+✅ **Łatwa identyfikacja błędów** – pomaga znaleźć brakujące lub źle zamknięte nawiasy.  
+✅ **Dostosowywanie kolorów** – użytkownik może zmieniać schemat kolorów według własnych preferencji.  
+✅ **Wsparcie dla ciemnych i jasnych motywów**.  
+✅ **Współpraca z innymi wtyczkami** – działa z **Material Theme UI, Atom Material Icons**, itp.
+
+### **📦 Instalacja w IntelliJ IDEA**
+1️⃣ **Otwórz:** `File → Settings → Plugins` (lub `Ctrl + Alt + S`).  
+2️⃣ **Wyszukaj:** "Rainbow Brackets" w zakładce **Marketplace**.  
+3️⃣ **Kliknij:** **Install**, a następnie **Restart IDE**.
+
+### **🎨 Przykład działania i dostosowanie kolorów**
+
+Przed instalacją:
+```java
+public void exampleMethod() {
+    if (condition) {
+        while (true) {
+            doSomething();
+        }
+    }
+}
+```
+
+Po instalacji **Rainbow Brackets**:
+- `{ }`, `[ ]`, `( )` będą miały różne kolory, zależnie od poziomu zagnieżdżenia.
+
+Możesz edytować kolory w **File → Settings → Editor → Color Scheme → Rainbow Brackets**.
+
+### **🎯 Dlaczego warto używać Rainbow Brackets?**
+🔹 Zwiększa **czytelność kodu** w dużych projektach.  
+🔹 Pomaga znaleźć **brakujące lub nadmiarowe nawiasy**.  
+🔹 Przyspiesza **debugowanie** i **analizę kodu**.  
+🔹 Jest **prosta w użyciu** i nie wpływa na wydajność IDE.
+
+## Key Promoter X <a name="key_promoter_x"></a>
+
+### **⌨️ Key Promoter X – Wtyczka do nauki skrótów klawiszowych w IDE**
+
+**Key Promoter X** to popularna wtyczka do **IntelliJ IDEA**, **PyCharm**, **WebStorm**, **Android Studio** i innych
+IDE z rodziny **JetBrains**, która pomaga użytkownikom nauczyć się skrótów klawiszowych poprzez automatyczne podpowiedzi.
+
+### **📌 Kluczowe funkcje wtyczki Key Promoter X**
+✅ **Podpowiada skróty klawiszowe** – wyświetla powiadomienia, gdy użytkownik użyje myszy zamiast klawiatury.  
+✅ **Pokazuje liczbę użyć myszy** – informuje, ile razy kliknąłeś daną opcję zamiast użyć skrótu.  
+✅ **Lista najczęściej używanych operacji** – pomaga określić, które skróty warto zapamiętać w pierwszej kolejności.  
+✅ **Automatycznie proponuje nowe skróty** – uczy bardziej efektywnego korzystania z IDE.  
+✅ **Obsługa własnych skrótów** – integruje się z niestandardowymi skrótami zdefiniowanymi w IDE.
+
+### **📦 Instalacja w IntelliJ IDEA**
+1️⃣ **Otwórz:** `File → Settings → Plugins` (lub `Ctrl + Alt + S`).  
+2️⃣ **Wyszukaj:** "Key Promoter X" w zakładce **Marketplace**.  
+3️⃣ **Kliknij:** **Install**, a następnie **Restart IDE**.
+
+### **🎯 Jak działa Key Promoter X?**
+Jeśli klikniesz np. **"Refactor"** w menu zamiast użyć skrótu klawiszowego, pojawi się powiadomienie:
+
+🔹 **"Refactor (Ctrl + Alt + Shift + T) – użyj skrótu zamiast myszy!"**
+
+Im częściej ignorujesz skróty, tym bardziej wtyczka przypomina, aby z nich korzystać. 😃
+
+### **🎓 Dlaczego warto używać Key Promoter X?**
+🚀 **Przyspiesza pracę w IDE** – dzięki skrótom działasz znacznie szybciej.  
+📈 **Zwiększa produktywność** – mniej klikania, więcej kodowania.  
+🧠 **Uczy efektywnej pracy** – idealne narzędzie dla początkujących i zaawansowanych programistów.
+
+Chcesz szybciej nauczyć się skrótów klawiszowych i pracować wydajniej? **Key Promoter X to must-have!** 🔥
+
+## Lombok <a name="lombok"></a>
+
+### **🍃 Lombok – Wtyczka do IntelliJ IDEA i JetBrains IDEs**
+
+**Lombok** to **biblioteka** dla Javy, która **automatycznie generuje kod**, eliminując konieczność ręcznego pisania
+**getterów, setterów, konstruktorów** i innych standardowych metod. Wtyczka **Lombok Plugin** w IntelliJ IDEA zapewnia
+pełne wsparcie dla tej biblioteki, umożliwiając poprawne działanie adnotacji Lomboka w IDE.
+
+### **📌 Kluczowe funkcje wtyczki Lombok**
+✅ **Obsługa adnotacji Lomboka** w IntelliJ IDEA i innych JetBrains IDEs.  
+✅ **Automatyczne generowanie kodu** w tle bez konieczności ręcznego pisania metod.  
+✅ **Poprawne działanie funkcji "Go to Definition"** dla metod generowanych przez Lomboka.  
+✅ **Rozwiązywanie błędów kompilacji związanych z Lombokiem**.
+
+### **📦 Instalacja w IntelliJ IDEA**
+1️⃣ **Otwórz:** `File → Settings → Plugins` (lub `Ctrl + Alt + S`).  
+2️⃣ **Wyszukaj:** "Lombok Plugin" w zakładce **Marketplace**.  
+3️⃣ **Kliknij:** **Install**, a następnie **Restart IDE**.  
+4️⃣ **Upewnij się, że Lombok jest włączony:**
+- Przejdź do `File → Settings → Build, Execution, Deployment → Compiler → Annotation Processors`
+- Zaznacz **"Enable annotation processing"**
+
+### **🎯 Jak działa Lombok w IntelliJ IDEA?**
+Po zainstalowaniu wtyczki możesz używać adnotacji **Lombok** w swoim kodzie, np.:
+
+```java
+import lombok.Data;
+
+@Data // Automatycznie generuje gettery, settery, toString, equals i hashCode
+public class User {
+    private String name;
+    private int age;
+}
+```
+
+➡️ Bez Lomboka musiałbyś ręcznie pisać **gettery, settery i inne metody**!
+
+### **💡 Najpopularniejsze adnotacje Lomboka**
+🔹 `@Getter` i `@Setter` → Generują gettery i settery dla pól klasy.  
+🔹 `@Data` → Generuje **toString()**, **equals()**, **hashCode()**, gettery i settery.  
+🔹 `@AllArgsConstructor` i `@NoArgsConstructor` → Tworzą konstruktory z wszystkimi lub żadnym parametrem.  
+🔹 `@Builder` → Tworzy wzorzec **Builder** dla klasy.  
+🔹 `@Slf4j` → Automatycznie dodaje logger **SLF4J**.
+
+### **🎓 Dlaczego warto używać Lomboka?**
+🚀 **Mniej boilerplate code** – nie musisz pisać setek linii zbędnego kodu.  
+📈 **Lepsza czytelność** – kod staje się bardziej przejrzysty.  
+⚡ **Szybsza praca** – nie musisz generować metod ręcznie.
+
+Jeśli chcesz **przyspieszyć pracę i uprościć kod w Javie**, **Lombok Plugin** to **must-have**! 🔥
+
+## Allure Report <a name="allure_report_plugin"></a>
+
+### **📊 Allure Report – Wtyczka do IntelliJ IDEA**
+
+**Allure Report** to **zaawansowane narzędzie do generowania raportów testowych**. Wtyczka **Allure Plugin** dla
+IntelliJ IDEA integruje Allure z IDE, umożliwiając szybkie generowanie, przeglądanie i analizowanie raportów
+bez wychodzenia z IntelliJ.
+
+### **📌 Co robi wtyczka Allure Report?**
+✅ **Integruje raporty Allure z IntelliJ IDEA** – pozwala otwierać i analizować wyniki testów bez wychodzenia z IDE.  
+✅ **Dodaje nową zakładkę "Allure"**, w której można wizualizować raporty w graficznej formie.  
+✅ **Automatycznie wykrywa katalog `allure-results`** i generuje raport jednym kliknięciem.  
+✅ **Obsługuje TestNG, JUnit 4/5, Cucumber i inne frameworki** testowe.  
+✅ **Pozwala przeglądać szczegóły testów** – błędy, logi, załączniki (np. screenshoty).
+
+### **🔧 Jak zainstalować wtyczkę?**
+1️⃣ Otwórz **IntelliJ IDEA** i przejdź do:
+- `File → Settings → Plugins` (Windows/Linux)
+- `IntelliJ IDEA → Preferences → Plugins` (Mac)  
+  2️⃣ Wyszukaj: **"Allure Report"** w zakładce **Marketplace**.  
+  3️⃣ Kliknij **Install**, a potem **Restart IDE**.
+
+### **📂 Jak używać wtyczki?**
+1️⃣ **Uruchom testy**, które zapisują wyniki do `allure-results`.  
+2️⃣ W **dolnym panelu IntelliJ** przejdź do zakładki **"Allure"**.  
+3️⃣ Kliknij **"Generate Report"**, aby zobaczyć wyniki w IDE.  
+4️⃣ Możesz nawigować po testach, sprawdzać błędy i załączniki.
+
+### **📢 Zalety wtyczki Allure Report w IntelliJ IDEA**
+🚀 **Nie trzeba otwierać raportów w przeglądarce** – wszystko działa w IDE.  
+🔍 **Szybki podgląd wyników testów** bez dodatkowych poleceń w terminalu.  
+📊 **Wizualizacja błędów, logów i statystyk** testów.  
+🛠️ **Łatwa integracja z popularnymi frameworkami** testowymi.
+
+Jeśli pracujesz z Allure, ta wtyczka **znacznie ułatwia życie**! 🔥
+
+---
+
+# 📚Dependencies — opis <a name="dependencies_description"></a>
+
+## ⭐Uniwersalne <a name="universal"></a>
+
+### JUnit Jupiter (Aggregator) <a name="junit_jupiter_aggregator"></a>
+
+`JUnit Jupiter (Aggregator)` to zależność dla **JUnit 5**, która zapewnia pełną funkcjonalność silnika testowego
+**JUnit Jupiter**. Jest to **główna implementacja testów** w JUnit 5, zawierająca **adnotacje, asercje i mechanizmy
+testowania**.
+
+#### **📌 Co to jest JUnit Jupiter?**
+JUnit 5 składa się z trzech głównych modułów:
+1. **JUnit Platform** – uruchamia testy i integruje różne silniki testowe.
+2. **JUnit Jupiter** – nowoczesna implementacja testów dla JUnit 5.
+3. **JUnit Vintage** – wsparcie dla testów JUnit 3 i 4.
+
+**JUnit Jupiter** jest **domyślnym silnikiem testowym** w JUnit 5 i dostarcza **adnotacje** oraz **API do pisania testów**.
+
+#### **📦 Jak dodać zależność?**
+
+**Dla Maven (pom.xml)**
+```xml
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.10.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+**Dla Gradle (build.gradle.kts)**
+```kotlin
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+}
+```
+
+#### **🛠️ Jak używać?**
+
+**✅ Przykładowy test w JUnit 5 (Jupiter)**
+```java
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ExampleTest {
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Uruchamiane przed wszystkimi testami");
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        System.out.println("Uruchamiane przed każdym testem");
+    }
+
+    @Test
+    void testAddition() {
+        int result = 2 + 3;
+        assertEquals(5, result, "Dodawanie nie działa poprawnie!");
+    }
+
+    @Test
+    void testBoolean() {
+        assertTrue(10 > 5, "10 powinno być większe od 5");
+    }
+
+    @AfterEach
+    void afterEach() {
+        System.out.println("Uruchamiane po każdym teście");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        System.out.println("Uruchamiane po wszystkich testach");
+    }
+}
+```
+
+#### **📢 Kluczowe funkcje JUnit Jupiter**
+✅ **Nowoczesna składnia i API** – pełne wsparcie dla **Lambda Expressions** i **Java 8+**  
+✅ **Więcej adnotacji** – np. `@BeforeAll`, `@BeforeEach`, `@AfterEach`, `@AfterAll`  
+✅ **Bogate API asercji** – `assertEquals()`, `assertTrue()`, `assertThrows()` itd.  
+✅ **Dynamiczne testy** – `@TestFactory` do tworzenia testów w locie  
+✅ **Tagowanie testów** – `@Tag("slow")`, `@Tag("fast")`
+
+#### **🎯 Dlaczego warto używać JUnit Jupiter?**
+`JUnit Jupiter` to **główna implementacja testów w JUnit 5**, która:  
+🔹 Usprawnia pisanie testów dzięki nowoczesnemu API.  
+🔹 Wspiera **dynamiczne testy** i **parametryzację**.  
+🔹 Pozwala na **lepsze organizowanie testów** w projektach Java.
+
+Jeśli chcesz korzystać z **JUnit 5**, to `JUnit Jupiter` jest absolutnie kluczowym dependency! 🚀
+
+### JUnit Platform Suite (Aggregator) <a name="junit_platform_suite_aggregator"></a>
+
+`JUnit Platform Suite (Aggregator)` to zależność używana do uruchamiania testów w **JUnit 5**, pozwalająca na
+konfigurację i uruchamianie testów z różnych pakietów i klas w ramach jednej **suity testowej**.
+
+#### **📌 Co to jest JUnit Platform Suite?**
+JUnit 5 składa się z trzech głównych modułów:
+1. **JUnit Platform** – uruchamia testy i integruje różne silniki testowe.
+2. **JUnit Jupiter** – implementacja dla testów JUnit 5.
+3. **JUnit Vintage** – wsparcie dla testów JUnit 3 i 4.
+
+**JUnit Platform Suite** to mechanizm pozwalający na **grupowanie i uruchamianie testów** z różnych klas, pakietów
+i frameworków w ramach jednej konfiguracji.
+
+#### **📦 Jak dodać zależność?**
+
+**Dla Maven (pom.xml)**
+```xml
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-suite</artifactId>
+    <version>1.10.0</version>
+</dependency>
+```
+
+**Dla Gradle (build.gradle.kts)**
+```kotlin
+dependencies {
+    testImplementation("org.junit.platform:junit-platform-suite:1.10.0")
+}
+```
+
+#### **🛠️ Jak używać?**
+
+Tworząc klasę testową, można użyć **JUnit 5 Platform Suite** do uruchomienia wielu testów jednocześnie.
+
+**✅ Przykład użycia**
+```java
+import org.junit.platform.suite.api.*;
+
+@Suite
+@SelectPackages("com.example.tests") // Wybiera wszystkie testy z pakietu
+@IncludeTags("smoke") // Uruchamia tylko testy oznaczone jako "smoke"
+public class TestSuite {
+}
+```
+📌 **Co robi ten kod?**  
+✔ **@Suite** – oznacza klasę jako zestaw testów.  
+✔ **@SelectPackages("com.example.tests")** – uruchamia testy z określonego pakietu.  
+✔ **@IncludeTags("smoke")** – filtruje testy po tagach.
+
+#### **📢 Główne zalety JUnit Platform Suite**
+✅ **Grupowanie testów** – można uruchamiać wiele testów na raz.  
+✅ **Filtracja testów** – można wybierać testy po pakietach, klasach, tagach.  
+✅ **Integracja z JUnit 5, TestNG i innymi frameworkami**.  
+✅ **Łatwa konfiguracja w Maven/Gradle**.
+
+Jeśli potrzebujesz **zbiorczego uruchamiania testów w JUnit 5**, to `JUnit Platform Suite` jest idealnym rozwiązaniem! 🚀
+
+### AssertJ Core <a name="assertj_core"></a>
+
+🔹 **AssertJ Core** to biblioteka do **asercji w testach jednostkowych**, która **rozszerza możliwości JUnit**.
+Jest nowoczesną alternatywą dla wbudowanych asercji w **JUnit** i **Hamcrest**, oferując **bardziej czytelną, płynną
+składnię (Fluent API)**.
+
+#### **📦 Dodanie do projektu**
+
+**Maven (pom.xml)**
+```xml
+<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.24.2</version>
+    <scope>test</scope>
+</dependency>
+```
+
+**Gradle (build.gradle.kts)**
+```kotlin
+dependencies {
+    testImplementation("org.assertj:assertj-core:3.24.2")
+}
+```
+
+#### **🛠️ Jak używać AssertJ?**
+
+**✅ Przykładowe asercje**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
+
+class AssertJTest {
+
+    @Test
+    void testBasicAssertions() {
+        int result = 5;
+
+        // Klasyczne JUnit
+        // assertEquals(5, result);
+
+        // Lepsza wersja w AssertJ
+        assertThat(result).isEqualTo(5);
+    }
+
+    @Test
+    void testStringAssertions() {
+        String text = "Hello AssertJ";
+
+        assertThat(text)
+                .isNotEmpty()
+                .startsWith("Hello")
+                .endsWith("AssertJ")
+                .contains("lo As");
+    }
+
+    @Test
+    void testListAssertions() {
+        var numbers = java.util.List.of(1, 2, 3, 4, 5);
+
+        assertThat(numbers)
+                .hasSize(5)
+                .contains(3)
+                .doesNotContain(10)
+                .startsWith(1, 2)
+                .endsWith(4, 5);
+    }
+
+    @Test
+    void testExceptionAssertions() {
+        assertThatThrownBy(() -> { throw new IllegalArgumentException("Błąd!"); })
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Błąd!");
+    }
+}
+```
+
+#### **📌 Kluczowe zalety AssertJ**
+✅ **Czytelniejsza składnia** – `assertThat(value).isEqualTo(expected)` zamiast `assertEquals(expected, value)`.  
+✅ **Fluent API** – możliwość łączenia wielu asercji w jednej linii.  
+✅ **Zaawansowane asercje** – np. **sprawdzanie wyjątków, kolekcji, dat** itp.  
+✅ **Wsparcie dla Java 8+** – m.in. **Stream API, Optional, Lambda Expressions**.
+
+#### **🎯 Dlaczego warto używać AssertJ?**
+🔹 **Lepsza czytelność kodu** – testy są bardziej zrozumiałe.  
+🔹 **Większa elastyczność** – zaawansowane operacje na **Stringach, kolekcjach, wyjątkach**.  
+🔹 **Lepsza obsługa błędów** – komunikaty błędów są bardziej szczegółowe niż w JUnit/Hamcrest.
+
+👉 **AssertJ Core** to świetne rozszerzenie do **JUnit 5**! 🚀
+
+### Java Faker <a name="java_faker"></a>
+### Dotenv Java <a name="dotenv_java"></a>
+### Allure Report <a name="allure_report_dependency"></a>
+
+## 🎨Frontend <a name="frontend"></a>
+
+### Selenium Java <a name="selenium_java"></a>
+### Selenium Support <a name="selenium_support"></a>
+### WebDriverManager <a name="web_driver_manager"></a>
+
+## 🌐Backend <a name="backend"></a>
+
+### REST Assured <a name="rest_assured"></a>
+### JSON Schema Validator <a name="json_schema_validator"></a>
+### Project Lombok <a name="project_lombok"></a>
+### Jackson Databind <a name="jackson_databind"></a>
+### Jakarta JSON Processing API <a name="jakarta_json_processing_api"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 
 ### Lista z opisem
 
