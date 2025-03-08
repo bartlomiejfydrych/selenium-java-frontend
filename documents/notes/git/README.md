@@ -1,10 +1,10 @@
+# 🐱Git — notatki
+
 # 📑Spis treści
 
 - [Plik wzorcowy — wrzucenie na repo i wyłączenie śledzenia](#file_example)
 
 ---
-
-# 🐱Git — notatki
 
 ## Plik wzorcowy — wrzucenie na repo i wyłączenie śledzenia <a name="file_example"></a>
 
