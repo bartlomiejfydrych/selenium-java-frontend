@@ -1697,31 +1697,139 @@ System.out.println(json);
 
 ---
 
-### 📘Jakarta JSON Processing API <a name="jakarta_json_processing_api"></a>
+### 📘Jakarta JSON Processing API (JSON-P) <a name="jakarta_json_processing_api"></a>
 
-SOON
+🔹 **Jakarta JSON Processing API (JSON-P)** to **standardowa biblioteka do przetwarzania JSON** w języku Java. Pozwala
+na **parsowanie, generowanie i manipulację JSON-em** zarówno w sposób strumieniowy (streaming API), jak i w modelu
+obiektowym (object model API).
 
+🛠 **Przydatne w:**  
+✔ Przetwarzaniu danych JSON w aplikacjach Java  
+✔ Tworzeniu i edytowaniu struktur JSON  
+✔ Obsłudze API REST w Java EE / Jakarta EE
 
+#### **📥 Dodanie do projektu**
 
+**📌 Maven (pom.xml)**
+```xml
+<dependency>
+    <groupId>jakarta.json</groupId>
+    <artifactId>jakarta.json-api</artifactId>
+    <version>2.1.2</version>
+</dependency>
+```
 
+**📌 Gradle (build.gradle)**
+```gradle
+implementation 'jakarta.json:jakarta.json-api:2.1.2'
+```
 
+#### **🚀 Przykłady użycia**
 
+**1️⃣ Tworzenie JSON w sposób programowy**
+```java
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 
+public class JsonExample {
+    public static void main(String[] args) {
+        JsonObject json = Json.createObjectBuilder()
+                .add("imie", "Jan")
+                .add("nazwisko", "Kowalski")
+                .add("wiek", 30)
+                .build();
 
+        System.out.println(json);
+    }
+}
+```
+✅ **Wyjście:**
+```json
+{"imie":"Jan","nazwisko":"Kowalski","wiek":30}
+```
 
+**2️⃣ Parsowanie JSON (czytanie JSON do obiektu Java)**
+```java
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import java.io.StringReader;
 
+public class JsonParsingExample {
+    public static void main(String[] args) {
+        String jsonString = "{\"imie\":\"Jan\",\"nazwisko\":\"Kowalski\",\"wiek\":30}";
+        
+        JsonReader reader = Json.createReader(new StringReader(jsonString));
+        JsonObject jsonObject = reader.readObject();
+        
+        System.out.println("Imię: " + jsonObject.getString("imie"));
+        System.out.println("Nazwisko: " + jsonObject.getString("nazwisko"));
+        System.out.println("Wiek: " + jsonObject.getInt("wiek"));
+    }
+}
+```
+✅ **Wyjście:**
+```
+Imię: Jan  
+Nazwisko: Kowalski  
+Wiek: 30  
+```
 
+**3️⃣ Obsługa tablic JSON (`JsonArray`)**
+```java
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
 
+public class JsonArrayExample {
+    public static void main(String[] args) {
+        JsonArray jsonArray = Json.createArrayBuilder()
+                .add(Json.createObjectBuilder().add("imie", "Jan").add("wiek", 30))
+                .add(Json.createObjectBuilder().add("imie", "Anna").add("wiek", 25))
+                .build();
 
-<details>
-    <summary>5. Jakarta JSON Processing API (opcjonalne)</summary>
+        System.out.println(jsonArray);
+    }
+}
+```
+✅ **Wyjście:**
+```json
+[
+    {"imie":"Jan","wiek":30},
+    {"imie":"Anna","wiek":25}
+]
+```
 
-> *Dependency o nazwie **"Jakarta JSON Processing API"** to biblioteka służąca do przetwarzania danych w formacie JSON w języku Java zgodnie ze standardami Jakarta EE (wcześniej znane jako Java EE). Jest to część Jakarta EE, która zapewnia interfejsy i klasy umożliwiające czytanie, zapisywanie i manipulowanie danymi w formacie JSON.  
-> Oto główne funkcje, za które odpowiada "Jakarta JSON Processing API":  
-> **Przetwarzanie JSON:** Biblioteka ta umożliwia łatwe przetwarzanie danych w formacie JSON, w tym parsowanie danych wejściowych JSON na obiekty Java oraz generowanie danych JSON z obiektów Java.  
-> **Obsługa różnych typów danych:** "Jakarta JSON Processing API" obsługuje różne typy danych JSON, takie jak obiekty, tablice, liczby, łańcuchy znaków, wartości logiczne, wartości null itp.  
-> **Wsparcie dla strumieniowania:** Biblioteka ta dostarcza interfejsy do strumieniowego przetwarzania danych JSON, co umożliwia efektywne przetwarzanie dużych ilości danych bez konieczności wczytywania całego pliku JSON do pamięci.  
-> **Manipulacja danymi:** "Jakarta JSON Processing API" umożliwia manipulację danymi JSON, taką jak dodawanie, usuwanie i modyfikowanie elementów obiektów JSON oraz tablic JSON.  
-> **Wsparcie dla standardów Jakarta EE:** Biblioteka ta jest zgodna ze standardami Jakarta EE, co oznacza, że może być używana w aplikacjach opartych na platformie Jakarta EE, takich jak serwery aplikacji Jakarta EE, bez dodatkowych konfiguracji.  
-> Dzięki **"Jakarta JSON Processing API"** programiści mogą łatwo integrować obsługę formatu JSON w swoich aplikacjach opartych na platformie Jakarta EE, co jest szczególnie przydatne w przypadku aplikacji, które wymieniają dane w formacie JSON z innymi serwisami lub klientami.*
-</details>
+**4️⃣ Streaming API – przetwarzanie JSON kawałek po kawałku**  
+Streaming API jest bardziej wydajne, ponieważ nie wymaga przechowywania całego JSON-a w pamięci.
+```java
+import jakarta.json.stream.JsonGenerator;
+import java.io.StringWriter;
+
+public class StreamingExample {
+    public static void main(String[] args) {
+        StringWriter writer = new StringWriter();
+        JsonGenerator generator = Json.createGenerator(writer);
+        
+        generator.writeStartObject()
+                .write("imie", "Jan")
+                .write("nazwisko", "Kowalski")
+                .write("wiek", 30)
+                .writeEnd();
+        generator.close();
+        
+        System.out.println(writer);
+    }
+}
+```
+✅ **Wyjście:**
+```json
+{"imie":"Jan","nazwisko":"Kowalski","wiek":30}
+```
+
+#### **🎯 Podsumowanie**
+✅ **Standardowa biblioteka JSON dla Jakarta EE**  
+✅ **Obsługuje model obiektowy i API strumieniowe**  
+✅ **Lekka, szybka i kompatybilna z Java SE i Java EE**  
+✅ **Alternatywa dla Jackson i Gson**
+
+💡 **Idealne do przetwarzania JSON w aplikacjach enterprise! 🚀**
