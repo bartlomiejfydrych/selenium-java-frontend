@@ -9,6 +9,7 @@
 2. [🧩Dodatkowe](#additional)
    - [Typo — poprawienie błędów w tekście dla plików (głównie Markdown) pisanych w języku polskim](#typo_pl)
    - [Maven dependencies — ustawianie zmiennych dla numerów wersji](#maven_dependencies_variables)
+   - [Jackson Databind vs. Jakarta JSON Processing API (JSON-P) – porównanie](#jackson_vs_jakarta)
 3. [🔌Pluginy do IDE — opis](#plugins_description)
    - [.ignore](#ignore)
    - [Rainbow Brackets](#rainbow_brackets)
@@ -203,6 +204,59 @@ Dalsze kroki w `README` katalogu `selenium-java`
         <version>${selenium.version}</version>
     </dependency>
     ```
+
+## 🏆Jackson Databind vs. Jakarta JSON Processing API (JSON-P) – porównanie <a name="jackson_vs_jakarta"></a>
+
+Obie biblioteki służą do przetwarzania JSON w Java, ale mają różne zastosowania i poziomy popularności.
+
+### **1️⃣ Jackson Databind – Najpopularniejszy wybór 🚀**
+**📌 Zalety:**  
+✅ **Najpopularniejsza biblioteka** – używana w Spring Boot, Micronaut, Quarkus  
+✅ **Konwersja JSON ↔️ Java Objects (POJO)** – bez potrzeby pisania kodu parsującego  
+✅ **Bardzo szybka i wydajna**  
+✅ **Obsługuje różne formaty (JSON, XML, YAML, CBOR itp.)**  
+✅ **Łatwa konfiguracja i rozszerzalność**
+
+**📌 Przykład:**
+```java
+ObjectMapper objectMapper = new ObjectMapper();
+Person person = objectMapper.readValue(jsonString, Person.class);
+```
+👉 **Jackson Databind to standard de facto w Spring Boot i API REST.**
+
+### **2️⃣ Jakarta JSON Processing API (JSON-P) – Standard Jakarta EE**
+**📌 Zalety:**  
+✅ **Część oficjalnej specyfikacji Jakarta EE**  
+✅ **Lżejsza niż Jackson – nie wymaga dodatkowych zależności**  
+✅ **Obsługuje zarówno model obiektowy, jak i API strumieniowe (lepsza wydajność dla dużych plików)**  
+✅ **Działa dobrze w środowiskach Jakarta EE (np. aplikacje serwerowe, Java EE)**
+
+**📌 Przykład:**
+```java
+JsonObject json = Json.createObjectBuilder()
+    .add("imie", "Jan")
+    .add("wiek", 30)
+    .build();
+```
+👉 **Lepsza, jeśli używasz środowiska Jakarta EE i potrzebujesz lekkiego API do JSON.**
+
+### **🔎 Które rozwiązanie wybrać?**
+
+| Cecha                            | **Jackson Databind** 🏆                               | **Jakarta JSON-P**                              |
+|----------------------------------|-------------------------------------------------------|-------------------------------------------------|
+| **Popularność**                  | 🔥🔥🔥 **Najpopularniejsze** (Spring Boot, REST APIs) | 🔥 Używane w Jakarta EE                         |
+| **Łatwość użycia**               | ✅ **Łatwe mapowanie JSON ↔ POJO**                     | ⚠️ Wymaga manualnej obsługi JSON                |
+| **Wydajność**                    | 🚀 Bardzo szybkie                                     | ⚡ Lekkie, ale mniej optymalne dla dużych danych |
+| **Obsługa POJO**                 | ✅ Automatyczna                                        | ❌ Brak natywnego wsparcia                       |
+| **API Strumieniowe**             | 🔄 Obsługiwane, ale mniej elastyczne                  | ✅ Bardzo wydajne dla dużych plików              |
+| **Wsparcie dla innych formatów** | ✅ JSON, XML, YAML, CBOR                               | ❌ Tylko JSON                                    |
+| **Wbudowane w Jakarta EE?**      | ❌ Nie                                                 | ✅ Tak                                           |
+
+**📌 Werdykt:**  
+✔ **Użyj Jackson Databind**, jeśli pracujesz ze **Spring Boot, REST API lub potrzebujesz mapowania JSON ↔️ Java POJO**.  
+✔ **Użyj Jakarta JSON-P**, jeśli pracujesz w środowisku **Jakarta EE i potrzebujesz lekkiej biblioteki JSON**.
+
+🚀 **W większości przypadków Jackson Databind będzie lepszym wyborem!**
 
 ---
 
