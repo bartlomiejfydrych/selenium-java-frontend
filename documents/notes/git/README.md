@@ -1,4 +1,3 @@
-
 # 📑Spis treści
 
 - [Plik wzorcowy — wrzucenie na repo i wyłączenie śledzenia](#file_example)
