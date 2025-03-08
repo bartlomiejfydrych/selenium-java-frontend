@@ -1,29 +1,31 @@
 # 💥Rozwiązane problemy
 
-## 📑Spis
+# 📑Spis treści
 
-- [WebElementy (przycisk) - zasłonięty przez inny element strony](#element_covered_by_another_element)
-- [WebElementy - zasłonięte przez reklamę, usunięcie elementu strony](#webelement_remove)
-- [WebElementy - dynamiczny lokator](#webelement_dynamic_locator)
-- [Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#private_webelement)
-- [Sprawdzanie, czy element nie jest widoczny - błąd znajdowania elementu](#assert_element_not_visible)
-- [Przycisk - widoczny, ale wewnątrz innego elementu](#button_inside_other_element)
-- [Przycisk - czy element jest klikalny](#button_clickable)
-- [Wait - czekanie, aż element będzie zawierał określony tekst](#wait_for_text)
-- [Wait — czekanie na element, który bardzo szybko i często ulega zmianom](#wait_dynamic_element_polling_every)
-- [Uszkodzony obrazek / Zepsuty link](#broken_image_link)
-- [Obrazek - wymiary](#image_dimensions)
-- [Chrome - okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
-- [Select - utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
-- [Hover/ToolTip — utrzymanie widoczności za pomocą DevTools](#hover_tooltip_hold_visible)
-- [Maven/Dependencies - błąd po podniesieniu wersji](#maven_dependencies_up)
-- [WebElementy - czekanie na zakończenie animacji](#webelement_animation_wait)
-- [Selenium — błąd CDP po aktualizacji DevTools](#selenium_devtools_cdp)
-- [Warningi SLF4J — prawdopodobnie po instalacji Allure Report](#slf4j_warnings)
+- [WebElement – zasłonięty przez inny element strony](#webelement_covered_by_another_element)
+- [WebElement – zasłonięty przez reklamę, usunięcie elementu strony](#webelement_remove)
+- [WebElement – dynamiczny lokator, podstawianie zmiennej pod selektor](#webelement_dynamic_locator)
+- [WebElement – brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście](#webelement_private)
+- [WebElement – sprawdzanie, czy element NIE jest widoczny, błąd znajdowania elementu](#webelement_assert_not_visible)
+- [WebElement – widoczny, ale wewnątrz innego elementu](#webelement_inside_other_webelement)
+- [WebElement – sprawdzanie, czy element jest klikalny](#webelement_clickable)
+- [WebElement – czekanie na zakończenie animacji](#webelement_animation_wait)
+- [Wait – czekanie, aż element będzie zawierał określony tekst](#wait_for_text)
+- [Wait – czekanie na element, który bardzo szybko i często ulega zmianom](#wait_dynamic_element_polling_every)
+- [Obrazek – uszkodzony obrazek / zepsuty link](#image_broken_image_link)
+- [Obrazek – wymiary](#image_dimensions)
+- [Chrome – okno wybrania domyślnej wyszukiwarki](#chrome_search_window)
+- [Select – utrzymanie rozwiniętej listy za pomocą DevTools](#select_hold_expanded)
+- [Hover/ToolTip – utrzymanie widoczności za pomocą DevTools](#hover_tooltip_hold_visible)
+- [Maven/Dependencies – błąd po podniesieniu wersji](#maven_dependencies_error_after_update)
+- [Selenium – błąd CDP po aktualizacji DevTools](#selenium_cdp_errors_after_devtools_update)
+- [Warningi SLF4J – prawdopodobnie po instalacji Allure Report](#warnings_slf4j)
 
-# 📄Opis
+---
 
-## WebElementy (przycisk) - zasłonięty przez inny element strony <a name="element_covered_by_another_element"></a>
+# 📝Opis
+
+## 📄WebElement – zasłonięty przez inny element strony <a name="webelement_covered_by_another_element"></a>
 
 **Linki:**  
 [Dlaczego kliknięcia Selenium nie działają](https://www.lucidchart.com/techblog/2020/01/21/why-selenium-clicks-fail/)  
@@ -38,7 +40,7 @@ Podczas testów strony [Tools QA](https://demoqa.com/) okazało się, że wyskak
 Przy standardowych próbach kliknięcia był zwracany błąd, że kolejny oczekiwany element po tym kliknięciu nie istnieje.
 Po dodaniu *wait'a*, który miał czekać, aż element będzie klikalny, zaczął być zwracany komunikat z błędem informujący, że
 element nie mógł zostać kliknięty, ponieważ został zasłonięty przez inny element (oraz wymieniono jego nazwę).
-![](images/element_covered_by_another_element_1.png)
+![](images/webelement_covered_by_another_element_1.png)
 
 **Rozwiązanie:**  
 Ostatecznie okazało się, że najlepszym sposobem jest użycie JavaScriptu, ponieważ ma on zdolność "omijania" przysłaniających
@@ -75,7 +77,7 @@ jse.executeScript("arguments[0].click();", this.submitButton);
 
 ---
 
-## WebElementy - zasłonięte przez reklamę, usunięcie elementu strony <a name="webelement_remove"></a>
+## 📄WebElement – zasłonięty przez reklamę, usunięcie elementu strony <a name="webelement_remove"></a>
 
 **Linki:**  
 https://stackoverflow.com/questions/70222166/how-do-i-remove-an-element-in-selenium-python
@@ -94,7 +96,7 @@ jse.executeScript("arguments[0].remove();", adFrame);
 
 ---
 
-## WebElementy - dynamiczny lokator <a name="webelement_dynamic_locator"></a>
+## 📄WebElement – dynamiczny lokator, podstawianie zmiennej pod selektor <a name="webelement_dynamic_locator"></a>
 
 **Problem:**  
 Na stronie zamiast pola typu `Select` był DIV, który rozwijał listę DIV'ów.  
@@ -140,7 +142,7 @@ podstawiając nasz String pod ścieżkę Xpath tego nowego lokatora
 
 ---
 
-## Brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="private_webelement"></a>
+## 📄WebElement – brak dostępu do prywatnego WebElementu na potrzeby Asercji w teście <a name="webelement_private"></a>
 
 **Linki:**  
 https://www.w3schools.com/java/java_encapsulation.asp
@@ -167,7 +169,7 @@ assertThat(checkBoxPage.getAssertHomeCheckBox().isSelected()).isTrue();
 
 ---
 
-## Sprawdzanie, czy element nie jest widoczny - błąd znajdowania elementu <a name="assert_element_not_visible"></a>
+## 📄WebElement – sprawdzanie, czy element NIE jest widoczny, błąd znajdowania elementu <a name="webelement_assert_not_visible"></a>
 
 **Linki:**  
 https://stackoverflow.com/a/62684271
@@ -198,14 +200,14 @@ assertThat(webElementMethods.isElementPresent(desktopCheckBox)).isFalse();
 
 ---
 
-## Przycisk - widoczny, ale wewnątrz innego elementu <a name="button_inside_other_element"></a>
+## 📄WebElement – widoczny, ale wewnątrz innego elementu <a name="webelement_inside_other_webelement"></a>
 
 **Linki:**  
 https://stackoverflow.com/a/19763087
 
 **Problem:**  
 Przycisk jest widoczny na stronie, ale znajduje się wewnątrz innego elementu, przez co jest "przysłonięty" wewnątrz kodu strony.
-![](images/button_inside_other_element_1.png)
+![](images/webelement_inside_other_webelement_1.png)
 
 **Rozwiązanie:**  
 Jeżeli przycisk jest **widoczny** na stronie, ale znajduje się wewnątrz innego elementu to można użyć `Actions`:
@@ -218,11 +220,11 @@ public RadioButtonPage clickYesRadioButton() {
 
 ---
 
-## Przycisk - czy element jest klikalny <a name="button_clickable"></a>
+## 📄WebElement – sprawdzanie, czy element jest klikalny <a name="webelement_clickable"></a>
 
 **Problem:**  
 Przy próbie kliknięcia przycisku, który nie jest klikalny, zwracany jest błąd.  
-![](images/button_clickable_1.png)
+![](images/webelement_clickable_1.png)
 
 **Rozwiązanie:**  
 Żeby takie coś sprawdzać, warto napisać i stosować poniższą metodę:
@@ -257,7 +259,37 @@ assertThat(tabsPage.getMoreTabButton().getAttribute("aria-selected")).isEqualTo(
 
 ---
 
-## Wait - czekanie, aż element będzie zawierał określony tekst <a name="wait_for_text"></a>
+## 📄WebElement – czekanie na zakończenie animacji <a name="webelement_animation_wait"></a>
+
+**Problem:**  
+Czasami Selenium szybciej zamykało okno modalne, nim zdążyło się ono w pełni pojawić.  
+Ta dziwna sytuacja wywoływała błąd:  
+`StaleElementReferenceException: stale element reference: stale element not found in the current frame`  
+Selenium próbował odwoływać się do elementu, którego już nie było.
+
+**Rozwiązanie:**  
+Żeby zaczekać, aż dany element lub animacja przestaną się poruszać można użyć poniższej metody:
+```Java
+public void waitForElementToStopMoving(WebElement webElement) {
+    Point initialLocation = webElement.getLocation();
+    while (true) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        Point finalLocation = webElement.getLocation();
+        if (initialLocation.equals(finalLocation)) {
+            break;
+        }
+        initialLocation = finalLocation;
+    }
+}
+```
+
+---
+
+## 📄Wait – czekanie, aż element będzie zawierał określony tekst <a name="wait_for_text"></a>
 
 **Linki:**  
 https://www.browserstack.com/guide/wait-commands-in-selenium-webdriver
@@ -277,7 +309,7 @@ defaultWait.until(ExpectedConditions.textToBePresentInElement(linkResponseMessag
 
 ---
 
-## Wait — czekanie na element, który bardzo szybko i często ulega zmianom <a name="wait_dynamic_element_polling_every"></a>
+## 📄Wait – czekanie na element, który bardzo szybko i często ulega zmianom <a name="wait_dynamic_element_polling_every"></a>
 
 **Linki:**  
 https://youtu.be/X21PIW3UKAY?si=Kh3vD_rOdM6BAC5j&t=737
@@ -305,7 +337,7 @@ public ProgressBarPage waitForProgressBar(String expectedValue) {
 
 ---
 
-## Uszkodzony obrazek / Zepsuty link <a name="broken_image_link"></a>
+## 📄Obrazek – uszkodzony obrazek / zepsuty link <a name="image_broken_image_link"></a>
 
 **Problem:**  
 Jak sprawdzić, czy obrazek lub link jest zepsuty?
@@ -337,7 +369,7 @@ assertThat(responseCode).isEqualTo(200);
 
 ---
 
-## Obrazek - wymiary <a name="image_dimensions"></a>
+## 📄Obrazek – wymiary <a name="image_dimensions"></a>
 
 **Problem:**  
 Jak pobrać wymiary obrazka, żeby je sprawdzić?
@@ -364,7 +396,7 @@ assertThat(actualImageHeight).isEqualTo(expectedImageHeight);
 
 ---
 
-## Chrome - okno wybrania domyślnej wyszukiwarki <a name="chrome_search_window"></a>
+## 📄Chrome – okno wybrania domyślnej wyszukiwarki <a name="chrome_search_window"></a>
 
 **Linki:**  
 https://stackoverflow.com/questions/78787332/selecting-default-search-engine-is-needed-for-chrome-version-127
@@ -381,7 +413,7 @@ options.addArguments("--disable-search-engine-choice-screen");
 
 ---
 
-## Select - utrzymanie rozwiniętej listy za pomocą DevTools <a name="select_hold_expanded"></a>
+## 📄Select – utrzymanie rozwiniętej listy za pomocą DevTools <a name="select_hold_expanded"></a>
 
 **Linki:**  
 https://dev.to/kildareflare/inspect-disappearing-element-e-g-dropdown-menus-1khi
@@ -400,7 +432,7 @@ Po rozwinięciu select'a i kliknięciu w DevToolsy na ten element rozwinięta li
 
 ---
 
-## Hover/ToolTip — utrzymanie widoczności za pomocą DevTools <a name="hover_tooltip_hold_visible"></a>
+## 📄Hover/ToolTip – utrzymanie widoczności za pomocą DevTools <a name="hover_tooltip_hold_visible"></a>
 
 **Linki:**  
 https://stackoverflow.com/a/38650137
@@ -419,7 +451,7 @@ Po najechaniu myszką na element i kliknięciu w DevToolsy tooltip znikał.
 
 ---
 
-## Maven/Dependencies - błąd po podniesieniu wersji <a name="maven_dependencies_up"></a>
+## 📄Maven/Dependencies – błąd po podniesieniu wersji <a name="maven_dependencies_error_after_update"></a>
 
 **Problem:**  
 Po podniesieniu wersji wszystkich możliwych dependencies w Maven przy uruchamianiu testu w Selenium zaczął pojawiać się
@@ -431,37 +463,7 @@ Pomogło wyłączenie i włączenie IDE ponownie.
 
 ---
 
-## WebElementy - czekanie na zakończenie animacji <a name="webelement_animation_wait"></a>
-
-**Problem:**  
-Czasami Selenium szybciej zamykało okno modalne, nim zdążyło się ono w pełni pojawić.  
-Ta dziwna sytuacja wywoływała błąd:  
-`StaleElementReferenceException: stale element reference: stale element not found in the current frame`  
-Selenium próbował odwoływać się do elementu, którego już nie było.
-
-**Rozwiązanie:**  
-Żeby zaczekać, aż dany element lub animacja przestaną się poruszać można użyć poniższej metody:  
-```Java
-public void waitForElementToStopMoving(WebElement webElement) {
-    Point initialLocation = webElement.getLocation();
-    while (true) {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        Point finalLocation = webElement.getLocation();
-        if (initialLocation.equals(finalLocation)) {
-            break;
-        }
-        initialLocation = finalLocation;
-    }
-}
-```
-
----
-
-## Selenium — błąd CDP po aktualizacji DevTools <a name="selenium_devtools_cdp"></a>
+## 📄Selenium – błąd CDP po aktualizacji DevTools <a name="selenium_cdp_errors_after_devtools_update"></a>
 
 **Link do wątku na ten temat:**  
 https://github.com/SeleniumHQ/selenium/issues/14630#issue-2601723082
@@ -498,7 +500,9 @@ W linku wyżej na GitHub inni użytkownicy zaproponowali dwa tymczasowe obejści
    - Dokumentacja **WebDriverManager**:
      https://bonigarcia.dev/webdrivermanager/#webdrivermanager-and-selenium-manager
 
-## Warningi SLF4J — prawdopodobnie po instalacji Allure Report <a name="slf4j_warnings"></a>
+---
+
+## 📄Warningi SLF4J – prawdopodobnie po instalacji Allure Report <a name="warnings_slf4j"></a>
 
 **Linki:**  
 Maven: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic/1.5.16  
@@ -514,7 +518,7 @@ SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 ```
 
-![](images/slf4j_warnings_1.png)
+![](images/warnings_slf4j_1.png)
 
 Nie robią one nic złego, ale mogą denerwować.
 
