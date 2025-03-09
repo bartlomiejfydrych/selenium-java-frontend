@@ -1,7 +1,11 @@
 # ☕Java — notatki
 
-## 📑Spis
+# 📑Spis treści
 
+- [Dokumentacja](#documentation)
+- [Konwencja nazewnictwa katalogów 'package'](#name_convention_package)
+- [Konwencja nazewnictwa klas](#name_convention_class)
+- [Provider](#provider)
 - [Builder](#builder)
 - [Plik konfiguracyjny — config.properties](#config)
 - [Enum](#enum)
@@ -10,12 +14,154 @@
 - [Generics — typy generyczne](#generics)
 - [Allure Report — konfiguracja](#allure_report_configuration)
 - [Obiekt — odczytywanie danych z listy obiektów](#object_list_print_data)
-3. TODO: JavaFaker
-   https://www.baeldung.com/java-faker
+- [Klasa abstrakcyjna](#java_abstract_class)
 
 ---
 
-## Builder <a name="builder"></a>
+# 📝Opis
+
+## 📚Dokumentacja <a name="documentation"></a>
+
+Dokumentacja: https://docs.oracle.com/en/java/  
+Czytelniejsze uzupełnienie: https://www.w3schools.com/java/
+
+---
+
+## 📄Konwencja nazewnictwa katalogów 'package' <a name="name_convention_package"></a>
+
+**Źródło:**  
+https://stackoverflow.com/questions/49890803/naming-conventions-of-composed-package-names
+
+Katalogi **package** można nazywać na dwa sposoby:
+- `mojkatalog`
+- `moj_katalog`
+
+Głównie używana i zalecana jest pierwsza forma, bez podkreślnika `_`.  
+Podkreślnik `_` jest zalecany, jeżeli nasza nazwa posiada w danym miejscu jakiś znak specjalny np. myślnik `-`.  
+Chociaż takie sytuacje mają głównie programiści posiadający nazwy domen w package'ach.  
+Jeżeli my używamy tylko zwykłych, prostych, dwu-wyrazowych nazw to używanie podkreślnika `_` nie jest żadnym problemem.  
+
+---
+
+## 📄Konwencja nazewnictwa klas <a name="name_convention_class"></a>
+
+### **Klasy produkcyjne**
+🔹 **Styl:** PascalCase (każde słowo z dużej litery, bez podkreślników)  
+🔹 **Nazwa powinna jasno wskazywać, co robi klasa**  
+🔹 **Nie używamy skrótów, jeśli nie są powszechnie znane**
+
+✅ **Poprawne nazwy klas:**
+```java
+public class UserService { }
+public class DataProcessor { }
+public class PaymentGateway { }
+public class FileReader { }
+```
+❌ **Błędne nazwy klas:**
+```java
+public class userService { }  // ❌ Zaczynamy wielką literą
+public class data_processor { }  // ❌ Nie używamy podkreślników
+public class File_Reader { }  // ❌ Nie mieszamy stylów
+public class SrvcUsr { }  // ❌ Nie używamy dziwnych skrótów
+```
+
+---
+
+## 📄Provider <a name="provider"></a>
+
+### **Pliki i pakiety zawierające słowo „Providers” – Co oznaczają?**
+
+W programowaniu **„Providers”** odnosi się zazwyczaj do **dostawców usług, zasobów lub danych**, które są udostępniane
+innym częściom aplikacji. Może to obejmować dostarczanie konfiguracji, instancji obiektów, połączeń do baz danych,
+mockowania danych testowych itp.
+
+### **🔹 Główne zastosowania „Providers” w różnych technologiach**
+
+#### **1️⃣ Dependency Injection (Dostawcy zależności)**
+W **Spring, Dagger, Guice** i innych frameworkach DI (Dependency Injection), „Provider” to klasa/metoda odpowiedzialna
+za dostarczanie obiektu do aplikacji.
+
+📌 **Przykład w Dagger (Java/Kotlin):**
+```java
+@Provides
+public Database provideDatabase() {
+    return new Database("my-db-url");
+}
+```
+👉 **Dagger wie, jak utworzyć obiekt `Database`, gdy będzie potrzebny w aplikacji.**
+
+#### **2️⃣ Dostawcy w Java SPI (Service Provider Interface)**
+Java posiada mechanizm **Service Provider Interface (SPI)**, który pozwala na dynamiczne ładowanie dostawców usług
+w czasie działania.
+
+📌 **Przykład:**
+```java
+ServiceLoader<MyService> loader = ServiceLoader.load(MyService.class);
+for (MyService service : loader) {
+    service.performAction();
+}
+```
+👉 **Służy do dynamicznego ładowania implementacji interfejsu `MyService` z pliku `META-INF/services`**
+
+#### **3️⃣ Web i API Providers**
+W kontekście **REST API i GraphQL**, „Provider” często oznacza klasę odpowiedzialną za dostarczanie logiki biznesowej
+lub danych do kontrolera.
+
+📌 **Przykład w JAX-RS (Jakarta RESTful Web Services):**
+```java
+@Provider
+public class CustomExceptionMapper implements ExceptionMapper<CustomException> {
+    @Override
+    public Response toResponse(CustomException e) {
+        return Response.status(400).entity("Błąd: " + e.getMessage()).build();
+    }
+}
+```
+👉 **Służy do mapowania wyjątków na odpowiedzi HTTP.**
+
+#### **4️⃣ Provider w Selenium / Test Automation**
+W testach automatycznych „Provider” może dostarczać dane testowe, konfigurację przeglądarki itp.
+
+📌 **Przykład dostawcy WebDriver w Selenium + WebDriverManager:**
+```java
+public class WebDriverProvider {
+    public static WebDriver getDriver() {
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+    }
+}
+```
+👉 **Dzięki temu testy zawsze otrzymają poprawnie skonfigurowany WebDriver.**
+
+#### **5️⃣ Dostawcy w aplikacjach frontendowych (React, Angular)**
+W **React i Angular** „Provider” oznacza **komponent dostarczający kontekst, zależności lub dane do innych komponentów**.
+
+📌 **Przykład w React (Context API):**
+```jsx
+const ThemeContext = React.createContext('light');
+
+function ThemeProvider({ children }) {
+    return <ThemeContext.Provider value="dark">{children}</ThemeContext.Provider>;
+}
+```
+👉 **Dzięki temu komponenty potomne mogą korzystać z `ThemeContext` bez przekazywania propsów.**
+
+### **📝 Podsumowanie – Co oznacza „Providers”?**
+
+| **Zastosowanie**                       | **Opis**                                                 |
+|----------------------------------------|----------------------------------------------------------|
+| **Dependency Injection**               | Dostarcza instancje obiektów w Spring/Dagger/Guice       |
+| **Service Provider Interface (SPI)**   | Dynamiczne ładowanie usług w Java                        |
+| **REST API (JAX-RS @Provider)**        | Modyfikuje sposób działania API (np. mapowanie wyjątków) |
+| **Testowanie (Selenium/WebDriver)**    | Dostarcza konfigurację testową i przeglądarki            |
+| **Frontend (React/Angular Providers)** | Dostarcza kontekst lub zależności do komponentów         |
+
+📌 **W skrócie:** „Provider” to **klasa/metoda dostarczająca coś** – obiekty, konfiguracje, usługi lub dane, które są
+potem używane w aplikacji.
+
+---
+
+## 📄Builder <a name="builder"></a>
 
 **Linki:** (więcej szukać pod hasłem `java builder`)  
 https://devcave.pl/effective-java/wzorzec-projektowy-builder
@@ -221,7 +367,7 @@ Przykładowy kod jest w linku lub zastosowany tutaj:
 
 ---
 
-## Plik konfiguracyjny — config.properties <a name="config"></a>
+## 📄Plik konfiguracyjny — config.properties <a name="config"></a>
 
 **Linki:**  
 https://www.baeldung.com/java-properties  
@@ -326,7 +472,7 @@ public abstract class BasePage {
         defaultWait = new WebDriverWait(driver, Duration.ofSeconds(Config.getDefaultWait()));
 ```
 
-## Enum <a name="enum"></a>
+## 📄Enum <a name="enum"></a>
 
 **Enum** w Javie to specjalny typ danych, który pozwala na definiowanie zbioru stałych wartości (enumeracji). Każda
 z tych stałych jest unikalną instancją typu wyliczeniowego. Enumy są szczególnie przydatne, gdy chcemy ograniczyć
@@ -433,7 +579,7 @@ również metody do obliczania powierzchniowej grawitacji i wagi na poszczególn
 
 ---
 
-## ENV — Zmienne środowiskowe <a name="env"></a>
+## 📄ENV — Zmienne środowiskowe <a name="env"></a>
 
 Do ustawiania i zarządzania zmiennymi środowiskowymi możemy użyć biblioteki `dotenv-java`.
 
@@ -503,7 +649,7 @@ https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
 
 ---
 
-## Pliki — ścieżki <a name="files_paths"></a>
+## 📄Pliki — ścieżki <a name="files_paths"></a>
 
 Przy deklaracji ścieżek do plików **nie należy** ich podawać/zapisywać bezpośrednio z ukośnikami np.:  
 `String path = "C:/KatalogA/KatalogB/KatalogC/plik.txt"`
@@ -568,7 +714,7 @@ private static String getResolvedPath(String key, String defaultPath) {
 
 ---
 
-## Generics — typy generyczne <a name="generics"></a>
+## 📄Generics — typy generyczne <a name="generics"></a>
 
 **Link:**  
 https://www.youtube.com/watch?v=K1iu1kXkVoA
@@ -663,7 +809,7 @@ To:
 
 ---
 
-## Allure Report — konfiguracja <a name="allure_report_configuration"></a>
+## 📄Allure Report — konfiguracja <a name="allure_report_configuration"></a>
 
 **Link do dokumentacji:**  
 https://allurereport.org/docs/
@@ -816,7 +962,7 @@ https://allurereport.org/docs/
 
 ---
 
-## Obiekt — odczytywanie danych z listy obiektów <a name="object_list_print_data"></a>
+## 📄Obiekt — odczytywanie danych z listy obiektów <a name="object_list_print_data"></a>
 
 ### Jeżeli:
 
@@ -833,3 +979,84 @@ Możemy użyć poniższej funkcji:
 ```JAVA
 tableData.forEach(d -> System.out.println("Imię: " + d.getImie() + ", Wiek: " + d.getWiek()));
 ```
+
+---
+
+## 📄Klasa abstrakcyjna <a name="java_abstract_class"></a>
+
+### **📌 Klasa abstrakcyjna w Java – co to jest?**
+
+Klasa abstrakcyjna w Java to **taka klasa, której nie można bezpośrednio utworzyć jako obiekt**. Służy jako wzorzec
+dla innych klas, które dziedziczą po niej i implementują jej metody.
+
+### **🛠️ Cechy klasy abstrakcyjnej:**
+1️⃣ **Nie można utworzyć jej instancji** (czyli nie można zrobić `new NazwaKlasy()`).  
+2️⃣ **Może zawierać metody abstrakcyjne** (czyli takie, które nie mają ciała i muszą zostać zaimplementowane w klasach potomnych).  
+3️⃣ **Może zawierać metody normalne (z implementacją)** – w przeciwieństwie do interfejsów.  
+4️⃣ **Może mieć pola (zmienne instancji)** – zarówno `public`, `private`, jak i `protected`.  
+5️⃣ **Może zawierać konstruktory** – ale nie mogą one być użyte do tworzenia obiektów tej klasy.  
+6️⃣ **Klasa dziedzicząca po klasie abstrakcyjnej MUSI zaimplementować wszystkie jej metody abstrakcyjne** (chyba że też jest abstrakcyjna).
+
+### **📝 Przykład klasy abstrakcyjnej**
+```java
+// Klasa abstrakcyjna
+abstract class Animal {
+    // Pole (zmienna instancji)
+    protected String name;
+
+    // Konstruktor
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    // Metoda abstrakcyjna (bez implementacji)
+    abstract void makeSound();
+
+    // Normalna metoda (z implementacją)
+    public void sleep() {
+        System.out.println(name + " is sleeping...");
+    }
+}
+
+// Klasa dziedzicząca po klasie abstrakcyjnej
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    // Implementacja metody abstrakcyjnej
+    @Override
+    void makeSound() {
+        System.out.println(name + " barks: Woof woof!");
+    }
+}
+
+// Klasa główna
+public class Main {
+    public static void main(String[] args) {
+        // Animal animal = new Animal("Unknown"); // ❌ Błąd! Nie można tworzyć obiektów klasy abstrakcyjnej
+        Dog dog = new Dog("Buddy");
+        dog.makeSound(); // Buddy barks: Woof woof!
+        dog.sleep();     // Buddy is sleeping...
+    }
+}
+```
+
+### **🔄 Klasa abstrakcyjna vs Interfejs**
+| **Cecha**                                 | **Klasa Abstrakcyjna**                               | **Interfejs**                                        |
+|-------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| **Może zawierać metody abstrakcyjne?**    | ✅ Tak                                                | ✅ Tak                                                |
+| **Może zawierać metody z implementacją?** | ✅ Tak                                                | ✅ (od Javy 8, ale tylko `default` i `static`)        |
+| **Może zawierać pola?**                   | ✅ Tak (zmienne instancji)                            | ❌ Nie (tylko `public static final`)                  |
+| **Może mieć konstruktor?**                | ✅ Tak                                                | ❌ Nie                                                |
+| **Jakie są relacje dziedziczenia?**       | `extends` (można dziedziczyć tylko po jednej klasie) | `implements` (można implementować wiele interfejsów) |
+
+### **🎯 Kiedy używać klasy abstrakcyjnej?**
+✅ Gdy **chcesz udostępnić wspólną implementację** dla wszystkich klas dziedziczących.  
+✅ Gdy chcesz **przymusić klasy potomne do implementacji pewnych metod**, ale jednocześnie chcesz dostarczyć pewne domyślne funkcjonalności.  
+✅ Gdy **chcesz używać pól instancji**, które powinny być dziedziczone przez podklasy.
+
+**📌 TL;DR:**  
+🔹 **Klasa abstrakcyjna = baza dla klas potomnych + może zawierać metody z implementacją.**  
+🔹 **Nie można stworzyć obiektu klasy abstrakcyjnej.**  
+🔹 **Podklasy MUSZĄ implementować metody abstrakcyjne (chyba że same są abstrakcyjne).**
