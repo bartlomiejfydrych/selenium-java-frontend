@@ -153,11 +153,11 @@
 
 ## Dalsze kroki — rozpoczęcie pisania testów <a name="next_steps_writing_tests"></a>
 
-📌DOKOŃCZYĆ!  
 Dalsze kroki opisujące jak rozpocząć pisanie testów znajdują się w:  
-&emsp;📁text  
-&emsp;&emsp;📁text  
-Dalsze kroki w `README` katalogu `selenium-java`
+📁selenium-java-frontend (projekt)  
+&emsp;📁documents  
+&emsp;&emsp;📁notes  
+&emsp;&emsp;&emsp;📂selenium-and-tests
 
 ---
 
