@@ -1,3 +1,5 @@
+# 🛠Konfiguracja projektu – notatki
+
 # 📑Spis treści
 
 1. [🔧Konfiguracja](#configuration)
