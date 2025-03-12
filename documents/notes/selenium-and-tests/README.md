@@ -1,11 +1,17 @@
 # ✅Selenium i testy — notatki
 
-## 📑Spis treści
+# 📑Spis treści
 
-- [BasePage — Wyjaśnienie + "parent"](#base_page_parent)
+- [START – rozpoczęcie pisania testów](#start_writing_tests)
+- [Konwencja nazewnictwa testów](#name_convention_tests)
+- [WebDriver](#web_driver_description)
+- [BasePage](#base_page_description)
+- [BasePage — wyjaśnienie konstruktorów i "parent"](#base_page_parent)
+- [TestBase](#test_base_description)
+- [Fluent Object Pattern](#fluent_object_pattern)
+- [Wzorzec Arrange-Act-Assert](#AAA)
 - [CSS — Sprawdzenie atrybutu elementu np. kolor](#css_color)
 - [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
-- [Wzorzec Arrange-Act-Assert](#AAA)
 - [Pobieranie plików](#pobieranie)
 - [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
 - [Slider — metody](#slider_methods)
@@ -19,7 +25,374 @@
 
 ---
 
-## BasePage — Wyjaśnienie + "parent" <a name="base_page_parent"></a>
+# 📝Opis
+
+## 📄START – rozpoczęcie pisania testów <a name="start_writing_tests"></a>
+
+1. Jeżeli mamy kilka serwisów do pokrycia testami, to tworzymy na nie osobne katalogi w `main/java` oraz w `test/java`.  
+   &emsp;📂src  
+   &emsp;&emsp;📂main  
+   &emsp;&emsp;&emsp;📂java  
+   &emsp;&emsp;&emsp;&emsp;📁+ nazwa_serwisu  
+   &emsp;&emsp;📂test  
+   &emsp;&emsp;&emsp;📂java  
+   &emsp;&emsp;&emsp;&emsp;📁+ nazwa_serwisu  
+   Jeżeli później będziemy używać jakichś załączników to również w katalogu `java/resources` tworzymy katalogi z nazwami naszych serwisów.
+2. W katalogu `java/resources` tworzymy plik o nazwie `config.properties`.  
+   Wszelkie ustawienia projektu warto trzymać i odczytywać z osobnego pliku, aby nie musieć nic zmieniać w samym kodzie.  
+   Zapisujemy tam takie rzeczy jak:
+   - przeglądarka
+   - czy jest tryb "headless"
+   - URL
+   - czas trwania domyślnego czekania na element
+3. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `enums`
+4. W katalogu `enums` tworzymy enum o nazwie `Browser.java`
+5. Podajemy w nim nazwy przeglądarek
+6. W głównym katalogu `java` (i katalogu serwisu) tworzymy katalog o nazwie `configuration`
+7. W katalogu `configuration` tworzymy klasę (plik java) o nazwie `Config.java`
+8. W klasie tej tworzymy:
+   - mechanizm czytający i re-używający plik konfiguracyjny
+   - metodę pobierającą przeglądarkę
+   - metodę pobierającą url
+   - metodę pobierającą czy jest tryb "headless"
+   - metodę pobierającą domyślny czas czekania na element
+9. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `pages`
+10. W katalogu `pages` tworzymy katalog `base`
+11. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `BasePage.java`
+12. Uzupełniamy naszą klasę `BasePage`:  
+    (Dokładne dane będą w kodzie, tutaj tylko spis ogólny)
+   - Zmieniamy na klasę abstrakcyjną
+   - Definiujemy zmienne WebDriver, WebDriverWait, Actions
+   - Definiujemy konstruktor
+   - (opcjonalne) Definiujemy drugi konstruktor, który używa obiektu `DefaultElementLocatorFactory`
+   - Definiujemy metodę konfigurującą WebDrivera
+   - (opcjonalne) Możemy dodawać metody nadpisujące domyślne metody o dodatkowe logowanie wykonywanych akcji w konsoli
+   - (opcjonalne) Możemy definiować metody / typy generyczne <T>
+13. W głównym katalogu `java` (w katalogu serwisu) tworzymy katalog o nazwie `providers`
+14. W tym katalogu `providers` tworzymy klasę (plik java) o nazwie `DriverProvider.java`
+15. Tworzymy w nim `switch`, który będzie nam zmieniał przeglądarkę w zależności od ustawień
+16. W tym katalogu `providers` tworzymy klasę (plik java) o nazwie `UrlProvider.java`
+17. Umieszczamy w nim zmienną bazowego URL'a oraz zmienne innych URLi z jego wykorzystaniem
+18. W katalogu z testami `test/java` (w katalogu serwisu) tworzymy katalog o nazwie `base`
+19. W tym katalogu `base` tworzymy klasę (plik java) o nazwie `TestBase.java`
+20. Ustawiamy w nim `@Before` inicjujący drivera i stronę główną oraz `@After` zamykający drivera
+21. W katalogu z `pages` tworzymy katalog o nazwie `commons`. Będzie on zawierał obiekty page wspólne dla pozostałych obiektów page. Takie jak strona główna (HomePage) oraz menu strony (MenuPage) itp.
+22. W tym katalogu `commos` tworzymy klasę (plik java) o nazwie `HomePage.java`
+23. W `HomePage` rozszerzamy tę klasę o `...extends TestBase` i tworzymy konstruktor tej klasy nadpisujący drivera za pomocą `super` oraz dodajemy lokatory i metody
+24. Dodajemy kolejny page, do którego będziemy przechodzić z naszej strony głównej. W tym przypadku będzie to `ElementsPage.java`
+25. Dodajemy kolejny page, który pokryjemy pierwszymi testami o nazwie `TextBoxPage`
+   - W jego metodach dodajemy na koniec `return this;` dzięki czemu będziemy mogli stosować Fluent Object Pattern
+26. Tworzymy w `test/java` katalog na testy danej grupy stron `elements_tests`
+27. Tworzymy klasę dla pierwszych testów `TextBoxTests`
+28. Piszemy i odpalamy nasze pierwsze testy
+
+---
+
+## 📄Konwencja nazewnictwa testów <a name="name_convention_tests"></a>
+
+### **📌 Konwencja nazewnictwa klas i klas testowych w Java**
+
+Java ma ściśle określone konwencje nazewnictwa klas i klas testowych. Oto najlepsze praktyki:
+
+### **1️⃣ Klasy produkcyjne**
+🔹 **Styl:** PascalCase (każde słowo z dużej litery, bez podkreślników)  
+🔹 **Nazwa powinna jasno wskazywać, co robi klasa**  
+🔹 **Nie używamy skrótów, jeśli nie są powszechnie znane**
+
+✅ **Poprawne nazwy klas:**
+```java
+public class UserService { }
+public class DataProcessor { }
+public class PaymentGateway { }
+public class FileReader { }
+```
+❌ **Błędne nazwy klas:**
+```java
+public class userService { }  // ❌ Zaczynamy wielką literą
+public class data_processor { }  // ❌ Nie używamy podkreślników
+public class File_Reader { }  // ❌ Nie mieszamy stylów
+public class SrvcUsr { }  // ❌ Nie używamy dziwnych skrótów
+```
+
+### **2️⃣ Klasy testowe**
+#### 📍 **Konwencja nazewnictwa: `NazwaKlasyTest`**
+🔹 **Dopasowujemy nazwę testu do klasy, którą testujemy**  
+🔹 **Dodajemy sufiks `Test`**
+
+✅ **Poprawne nazwy klas testowych:**
+```java
+public class UserServiceTest { }
+public class DataProcessorTest { }
+public class PaymentGatewayTest { }
+public class FileReaderTest { }
+```
+❌ **Błędne nazwy klas testowych:**
+```java
+public class TestUserService { }  // ❌ Słowo "Test" na początku zamiast na końcu
+public class UserServiceTests { }  // ❌ "Tests" zamiast "Test" (w Java preferujemy liczbę pojedynczą)
+public class UserTestService { }  // ❌ Niepoprawna kolejność słów
+```
+
+### **3️⃣ Nazewnictwo testów jednostkowych**
+🔹 **Metody testowe powinny jasno wskazywać, co testują**  
+🔹 **Preferowane formaty:**
+- `shouldCośTamWhenCośTam()`
+- `givenCośTamWhenCośTamThenCośTam()`
+- `testCośTam()` (ale mniej popularne w nowoczesnym kodzie)
+
+✅ **Przykłady poprawnych metod testowych:**
+```java
+@Test
+void shouldReturnUserWhenUserExists() { }
+
+@Test
+void givenValidInputWhenProcessingDataThenReturnExpectedResult() { }
+
+@Test
+void testAddItemToCart() { }  // (starszy styl, ale poprawny)
+```
+
+❌ **Błędne nazwy metod testowych:**
+```java
+@Test
+void userTest() { }  // ❌ Nie mówi, co testujemy
+
+@Test
+void test() { }  // ❌ Zbyt ogólne
+
+@Test
+void shouldProcessData() { }  // ❌ Brakuje warunku, kiedy to się dzieje
+```
+
+### **4️⃣ Testy integracyjne**
+#### 📍 **Konwencja nazewnictwa: `NazwaKlasyIT` lub `NazwaKlasyIntegrationTest`**
+🔹 **Używamy sufiksu `IT` (skrót od "Integration Test") lub `IntegrationTest`**
+
+✅ **Przykłady poprawnych nazw klas testów integracyjnych:**
+```java
+public class UserServiceIT { }
+public class PaymentGatewayIT { }
+public class DataProcessorIntegrationTest { }
+```
+❌ **Błędne nazwy:**
+```java
+public class IntegrationTestUserService { }  // ❌ "IntegrationTest" na początku zamiast na końcu
+public class UserServiceIntegration { }  // ❌ Brak "Test" lub "IT" na końcu
+```
+
+### **🚀 Podsumowanie**
+| **Rodzaj klasy**       | **Konwencja nazewnictwa**                                          | **Przykłady poprawnych nazw**                                                                     |
+|------------------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| **Klasa produkcyjna**  | PascalCase                                                         | `UserService`, `DataProcessor`                                                                    |
+| **Klasa testowa**      | `NazwaKlasyTest`                                                   | `UserServiceTest`, `FileReaderTest`                                                               |
+| **Testy integracyjne** | `NazwaKlasyIT` lub `NazwaKlasyIntegrationTest`                     | `UserServiceIT`, `PaymentGatewayIntegrationTest`                                                  |
+| **Metody testowe**     | `shouldCośTamWhenCośTam()` lub `givenCośTamWhenCośTamThenCośTam()` | `shouldReturnUserWhenUserExists()`, `givenValidInputWhenProcessingDataThenReturnExpectedResult()` |
+
+Trzymając się tych konwencji, kod będzie czytelny, spójny i łatwy do utrzymania! 🚀
+
+---
+
+## 📄WebDriver <a name="web_driver_description"></a>
+
+### **🔹 WebDriver – co to jest?**
+
+**WebDriver** to interfejs w Selenium, który umożliwia automatyczne sterowanie przeglądarką internetową. Pozwala na
+wykonywanie testów UI, symulując interakcje użytkownika, takie jak **klikanie, wpisywanie tekstu, nawigowanie
+czy pobieranie atrybutów elementów**.
+
+WebDriver działa bezpośrednio na poziomie przeglądarki, co oznacza, że nie wymaga dodatkowego środowiska
+(*np. Selenium Server*), jak to było w **Selenium 1 (RC)**.
+
+### **🔹 Jak działa WebDriver?**
+
+1️⃣ **Kod w Selenium** wysyła komendy do WebDrivera.  
+2️⃣ **WebDriver komunikuje się z przeglądarką** poprzez jej natywne API.  
+3️⃣ **Przeglądarka wykonuje operację**, np. klika w przycisk.  
+4️⃣ **WebDriver zwraca wynik do testu**.
+
+📌 Każda przeglądarka ma swój własny sterownik (np. `chromedriver.exe` dla Chrome, `geckodriver.exe` dla Firefox),
+który WebDriver wykorzystuje do sterowania nią.
+
+### **🔹 Jak używać WebDriver w Selenium?**
+
+#### **✅ 1. Uruchamianie przeglądarki**
+```java
+WebDriver driver = new ChromeDriver(); // Otwiera Chrome
+driver.get("https://example.com"); // Przechodzi na stronę
+```
+
+#### **✅ 2. Znajdowanie elementów**
+```java
+WebElement searchBox = driver.findElement(By.name("q"));
+searchBox.sendKeys("Selenium WebDriver");
+searchBox.submit();
+```
+
+#### **✅ 3. Pobieranie informacji o stronie**
+```java
+String pageTitle = driver.getTitle();
+System.out.println("Tytuł strony: " + pageTitle);
+```
+
+#### **✅ 4. Zamknięcie przeglądarki**
+```java
+driver.quit(); // Zamknie przeglądarkę i sesję WebDrivera
+```
+
+### **🔹 Popularne metody WebDrivera**
+
+| Metoda                       | Opis                             |
+|------------------------------|----------------------------------|
+| `get(url)`                   | Otwiera stronę                   |
+| `findElement(By.locator())`  | Znajduje pojedynczy element      |
+| `findElements(By.locator())` | Znajduje listę elementów         |
+| `getTitle()`                 | Pobiera tytuł strony             |
+| `getCurrentUrl()`            | Pobiera URL strony               |
+| `navigate().back()`          | Przechodzi do poprzedniej strony |
+| `navigate().refresh()`       | Odświeża stronę                  |
+| `quit()`                     | Zamyka przeglądarkę              |
+
+### **🔹 Jakie WebDrivery są dostępne?**
+
+| Przeglądarka | Sterownik          |
+|--------------|--------------------|
+| **Chrome**   | `chromedriver.exe` |
+| **Firefox**  | `geckodriver.exe`  |
+| **Edge**     | `msedgedriver.exe` |
+| **Safari**   | `safaridriver`     |
+| **Opera**    | `operadriver`      |
+
+⚡ **Od Selenium 4:** WebDriver Manager potrafi automatycznie pobrać sterowniki, więc nie trzeba ich ręcznie ustawiać.
+
+### **🔹 WebDriver vs WebElement**
+📌 **WebDriver** → steruje przeglądarką (otwiera strony, nawigacja).  
+📌 **WebElement** → reprezentuje pojedynczy element na stronie (pole tekstowe, przycisk).
+
+Przykład:
+```java
+WebElement button = driver.findElement(By.id("submit"));
+button.click(); // Kliknięcie w przycisk
+```
+
+### **🔹 Podsumowanie**
+✅ **WebDriver** to główna klasa Selenium do automatyzacji przeglądarek.  
+✅ Komunikuje się bezpośrednio z przeglądarką przez natywne sterowniki.  
+✅ Umożliwia interakcję z elementami stron internetowych.  
+✅ Obsługuje wiele przeglądarek (Chrome, Firefox, Edge, itp.).
+
+🚀 **Dzięki WebDriverowi możemy automatyzować testy interfejsów użytkownika i symulować prawdziwe działania
+użytkownika w przeglądarce!**
+
+---
+
+## 📄BasePage <a name="base_page_description"></a>
+
+### **🔹 Klasa `BasePage` – do czego służy?**
+
+W frameworkach testowych opartych na **Selenium + Java** oraz wzorcu **Page Object Model (POM)** klasa `BasePage`
+to **klasa bazowa**, którą inne strony (Page Objects) **dziedziczą**.
+
+Główne zadania `BasePage`:  
+✅ **Zapewnia podstawowe metody** do obsługi przeglądarki  
+✅ **Eliminuje powtarzalność kodu** w poszczególnych klasach stron  
+✅ **Ułatwia zarządzanie WebDriverem** i akcjami użytkownika  
+✅ **Zawiera metody pomocnicze** dla wszystkich stron
+
+### **🔹 Jak wygląda `BasePage`? (Przykład)**
+```java
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+public class BasePage {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+
+    // Konstruktor
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Ustawiamy timeout
+    }
+
+    // Metoda do klikania na element
+    protected void click(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
+    // Metoda do wpisywania tekstu
+    protected void enterText(WebElement element, String text) {
+        wait.until(ExpectedConditions.visibilityOf(element)).clear();
+        element.sendKeys(text);
+    }
+
+    // Metoda do pobierania tekstu z elementu
+    protected String getText(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+    }
+
+    // Metoda do sprawdzania czy element jest widoczny
+    protected boolean isElementDisplayed(WebElement element) {
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}
+```
+
+### **🔹 Jak `BasePage` działa w innych klasach?**
+Każda klasa strony (Page Object) **dziedziczy `BasePage`**, więc **nie trzeba za każdym razem pisać tych samych metod**.
+
+**Przykład: `LoginPage` (dziedziczy `BasePage`)**
+```java
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage extends BasePage {
+
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(id = "loginBtn")
+    private WebElement loginButton;
+
+    // Konstruktor
+    public LoginPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
+    }
+
+    // Akcje użytkownika
+    public void login(String username, String password) {
+        enterText(usernameField, username);
+        enterText(passwordField, password);
+        click(loginButton);
+    }
+
+    public boolean isLoginButtonDisplayed() {
+        return isElementDisplayed(loginButton);
+    }
+}
+```
+
+### **🔹 Dlaczego warto używać `BasePage`?**
+🔹 **Mniej powtarzalnego kodu** → metody są raz w `BasePage`, a nie w każdej stronie  
+🔹 **Łatwiejsza konserwacja** → jeśli trzeba zmienić `click()` lub `enterText()`, zmieniamy tylko w `BasePage`  
+🔹 **Bardziej czytelny kod** → klasy stron są bardziej przejrzyste i skupiają się tylko na konkretnej stronie
+
+To fundament dobrze zaprojektowanego frameworka testowego w Selenium! 🚀
+
+---
+
+## 📄BasePage — wyjaśnienie konstruktorów i "parent" <a name="base_page_parent"></a>
 
 Obie te metody to **konstruktory** klasy `BasePage`, które pełnią różne role w inicjalizacji klasy w zależności
 od sytuacji. Wyjaśnijmy je krok po kroku.
@@ -93,68 +466,194 @@ public class TableCellPage extends BasePage {
 W tym przypadku, `cellElement` przekazany do konstruktora ogranicza wyszukiwanie tylko do tej konkretnej komórki tabeli.
 
 ### Podsumowanie:
-| Konstruktor                         | Kiedy używać?                                                                 |
-|-------------------------------------|-------------------------------------------------------------------------------|
-| `BasePage(WebDriver driver)`        | Gdy reprezentujesz całą stronę lub jej główny kontekst.                      |
-| `BasePage(WebElement parent, ...)`  | Gdy reprezentujesz komponent ograniczony do elementu nadrzędnego (`parent`). |
+| Konstruktor                        | Kiedy używać?                                                                |
+|------------------------------------|------------------------------------------------------------------------------|
+| `BasePage(WebDriver driver)`       | Gdy reprezentujesz całą stronę lub jej główny kontekst.                      |
+| `BasePage(WebElement parent, ...)` | Gdy reprezentujesz komponent ograniczony do elementu nadrzędnego (`parent`). |
 
 Dzięki temu podejściu klasa `BasePage` jest uniwersalna i może być używana zarówno do reprezentowania całej
 strony, jak i jej części.
 
 ---
 
-## CSS — Sprawdzenie atrybutu elementu np. kolor <a name="css_color"></a>
+## 📄TestBase <a name="test_base_description"></a>
 
-### Opis
+### **🔹 Klasa `TestBase` – do czego służy?**
 
-**Gdy:** Chcemy sprawdzić, czy np. pole ma określony kolor  
-**To:**
+`TestBase` to **klasa bazowa dla testów**, która zawiera:  
+✅ **Konfigurację WebDrivera** (np. wybór przeglądarki)  
+✅ **Obsługę setup & teardown** (otwieranie/zamykanie przeglądarki)  
+✅ **Inicjalizację stron (Page Objects)**  
+✅ **Ustawienia testowe** (np. maksymalny timeout, adres strony)
 
-Używamy na elemencie poniższej metody, a w nawiasie jako argument podajemy nazwę atrybutu:
-```Java
-element.getCssValue("border-color");
+Dzięki `TestBase`, każda klasa testowa **dziedziczy** tę konfigurację, co sprawia, że testy są **czystsze, krótsze
+i bardziej przejrzyste**.
+
+### **🔹 Jak wygląda `TestBase`? (Przykład)**
+```java
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import java.time.Duration;
+
+public class TestBase {
+    protected WebDriver driver;
+
+    // Uruchamianie przeglądarki przed każdym testem
+    @BeforeEach
+    public void setUp() {
+        String browser = System.getProperty("browser", "chrome"); // Pobranie przeglądarki z systemu (domyślnie Chrome)
+        
+        switch (browser.toLowerCase()) {
+            case "firefox":
+                driver = new FirefoxDriver();
+                break;
+            case "edge":
+                driver = new EdgeDriver();
+                break;
+            default:
+                driver = new ChromeDriver();
+        }
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // Implicit Wait
+        driver.manage().window().maximize(); // Pełny ekran
+        driver.get("https://moja-strona-testowa.com"); // URL strony testowej
+    }
+
+    // Zamykanie przeglądarki po każdym teście
+    @AfterEach
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
 ```
 
-Przykład w teście:
-```Java
-String cssValue = "border-color";
-String colorRedRGB = "rgb(220, 53, 69)";
-String colorGreenRGB = "rgb(40, 167, 69)";
+### **🔹 Jak `TestBase` działa w klasach testowych?**
+Każda klasa testowa **dziedziczy `TestBase`**, co oznacza, że **nie trzeba konfigurować WebDrivera w każdym teście**.
 
-assertThat(practiceFormPage.getFirstNameInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
-assertThat(practiceFormPage.getEmailInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+**Przykład: `LoginTest` (dziedziczy `TestBase`)**
+```java
+import org.junit.jupiter.api.Test;
+import testerczaki.pages.LoginPage;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class LoginTest extends TestBase {
+    @Test
+    public void shouldLoginSuccessfully() {
+        LoginPage loginPage = new LoginPage(driver); // WebDriver pochodzi z TestBase
+        loginPage.login("testUser", "password123");
+        
+        assertTrue(loginPage.isLoginButtonDisplayed(), "Login button should be displayed after login");
+    }
+}
 ```
+
+### **🔹 Dlaczego warto używać `TestBase`?**
+✅ **Unifikacja konfiguracji** → nie trzeba powtarzać setupu w każdej klasie  
+✅ **Łatwe dodawanie nowych testów** → wystarczy dziedziczyć `TestBase`  
+✅ **Obsługa różnych przeglądarek** → możliwość wyboru przeglądarki przez `System.getProperty`  
+✅ **Czytelność testów** → testy skupiają się na logice, a nie konfiguracji
+
+To kluczowa klasa w **dobrze zaprojektowanym frameworku testowym Selenium**! 🚀
 
 ---
 
-## WebElement — Sprawdzanie, czy nie ma elementu na stronie <a name="assert_no_element"></a>
+## 📄Fluent Object Pattern <a name="fluent_object_pattern"></a>
 
-### Opis
+### **🔹 Fluent Object Pattern – co to jest?**
 
-**Gdy:** Chcemy sprawdzić na końcu testu asercją czy danego elementu nie ma na stronie  
-**To:**
-1. W pliku z `Page` przypisujemy selektor tego elementu do listy elementów (zamiast do pojedynczego WebElementu):
-   ```Java
-    @FindBy(css = ".subjects-auto-complete__indicators .subjects-auto-complete__indicator")
-    private List<WebElement> subjectsAutoCompleteInputClearButton;
-   ```
-2. W pliku z `Page` tworzymy "Gettera" do tego elementu:
-   ```Java
-   public List<WebElement> getSubjectsAutoCompleteInputClearButton() {
-       return subjectsAutoCompleteInputClearButton;
-   }
-   ```
-3. Następnie w pliku z `testem` sprawdzamy asercją, czy ta lista WebElementów jest pusta:
-   ```Java
-   assertThat(practiceFormPage.getSubjectsAutoCompleteInputClearButton()).isEmpty();
-   ```
-**Dlaczego tak?**  
-Ponieważ jak zrobimy z tego zwykły WebElement to Selenium rzuci błąd, że nie może takiego elementu znaleźć (bo go nie ma).  
-A tak, dzięki temu sposobowi będzie to lepiej sprawdzane.
+**Fluent Object Pattern** to wzorzec projektowy stosowany w programowaniu obiektowym, który pozwala na **czytelne
+i płynne wywoływanie metod poprzez łańcuchowe wywołania** (*method chaining*).
+
+👉 Wykorzystywany często w **Page Object Model (POM)** w testach Selenium, ponieważ:  
+✅ **Ułatwia czytanie kodu**  
+✅ **Zmniejsza ilość zmiennych pomocniczych**  
+✅ **Pozwala pisać bardziej deklaratywne testy**
+
+### **🔹 Jak wygląda Fluent Object Pattern? (Przykład)**
+
+#### **👀 Kod bez Fluent Object Pattern:**
+```java
+public class LoginPage {
+    private WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void enterUsername(String username) {
+        driver.findElement(By.id("username")).sendKeys(username);
+    }
+
+    public void enterPassword(String password) {
+        driver.findElement(By.id("password")).sendKeys(password);
+    }
+
+    public void clickLoginButton() {
+        driver.findElement(By.id("loginBtn")).click();
+    }
+}
+
+// W klasie testowej:
+loginPage.enterUsername("testUser");
+loginPage.enterPassword("password123");
+loginPage.clickLoginButton();
+```
+💡 **Problem** → Musimy wywoływać każdą metodę osobno.
+
+#### **✅ Kod z Fluent Object Pattern:**
+```java
+public class LoginPage {
+    private WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public LoginPage enterUsername(String username) {
+        driver.findElement(By.id("username")).sendKeys(username);
+        return this; // Zwraca obiekt klasy LoginPage
+    }
+
+    public LoginPage enterPassword(String password) {
+        driver.findElement(By.id("password")).sendKeys(password);
+        return this;
+    }
+
+    public HomePage clickLoginButton() {
+        driver.findElement(By.id("loginBtn")).click();
+        return new HomePage(driver); // Zwraca kolejną stronę
+    }
+}
+
+// W klasie testowej:
+loginPage.enterUsername("testUser")
+         .enterPassword("password123")
+         .clickLoginButton();
+```
+
+### **🔹 Zalety Fluent Object Pattern w Selenium**
+✔ **Czytelność kodu** → kod przypomina naturalny język  
+✔ **Łańcuchowe wywołania** → mniej zmiennych, mniej powtarzalnego kodu  
+✔ **Łatwiejsze utrzymanie testów**  
+✔ **Łatwe przechodzenie między stronami (Page Navigation)**
+
+### **🔹 Gdzie stosować Fluent Object Pattern?**
+🔹 **Page Object Model (POM)** – łańcuchowe wywołania metod w klasach stron  
+🔹 **Builder Pattern** – tworzenie skomplikowanych obiektów w testach  
+🔹 **REST API Testing** – budowanie żądań HTTP (np. `RestAssured`)
+
+To świetny wzorzec, jeśli chcesz pisać **czytelne i efektywne testy w Selenium**! 🚀
 
 ---
 
-## Wzorzec Arrange-Act-Assert <a name="AAA"></a>
+## 📄Wzorzec Arrange-Act-Assert <a name="AAA"></a>
 
 **Linki:**  
 https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/
@@ -164,24 +663,24 @@ https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-
 Wzorzec *Arrange-Act-Assert* to świetny sposób na ustrukturyzowanie przypadków testowych.  
 Określa kolejność operacji:
 1. **Arrange — Uporządkuj** dane wejściowe i cele.  
-Może zawierać:
+   Może zawierać:
    - Zmienne
    - Obiekty
    - Ustawienia
    - Dane / Przygotowanie bazy danych
    - Zalogowanie się do aplikacji
 2. **Act — Działaj** zgodnie z zachowaniem docelowym.  
-Składa się z kroków, podczas których wykonywany jest test.  
-Może zawierać:
-    - Wywoływane metody / funkcje
-    - Wywołanie interfejsu API REST
-    - Interakcje ze stroną internetową
+   Składa się z kroków, podczas których wykonywany jest test.  
+   Może zawierać:
+   - Wywoływane metody / funkcje
+   - Wywołanie interfejsu API REST
+   - Interakcje ze stroną internetową
 3. **Assert — Potwierdź** oczekiwane wyniki.  
-Wcześniej wykonane kroki powinny wywołać jakiś rodzaj odpowiedzi.  
-Asercje te ostatecznie mają określać czy test zostanie zaliczony, czy nie.  
-Może zawierać:
-    - Asercje sprawdzające, czy otrzymany zestaw danych jest zgodny z oczekiwanym
-    - Inne elementy, które mają sprawdzać wiele aspektów systemu
+   Wcześniej wykonane kroki powinny wywołać jakiś rodzaj odpowiedzi.  
+   Asercje te ostatecznie mają określać czy test zostanie zaliczony, czy nie.  
+   Może zawierać:
+   - Asercje sprawdzające, czy otrzymany zestaw danych jest zgodny z oczekiwanym
+   - Inne elementy, które mają sprawdzać wiele aspektów systemu
 
 ### Ciekawostka
 
@@ -241,7 +740,58 @@ public void shouldOpenHomeLinkInNewTab() {
 
 ---
 
-## Pobieranie plików <a name="pobieranie"></a>
+## 📄CSS — Sprawdzenie atrybutu elementu np. kolor <a name="css_color"></a>
+
+### Opis
+
+**Gdy:** Chcemy sprawdzić, czy np. pole ma określony kolor  
+**To:**
+
+Używamy na elemencie poniższej metody, a w nawiasie jako argument podajemy nazwę atrybutu:
+```Java
+element.getCssValue("border-color");
+```
+
+Przykład w teście:
+```Java
+String cssValue = "border-color";
+String colorRedRGB = "rgb(220, 53, 69)";
+String colorGreenRGB = "rgb(40, 167, 69)";
+
+assertThat(practiceFormPage.getFirstNameInput().getCssValue(cssValue)).isEqualTo(colorRedRGB);
+assertThat(practiceFormPage.getEmailInput().getCssValue(cssValue)).isEqualTo(colorGreenRGB);
+```
+
+---
+
+## 📄WebElement — Sprawdzanie, czy nie ma elementu na stronie <a name="assert_no_element"></a>
+
+### Opis
+
+**Gdy:** Chcemy sprawdzić na końcu testu asercją czy danego elementu nie ma na stronie  
+**To:**
+1. W pliku z `Page` przypisujemy selektor tego elementu do listy elementów (zamiast do pojedynczego WebElementu):
+   ```Java
+    @FindBy(css = ".subjects-auto-complete__indicators .subjects-auto-complete__indicator")
+    private List<WebElement> subjectsAutoCompleteInputClearButton;
+   ```
+2. W pliku z `Page` tworzymy "Gettera" do tego elementu:
+   ```Java
+   public List<WebElement> getSubjectsAutoCompleteInputClearButton() {
+       return subjectsAutoCompleteInputClearButton;
+   }
+   ```
+3. Następnie w pliku z `testem` sprawdzamy asercją, czy ta lista WebElementów jest pusta:
+   ```Java
+   assertThat(practiceFormPage.getSubjectsAutoCompleteInputClearButton()).isEmpty();
+   ```
+**Dlaczego tak?**  
+Ponieważ jak zrobimy z tego zwykły WebElement to Selenium rzuci błąd, że nie może takiego elementu znaleźć (bo go nie ma).  
+A tak, dzięki temu sposobowi będzie to lepiej sprawdzane.
+
+---
+
+## 📄Pobieranie plików <a name="pobieranie"></a>
 
 **Uwaga:** Warto nazwy pobieranych plików lub katalog z nimi dodać do pliku `.gitignore`
 
@@ -382,7 +932,7 @@ public void shouldOpenHomeLinkInNewTab() {
 
 ---
 
-## Logowanie - pozostanie zalogowanym pomiędzy testami <a name="logowanie_sesja_cookies"></a>
+## 📄Logowanie - pozostanie zalogowanym pomiędzy testami <a name="logowanie_sesja_cookies"></a>
 
 
 Gdy masz dużo testów napisanych w Selenium, a wiele z nich wymaga logowania, możesz zoptymalizować proces testowania,
@@ -517,7 +1067,7 @@ WebDriver driver = new ChromeDriver(options);
 
 ---
 
-## Slider — metody <a name="slider_methods"></a>
+## 📄Slider — metody <a name="slider_methods"></a>
 
 Żeby przetestować element typu Slider, możemy zrobić to na 3 sposoby.
 
@@ -623,7 +1173,7 @@ Wadą tej metody jest to, że jej wykonanie zajmuje dużo czasu. Nie jest zaleca
 
 ---
 
-## Wait — pollingEvery() <a name="wait_polling_every"></a>
+## 📄Wait — pollingEvery() <a name="wait_polling_every"></a>
 
 Metoda `pollingEvery()` jest częścią klasy `FluentWait` w Selenium, która pozwala na bardziej elastyczne kontrolowanie
 czasu oczekiwania na warunki w testach. `pollingEvery()` definiuje interwał, w jakim Selenium będzie sprawdzać, czy
@@ -686,7 +1236,7 @@ wait.until(driver -> progressBar.getAttribute("aria-valuenow").equals("2"));
 
 ---
 
-## Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów <a name="resize_text_area"></a>
+## 📄Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów <a name="resize_text_area"></a>
 
 ### Przykład
 
@@ -716,7 +1266,7 @@ assertThat(resizablePage.getBoxWithRestriction().getSize().getHeight()).isEqualT
 
 ---
 
-## Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie <a name="drag_and_drop_to_set_location"></a>
+## 📄Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie <a name="drag_and_drop_to_set_location"></a>
 
 ### Przykład
 
@@ -761,7 +1311,7 @@ assertThat(dragBox.getCssValue("top")).isEqualTo(expectedTopPosition);
 
 ---
 
-## JUnit — ustawianie kolejności odpalania testów <a name="junit_test_order"></a>
+## 📄JUnit — ustawianie kolejności odpalania testów <a name="junit_test_order"></a>
 
 ### Linki
 
@@ -855,7 +1405,7 @@ Kolejność powinna być ustawiana tylko w przypadkach, w których jest to zło 
 
 ---
 
-## Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
+## 📄Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
 
 ### Uwagi
 
@@ -1130,7 +1680,7 @@ jest trochę słabe, wybrałem sposób na utworzenie klasy z **SessionManager'em
 
 ---
 
-## getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice <a name="get_dom_attribute_property"></a>
+## 📄getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice <a name="get_dom_attribute_property"></a>
 
 **Link:**  
 https://www.linkedin.com/pulse/selenium-427-deprecates-getattributemethod-ranjit-biswal-bvopc/
@@ -1156,7 +1706,7 @@ W najnowszej wersji **Selenium**, czyli `4.27`, wycofano metodę `getAttribute()
 
 ---
 
-## Tabele — pomijanie nagłówków <a name="tables_skip_headers"></a>
+## 📄Tabele — pomijanie nagłówków <a name="tables_skip_headers"></a>
 
 ### Problem
 
