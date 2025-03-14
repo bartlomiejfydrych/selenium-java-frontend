@@ -10,16 +10,18 @@
 - [TestBase](#test_base_description)
 - [Fluent Object Pattern](#fluent_object_pattern)
 - [Wzorzec Arrange-Act-Assert](#AAA)
+- [@FindBy – "lokator" vs 'lokator'](#find_by_locator_quotation_marks_vs_apostrophes)
+- [Xpath – znajdowanie po tekście](#xpath_find_by_text)
 - [CSS — Sprawdzenie atrybutu elementu np. kolor](#css_color)
 - [WebElement — Sprawdzanie, czy nie ma elementu na stronie](#assert_no_element)
 - [Pobieranie plików](#pobieranie)
-- [Logowanie - pozostanie zalogowanym pomiędzy testami](#logowanie_sesja_cookies)
+- [Logowanie/Sesja – sposoby na bycie zalogowanym pomiędzy testami](#login_session_methods)
+- [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
 - [Slider — metody](#slider_methods)
 - [Wait — pollingEvery()](#wait_polling_every)
 - [Resize — zmiana wielkości pól tekstowych i innych, podobnych elementów](#resize_text_area)
 - [Drag And Drop — Przesuwanie elementów do konkretnego miejsca na stronie](#drag_and_drop_to_set_location)
 - [JUnit — ustawianie kolejności odpalania testów](#junit_test_order)
-- [Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby](#login_session_cookies)
 - [getAttribute() rozbite na getDomAttribute() oraz getDomProperty — różnice](#get_dom_attribute_property)
 - [Tabele — pomijanie nagłówków](#tables_skip_headers)
 
@@ -740,6 +742,33 @@ public void shouldOpenHomeLinkInNewTab() {
 
 ---
 
+## 📄@FindBy – "lokator" vs 'lokator' <a name="find_by_locator_quotation_marks_vs_apostrophes"></a>
+
+**Link:**  
+https://stackoverflow.com/questions/5606664/too-many-characters-in-character-literal-error
+
+W języku C# i wychodzi na to, że w języku Java też jest tak, że:  
+`myChar = '='` - pojedyncze apostrofy są dla pojedynczych znaków  
+`myString = "=="` - cudzysłowie jest dla całych łańcuchów znaków
+
+---
+
+## 📄Xpath – znajdowanie po tekście <a name="xpath_find_by_text"></a>
+
+Element "zawiera" fragment tekstu:
+```Java
+@FindBy(xpath = "//div[contains(@class,'card')]/h5[contains(text(), 'Alerts, Frame & Windows')]")  
+private WebElement alertsFrameWindowsButton;
+```
+
+Element ma dokładnie taki tekst:
+```Java
+@FindBy(xpath = "//div[contains(@class,'element-list')]/ul/li/span[text()='Links']")  
+private WebElement linksButton;
+```
+
+---
+
 ## 📄CSS — Sprawdzenie atrybutu elementu np. kolor <a name="css_color"></a>
 
 ### Opis
@@ -932,7 +961,7 @@ A tak, dzięki temu sposobowi będzie to lepiej sprawdzane.
 
 ---
 
-## 📄Logowanie - pozostanie zalogowanym pomiędzy testami <a name="logowanie_sesja_cookies"></a>
+## 📄Logowanie/Sesja – sposoby na bycie zalogowanym pomiędzy testami <a name="login_session_methods"></a>
 
 
 Gdy masz dużo testów napisanych w Selenium, a wiele z nich wymaga logowania, możesz zoptymalizować proces testowania,
@@ -1064,6 +1093,281 @@ WebDriver driver = new ChromeDriver(options);
 - Cookies są jednym z najprostszych i najskuteczniejszych rozwiązań do omijania logowania w każdym teście.
 - API logowania pozwala na szybkie pobranie tokenu lub sesji, omijając interfejs użytkownika.
 - Profile przeglądarki i utrzymanie sesji w jednej przeglądarce to inne efektywne sposoby na przyspieszenie testów.
+
+---
+
+## 📄Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
+
+### Uwagi
+
+Należy pamiętać, aby tworzony plik z ciasteczkami dodać do `.gitignore`.
+
+### Lista sposobów
+
+1. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie kroków logowania:  
+   (Nadaje się tylko do małych testów)
+   ```java
+   @BeforeAll
+   public static void setUpOnce() {
+      driver = new ChromeDriver();
+      driver.get("https://example.com/login");
+      driver.findElement(By.id("username")).sendKeys("user");
+      driver.findElement(By.id("password")).sendKeys("password");
+      driver.findElement(By.id("loginButton")).click();
+   }
+   
+   @Test
+   public void shouldPerformTest() {
+      driver.get("https://example.com/secure-page");
+      // Test actions
+   }
+   ```
+2. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie testu logowania:  
+   (Nadaje się tylko do małych testów)
+    - Akurat w tym przykładzie jest jeszcze dopisane sprawdzanie ważności plików cookies
+   ```java
+   @BeforeAll
+   static void ensureLoggedIn() throws IOException {
+      if (!areCookiesValid(new File("./cookies.txt"))) {
+         LoginTests loginTests = new LoginTests();
+         loginTests.shouldLogInAndSaveCookies(); // Wywołaj test logowania
+      }
+   }
+   ```
+3. Ustawienie kolejności testów w taki sposób, aby test logowania był wykonywany jako pierwszy:  
+   (Dobre, gdy nie zależy nam na pełnej losowości i niezależności testów)
+    - Do testu prawidłowego logowania dodajemy kod, który zapisze cookies do pliku
+    - Za pomocą `@Suite` (JUnit) ustawiamy testy w takiej kolejności, aby paczka z testami logowania była wykonywana
+      jako pierwsza
+    - Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który będzie wgrywał do sesji
+      Drivera wcześniej zapisane cookies'y
+    - Możemy dorobić warunki sprawdzające, czy cookies mają zachowaną ważność i jeśli nie, to zostanie wykonane logowanie
+      ponownie
+4. Autoryzowanie się za pomocą API:  
+   (Prawdopodobnie najlepszy, najszybszy, najstabilniejszy i najbezpieczniejszy sposób)  
+   Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który:
+    - Sprawdzamy warunki, czy plik z cookies'ami i innymi tokenami istnieje
+    - Sprawdzamy, czy cookie nie stracił ważności
+    - Wysyłamy request do API z danymi logowania
+    - Zapisujemy nowe cookie do pliku
+    - Wczytujemy nowe cookie z pliku i wgrywamy je do sesji Drivera
+5. Utworzenie klasy pomocniczej `SessionManager`:  
+   (Najlepszy sposób, gdy zależy nam na pełnej niezależności testów)
+    - Szczegółowy opis niżej, gdyż ten sposób właśnie wybrałem
+
+### (5) SessionManager - dokładny opis
+
+Jako że są to testy Frontendu i uważam, że dogrywanie specjalnie frameworka Rest Assured tylko pod jedno logowanie
+jest trochę słabe, wybrałem sposób na utworzenie klasy z **SessionManager'em**.
+
+1. Tworzymy w katalogu **"resources"** katalog na nasz plik z cookies'ami o nazwie np. `Auth`.
+2. Tworzymy w tym katalogu **"Auth"** pusty plik o nazwie `.gitkeep`.  
+   Dzięki niemu będziemy mogli pushnąć ten pusty katalog do repozytorium jako "wzór" z którego będzie wiadomo, że takie
+   coś powinniśmy mieć i będzie takie coś do czegoś wykorzystywane.
+3. Otwieramy plik `.gitignore` i zapisujemy w nim dwie, poniższe rzeczy:  
+   `src/main/resources/tools_qa/Auth/*`  
+   `!src/main/resources/tools_qa/Auth/.gitkeep`  
+   Dzięki temu nasze wrażliwe dane jak ciasteczka będą ignorowane przed publikacją, a sam katalog z plikiem `.gitkeep`
+   pozostaną.
+4. Tworzymy w jakimś katalogu np. **"providers"** klasę `CookiesProvider.java`.
+5. W klasie tej ustawiamy nazwę pliku i ścieżkę, do której będzie zapisywany:
+   ```java
+    // FILE PATHS
+    private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
+    private static final String COOKIES_DIR = "Auth";
+    private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
+   ```
+   Należy używać metod przeznaczonych dla ścieżek, aby ukośniki dostosowywały się do wszystkich systemów operacyjnych.
+6. Tworzymy metodę, która będzie nas logować na stronie:
+   ```java
+    // LOG IN
+
+    public static void logIn(WebDriver driver) {
+        // Load .env variables
+        Dotenv dotenv = Dotenv.configure().directory("./environment").load();
+        String userName = dotenv.get("TQ_BSA_USERNAME");
+        String password = dotenv.get("TQ_BSA_PASSWORD");
+        // Go to login page
+        driver.get(UrlProvider.loginPage);
+        // Remove footer and ads
+        TrainingPage trainingPage = new TrainingPage(driver);
+        trainingPage.removeFooterAndAds();
+        // Log in
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.writeUserName(userName)
+                .writePassword(password)
+                .clickLoginButton();
+        // Wait for log in
+        ProfilePage profilePage = new ProfilePage(driver);
+        profilePage.waitForLogOutButton();
+    }
+   ```
+7. Tworzymy metodę, która zapisuje cookies do pliku:
+   ```java
+    // SAVE AND LOAD
+
+    public static void saveCookiesToFile(WebDriver driver) {
+        Set<Cookie> cookies = driver.manage().getCookies();
+
+        File cookieFile = new File(COOKIES_FILE_PATH);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cookieFile))) {
+            for (Cookie cookie : cookies) {
+                String cookieString = String.format(
+                        "%s;%s;%s;%s;%s;%s;%b",
+                        cookie.getName(),
+                        cookie.getValue(),
+                        cookie.getDomain(),
+                        cookie.getPath(),
+                        cookie.getExpiry() != null ? cookie.getExpiry().toString() : "null",
+                        cookie.isSecure(),
+                        cookie.isHttpOnly()
+                );
+                writer.write(cookieString);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save cookies to file", e);
+        }
+    }
+   ```
+8. Tworzymy metodę, która będzie odczytywać cookies z pliku:
+   ```java
+    // READ FROM FILE
+
+    private static List<Cookie> readCookiesFromFile() {
+        File cookieFile = new File(COOKIES_FILE_PATH);
+        List<Cookie> cookies = new ArrayList<>();
+
+        // Handle different date formats
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat iso8601DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(cookieFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length < 6) {
+                    throw new IllegalArgumentException("Incorrect line format: " + line);
+                }
+
+                String name = parts[0];
+                String value = parts[1];
+                String domain = parts[2];
+                String path = parts[3];
+                Date expiry = null;
+
+                // Parsing the expiration date
+                if (!parts[4].equals("null")) {
+                    try {
+                        expiry = iso8601DateFormat.parse(parts[4]);
+                    } catch (ParseException e) {
+                        try {
+                            expiry = simpleDateFormat.parse(parts[4]);
+                        } catch (ParseException ignored) {
+                            // Unhandled date format
+                        }
+                    }
+                }
+
+                boolean isSecure = Boolean.parseBoolean(parts[5]);
+                boolean isHttpOnly = Boolean.parseBoolean(parts[6]);
+
+                // Creating a Cookie Object
+                Cookie.Builder cookieBuilder = new Cookie.Builder(name, value)
+                        .domain(domain)
+                        .path(path)
+                        .isSecure(isSecure);
+
+                if (expiry != null) {
+                    cookieBuilder.expiresOn(expiry);
+                }
+                if (isHttpOnly) {
+                    cookieBuilder.isHttpOnly(true);
+                }
+
+                cookies.add(cookieBuilder.build());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading cookie file", e);
+        }
+        return cookies;
+    }
+   ```
+9. Tworzymy metodę, która ładuje cookies z pliku do przeglądarki:
+   ```java
+   // SAVE AND LOAD
+   
+    public static void loadCookies(WebDriver driver) {
+        List<Cookie> cookies = readCookiesFromFile();
+        for (Cookie cookie : cookies) {
+            driver.manage().addCookie(cookie);
+        }
+    }
+   ```
+10. Tworzymy metody, które będą walidowały obecność pliku oraz ważność ciasteczek:
+   ```java
+    // VALIDATION
+   
+    public static boolean checkIfCookieFileExists() {
+        File cookieFile = new File(COOKIES_FILE_PATH);
+        return cookieFile.exists() && cookieFile.isFile();
+    }
+   
+    public static boolean checkCookieValidity() {
+        List<Cookie> cookies = readCookiesFromFile();
+        Date now = new Date();
+   
+        for (Cookie cookie : cookies) {
+            if (cookie.getExpiry() != null && cookie.getExpiry().before(now)) {
+                System.out.println("Expired cookie: " + cookie.getName() + " (expired: " + cookie.getExpiry() + ")");
+                return false; // At least one cookie has expired
+            }
+        }
+        return true; // All cookies are valid
+    }
+   ```
+11. Tworzymy **główną metodę** tej klasy, która łączy pozostałe metody w jedną funkcję, która:
+    - Sprawdza czy plik z cookies istnieje oraz ciasteczka w nim są jeszcze ważne. Jeżeli tak, to:
+        - Cookies są ładowane z pliku do przeglądarki (Drivera)
+        - Następuje odświeżenie strony, aby wgrane cookies zostały załadowane
+    - Jeżeli któryś z powyższych warunków nie jest spełniony to:
+        - Przechodzimy przez formularz logowania
+        - Zapisujemy nowe cookies do pliku
+        - Wracamy na stronę główną z formularza logowania
+   ```java
+    // -----------
+    // MAIN METHOD
+    // -----------
+
+    public static void loadCookiesOrLogIn(WebDriver driver) {
+        if (checkIfCookieFileExists() && checkCookieValidity()) {
+            loadCookies(driver);
+            driver.navigate().refresh(); // Refresh to apply cookies
+        } else {
+            logIn(driver);
+            saveCookiesToFile(driver);
+            driver.get(UrlProvider.homePage);
+        }
+    }
+   ```
+12. Możemy jej teraz użyć w `@BeforeEach` naszej klasy z testami, która wymaga zalogowanego użytkownika:
+    ```java
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        CookiesProvider.loadCookiesOrLogIn(driver);
+        homePage = new HomePage(driver);
+        trainingPage = new TrainingPage(driver);
+        bookStoreApplicationPage = new BookStoreApplicationPage(driver);
+        profilePage = new ProfilePage(driver);
+
+        webElementMethods = new WebElementMethods(driver);
+    }
+    ```
+    Dodatkowe wyjaśnienie:
+    - Metoda `setUp()` wchodzi na stronę główną
+    - Następnie nasza metoda `loadCookiesOrLogIn(driver)` ładuje cookies z pliku do przeglądarki, albo nas loguje
 
 ---
 
@@ -1402,281 +1706,6 @@ niezależnie od pozostałych.
 Jeśli testy wykonywane są w losowej kolejności, to zawsze jest większa szansa na znalezienie dodatkowych defektów.  
 Kolejność powinna być ustawiana tylko w przypadkach, w których jest to zło konieczne np. zalogowanie się na początku,
 żeby zapisać token autoryzacyjny do pliku itp.
-
----
-
-## 📄Logowanie/Sesja — zapamiętanie zalogowania za pomocą cookies na różne sposoby <a name="login_session_cookies"></a>
-
-### Uwagi
-
-Należy pamiętać, aby tworzony plik z ciasteczkami dodać do `.gitignore`.
-
-### Lista sposobów
-
-1. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie kroków logowania:  
-   (Nadaje się tylko do małych testów)
-   ```java
-   @BeforeAll
-   public static void setUpOnce() {
-      driver = new ChromeDriver();
-      driver.get("https://example.com/login");
-      driver.findElement(By.id("username")).sendKeys("user");
-      driver.findElement(By.id("password")).sendKeys("password");
-      driver.findElement(By.id("loginButton")).click();
-   }
-   
-   @Test
-   public void shouldPerformTest() {
-      driver.get("https://example.com/secure-page");
-      // Test actions
-   }
-   ```
-2. Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy wykonanie testu logowania:  
-   (Nadaje się tylko do małych testów)
-   - Akurat w tym przykładzie jest jeszcze dopisane sprawdzanie ważności plików cookies
-   ```java
-   @BeforeAll
-   static void ensureLoggedIn() throws IOException {
-      if (!areCookiesValid(new File("./cookies.txt"))) {
-         LoginTests loginTests = new LoginTests();
-         loginTests.shouldLogInAndSaveCookies(); // Wywołaj test logowania
-      }
-   }
-   ```
-3. Ustawienie kolejności testów w taki sposób, aby test logowania był wykonywany jako pierwszy:  
-   (Dobre, gdy nie zależy nam na pełnej losowości i niezależności testów)
-   - Do testu prawidłowego logowania dodajemy kod, który zapisze cookies do pliku
-   - Za pomocą `@Suite` (JUnit) ustawiamy testy w takiej kolejności, aby paczka z testami logowania była wykonywana
-   jako pierwsza
-   - Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który będzie wgrywał do sesji
-   Drivera wcześniej zapisane cookies'y
-   - Możemy dorobić warunki sprawdzające, czy cookies mają zachowaną ważność i jeśli nie, to zostanie wykonane logowanie
-   ponownie
-4. Autoryzowanie się za pomocą API:  
-   (Prawdopodobnie najlepszy, najszybszy, najstabilniejszy i najbezpieczniejszy sposób)  
-   Do `@BeforeAll` testów, które wymagają zalogowanego użytkownika, dopisujemy kod, który:
-   - Sprawdzamy warunki, czy plik z cookies'ami i innymi tokenami istnieje
-   - Sprawdzamy, czy cookie nie stracił ważności
-   - Wysyłamy request do API z danymi logowania
-   - Zapisujemy nowe cookie do pliku
-   - Wczytujemy nowe cookie z pliku i wgrywamy je do sesji Drivera
-5. Utworzenie klasy pomocniczej `SessionManager`:  
-   (Najlepszy sposób, gdy zależy nam na pełnej niezależności testów)
-   - Szczegółowy opis niżej, gdyż ten sposób właśnie wybrałem
-
-### (5) SessionManager - dokładny opis
-
-Jako że są to testy Frontendu i uważam, że dogrywanie specjalnie frameworka Rest Assured tylko pod jedno logowanie
-jest trochę słabe, wybrałem sposób na utworzenie klasy z **SessionManager'em**.
-
-1. Tworzymy w katalogu **"resources"** katalog na nasz plik z cookies'ami o nazwie np. `Auth`.
-2. Tworzymy w tym katalogu **"Auth"** pusty plik o nazwie `.gitkeep`.  
-   Dzięki niemu będziemy mogli pushnąć ten pusty katalog do repozytorium jako "wzór" z którego będzie wiadomo, że takie
-   coś powinniśmy mieć i będzie takie coś do czegoś wykorzystywane.
-3. Otwieramy plik `.gitignore` i zapisujemy w nim dwie, poniższe rzeczy:  
-   `src/main/resources/tools_qa/Auth/*`  
-   `!src/main/resources/tools_qa/Auth/.gitkeep`  
-   Dzięki temu nasze wrażliwe dane jak ciasteczka będą ignorowane przed publikacją, a sam katalog z plikiem `.gitkeep`
-   pozostaną.
-4. Tworzymy w jakimś katalogu np. **"providers"** klasę `CookiesProvider.java`.
-5. W klasie tej ustawiamy nazwę pliku i ścieżkę, do której będzie zapisywany:
-   ```java
-    // FILE PATHS
-    private static final String GENERAL_FILES_PATH = Config.getDownloadFilePath();
-    private static final String COOKIES_DIR = "Auth";
-    private static final String COOKIES_FILE_PATH = Paths.get(GENERAL_FILES_PATH, COOKIES_DIR, "cookies.txt").toString();
-   ```
-   Należy używać metod przeznaczonych dla ścieżek, aby ukośniki dostosowywały się do wszystkich systemów operacyjnych.
-6. Tworzymy metodę, która będzie nas logować na stronie:
-   ```java
-    // LOG IN
-
-    public static void logIn(WebDriver driver) {
-        // Load .env variables
-        Dotenv dotenv = Dotenv.configure().directory("./environment").load();
-        String userName = dotenv.get("TQ_BSA_USERNAME");
-        String password = dotenv.get("TQ_BSA_PASSWORD");
-        // Go to login page
-        driver.get(UrlProvider.loginPage);
-        // Remove footer and ads
-        TrainingPage trainingPage = new TrainingPage(driver);
-        trainingPage.removeFooterAndAds();
-        // Log in
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.writeUserName(userName)
-                .writePassword(password)
-                .clickLoginButton();
-        // Wait for log in
-        ProfilePage profilePage = new ProfilePage(driver);
-        profilePage.waitForLogOutButton();
-    }
-   ```
-7. Tworzymy metodę, która zapisuje cookies do pliku:
-   ```java
-    // SAVE AND LOAD
-
-    public static void saveCookiesToFile(WebDriver driver) {
-        Set<Cookie> cookies = driver.manage().getCookies();
-
-        File cookieFile = new File(COOKIES_FILE_PATH);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cookieFile))) {
-            for (Cookie cookie : cookies) {
-                String cookieString = String.format(
-                        "%s;%s;%s;%s;%s;%s;%b",
-                        cookie.getName(),
-                        cookie.getValue(),
-                        cookie.getDomain(),
-                        cookie.getPath(),
-                        cookie.getExpiry() != null ? cookie.getExpiry().toString() : "null",
-                        cookie.isSecure(),
-                        cookie.isHttpOnly()
-                );
-                writer.write(cookieString);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to save cookies to file", e);
-        }
-    }
-   ```
-8. Tworzymy metodę, która będzie odczytywać cookies z pliku:
-   ```java
-    // READ FROM FILE
-
-    private static List<Cookie> readCookiesFromFile() {
-        File cookieFile = new File(COOKIES_FILE_PATH);
-        List<Cookie> cookies = new ArrayList<>();
-
-        // Handle different date formats
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-        SimpleDateFormat iso8601DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(cookieFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length < 6) {
-                    throw new IllegalArgumentException("Incorrect line format: " + line);
-                }
-
-                String name = parts[0];
-                String value = parts[1];
-                String domain = parts[2];
-                String path = parts[3];
-                Date expiry = null;
-
-                // Parsing the expiration date
-                if (!parts[4].equals("null")) {
-                    try {
-                        expiry = iso8601DateFormat.parse(parts[4]);
-                    } catch (ParseException e) {
-                        try {
-                            expiry = simpleDateFormat.parse(parts[4]);
-                        } catch (ParseException ignored) {
-                            // Unhandled date format
-                        }
-                    }
-                }
-
-                boolean isSecure = Boolean.parseBoolean(parts[5]);
-                boolean isHttpOnly = Boolean.parseBoolean(parts[6]);
-
-                // Creating a Cookie Object
-                Cookie.Builder cookieBuilder = new Cookie.Builder(name, value)
-                        .domain(domain)
-                        .path(path)
-                        .isSecure(isSecure);
-
-                if (expiry != null) {
-                    cookieBuilder.expiresOn(expiry);
-                }
-                if (isHttpOnly) {
-                    cookieBuilder.isHttpOnly(true);
-                }
-
-                cookies.add(cookieBuilder.build());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading cookie file", e);
-        }
-        return cookies;
-    }
-   ```
-9. Tworzymy metodę, która ładuje cookies z pliku do przeglądarki:
-   ```java
-   // SAVE AND LOAD
-   
-    public static void loadCookies(WebDriver driver) {
-        List<Cookie> cookies = readCookiesFromFile();
-        for (Cookie cookie : cookies) {
-            driver.manage().addCookie(cookie);
-        }
-    }
-   ```
-10. Tworzymy metody, które będą walidowały obecność pliku oraz ważność ciasteczek:
-   ```java
-    // VALIDATION
-   
-    public static boolean checkIfCookieFileExists() {
-        File cookieFile = new File(COOKIES_FILE_PATH);
-        return cookieFile.exists() && cookieFile.isFile();
-    }
-   
-    public static boolean checkCookieValidity() {
-        List<Cookie> cookies = readCookiesFromFile();
-        Date now = new Date();
-   
-        for (Cookie cookie : cookies) {
-            if (cookie.getExpiry() != null && cookie.getExpiry().before(now)) {
-                System.out.println("Expired cookie: " + cookie.getName() + " (expired: " + cookie.getExpiry() + ")");
-                return false; // At least one cookie has expired
-            }
-        }
-        return true; // All cookies are valid
-    }
-   ```
-11. Tworzymy **główną metodę** tej klasy, która łączy pozostałe metody w jedną funkcję, która:
-    - Sprawdza czy plik z cookies istnieje oraz ciasteczka w nim są jeszcze ważne. Jeżeli tak, to:
-      - Cookies są ładowane z pliku do przeglądarki (Drivera)
-      - Następuje odświeżenie strony, aby wgrane cookies zostały załadowane
-    - Jeżeli któryś z powyższych warunków nie jest spełniony to:
-      - Przechodzimy przez formularz logowania
-      - Zapisujemy nowe cookies do pliku
-      - Wracamy na stronę główną z formularza logowania
-   ```java
-    // -----------
-    // MAIN METHOD
-    // -----------
-
-    public static void loadCookiesOrLogIn(WebDriver driver) {
-        if (checkIfCookieFileExists() && checkCookieValidity()) {
-            loadCookies(driver);
-            driver.navigate().refresh(); // Refresh to apply cookies
-        } else {
-            logIn(driver);
-            saveCookiesToFile(driver);
-            driver.get(UrlProvider.homePage);
-        }
-    }
-   ```
-12. Możemy jej teraz użyć w `@BeforeEach` naszej klasy z testami, która wymaga zalogowanego użytkownika:
-    ```java
-    @Override
-    @BeforeEach
-    public void setUp() {
-        super.setUp();
-        CookiesProvider.loadCookiesOrLogIn(driver);
-        homePage = new HomePage(driver);
-        trainingPage = new TrainingPage(driver);
-        bookStoreApplicationPage = new BookStoreApplicationPage(driver);
-        profilePage = new ProfilePage(driver);
-
-        webElementMethods = new WebElementMethods(driver);
-    }
-    ```
-    Dodatkowe wyjaśnienie:  
-    - Metoda `setUp()` wchodzi na stronę główną
-    - Następnie nasza metoda `loadCookiesOrLogIn(driver)` ładuje cookies z pliku do przeglądarki, albo nas loguje
 
 ---
 
